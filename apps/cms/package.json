@@ -1,0 +1,11 @@
+{
+  "name": "@gm-safaris/cms",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "GM Safaris CMS/admin application — content management UI",
+  "scripts": {
+    "dev": "echo \"CMS UI scaffolding — implement in Phase 11\"",
+    "build": "echo \"CMS build — implement in Phase 11\""
+  }
+}

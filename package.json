@@ -1,0 +1,37 @@
+{
+  "name": "gm-safaris",
+  "version": "0.1.0",
+  "private": true,
+  "description": "GM Safaris central tourism platform — monorepo",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:api": "npm run dev -w @gm-safaris/api",
+    "start:api": "npm run start -w @gm-safaris/api",
+    "dev:website": "npm run dev -w @gm-safaris/website-com",
+    "build:website": "npm run build -w @gm-safaris/website-com",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "eslint": "^9.21.0",
+    "globals": "^15.15.0",
+    "prettier": "^3.5.2",
+    "vitest": "^3.0.7"
+  },
+  "allowScripts": {
+    "esbuild@0.25.12": true,
+    "esbuild@0.28.2": true
+  }
+}

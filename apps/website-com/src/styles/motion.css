@@ -1,0 +1,142 @@
+/* Intentional motion — presence, hierarchy, and hover feedback */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.hero-animate > * {
+  opacity: 0;
+  animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-animate > *:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.hero-animate > *:nth-child(2) {
+  animation-delay: 0.28s;
+}
+.hero-animate > *:nth-child(3) {
+  animation-delay: 0.44s;
+}
+.hero-animate > *:nth-child(4) {
+  animation-delay: 0.58s;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.site-header.is-scrolled .header-stack {
+  border-bottom: 1px solid color-mix(in oklab, var(--color-gold) 35%, transparent);
+}
+
+/* Content hover interactions (no glow) */
+.btn-gold,
+.btn-light,
+.btn-black,
+.nav-cta {
+  transition:
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.28s ease,
+    border-color 0.28s ease,
+    color 0.28s ease;
+}
+
+.btn-gold:hover,
+.btn-light:hover,
+.btn-black:hover,
+.nav-cta:hover {
+  transform: translateY(-2px);
+}
+
+.nav-link,
+.mobile-nav-link,
+.mobile-nav-phone,
+.utility-item,
+.header-phone a,
+footer a {
+  transition:
+    color 0.25s ease,
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.utility-item:hover {
+  opacity: 0.8;
+}
+
+.nav-link:hover,
+.mobile-nav-link:hover,
+.mobile-nav-phone:hover {
+  transform: translateY(-1px);
+}
+
+footer a:hover {
+  color: var(--color-gold);
+}
+
+blockquote {
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease;
+}
+
+blockquote:hover {
+  transform: translateY(-3px);
+  border-left-color: var(--color-sun);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-animate > *,
+  .reveal,
+  .tour-card,
+  .destination-card,
+  .tour-card img,
+  .destination-card img,
+  .destination-card .destination-overlay,
+  .destination-card .destination-copy,
+  .tour-card .card-link,
+  .btn-gold,
+  .btn-light,
+  .btn-black,
+  .nav-cta,
+  .utility-item,
+  .nav-link,
+  .mobile-nav-link,
+  footer a,
+  blockquote {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .hero-animate > *,
+  .reveal {
+    opacity: 1 !important;
+  }
+}

@@ -1,0 +1,17 @@
+/* GM Safaris tokens — logo colors + Tanzania Safari Magic typography */
+:root {
+  --color-brand: #c4a455;
+  --color-gold: #c4a455;
+  --color-gold-deep: #a8883a;
+  --color-sun: #f58220;
+  --color-ink: #111111;
+  --color-black: #000000;
+  --color-black-deep: #0a0a0a;
+  --color-navy: #000000;
+  --color-navy-deep: #0a0a0a;
+  --color-sand: #f7f5f0;
+  /* tanzaniasafarimagic.com: Fraunces (display) + Nunito Sans (body) */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Nunito Sans', system-ui, sans-serif;
+  --font-serif: 'Fraunces', Georgia, serif;
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@gm-safaris/shared-utils",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared pure utilities for GM Safaris apps",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "files": ["src"]
+}
