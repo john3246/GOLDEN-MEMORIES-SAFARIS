@@ -231,4 +231,487 @@
   .tour-card:hover .card-title-link {
     color: var(--color-gold-deep);
   }
+
+  .safari-card {
+    position: relative;
+    min-height: 28rem;
+    overflow: hidden;
+    color: #fff;
+    border-radius: 0.35rem;
+  }
+
+  .safari-card-media {
+    position: absolute;
+    inset: 0;
+  }
+
+  .safari-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .safari-card-title a {
+    color: inherit;
+  }
+
+  .safari-card:hover img {
+    transform: scale(1.06);
+  }
+
+  .safari-card-overlay {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    min-height: 28rem;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.85rem 1.6rem 1.6rem;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.78) 0%, rgb(0 0 0 / 0.2) 42%, rgb(0 0 0 / 0.35) 100%);
+    pointer-events: none;
+  }
+
+  .safari-card-overlay a {
+    pointer-events: auto;
+  }
+
+  .safari-card-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.15;
+  }
+
+  .safari-card-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.75rem;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #fff;
+  }
+
+  .safari-card-more-icon {
+    display: inline-flex;
+    width: 1.4rem;
+    height: 1.4rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(255 255 255 / 0.7);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+  }
+
+  .safari-card-more:hover {
+    color: var(--color-gold);
+  }
+
+  .safari-card-meta,
+  .safari-card-places {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  .safari-card-places {
+    margin-top: 0.2rem;
+    color: rgb(255 255 255 / 0.8);
+  }
+
+  .safari-card-book {
+    display: inline-flex;
+    margin-top: 0.85rem;
+    padding: 0.45rem 0.9rem;
+    background: var(--color-gold);
+    color: var(--color-black);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .safari-card-book:hover {
+    background: var(--color-gold-deep);
+  }
+
+  .safari-faq {
+    padding: 0.15rem 1.15rem;
+  }
+
+  .safari-faq summary {
+    cursor: pointer;
+    list-style: none;
+    padding-block: 1rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-black);
+  }
+
+  .safari-faq summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .safari-faq p {
+    padding-bottom: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: color-mix(in oklab, var(--color-ink) 75%, transparent);
+  }
+
+  #kilimanjaro,
+  #excursions,
+  #travel-info,
+  .dest-region {
+    scroll-margin-top: 6.5rem;
+  }
+
+  .park-card {
+    display: block;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgb(0 0 0 / 0.08);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .park-card-media {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+
+  .park-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .park-card:hover .park-card-media img {
+    transform: scale(1.06);
+  }
+
+  .park-card:hover {
+    border-color: color-mix(in oklab, var(--color-gold) 45%, transparent);
+  }
+
+  .park-card-body {
+    padding: 1.35rem 1.25rem 1.5rem;
+  }
+
+  .safari-itinerary {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+  }
+
+  .safari-day {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .safari-day-media {
+    overflow: hidden;
+    background: var(--color-black-deep);
+    aspect-ratio: 4 / 3;
+    outline: 1px solid color-mix(in oklab, var(--color-gold) 35%, transparent);
+  }
+
+  .safari-day-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .safari-day-label {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 1.65rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    line-height: 1;
+  }
+
+  .safari-day-title {
+    margin-top: 0.65rem;
+    font-family: var(--font-display);
+    font-size: 1.65rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.2;
+  }
+
+  .safari-day-body {
+    margin-top: 0.85rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgb(255 255 255 / 0.78);
+  }
+
+  .safari-day-facts {
+    margin-top: 1.25rem;
+  }
+
+  .safari-day-facts div {
+    display: grid;
+    grid-template-columns: 9.5rem 1fr;
+    gap: 0.75rem;
+    padding: 0.45rem 0;
+    border-top: 1px solid rgb(196 164 85 / 0.28);
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+  }
+
+  .safari-day-facts dt {
+    font-weight: 800;
+    color: var(--color-gold);
+  }
+
+  .safari-day-facts dd {
+    color: rgb(255 255 255 / 0.78);
+  }
+
+  .safari-aside {
+    background: #fff;
+    padding: 1.75rem 1.5rem;
+  }
+
+  .safari-bullets {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: color-mix(in oklab, var(--color-ink) 75%, transparent);
+  }
+
+  .safari-bullets li + li {
+    margin-top: 0.45rem;
+  }
+
+  @media (min-width: 768px) {
+    .safari-day {
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      gap: 2.5rem 3rem;
+    }
+
+    .safari-day:nth-child(even) {
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+    }
+
+    .safari-day:nth-child(even) .safari-day-copy {
+      order: 1;
+    }
+
+    .safari-day:nth-child(even) .safari-day-media {
+      order: 2;
+    }
+
+    .safari-day-title {
+      font-size: 1.85rem;
+    }
+
+    .safari-day-label {
+      font-size: 1.85rem;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .safari-day-facts div {
+      grid-template-columns: 1fr;
+      gap: 0.15rem;
+    }
+  }
+
+  .about-team-card {
+    background: #fff;
+    border: 1px solid rgb(0 0 0 / 0.08);
+    overflow: hidden;
+  }
+
+  .about-team-media {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background: var(--color-black);
+  }
+
+  .about-team-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .about-tag {
+    display: inline-flex;
+    align-items: center;
+    background: var(--color-gold);
+    color: var(--color-black);
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.65rem;
+  }
+
+  .contact-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .contact-form {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.15rem 1.25rem;
+    }
+  }
+
+  .contact-form-full {
+    grid-column: 1 / -1;
+  }
+
+  .contact-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-black);
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    border: 1px solid rgb(0 0 0 / 0.16);
+    background: #fff;
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    padding: 0.75rem 0.9rem;
+    border-radius: 0;
+  }
+
+  .contact-form input:focus,
+  .contact-form textarea:focus {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 1px;
+    border-color: var(--color-gold);
+  }
+
+  .contact-form textarea {
+    min-height: 9rem;
+    resize: vertical;
+  }
+
+  .contact-form [data-contact-note] {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--color-forest);
+  }
+
+  .contact-map {
+    overflow: hidden;
+    background: var(--color-black-deep);
+    outline: 1px solid color-mix(in oklab, var(--color-gold) 35%, transparent);
+    min-height: 22rem;
+  }
+
+  .contact-map iframe {
+    display: block;
+    width: 100%;
+    height: 22rem;
+    border: 0;
+  }
+
+  @media (min-width: 768px) {
+    .contact-map iframe {
+      height: 28rem;
+    }
+  }
+
+  .dest-faq {
+    background: #fff;
+    padding: 1.35rem 1.5rem;
+  }
+
+  .dest-faq h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-black);
+  }
+
+  .dest-faq p {
+    margin-top: 0.55rem;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: color-mix(in oklab, var(--color-ink) 72%, transparent);
+  }
+
+  .dest-wildlife {
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: rgb(255 255 255 / 0.78);
+  }
+
+  .dest-wildlife li + li {
+    margin-top: 0.45rem;
+  }
+
+  .dest-gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .dest-gallery-item {
+    overflow: hidden;
+    background: var(--color-black);
+    aspect-ratio: 16 / 10;
+  }
+
+  .dest-gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (min-width: 768px) {
+    .dest-gallery {
+      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 1.15rem;
+      min-height: 28rem;
+    }
+
+    .dest-gallery-item:first-child {
+      grid-row: 1 / span 2;
+      aspect-ratio: auto;
+      min-height: 28rem;
+    }
+  }
 }

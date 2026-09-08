@@ -1,0 +1,11 @@
+# Client preview on Render — static website only (no API).
+# Dashboard alternative: New → Static Site (do not use Web Service).
+services:
+  - type: web
+    name: gm-safaris-website
+    runtime: static
+    buildCommand: npm install && npm run build:website
+    staticPublishPath: apps/website-com/dist
+    envVars:
+      - key: NODE_VERSION
+        value: '20'

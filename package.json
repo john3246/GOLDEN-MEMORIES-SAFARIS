@@ -12,6 +12,7 @@
     "start:api": "npm run start -w @gm-safaris/api",
     "dev:website": "npm run dev -w @gm-safaris/website-com",
     "build:website": "npm run build -w @gm-safaris/website-com",
+    "start": "npx --yes serve apps/website-com/dist -l tcp://0.0.0.0:$PORT",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",

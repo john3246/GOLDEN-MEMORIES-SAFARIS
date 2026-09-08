@@ -1,2 +1,5 @@
-﻿/* Page area: about — implement in Phase 14 */
-export const page = 'about';
+﻿/**
+ * About page module entry.
+ */
+export { renderAbout } from './about.js';
+export * from './content.js';

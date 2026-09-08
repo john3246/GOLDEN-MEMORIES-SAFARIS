@@ -47,7 +47,7 @@ export const site = {
 };
 
 export const navLinks = [
-  { label: 'Home', href: '/', current: true },
+  { label: 'Home', href: '/' },
   { label: 'About Us', href: '/about/' },
   { label: 'Destinations', href: '/destinations/' },
   { label: 'Safaris', href: '/tours/' },
@@ -89,6 +89,7 @@ export const destinations = [
 
 export const featuredTours = [
   {
+    slug: '6-days-best-tanzania-adventure-safari',
     title: '6 Days Best Tanzania Adventure Safari',
     duration: '6 Days',
     activity: 'Game Drive',
@@ -97,6 +98,7 @@ export const featuredTours = [
     featured: true,
   },
   {
+    slug: '10-days-river-crossing-great-wildebeest-migration-safari',
     title: '10 Days River Crossing & Great Wildebeest Migration Safari',
     duration: '10 Days',
     activity: 'Wildlife Safari',
@@ -104,6 +106,7 @@ export const featuredTours = [
     image: GM.migration,
   },
   {
+    slug: '8-days-best-safari-to-ruaha-and-selous',
     title: '8 Days Best Safari To Ruaha And Selous',
     duration: '8 Days',
     activity: 'Wildlife Safari',
@@ -111,6 +114,7 @@ export const featuredTours = [
     image: GM.selous,
   },
   {
+    slug: '5-days-budget-tanzania-lodge-safari',
     title: '5 Days Budget Tanzania Lodge Safari',
     duration: '5 Days',
     activity: 'Lodge Safari',
@@ -121,57 +125,81 @@ export const featuredTours = [
 
 export const dayTrips = [
   {
+    slug: 'ngorongoro-crater-day-trip',
     title: 'Ngorongoro Crater Day Trip',
     duration: '1 Day',
     activity: 'Game Drive',
+    places: 'Ngorongoro',
     image: GM.ngorongoroTourists,
   },
   {
+    slug: 'materuni-waterfalls-and-coffee-tour',
     title: 'Materuni Waterfalls and Coffee Tour',
     duration: '1 Day',
     activity: 'Cultural Experience',
+    places: 'Materuni',
     image: GM.materuni,
   },
   {
+    slug: 'fly-in-fly-out-mikumi-national-park',
     title: 'Fly-In Fly-Out Mikumi National Park',
     duration: '1 Day',
     activity: 'Game Drive',
+    places: 'Mikumi',
     image: GM.dayTrip,
   },
 ];
 
 export const kilimanjaro = [
   {
+    slug: '8-days-mt-kilimanjaro-via-marangu-route',
     title: '8 Days Mt. Kilimanjaro via Marangu Route',
     duration: '8 Days',
+    activity: 'Mountain climbing',
+    places: 'Kilimanjaro',
     image: GM.kilimanjaro,
   },
   {
+    slug: '7-day-kilimanjaro-climb-via-machame-route',
     title: '7 Day Kilimanjaro Climb via Machame Route',
     duration: '7 Days',
+    activity: 'Mountain climbing',
+    places: 'Kilimanjaro',
     image: GM.machame,
   },
   {
+    slug: '4-days-mt-meru-trekking-via-momella-gate',
     title: '4 Days Mt Meru Trekking via Momella Gate',
     duration: '4 Days',
+    activity: 'Mountain climbing',
+    places: 'Mount Meru',
     image: GM.meru,
   },
 ];
 
 export const zanzibar = [
   {
+    slug: '5-days-zanzibar-beach-holiday',
     title: '5 Days Zanzibar Beach Holiday',
     duration: '5 Days',
+    activity: 'Beach vacation',
+    places: 'Zanzibar',
     image: GM.zanzibarBeach,
   },
   {
+    slug: 'spices-and-stone-town-tour-in-zanzibar',
     title: 'Spices And Stone Town Tour In Zanzibar',
     duration: '1 Day',
+    activity: 'Cultural Experience',
+    places: 'Zanzibar',
     image: GM.spice,
   },
   {
+    slug: '2-days-safari-from-zanzibar',
     title: '2 Days Safari From Zanzibar',
     duration: '2 Days',
+    activity: 'Wildlife Safari',
+    places: 'Tarangire · Ngorongoro',
     image: GM.ngorongoroAlt,
   },
 ];

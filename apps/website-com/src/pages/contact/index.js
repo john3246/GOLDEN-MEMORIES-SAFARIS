@@ -1,2 +1,5 @@
-﻿/* Page area: contact — implement in Phase 14 */
-export const page = 'contact';
+﻿/**
+ * Contact page module entry.
+ */
+export { renderContact, initContactForm } from './contact.js';
+export * from './content.js';
