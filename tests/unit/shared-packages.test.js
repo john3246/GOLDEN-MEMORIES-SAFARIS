@@ -57,4 +57,10 @@ describe('shared-config', () => {
     expect(cfg.database.name).toBe('gm_safaris');
     expect(cfg.redis.keyPrefix).toBe('gm:safaris:');
   });
+
+  it('starts in production without unused database credentials', () => {
+    const cfg = loadConfig({ NODE_ENV: 'production' });
+    expect(cfg.database.password).toBe('unused-file-store');
+    expect(cfg.auth.jwtSecret.length).toBeGreaterThan(16);
+  });
 });

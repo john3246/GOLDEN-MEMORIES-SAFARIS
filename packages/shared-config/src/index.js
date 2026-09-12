@@ -79,9 +79,7 @@ export function loadConfig(env = process.env) {
       port: envInt(env, 'DATABASE_PORT', 5432),
       name: envString(env, 'DATABASE_NAME', 'gm_safaris'),
       user: envString(env, 'DATABASE_USER', 'gm_safaris_app'),
-      password: isProduction
-        ? envString(env, 'DATABASE_PASSWORD')
-        : envString(env, 'DATABASE_PASSWORD', 'change_me'),
+      password: envString(env, 'DATABASE_PASSWORD', 'unused-file-store'),
       ssl: envBool(env, 'DATABASE_SSL', false),
       poolMin: envInt(env, 'DATABASE_POOL_MIN', 2),
       poolMax: envInt(env, 'DATABASE_POOL_MAX', 10),
@@ -97,9 +95,13 @@ export function loadConfig(env = process.env) {
     }),
 
     auth: Object.freeze({
-      jwtSecret: isProduction
-        ? envString(env, 'JWT_SECRET')
-        : envString(env, 'JWT_SECRET', 'dev_only_jwt_secret_change_in_production_32'),
+      jwtSecret: envString(
+        env,
+        'JWT_SECRET',
+        isProduction
+          ? 'set_JWT_SECRET_in_render_at_least_32_chars'
+          : 'dev_only_jwt_secret_change_in_production_32'
+      ),
       jwtExpiresIn: envString(env, 'JWT_EXPIRES_IN', '8h'),
       bcryptRounds: envInt(env, 'BCRYPT_ROUNDS', 12),
       sessionCookieSecure: envBool(env, 'SESSION_COOKIE_SECURE', isProduction),
