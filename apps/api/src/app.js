@@ -28,11 +28,15 @@ import { requireAuth, requireRole } from './security/requireAuth.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const monorepoRoot = path.resolve(__dirname, '../../..');
 
+export function publicSiteDir() {
+  return path.resolve(monorepoRoot, 'apps/website-com/dist');
+}
+
 function servePublicSite(app) {
-  const publicDir = path.resolve(monorepoRoot, 'apps/website-com/dist');
+  const publicDir = publicSiteDir();
   const cmsIndex = path.join(publicDir, 'cms', 'index.html');
 
-  app.get('/cms', (_req, res) => {
+  app.get(['/cms', '/tours/cms', '/tours/cms/'], (_req, res) => {
     res.redirect(301, '/cms/');
   });
   app.use(express.static(publicDir, { index: 'index.html', fallthrough: true }));

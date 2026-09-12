@@ -13,15 +13,39 @@ function headers(extra = {}) {
   };
 }
 
+function apiMessageFromBody(status, text) {
+  try {
+    const body = JSON.parse(text);
+    if (body && body.success === false && body.error?.message) {
+      return { ok: false, body, message: body.error.message, code: body.error.code };
+    }
+    if (body && body.success !== false) {
+      return { ok: true, body };
+    }
+  } catch {
+    /* HTML or empty */
+  }
+  if (/requested path could not be found/i.test(text) || /service suspended/i.test(text)) {
+    return {
+      ok: false,
+      body: {},
+      message:
+        'This page is a static site, so sign-in has no API. Deploy a Render Web Service (not Static) with start command npm start, then open /cms/ on that URL.',
+    };
+  }
+  return { ok: false, body: {}, message: `Request failed (${status})` };
+}
+
 async function parse(res) {
-  const body = await res.json().catch(() => ({}));
-  if (!res.ok || body.success === false) {
-    const error = new Error(body.error?.message || `Request failed (${res.status})`);
+  const text = await res.text();
+  const parsed = apiMessageFromBody(res.status, text);
+  if (!res.ok || !parsed.ok) {
+    const error = new Error(parsed.message);
     error.status = res.status;
-    error.code = body.error?.code;
+    error.code = parsed.code;
     throw error;
   }
-  return body;
+  return parsed.body;
 }
 
 export const api = {

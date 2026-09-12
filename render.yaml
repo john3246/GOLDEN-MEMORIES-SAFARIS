@@ -1,29 +1,26 @@
-# Hosted preview: public site + Safari CMS at /cms/
-# The live client URL stays on the existing static site. Create the API
-# Web Service, then point VITE_API_BASE_URL at it and rebuild the static site.
+# IMPORTANT: this must be a Node Web Service, not a Static Site.
+# A Static Site can show /cms/ but login 404s (no /api).
+#
+# Dashboard for golden-memories-safaris-2 (or a new Web Service):
+#   Environment: Node
+#   Build command: npm install --include=dev && npm run build:render
+#   Start command: npm start
+#   Health check: /health
+# Then open https://<this-service>.onrender.com/cms/
 services:
-  - type: web
-    name: gm-safaris-website
-    runtime: static
-    buildCommand: npm install && npm run build:render
-    staticPublishPath: apps/website-com/dist
-    envVars:
-      - key: NODE_VERSION
-        value: '20'
-      - key: VITE_API_BASE_URL
-        sync: false
-
   - type: web
     name: golden-memories-safaris-api
     runtime: node
-    buildCommand: npm install
-    startCommand: npm run start:api
+    buildCommand: npm install --include=dev && npm run build:render
+    startCommand: npm start
     healthCheckPath: /health
     envVars:
       - key: NODE_VERSION
         value: '20'
       - key: NODE_ENV
         value: production
+      - key: SERVE_PUBLIC
+        value: 'true'
       - key: JWT_SECRET
         generateValue: true
       - key: DATABASE_PASSWORD

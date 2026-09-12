@@ -72,7 +72,7 @@ export function loadConfig(env = process.env) {
     isDevelopment: nodeEnv === 'development',
     port: envInt(env, 'PORT', 3000),
     apiBaseUrl: envString(env, 'API_BASE_URL', 'http://localhost:3000'),
-    servePublic: envBool(env, 'SERVE_PUBLIC', false),
+    servePublic: envBool(env, 'SERVE_PUBLIC', isProduction || Boolean(env.RENDER)),
 
     database: Object.freeze({
       host: envString(env, 'DATABASE_HOST', 'localhost'),
