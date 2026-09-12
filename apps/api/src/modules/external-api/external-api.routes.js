@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { requireExternalApiKey } from '../../security/index.js';
+import { SafariScope } from '@gm-safaris/shared-types';
+import { requireExternalApiKey, requireExternalScope } from '../../security/index.js';
 import { externalApiRateLimiter } from '../../middleware/index.js';
 import { externalApiController } from './external-api.controller.js';
 
@@ -16,7 +17,10 @@ router.use(requireExternalApiKey);
 
 router.get('/status', externalApiController.getStatus);
 
-// Content routes stubbed — return NOT_IMPLEMENTED until domain modules land
+router.get('/safaris', requireExternalScope(SafariScope.READ), externalApiController.listSafaris);
+router.get('/safaris/slug/:slug', requireExternalScope(SafariScope.READ), externalApiController.getSafariBySlug);
+router.get('/safaris/:id', requireExternalScope(SafariScope.READ), externalApiController.getSafariById);
+
 router.get('/tours', externalApiController.listTours);
 router.get('/tours/:slug', externalApiController.getTourBySlug);
 router.get('/destinations', externalApiController.listDestinations);

@@ -42,6 +42,9 @@ Current: **v1** (`/api/v1/external`).
 | Method | Path | Status |
 |--------|------|--------|
 | `GET` | `/status` | Available |
+| `GET` | `/safaris` | Available — published Safari packages |
+| `GET` | `/safaris/:id` | Available |
+| `GET` | `/safaris/slug/:slug` | Available |
 | `GET` | `/tours` | Stub — `501` until Phase 6/10 |
 | `GET` | `/tours/:slug` | Stub — `501` until Phase 6/10 |
 | `GET` | `/destinations` | Stub — `501` until Phase 7/10 |

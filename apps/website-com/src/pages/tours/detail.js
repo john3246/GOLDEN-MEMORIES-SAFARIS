@@ -1,4 +1,5 @@
 import { safariCard } from '../../components/cards/safari-card.js';
+import { renderSafariPage, applySafariMeta, renderSafariCard } from '@gm-safaris/safari-ui';
 import { media as GM } from '../home/content.js';
 import { getTourBySlug, relatedTours } from './catalog.js';
 
@@ -44,9 +45,17 @@ function dayFacts(item, tour, index, total) {
 
 /**
  * Individual safari / trek / day-trip page.
+ * CMS-published Safaris use the shared renderer; other catalog tours keep the static path.
  * @param {string} slug
+ * @param {Record<string, unknown> | null} [cmsSafari]
+ * @param {Array<Record<string, unknown>>} [cmsRelated]
  */
-export function renderTourDetail(slug) {
+export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
+  if (cmsSafari) {
+    const relatedHtml = cmsRelated.map((item) => renderSafariCard(item)).join('');
+    return renderSafariPage(cmsSafari, { relatedHtml });
+  }
+
   const tour = getTourBySlug(slug);
   if (!tour) {
     return `
@@ -222,7 +231,11 @@ export function renderTourDetail(slug) {
   `;
 }
 
-export function applyTourMeta(slug) {
+export function applyTourMeta(slug, cmsSafari = null) {
+  if (cmsSafari) {
+    applySafariMeta(cmsSafari);
+    return;
+  }
   const tour = getTourBySlug(slug);
   if (!tour) {
     document.title = 'Safari package | Golden Memories Safaris';

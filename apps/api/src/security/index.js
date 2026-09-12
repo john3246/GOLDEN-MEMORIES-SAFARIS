@@ -5,4 +5,5 @@ export {
   websiteCors,
   externalCors,
 } from './httpSecurity.js';
-export { requireExternalApiKey } from './externalApiAuth.js';
+export { requireExternalApiKey, requireExternalScope } from './externalApiAuth.js';
+export { requireAuth, requireScope, requireRole } from './requireAuth.js';

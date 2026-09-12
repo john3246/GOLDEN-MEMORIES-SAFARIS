@@ -4,7 +4,7 @@ import {
   PUBLIC_PUBLISH_STATUSES,
   ExternalPermission,
 } from '@gm-safaris/shared-types';
-import { parsePagination, validateSlug, validatePublishStatus } from '@gm-safaris/shared-validation';
+import { parsePagination, validateSlug, validatePublishStatus, validateSafariStatus } from '@gm-safaris/shared-validation';
 import { createRequestId, pick, omit } from '@gm-safaris/shared-utils';
 import { loadConfig } from '@gm-safaris/shared-config';
 
@@ -32,9 +32,9 @@ describe('shared-validation', () => {
     expect(validateSlug('Bad Slug').ok).toBe(false);
   });
 
-  it('validates publish status', () => {
-    expect(validatePublishStatus('DRAFT').ok).toBe(true);
-    expect(validatePublishStatus('live').ok).toBe(false);
+  it('validates safari status', () => {
+    expect(validateSafariStatus('UNPUBLISHED').ok).toBe(true);
+    expect(validateSafariStatus('live').ok).toBe(false);
   });
 });
 

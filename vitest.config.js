@@ -5,6 +5,10 @@ export default defineConfig({
     globals: true,
     environment: 'node',
     include: ['tests/**/*.{test,spec}.js', 'apps/**/*.{test,spec}.js', 'packages/**/*.{test,spec}.js'],
+    env: {
+      CMS_SEED_SAFARIS: 'false',
+      BCRYPT_ROUNDS: '4',
+    },
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html'],

@@ -127,7 +127,10 @@ export function loadConfig(env = process.env) {
 
     cors: Object.freeze({
       cms: envList(env, 'CORS_ORIGINS_CMS', ['http://localhost:5173']),
-      website: envList(env, 'CORS_ORIGINS_WEBSITE', ['http://localhost:4173']),
+      website: envList(env, 'CORS_ORIGINS_WEBSITE', [
+        'http://localhost:4173',
+        'http://localhost:4174',
+      ]),
       external: envList(env, 'CORS_ORIGINS_EXTERNAL', [
         'https://www.gmsafaris.co.tz',
         'https://gmsafaris.co.tz',
@@ -148,6 +151,17 @@ export function loadConfig(env = process.env) {
         'image/webp',
         'image/gif',
       ]),
+    }),
+
+    cms: Object.freeze({
+      dataDir: envString(env, 'CMS_DATA_DIR', './data/cms'),
+      adminEmail: envString(env, 'CMS_ADMIN_EMAIL', 'admin@gmsafaris.com'),
+      adminPassword: envString(env, 'CMS_ADMIN_PASSWORD', 'ChangeMeAdmin!23'),
+      editorEmail: envString(env, 'CMS_EDITOR_EMAIL', 'editor@gmsafaris.com'),
+      editorPassword: envString(env, 'CMS_EDITOR_PASSWORD', 'ChangeMeEditor!23'),
+      viewerEmail: envString(env, 'CMS_VIEWER_EMAIL', 'viewer@gmsafaris.com'),
+      viewerPassword: envString(env, 'CMS_VIEWER_PASSWORD', 'ChangeMeViewer!23'),
+      seedSafaris: envBool(env, 'CMS_SEED_SAFARIS', true),
     }),
 
     sites: Object.freeze({

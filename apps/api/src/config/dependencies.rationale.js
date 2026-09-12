@@ -7,7 +7,8 @@
  * - express-rate-limit: configurable rate limits per surface
  * - shared-* packages: monorepo contracts without duplication
  *
- * PostgreSQL / Redis clients are intentionally deferred until Phase 2–3
- * when the database and cache layers are implemented.
+ * - jsonwebtoken: CMS admin sessions (HS256)
+ * - bcryptjs: password hashing without native addons
+ * - multer: Safari media uploads to disk (not the database)
  */
 export {};

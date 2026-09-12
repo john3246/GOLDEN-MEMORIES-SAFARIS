@@ -1,18 +1,15 @@
 # GM Safaris CMS
 
-Secure admin application for managing central content (tours, destinations, media, pages, blog, SEO, settings).
+Admin application for Safari package content. Other modules (blog, hotels, pages) are out of scope for this release.
 
-## Status
+## Run
 
-**Phase 1 foundation only.** UI and auth workflows begin in **Phase 11–12**.
+```bash
+# from repo root — API must be running
+npm run dev:api
+npm run dev:cms
+```
 
-## Rules
+Open [http://localhost:5173](http://localhost:5173). Vite proxies `/api` to `http://localhost:3000`.
 
-- All authorization is enforced by the API (server-side). Never rely on CMS JavaScript alone.
-- CMS talks only to the internal/admin API — never to PostgreSQL or Redis directly.
-- External `.co.tz` developers do **not** receive CMS access.
-
-## Planned stack (Phase 11)
-
-- Semantic HTML + modular JS + Tailwind CSS
-- Lightweight — no unnecessary SPA framework unless justified later
+See [docs/cms/safari-cms.md](../../docs/cms/safari-cms.md) for roles, workflow, and default logins.

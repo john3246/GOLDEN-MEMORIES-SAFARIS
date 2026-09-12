@@ -1,6 +1,3 @@
-﻿/**
- * Placeholder for the auth domain module.
- * Implement following: routes → controller → service → repository.
- * See docs/architecture/dependency-rules.md
- */
-export const moduleStatus = 'planned';
+﻿export { authRoutes } from './auth.routes.js';
+export { authService } from './auth.service.js';
+export const moduleStatus = 'active';

@@ -23,6 +23,10 @@ function isCurrentNav(link) {
     return path === '/destinations' || path.startsWith('/destinations/');
   }
 
+  if (normalized === '/blog') {
+    return path === '/blog' || path.startsWith('/blog/');
+  }
+
   return path === normalized;
 }
 
@@ -41,7 +45,7 @@ const ICONS = {
   Instagram: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.2" cy="6.8" r="0.8" fill="currentColor" stroke="none"/></svg>`,
 };
 
-const MORE_HREFS = new Set(['/tours/#kilimanjaro', '/tours/#excursions']);
+const MORE_HREFS = new Set(['/kilimanjaro/', '/blog/', '/tours/#excursions']);
 
 /**
  * Header layout from the live GM screenshot:

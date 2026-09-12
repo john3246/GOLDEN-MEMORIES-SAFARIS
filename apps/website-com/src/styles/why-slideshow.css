@@ -1,15 +1,35 @@
-/* Why Us photo slideshow */
+/* Why Us photo slideshow — spilled-water image frame */
 
 .why-slideshow {
   position: relative;
   width: 100%;
 }
 
+.why-slideshow-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.why-slideshow-spill {
+  filter: drop-shadow(0.45rem 0.75rem 1.25rem rgb(11 22 38 / 0.18));
+}
+
 .why-slideshow-stage {
   position: relative;
+  width: 100%;
   aspect-ratio: 5 / 4;
   overflow: hidden;
   background: var(--color-mist);
+  clip-path: url("#why-spill-clip");
+}
+
+@media (min-width: 1024px) {
+  .why-slideshow {
+    width: 112%;
+    max-width: 42rem;
+  }
 }
 
 @media (max-width: 639px) {
@@ -48,7 +68,7 @@
   display: flex;
   justify-content: center;
   gap: 0.5rem;
-  margin-top: 0.9rem;
+  margin-top: 1.1rem;
 }
 
 .why-slide-dot {

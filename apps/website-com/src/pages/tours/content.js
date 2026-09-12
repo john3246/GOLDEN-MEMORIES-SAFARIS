@@ -132,7 +132,7 @@ export const safariFaqs = [
   },
   {
     q: 'How much does a Tanzania safari cost?',
-    a: 'Cost depends on season, lodge level, group size, and park combination. Share your dates and we will send a tailored quote — packages on this page are private itineraries, not a one-price list.',
+    a: 'Each package on this page shows a published rate per person, based on two travellers sharing. That figure includes park fees, lodges, meals, and the private 4x4 listed on the itinerary. Solo supplements, peak-season lodges, or extra activities can change the final invoice — we confirm the number before you pay.',
   },
   {
     q: 'What kind of wildlife can I expect to see?',

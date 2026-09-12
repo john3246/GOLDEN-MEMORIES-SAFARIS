@@ -13,6 +13,17 @@ import { config } from '../config/index.js';
 export function errorHandler(err, req, res, _next) {
   const requestId = req.requestId;
 
+  if (err && err.name === 'MulterError') {
+    return res.status(400).json({
+      success: false,
+      error: {
+        code: ErrorCodes.VALIDATION_ERROR,
+        message: err.code === 'LIMIT_FILE_SIZE' ? 'Image is too large' : 'Invalid upload',
+        ...(requestId ? { requestId } : {}),
+      },
+    });
+  }
+
   if (err instanceof AppError) {
     if (err.statusCode >= 500) {
       logger.error(err.message, {

@@ -12,8 +12,9 @@ http://localhost:3000
 |--------|----------|------|
 | `/health` | Ops / load balancers | None (rate limited) |
 | `/api/v1` | Discovery | None |
+| `/api/v1/safaris` | Public website | None (published only) |
 | `/api/v1/external` | Trusted external sites (`.co.tz`) | API key |
-| `/api/v1/admin` | CMS (Phase 5+) | JWT + RBAC |
+| `/api/v1/admin` | CMS | JWT + RBAC |
 
 ## Response envelope
 

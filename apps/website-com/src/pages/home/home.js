@@ -11,6 +11,7 @@ import {
   whyBook,
   pageImages,
 } from './content.js';
+import { joiningSafaris } from '../join-safari/content.js';
 
 /**
  * Home landing page body (below header).
@@ -36,6 +37,29 @@ export function renderHome() {
     `
     )
     .join('');
+
+  const joining = joiningSafaris[0];
+  const joinTeaser = joining
+    ? `
+      <section class="bg-gold py-16 sm:py-20" aria-labelledby="join-home-title">
+        <div class="container-site grid items-center gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-12">
+          <div class="reveal">
+            <p class="section-kicker">Join a group safari</p>
+            <h2 id="join-home-title" class="section-title">${joining.title}</h2>
+            <p class="mt-3 font-body text-sm font-semibold uppercase tracking-[0.12em] text-black/60">${joining.datesLabel} · ${joining.duration}</p>
+            <p class="mt-5 max-w-2xl font-body text-base leading-relaxed text-ink/80">${joining.overview}</p>
+            <a class="btn-navy mt-8 !rounded-none" href="/join-safari/">View open departures</a>
+          </div>
+          <div class="reveal bg-white p-6 sm:p-8">
+            <p class="font-body text-xs font-bold uppercase tracking-[0.14em] text-gold-deep">${joining.spaces}</p>
+            <ul class="safari-bullets mt-4">
+              ${joining.highlights.map((item) => `<li>${item}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      </section>
+    `
+    : '';
 
   return `
     <main id="main">
@@ -66,7 +90,7 @@ export function renderHome() {
             <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <a class="btn-gold" href="/contact/">Book now</a>
               <a class="btn-light !border-white/40 !bg-white/95" href="/tours/">Tanzania safaris</a>
-              <a class="btn-light !border-white/40 !bg-white/95" href="/tours/#kilimanjaro">Kilimanjaro trek</a>
+              <a class="btn-light !border-white/40 !bg-white/95" href="/kilimanjaro/">Kilimanjaro trek</a>
             </div>
           </div>
         </div>
@@ -74,7 +98,7 @@ export function renderHome() {
 
       <!-- Why book / about — Zara-style split -->
       <section class="bg-white py-16 sm:py-20 lg:py-24" aria-labelledby="why-title">
-        <div class="container-site grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div class="container-site grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:gap-10">
           <div class="reveal order-2 lg:order-1">
             <p class="section-kicker">Why book with us</p>
             <h2 id="why-title" class="section-title">${whyBook.title}</h2>
@@ -121,6 +145,8 @@ export function renderHome() {
         </div>
       </section>
 
+      ${joinTeaser}
+
       <!-- Day trips -->
       <section class="bg-mist py-16 sm:py-20" aria-labelledby="daytrips-title" id="excursions">
         <div class="container-site">
@@ -150,6 +176,7 @@ export function renderHome() {
             <p class="section-kicker !text-gold">Mountain climbing &amp; treks</p>
             <h2 id="kili-title" class="section-title !text-white">Climb Kilimanjaro &amp; Meru</h2>
             <p class="mt-4 text-white/80">Guided routes for summit seekers — Marangu, Machame, and Mount Meru.</p>
+            <a class="btn-gold mt-6 !rounded-none" href="/kilimanjaro/">Kilimanjaro climbing</a>
           </div>
           <div class="reveal mt-10 grid gap-6 md:grid-cols-3">
             ${climbGrid}

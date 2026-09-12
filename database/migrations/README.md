@@ -1,6 +1,8 @@
 # Migrations
 
-SQL migrations will be added in Phase 2.
+SQL migrations will be added as modules land.
+
+Safari CMS schema: `20260911180000_safari_cms.sql` (content tables only — not bookings).
 
 Naming convention (planned):
 

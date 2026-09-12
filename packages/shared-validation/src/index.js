@@ -3,6 +3,7 @@ import {
   DEFAULT_PAGE_LIMIT,
   MAX_PAGE_LIMIT,
   PublishStatus,
+  SafariStatus,
 } from '@gm-safaris/shared-types';
 
 /**
@@ -14,11 +15,15 @@ import {
  * @param {unknown} value
  * @returns {{ ok: true, value: string } | { ok: false, message: string }}
  */
-export function requireNonEmptyString(value, fieldName = 'value') {
+export function requireNonEmptyString(value, fieldName = 'value', maxLength = 500) {
   if (typeof value !== 'string' || value.trim().length === 0) {
     return { ok: false, message: `${fieldName} is required` };
   }
-  return { ok: true, value: value.trim() };
+  const trimmed = value.trim();
+  if (trimmed.length > maxLength) {
+    return { ok: false, message: `${fieldName} must be at most ${maxLength} characters` };
+  }
+  return { ok: true, value: trimmed };
 }
 
 /**
@@ -56,6 +61,53 @@ export function validatePublishStatus(value) {
  * @param {Record<string, unknown>} [query]
  * @returns {{ page: number, limit: number, offset: number }}
  */
+export function validateSafariStatus(value) {
+  const allowed = Object.values(SafariStatus);
+  if (typeof value !== 'string' || !allowed.includes(value)) {
+    return {
+      ok: false,
+      message: `status must be one of: ${allowed.join(', ')}`,
+    };
+  }
+  return { ok: true, value };
+}
+
+/**
+ * @param {unknown} value
+ * @param {string} [fieldName]
+ * @param {{ min?: number, max?: number }} [bounds]
+ */
+export function validateNonNegativeNumber(value, fieldName = 'value', bounds = {}) {
+  if (value === undefined || value === null || value === '') {
+    return { ok: true, value: null };
+  }
+  const n = typeof value === 'number' ? value : Number(value);
+  if (!Number.isFinite(n) || n < 0) {
+    return { ok: false, message: `${fieldName} must be a non-negative number` };
+  }
+  if (bounds.max !== undefined && n > bounds.max) {
+    return { ok: false, message: `${fieldName} must be at most ${bounds.max}` };
+  }
+  return { ok: true, value: n };
+}
+
+/**
+ * @param {unknown} value
+ * @param {string} [fieldName]
+ * @param {number} [maxLength]
+ */
+export function validateOptionalString(value, fieldName = 'value', maxLength = 5000) {
+  if (value === undefined || value === null) return { ok: true, value: '' };
+  if (typeof value !== 'string') {
+    return { ok: false, message: `${fieldName} must be a string` };
+  }
+  const trimmed = value.trim();
+  if (trimmed.length > maxLength) {
+    return { ok: false, message: `${fieldName} must be at most ${maxLength} characters` };
+  }
+  return { ok: true, value: trimmed };
+}
+
 export function parsePagination(query = {}) {
   const pageRaw = Number.parseInt(String(query.page ?? DEFAULT_PAGE), 10);
   const limitRaw = Number.parseInt(String(query.limit ?? DEFAULT_PAGE_LIMIT), 10);

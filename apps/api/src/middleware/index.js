@@ -5,4 +5,5 @@ export {
   publicRateLimiter,
   adminRateLimiter,
   externalApiRateLimiter,
+  createTestRateLimiter,
 } from './rateLimit.js';

@@ -28,9 +28,24 @@ const quotes = (testimonials.length ? testimonials : homeQuotes)
 
 /**
  * Safari packages page — layout aligned to zaratanzaniaadventures.com/tanzania-safari-packages/
+ * @param {Array<Record<string, unknown>>} [cmsPackages]
  */
-export function renderTours() {
-  const packageGrid = safariPackages.map(safariCard).join('');
+export function renderTours(cmsPackages) {
+  const sourced =
+    Array.isArray(cmsPackages) && cmsPackages.length
+      ? cmsPackages.map((item) => ({
+          slug: item.slug,
+          title: item.title,
+          duration: item.duration_label || item.duration || '',
+          places: item.destination || '',
+          image: item.hero_image?.url || '',
+          featured: item.featured,
+          price_from: item.price_from ?? item.price,
+          currency: item.currency || 'USD',
+          minimum_people: item.minimum_people,
+        }))
+      : safariPackages;
+  const packageGrid = sourced.map(safariCard).join('');
   const whyCards = whySafari
     .map(
       (item) => `
@@ -183,6 +198,7 @@ export function renderTours() {
             <p class="section-kicker !text-gold">Mountain climbing &amp; treks</p>
             <h2 id="kili-title" class="section-title !text-white">Combine your safari with Kilimanjaro</h2>
             <p class="mt-4 text-white/80">Guided routes for summit seekers — Marangu, Machame, and Mount Meru.</p>
+            <a class="btn-gold mt-6 !rounded-none" href="/kilimanjaro/">All Kilimanjaro routes</a>
           </div>
           <div class="reveal mt-10 grid gap-6 md:grid-cols-3">
             ${climbGrid}

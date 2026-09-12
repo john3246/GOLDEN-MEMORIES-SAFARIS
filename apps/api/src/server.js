@@ -1,10 +1,16 @@
 import { createApp } from './app.js';
 import { config } from './config/index.js';
 import { logger } from './logging/index.js';
+import { bootstrapCms } from './bootstrap/cms.js';
 
 const app = createApp();
 
-const server = app.listen(config.port, () => {
+const server = app.listen(config.port, async () => {
+  try {
+    await bootstrapCms();
+  } catch (err) {
+    logger.error('CMS bootstrap failed', { message: err instanceof Error ? err.message : String(err) });
+  }
   logger.info('GM Safaris API listening', {
     port: config.port,
     nodeEnv: config.nodeEnv,

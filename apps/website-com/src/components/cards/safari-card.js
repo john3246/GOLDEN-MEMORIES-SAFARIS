@@ -1,4 +1,5 @@
 import { tourHref } from '../../pages/tours/paths.js';
+import { safariPrice } from '@gm-safaris/safari-ui';
 
 /**
  * Full-bleed safari package card — Zara packages layout.
@@ -6,6 +7,7 @@ import { tourHref } from '../../pages/tours/paths.js';
  */
 export function safariCard(tour) {
   const href = tourHref(tour);
+  const price = safariPrice(tour);
   return `
     <article class="safari-card">
       <a class="safari-card-media" href="${href}" tabindex="-1">
@@ -24,6 +26,7 @@ export function safariCard(tour) {
         <div class="safari-card-bottom">
           <p class="safari-card-meta">${tour.duration}</p>
           ${tour.places ? `<p class="safari-card-places">${tour.places}</p>` : ''}
+          ${price ? `<p class="safari-card-price">${price.card}</p>` : ''}
           <a class="safari-card-book" href="/contact/">Book now</a>
         </div>
       </div>

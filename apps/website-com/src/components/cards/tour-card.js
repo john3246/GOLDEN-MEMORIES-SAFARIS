@@ -1,4 +1,5 @@
 import { tourHref } from '../../pages/tours/paths.js';
+import { safariPrice } from '@gm-safaris/safari-ui';
 
 /**
  * Tour card markup for featured packages and day trips.
@@ -6,6 +7,7 @@ import { tourHref } from '../../pages/tours/paths.js';
  */
 export function tourCard(tour) {
   const href = tourHref(tour);
+  const price = safariPrice(tour);
   const badge = tour.featured
     ? `<span class="absolute left-4 top-4 z-10 bg-gold px-3 py-1 font-body text-xs font-bold uppercase tracking-[0.1em] text-ink">Trip of the month</span>`
     : '';
@@ -33,6 +35,11 @@ export function tourCard(tour) {
         ${
           tour.places
             ? `<p class="mt-3 text-sm leading-relaxed text-ink/65">${tour.places}</p>`
+            : ''
+        }
+        ${
+          price
+            ? `<p class="mt-3 font-body text-sm font-extrabold tracking-wide text-black">${price.card}</p>`
             : ''
         }
         <a href="${href}" class="card-link mt-auto pt-5 font-body text-sm font-bold uppercase tracking-[0.1em] text-black">

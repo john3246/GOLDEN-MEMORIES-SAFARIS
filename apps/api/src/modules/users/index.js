@@ -1,6 +1,2 @@
-﻿/**
- * Placeholder for the users domain module.
- * Implement following: routes → controller → service → repository.
- * See docs/architecture/dependency-rules.md
- */
-export const moduleStatus = 'planned';
+﻿export { usersRepository, seedDefaultUsers } from './users.repository.js';
+export const moduleStatus = 'active';

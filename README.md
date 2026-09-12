@@ -12,6 +12,20 @@ Production-oriented tourism platform for **GM Safaris**.
 
 The sister site [gmsafaris.co.tz](https://www.gmsafaris.co.tz/) is maintained separately. It consumes **published** content only through the versioned external API (`/api/v1/external`). It must never access PostgreSQL, Redis, the CMS, or internal credentials.
 
+## Safari CMS (first content module)
+
+```bash
+cp .env.example .env
+npm install
+npm run dev:api
+npm run dev:cms
+```
+
+- API: http://localhost:3000 (`GET /health`, docs at `/api/v1/docs`)
+- CMS: http://localhost:5173 (default admin `admin@gmsafaris.com` / `ChangeMeAdmin!23`)
+- Public Safari API: `GET /api/v1/safaris`
+- Setup notes: [docs/cms/safari-cms.md](docs/cms/safari-cms.md)
+
 ## Current phase
 
 **Phase 1 — Project foundation** (this deliverable).
@@ -64,6 +78,8 @@ External consumer contract (for the `.co.tz` developer): [docs/api/external-api.
 | Command | Purpose |
 |---------|---------|
 | `npm run dev:api` | Run API with `--watch` |
+| `npm run dev:cms` | Safari CMS UI (Vite, port 5173) |
+| `npm run dev:website` | Public website |
 | `npm run lint` | ESLint |
 | `npm run format` | Prettier |
 | `npm test` | Vitest |

@@ -1,8 +1,8 @@
 import { notImplemented } from '../../errors/index.js';
+import { safarisService } from '../safaris/safaris.service.js';
 
 /**
  * External API service — read-only published content for trusted consumers (.co.tz).
- * Domain modules (tours, destinations, …) will be wired in Phase 6+.
  * This service must never call write repositories.
  */
 export const externalApiService = {
@@ -20,14 +20,25 @@ export const externalApiService = {
     );
   },
 
+  async listSafaris(query) {
+    return safarisService.listPublic(query);
+  },
+
+  async getSafariBySlug(slug) {
+    return safarisService.getPublicBySlug(slug);
+  },
+
+  async getSafariById(id) {
+    return safarisService.getPublicById(id);
+  },
+
   async getStatus() {
     return {
       api: 'external',
       version: 'v1',
       mode: 'read-only',
-      status: 'foundation',
-      message:
-        'External API foundation is online. Content endpoints will be enabled as domain modules ship.',
+      status: 'ok',
+      message: 'External API is online. Safari packages are available at /safaris.',
     };
   },
 };

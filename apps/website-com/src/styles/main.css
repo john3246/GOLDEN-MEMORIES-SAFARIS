@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@source '../../../../packages/safari-ui/src';
 @import './tokens.css';
 @import './motion.css';
 @import './header.css';
@@ -325,6 +326,15 @@
     color: rgb(255 255 255 / 0.8);
   }
 
+  .safari-card-price {
+    margin-top: 0.55rem;
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: var(--color-gold);
+  }
+
   .safari-card-book {
     display: inline-flex;
     margin-top: 0.85rem;
@@ -367,6 +377,16 @@
     color: color-mix(in oklab, var(--color-ink) 75%, transparent);
   }
 
+  .blog-article-body p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: color-mix(in oklab, var(--color-ink) 78%, transparent);
+  }
+
+  .blog-article-body p + p {
+    margin-top: 1.15rem;
+  }
+
   #kilimanjaro,
   #excursions,
   #travel-info,
@@ -407,6 +427,120 @@
     padding: 1.35rem 1.25rem 1.5rem;
   }
 
+  .join-intro-copy {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: color-mix(in oklab, var(--color-ink) 78%, transparent);
+  }
+
+  .join-intro-copy p + p {
+    margin-top: 1.1rem;
+  }
+
+  .join-cal-filters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .join-years,
+  .join-months {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+
+  .join-year,
+  .join-month {
+    border: 0;
+    background: transparent;
+    color: var(--color-black);
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.15rem;
+    margin-right: 1.15rem;
+    cursor: pointer;
+    box-shadow: inset 0 -2px 0 transparent;
+  }
+
+  .join-year.is-current,
+  .join-month.is-current {
+    font-weight: 800;
+    box-shadow: inset 0 -2px 0 var(--color-gold);
+  }
+
+  .join-year:hover,
+  .join-month:hover {
+    color: var(--color-gold-deep);
+  }
+
+  #join-calendar,
+  #join-itinerary,
+  #join-book,
+  .safari-day {
+    scroll-margin-top: 7.5rem;
+  }
+
+  .join-card,
+  .join-card-empty {
+    background: #fff;
+    padding: 1.35rem 1.25rem;
+  }
+
+  .join-card {
+    display: grid;
+    gap: 1rem 1.5rem;
+    align-items: center;
+  }
+
+  .join-card-copy h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-black);
+    line-height: 1.3;
+  }
+
+  .join-card-copy p {
+    margin: 0.35rem 0 0;
+    font-size: 0.92rem;
+    color: rgb(0 0 0 / 0.62);
+  }
+
+  .join-card-meta {
+    font-weight: 700;
+    color: rgb(0 0 0 / 0.75) !important;
+  }
+
+  .join-card-tags {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .join-card-tags li {
+    font-size: 0.85rem;
+    color: rgb(0 0 0 / 0.62);
+  }
+
+  .join-card-tag-label {
+    display: block;
+    font-weight: 800;
+    color: var(--color-black);
+  }
+
+  @media (min-width: 900px) {
+    .join-card {
+      grid-template-columns: minmax(0, 1.2fr) minmax(10rem, 0.8fr) auto;
+    }
+  }
+
   .safari-itinerary {
     display: flex;
     flex-direction: column;
@@ -424,7 +558,6 @@
     overflow: hidden;
     background: var(--color-black-deep);
     aspect-ratio: 4 / 3;
-    outline: 1px solid color-mix(in oklab, var(--color-gold) 35%, transparent);
   }
 
   .safari-day-media img {
@@ -469,7 +602,7 @@
     grid-template-columns: 9.5rem 1fr;
     gap: 0.75rem;
     padding: 0.45rem 0;
-    border-top: 1px solid rgb(196 164 85 / 0.28);
+    border-top: 1px solid rgb(255 255 255 / 0.12);
     font-family: var(--font-body);
     font-size: 0.92rem;
   }
@@ -500,10 +633,26 @@
     margin-top: 0.45rem;
   }
 
+  .safari-day.is-text {
+    grid-template-columns: 1fr;
+    max-width: 46rem;
+    padding-left: 1.15rem;
+    border-left: 2px solid var(--color-gold);
+  }
+
+  .safari-day.is-text .safari-day-copy {
+    padding-bottom: 0.5rem;
+  }
+
   @media (min-width: 768px) {
     .safari-day {
       grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
       gap: 2.5rem 3rem;
+    }
+
+    .safari-day.is-text,
+    .safari-day.is-text:nth-child(even) {
+      grid-template-columns: 1fr;
     }
 
     .safari-day:nth-child(even) {
@@ -622,7 +771,8 @@
     resize: vertical;
   }
 
-  .contact-form [data-contact-note] {
+  .contact-form [data-contact-note],
+  .contact-form [data-join-note] {
     margin: 0;
     font-size: 0.9rem;
     font-weight: 600;

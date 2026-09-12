@@ -25,6 +25,9 @@ export function renderFooter() {
           <ul class="mt-4 space-y-2 text-sm text-white/75">
             <li><a class="hover:text-gold" href="/">Home</a></li>
             <li><a class="hover:text-gold" href="/tours/">Safaris</a></li>
+            <li><a class="hover:text-gold" href="/join-safari/">Join Safari</a></li>
+            <li><a class="hover:text-gold" href="/kilimanjaro/">Kilimanjaro</a></li>
+            <li><a class="hover:text-gold" href="/blog/">Blog</a></li>
             <li><a class="hover:text-gold" href="/destinations/">Destinations</a></li>
             <li><a class="hover:text-gold" href="/about/">About Us</a></li>
             <li><a class="hover:text-gold" href="/contact/">Contact</a></li>

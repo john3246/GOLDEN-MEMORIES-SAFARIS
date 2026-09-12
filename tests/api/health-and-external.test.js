@@ -27,6 +27,8 @@ describe('API foundation', () => {
     const res = await request(app).get('/api/v1');
     expect(res.status).toBe(200);
     expect(res.body.data.surfaces.external).toBe('/api/v1/external');
+    expect(res.body.data.surfaces.admin).toBe('/api/v1/admin');
+    expect(res.body.data.surfaces.safaris).toBe('/api/v1/safaris');
   });
 
   it('GET /api/v1/external/status without key is unauthorized', async () => {

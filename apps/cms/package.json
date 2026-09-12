@@ -3,9 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "GM Safaris CMS/admin application — content management UI",
+  "description": "GM Safaris CMS/admin application — Safari content management",
   "scripts": {
-    "dev": "echo \"CMS UI scaffolding — implement in Phase 11\"",
-    "build": "echo \"CMS build — implement in Phase 11\""
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@gm-safaris/safari-ui": "*",
+    "@gm-safaris/shared-types": "*"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.9",
+    "tailwindcss": "^4.0.9",
+    "vite": "^6.2.0"
   }
 }
