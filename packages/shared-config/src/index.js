@@ -72,6 +72,7 @@ export function loadConfig(env = process.env) {
     isDevelopment: nodeEnv === 'development',
     port: envInt(env, 'PORT', 3000),
     apiBaseUrl: envString(env, 'API_BASE_URL', 'http://localhost:3000'),
+    servePublic: envBool(env, 'SERVE_PUBLIC', false),
 
     database: Object.freeze({
       host: envString(env, 'DATABASE_HOST', 'localhost'),
@@ -126,10 +127,14 @@ export function loadConfig(env = process.env) {
     }),
 
     cors: Object.freeze({
-      cms: envList(env, 'CORS_ORIGINS_CMS', ['http://localhost:5173']),
+      cms: envList(env, 'CORS_ORIGINS_CMS', [
+        'http://localhost:5173',
+        'https://golden-memories-safaris-2.onrender.com',
+      ]),
       website: envList(env, 'CORS_ORIGINS_WEBSITE', [
         'http://localhost:4173',
         'http://localhost:4174',
+        'https://golden-memories-safaris-2.onrender.com',
       ]),
       external: envList(env, 'CORS_ORIGINS_EXTERNAL', [
         'https://www.gmsafaris.co.tz',

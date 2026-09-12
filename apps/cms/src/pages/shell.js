@@ -7,6 +7,7 @@ function nav(user, current) {
         <a href="#/safaris" class="${current === 'safaris' ? 'is-active' : ''}">Safaris</a>
         <a href="#/media" class="${current === 'media' ? 'is-active' : ''}">Media</a>
         ${admin ? `<a href="#/api-clients" class="${current === 'clients' ? 'is-active' : ''}">API clients</a>` : ''}
+        <button class="cms-nav-logout" id="cms-logout" type="button">Sign out</button>
       </nav>
     </header>
   `;

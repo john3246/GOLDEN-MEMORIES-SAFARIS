@@ -1,4 +1,6 @@
 import express from 'express';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { config } from './config/index.js';
 import {
   requestIdMiddleware,
@@ -22,6 +24,24 @@ import { apiClientRoutes } from './modules/api-clients/index.js';
 import { docsRoutes } from './docs/docs.routes.js';
 import { readStore } from './cms-store/index.js';
 import { requireAuth, requireRole } from './security/requireAuth.js';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const monorepoRoot = path.resolve(__dirname, '../../..');
+
+function servePublicSite(app) {
+  const publicDir = path.resolve(monorepoRoot, 'apps/website-com/dist');
+  const cmsIndex = path.join(publicDir, 'cms', 'index.html');
+
+  app.get('/cms', (_req, res) => {
+    res.redirect(301, '/cms/');
+  });
+  app.use(express.static(publicDir, { index: 'index.html', fallthrough: true }));
+  app.use('/cms', (_req, res, next) => {
+    res.sendFile(cmsIndex, (err) => {
+      if (err) next();
+    });
+  });
+}
 
 /**
  * Build the Express application (no listen — testable).
@@ -68,6 +88,10 @@ export function createApp() {
     }
   });
   app.use('/api/v1/admin', admin);
+
+  if (config.servePublic) {
+    servePublicSite(app);
+  }
 
   app.get('/api/v1', (_req, res) => {
     res.json({

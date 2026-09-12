@@ -5,8 +5,11 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+const base = process.env.CMS_BASE || '/';
+
 export default defineConfig({
   root: __dirname,
+  base,
   plugins: [tailwindcss()],
   resolve: {
     alias: {

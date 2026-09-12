@@ -8,9 +8,8 @@ import { config } from '../config/index.js';
  */
 export function securityHeaders() {
   return helmet({
-    contentSecurityPolicy: config.isProduction
-      ? undefined
-      : false,
+    // Google Fonts + the hosted CMS/API split; tighten once hosts are fixed.
+    contentSecurityPolicy: false,
     crossOriginEmbedderPolicy: false,
   });
 }
@@ -22,7 +21,9 @@ export function securityHeaders() {
  * @param {string[]} allowedOrigins
  */
 export function createCors(allowedOrigins) {
-  const allowSet = new Set(allowedOrigins);
+  const allowSet = new Set(
+    [...allowedOrigins, process.env.RENDER_EXTERNAL_URL, process.env.PUBLIC_SITE_URL].filter(Boolean)
+  );
 
   return cors({
     origin(origin, callback) {

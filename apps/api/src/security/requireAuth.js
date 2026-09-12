@@ -1,8 +1,9 @@
 import { CmsRoleScopes } from '@gm-safaris/shared-types';
-import { forbidden } from '../errors/index.js';
+import { config } from '../config/index.js';
+import { forbidden, unauthorized } from '../errors/index.js';
 import { verifyAccessToken } from './jwt.js';
 
-/** Used when no JWT is sent — CMS login is paused for local work. */
+/** Used when no JWT is sent in local/dev only. Production requires login. */
 export const LOCAL_CMS_USER = Object.freeze({
   userId: 'local-dev',
   email: 'local@gmsafaris.com',
@@ -21,8 +22,12 @@ export function requireAuth(req, _res, next) {
   try {
     const token = bearerToken(req);
     if (!token) {
-      req.auth = { ...LOCAL_CMS_USER };
-      next();
+      if (!config.isProduction) {
+        req.auth = { ...LOCAL_CMS_USER };
+        next();
+        return;
+      }
+      next(unauthorized('Sign in required'));
       return;
     }
     const payload = verifyAccessToken(token);
@@ -43,7 +48,12 @@ export function requireAuth(req, _res, next) {
 export function requireScope(...scopes) {
   return (req, _res, next) => {
     if (!req.auth) {
-      req.auth = { ...LOCAL_CMS_USER };
+      if (!config.isProduction) {
+        req.auth = { ...LOCAL_CMS_USER };
+      } else {
+        next(unauthorized('Sign in required'));
+        return;
+      }
     }
     const hasAll = scopes.every((scope) => req.auth.scopes.includes(scope));
     if (!hasAll) {
@@ -57,7 +67,12 @@ export function requireScope(...scopes) {
 export function requireRole(...roles) {
   return (req, _res, next) => {
     if (!req.auth) {
-      req.auth = { ...LOCAL_CMS_USER };
+      if (!config.isProduction) {
+        req.auth = { ...LOCAL_CMS_USER };
+      } else {
+        next(unauthorized('Sign in required'));
+        return;
+      }
     }
     if (!roles.includes(req.auth.role)) {
       next(forbidden('Insufficient permissions'));

@@ -1,11 +1,42 @@
-# Client preview on Render — static website only (no API).
-# Dashboard alternative: New → Static Site (do not use Web Service).
+# Hosted preview: public site + Safari CMS at /cms/
+# The live client URL stays on the existing static site. Create the API
+# Web Service, then point VITE_API_BASE_URL at it and rebuild the static site.
 services:
   - type: web
     name: gm-safaris-website
     runtime: static
-    buildCommand: npm install && npm run build:website
+    buildCommand: npm install && npm run build:render
     staticPublishPath: apps/website-com/dist
     envVars:
       - key: NODE_VERSION
         value: '20'
+      - key: VITE_API_BASE_URL
+        sync: false
+
+  - type: web
+    name: golden-memories-safaris-api
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm run start:api
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: '20'
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DATABASE_PASSWORD
+        value: unused-file-store
+      - key: CMS_SEED_SAFARIS
+        value: 'true'
+      - key: CMS_ADMIN_EMAIL
+        value: admin@gmsafaris.com
+      - key: CMS_ADMIN_PASSWORD
+        sync: false
+      - key: CORS_ORIGINS_CMS
+        value: https://golden-memories-safaris-2.onrender.com
+      - key: CORS_ORIGINS_WEBSITE
+        value: https://golden-memories-safaris-2.onrender.com
+      - key: PUBLIC_SITE_URL
+        value: https://golden-memories-safaris-2.onrender.com

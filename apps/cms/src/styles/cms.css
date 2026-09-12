@@ -126,6 +126,66 @@ a {
   color: #161410;
 }
 
+.cms-nav-logout {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.35rem;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid rgba(247, 244, 236, 0.16);
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(247, 244, 236, 0.82);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.cms-login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background:
+    radial-gradient(ellipse at top, rgba(196, 164, 85, 0.18), transparent 55%),
+    var(--cms-bg);
+}
+
+.cms-card {
+  width: min(26rem, 100%);
+  padding: 1.75rem 1.5rem 1.6rem;
+  border: 1px solid var(--cms-line);
+  border-radius: calc(var(--cms-radius) + 0.15rem);
+  background: var(--cms-surface);
+  box-shadow: var(--cms-shadow);
+}
+
+.cms-card h1 {
+  margin: 0.2rem 0 0.35rem;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+}
+
+.cms-card label {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.cms-card input {
+  min-height: 2.5rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--cms-line-strong);
+  border-radius: var(--cms-radius);
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
 .cms-btn {
   background: var(--cms-surface);
   border-color: var(--cms-line-strong);
