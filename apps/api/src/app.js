@@ -36,17 +36,28 @@ export function publicSiteDir() {
   return path.resolve(monorepoRoot, 'apps/website-com/dist');
 }
 
-function servePublicSite(app) {
-  const publicDir = publicSiteDir();
+export function servePublicSite(app, publicDir = publicSiteDir()) {
   const cmsIndex = path.join(publicDir, 'cms', 'index.html');
 
-  app.get(['/cms', '/tours/cms', '/tours/cms/'], (_req, res) => {
-    res.redirect(301, '/cms/');
+  // Express matches /cms and /cms/ as the same route unless we check req.path.
+  // Redirecting /cms/ to /cms/ is what caused ERR_TOO_MANY_REDIRECTS on Render.
+  app.use((req, res, next) => {
+    if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+    const pathname = req.path;
+    if (pathname === '/cms') {
+      res.redirect(301, '/cms/');
+      return;
+    }
+    if (pathname === '/tours/cms' || pathname === '/tours/cms/') {
+      res.redirect(301, '/cms/');
+      return;
+    }
+    next();
   });
   app.use(express.static(publicDir, { index: 'index.html', fallthrough: true }));
   app.use('/cms', (_req, res, next) => {
     res.sendFile(cmsIndex, (err) => {
-      if (err) next();
+      if (err) next(err);
     });
   });
 }
