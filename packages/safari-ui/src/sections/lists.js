@@ -33,7 +33,7 @@ export function renderIncludedExcluded(safari, options = {}) {
   const excluded = renderExcluded(safari, options);
   if (!included && !excluded) return '';
   return `
-    <section class="bg-mist py-16 sm:py-20" aria-labelledby="included-title">
+    <section class="bg-mist py-8 sm:py-10" aria-labelledby="included-title">
       <div class="container-site grid gap-6 md:grid-cols-2">
         ${included}
         ${excluded}
@@ -55,7 +55,7 @@ function listSection({ id, title, field, items, editable, empty }) {
 export function renderDestination(safari, options = {}) {
   if (!safari.destination && !options.editable) return '';
   return `
-    <section class="bg-white py-16 sm:py-20" aria-labelledby="destination-title"${editAttr(options.editable, 'destination')}>
+    <section class="bg-white py-8 sm:py-10" aria-labelledby="destination-title"${editAttr(options.editable, 'destination')}>
       <div class="container-site max-w-3xl">
         <p class="section-kicker">Destination</p>
         <h2 id="destination-title" class="section-title">${escapeHtml(safari.destination || 'Destination')}</h2>
@@ -71,7 +71,7 @@ export function renderMap(safari, options = {}) {
   const label = map?.label || safari.destination || 'Map';
   const embed = map?.embed_url;
   return `
-    <section class="bg-mist py-16 sm:py-20" aria-labelledby="map-title"${editAttr(options.editable, 'map')}>
+    <section class="bg-mist py-8 sm:py-10" aria-labelledby="map-title"${editAttr(options.editable, 'map')}>
       <div class="container-site">
         <p class="section-kicker">Map</p>
         <h2 id="map-title" class="section-title">${escapeHtml(label)}</h2>
@@ -100,7 +100,7 @@ export function renderFaq(safari, options = {}) {
     .join('');
 
   return `
-    <section class="bg-mist py-16 sm:py-20" aria-labelledby="faq-title"${editAttr(options.editable, 'faq')}>
+    <section class="bg-mist py-8 sm:py-10" aria-labelledby="faq-title"${editAttr(options.editable, 'faq')}>
       <div class="container-site max-w-3xl">
         <p class="section-kicker">FAQ</p>
         <h2 id="faq-title" class="section-title">Questions about this safari</h2>
@@ -113,7 +113,7 @@ export function renderFaq(safari, options = {}) {
 export function renderBookingCta(safari, options = {}) {
   const price = safariPrice(safari);
   return `
-    <section class="bg-gold py-14 sm:py-16" aria-labelledby="tour-cta-title"${editAttr(options.editable, 'booking_cta')}>
+    <section class="bg-gold py-8 sm:py-10" aria-labelledby="tour-cta-title"${editAttr(options.editable, 'booking_cta')}>
       <div class="container-site flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
         <div class="reveal">
           <h2 id="tour-cta-title" class="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
@@ -136,7 +136,7 @@ export function renderBookingCta(safari, options = {}) {
 export function renderRelated(relatedHtml) {
   if (!relatedHtml) return '';
   return `
-    <section class="bg-black py-16 sm:py-20" aria-labelledby="related-title">
+    <section class="bg-black py-8 sm:py-10" aria-labelledby="related-title">
       <div class="container-site">
         <div class="reveal max-w-2xl">
           <p class="section-kicker !text-gold">Keep exploring</p>

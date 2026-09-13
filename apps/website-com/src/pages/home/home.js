@@ -41,8 +41,8 @@ export function renderHome() {
   const joining = joiningSafaris[0];
   const joinTeaser = joining
     ? `
-      <section class="bg-gold py-16 sm:py-20" aria-labelledby="join-home-title">
-        <div class="container-site grid items-center gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-12">
+      <section class="bg-gold py-8 sm:py-10" aria-labelledby="join-home-title">
+        <div class="container-site grid items-center gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-10">
           <div class="reveal">
             <p class="section-kicker">Join a group safari</p>
             <h2 id="join-home-title" class="section-title">${joining.title}</h2>
@@ -64,7 +64,7 @@ export function renderHome() {
   return `
     <main id="main">
       <!-- Hero: brand + one headline + one sentence + CTA group + full-bleed image -->
-      <section class="relative isolate min-h-[88vh] overflow-hidden text-white" aria-labelledby="hero-brand">
+      <section class="relative isolate min-h-[52vh] overflow-hidden text-white sm:min-h-[56vh] lg:min-h-[60vh]" aria-labelledby="hero-brand">
         <img
           class="absolute inset-0 h-full w-full object-cover"
           src="${pageImages.hero}"
@@ -76,7 +76,7 @@ export function renderHome() {
         <div class="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/55 to-ink/25"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-ink/30"></div>
 
-        <div class="container-site relative flex min-h-[88vh] flex-col justify-center py-20 sm:py-24">
+        <div class="container-site relative flex min-h-[52vh] flex-col justify-center py-10 sm:min-h-[56vh] sm:py-12 lg:min-h-[60vh]">
           <div class="hero-animate max-w-3xl">
             <p id="hero-brand" class="font-body text-sm font-bold uppercase tracking-[0.18em] text-gold sm:text-base">
               Golden Memories Safaris
@@ -97,15 +97,15 @@ export function renderHome() {
       </section>
 
       <!-- Why book / about — Zara-style split -->
-      <section class="bg-white py-16 sm:py-20 lg:py-24" aria-labelledby="why-title">
-        <div class="container-site grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:gap-10">
+      <section class="bg-white py-8 sm:py-10 lg:py-12" aria-labelledby="why-title">
+        <div class="container-site grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-8">
           <div class="reveal order-2 lg:order-1">
             <p class="section-kicker">Why book with us</p>
             <h2 id="why-title" class="section-title">${whyBook.title}</h2>
-            <p class="mt-6 font-body text-base leading-relaxed text-ink/75 sm:text-lg">
+            <p class="mt-4 font-body text-base leading-relaxed text-ink/75">
               ${whyBook.body}
             </p>
-            <a class="btn-navy mt-8 !rounded-none" href="/about/">Read more</a>
+            <a class="btn-navy mt-6 !rounded-none" href="/about/">Read more</a>
           </div>
           <div class="reveal order-1 lg:order-2">
             ${whySlides}
@@ -114,23 +114,23 @@ export function renderHome() {
       </section>
 
       <!-- Destinations -->
-      <section class="bg-mist py-16 sm:py-20 lg:py-24" aria-labelledby="destinations-title">
+      <section class="bg-mist py-8 sm:py-10 lg:py-12" aria-labelledby="destinations-title">
         <div class="container-site">
           <div class="reveal mx-auto max-w-2xl text-center">
             <p class="section-kicker">Discover</p>
             <h2 id="destinations-title" class="section-title">Explore Tanzania by region</h2>
-            <p class="mt-4 text-ink/70">
+            <p class="mt-3 text-ink/70">
               From the northern circuit to the coast, south, and west — choose where your story begins.
             </p>
           </div>
-          <div class="reveal mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5" data-destinations>
+          <div class="reveal mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5" data-destinations>
             ${destinationGrid}
           </div>
         </div>
       </section>
 
       <!-- Featured safaris -->
-      <section class="bg-white py-16 sm:py-20 lg:py-24" aria-labelledby="safaris-title">
+      <section class="bg-white py-8 sm:py-10 lg:py-12" aria-labelledby="safaris-title">
         <div class="container-site">
           <div class="reveal flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -139,7 +139,7 @@ export function renderHome() {
             </div>
             <a class="btn-navy !rounded-none self-start sm:self-auto" href="/tours/">View all safaris</a>
           </div>
-          <div class="reveal mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-4" data-featured-tours>
+          <div class="reveal mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4" data-featured-tours>
             ${safariGrid}
           </div>
         </div>
@@ -148,21 +148,21 @@ export function renderHome() {
       ${joinTeaser}
 
       <!-- Day trips -->
-      <section class="bg-mist py-16 sm:py-20" aria-labelledby="daytrips-title" id="excursions">
+      <section class="bg-mist py-8 sm:py-10" aria-labelledby="daytrips-title" id="excursions">
         <div class="container-site">
           <div class="reveal max-w-2xl">
             <p class="section-kicker">Day trips</p>
             <h2 id="daytrips-title" class="section-title">Things to do in Tanzania</h2>
-            <p class="mt-4 text-ink/70">Short adventures when you want the highlights in a single day.</p>
+            <p class="mt-3 text-ink/70">Short adventures when you want the highlights in a single day.</p>
           </div>
-          <div class="reveal mt-10 grid gap-6 md:grid-cols-3">
+          <div class="reveal mt-6 grid gap-4 md:grid-cols-3">
             ${dayTripGrid}
           </div>
         </div>
       </section>
 
       <!-- Kilimanjaro -->
-      <section class="relative isolate overflow-hidden py-16 text-white sm:py-20 lg:py-24" id="kilimanjaro" aria-labelledby="kili-title">
+      <section class="relative isolate overflow-hidden py-8 text-white sm:py-10 lg:py-12" id="kilimanjaro" aria-labelledby="kili-title">
         <img
           class="absolute inset-0 h-full w-full object-cover"
           src="${pageImages.kilimanjaroSection}"
@@ -178,44 +178,44 @@ export function renderHome() {
             <p class="mt-4 text-white/80">Guided routes for summit seekers — Marangu, Machame, and Mount Meru.</p>
             <a class="btn-gold mt-6 !rounded-none" href="/kilimanjaro/">Kilimanjaro climbing</a>
           </div>
-          <div class="reveal mt-10 grid gap-6 md:grid-cols-3">
+          <div class="reveal mt-6 grid gap-4 md:grid-cols-3">
             ${climbGrid}
           </div>
         </div>
       </section>
 
       <!-- Zanzibar -->
-      <section class="bg-white py-16 sm:py-20 lg:py-24" aria-labelledby="zanzibar-title">
+      <section class="bg-white py-8 sm:py-10" aria-labelledby="zanzibar-title">
         <div class="container-site">
           <div class="reveal max-w-2xl">
             <p class="section-kicker">Beach vacations</p>
             <h2 id="zanzibar-title" class="section-title">Explore Zanzibar Island</h2>
-            <p class="mt-4 text-ink/70">Spice tours, Stone Town, and beach days after the safari dust settles.</p>
+            <p class="mt-3 text-ink/70">Spice tours, Stone Town, and beach days after the safari dust settles.</p>
           </div>
-          <div class="reveal mt-10 grid gap-6 md:grid-cols-3">
+          <div class="reveal mt-6 grid gap-4 md:grid-cols-3">
             ${beachGrid}
           </div>
         </div>
       </section>
 
       <!-- Testimonials -->
-      <section class="bg-mist py-16 sm:py-20" aria-labelledby="testimonials-title">
+      <section class="bg-mist py-8 sm:py-10" aria-labelledby="testimonials-title">
         <div class="container-site">
           <div class="reveal mx-auto max-w-2xl text-center">
             <p class="section-kicker">Testimonies</p>
             <h2 id="testimonials-title" class="section-title">Stories from the trail</h2>
-            <p class="mt-4 text-ink/70">
+            <p class="mt-3 text-ink/70">
               We are rated 5/5 by customers — a commitment we renew on every journey.
             </p>
           </div>
-          <div class="reveal mt-10 grid gap-6 md:grid-cols-2">
+          <div class="reveal mt-6 grid gap-4 md:grid-cols-2">
             ${quotes}
           </div>
         </div>
       </section>
 
       <!-- Plan a trip CTA band -->
-      <section class="bg-gold py-14 sm:py-16" aria-labelledby="plan-title">
+      <section class="bg-gold py-8 sm:py-10" aria-labelledby="plan-title">
         <div class="container-site flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
           <div class="reveal">
             <h2 id="plan-title" class="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
@@ -250,7 +250,7 @@ export function initHomeReveals() {
         }
       }
     },
-    { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+    { threshold: 0, rootMargin: '0px 0px -40px 0px' }
   );
 
   nodes.forEach((el) => observer.observe(el));

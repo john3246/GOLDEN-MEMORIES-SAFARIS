@@ -29,7 +29,7 @@ export function renderDestinations() {
   const regionNav = destinationRegions
     .map(
       (region) => `
-        <a class="destination-card block aspect-[4/5] sm:aspect-[3/4]" href="#${region.id}" aria-label="${region.name} — ${region.trips} trips">
+        <a class="destination-card block aspect-[16/11] sm:aspect-[4/3]" href="#${region.id}" aria-label="${region.name} — ${region.trips} trips">
           <img src="${region.image}" alt="${region.name}" loading="lazy" width="600" height="800" />
           <div class="absolute inset-0 destination-overlay bg-gradient-to-t from-ink/85 via-ink/25 to-transparent"></div>
           <div class="destination-copy absolute inset-x-0 bottom-0 p-5 text-white sm:p-6">
@@ -76,14 +76,14 @@ export function renderDestinations() {
       const band = index % 2 === 0 ? 'bg-mist' : 'bg-white';
 
       return `
-        <section class="${band} dest-region py-16 sm:py-20 lg:py-24" id="${region.id}" aria-labelledby="${region.id}-title">
+        <section class="${band} dest-region py-8 sm:py-10" id="${region.id}" aria-labelledby="${region.id}-title">
           <div class="container-site">
             <div class="reveal max-w-3xl">
               <p class="section-kicker">${region.kicker}</p>
               <h2 id="${region.id}-title" class="section-title">${region.name}</h2>
               <p class="mt-4 text-base leading-relaxed text-ink/75 sm:text-lg">${region.summary}</p>
             </div>
-            <div class="reveal mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+            <div class="reveal mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               ${parks}
             </div>
             ${
@@ -117,7 +117,7 @@ export function renderDestinations() {
           fetchpriority="high"
         />
         <div class="absolute inset-0 bg-black/55"></div>
-        <div class="container-site relative flex min-h-[28rem] flex-col items-center justify-center py-20 text-center sm:min-h-[32rem] lg:min-h-[36rem]">
+        <div class="container-site relative flex min-h-[11rem] flex-col items-center justify-center py-8 text-center sm:min-h-[13rem] lg:min-h-[14rem]">
           <p class="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-1.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-black">
             ${destinationsHero.kicker}
           </p>
@@ -136,11 +136,11 @@ export function renderDestinations() {
         </div>
       </nav>
 
-      <section class="bg-gold py-16 sm:py-20 lg:py-24" aria-labelledby="destinations-intro-title">
+      <section class="bg-gold py-8 sm:py-10" aria-labelledby="destinations-intro-title">
         <div class="container-site grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div class="reveal overflow-hidden bg-black">
             <img
-              class="aspect-[4/5] w-full object-cover sm:aspect-[5/6]"
+              class="aspect-[16/10] w-full object-cover sm:aspect-[16/11]"
               src="${destinationsIntro.image}"
               alt="${destinationsIntro.imageAlt}"
               width="900"
@@ -158,7 +158,7 @@ export function renderDestinations() {
         </div>
       </section>
 
-      <section class="bg-mist py-16 sm:py-20 lg:py-24" aria-labelledby="regions-title">
+      <section class="bg-mist py-8 sm:py-10" aria-labelledby="regions-title">
         <div class="container-site">
           <div class="reveal mx-auto max-w-2xl text-center">
             <p class="section-kicker">Discover</p>
@@ -171,7 +171,7 @@ export function renderDestinations() {
         </div>
       </section>
 
-      <section class="bg-gold py-16 sm:py-20" aria-labelledby="why-tanzania-title">
+      <section class="bg-gold py-8 sm:py-10" aria-labelledby="why-tanzania-title">
         <div class="container-site">
           <div class="reveal mx-auto max-w-3xl text-center">
             <p class="section-kicker">Why Tanzania</p>
@@ -185,7 +185,7 @@ export function renderDestinations() {
 
       ${regionSections}
 
-      <section class="bg-black py-14 sm:py-16" aria-labelledby="dest-book-title">
+      <section class="bg-black py-8 sm:py-10" aria-labelledby="dest-book-title">
         <div class="container-site flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
           <div class="reveal">
             <h2 id="dest-book-title" class="font-display text-3xl font-semibold tracking-tight text-gold sm:text-4xl">

@@ -1,0 +1,225 @@
+.safari-intro {
+  padding-block: 1.1rem;
+}
+
+@media (min-width: 640px) {
+  .safari-intro {
+    padding-block: 1.35rem;
+  }
+}
+
+.safari-intro-copy {
+  max-width: 46rem;
+}
+
+.safari-intro-copy h2 {
+  font-size: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .safari-intro-copy h2 {
+    font-size: 1.45rem;
+  }
+}
+
+.safari-intro-copy p {
+  margin-top: 0.45rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: color-mix(in oklab, var(--color-ink) 72%, transparent);
+}
+
+.safari-board {
+  padding-block: 0.75rem 2rem;
+}
+
+.safari-board-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.6rem 1.25rem;
+  margin-bottom: 0.9rem;
+}
+
+.safari-board-head h2 {
+  font-size: 1.4rem;
+}
+
+.safari-board-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 1rem;
+}
+
+.safari-board-count {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: color-mix(in oklab, var(--color-ink) 62%, transparent);
+}
+
+.safari-sort {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-navy);
+}
+
+.safari-sort select {
+  border: 1px solid color-mix(in oklab, var(--color-ink) 14%, transparent);
+  background: #fff;
+  padding: 0.4rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.safari-filter-toggle {
+  display: inline-flex;
+  border: 1px solid color-mix(in oklab, var(--color-ink) 16%, transparent);
+  background: #fff;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+@media (min-width: 1024px) {
+  .safari-filter-toggle {
+    display: none;
+  }
+}
+
+.safari-board-layout {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .safari-board-layout {
+    grid-template-columns: 16.5rem minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+  }
+}
+
+.safari-filters {
+  display: none;
+  padding: 1.1rem 1.15rem 1.25rem;
+  background: #fff;
+  border: 1px solid color-mix(in oklab, var(--color-ink) 10%, transparent);
+}
+
+.safari-board.filters-open .safari-filters {
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .safari-filters {
+    display: block;
+    position: sticky;
+    top: 5.5rem;
+  }
+}
+
+.safari-filters-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.safari-filters h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.safari-filters-clear {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.safari-filter-group {
+  padding-top: 0.9rem;
+  border-top: 1px solid color-mix(in oklab, var(--color-ink) 8%, transparent);
+}
+
+.safari-filter-group:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.safari-filter-group p {
+  margin: 0 0 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--color-ink) 58%, transparent);
+}
+
+.safari-filter-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.safari-filter-group input[type='range'] {
+  display: block;
+  width: 100%;
+  margin: 0.2rem 0;
+  accent-color: var(--color-gold-deep);
+}
+
+.safari-filter-types {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.safari-filter-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.84rem;
+  cursor: pointer;
+}
+
+.safari-filter-check input {
+  accent-color: var(--color-gold-deep);
+}
+
+.safari-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.9rem;
+}
+
+@media (min-width: 640px) {
+  .safari-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.safari-empty {
+  grid-column: 1 / -1;
+  padding: 1.5rem 0;
+  text-align: center;
+  color: color-mix(in oklab, var(--color-ink) 65%, transparent);
+}

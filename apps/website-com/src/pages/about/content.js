@@ -1,14 +1,16 @@
+import { media as GM } from '../home/content.js';
+
 export const aboutHero = {
   kicker: 'Our story',
   title: 'About Golden Memories Safaris',
   cta: 'Get in touch',
-  image: 'https://www.gmsafaris.co.tz/img/about-hero.webp',
+  image: GM.hero,
 };
 
 export const aboutStory = {
   kicker: 'Our story',
   title: 'Karibu! Welcome to Our World',
-  image: 'https://www.gmsafaris.co.tz/img/about-1.webp',
+  image: GM.ngorongoroTourists,
   imageAlt: 'Founders or team members of Golden Memories Safaris in Tanzania',
   paragraphs: [
     "Golden Memories Safaris isn't just a company; it's a dream realized, rooted in the heart of Tanzania. We are a 100% locally owned and operated tour company based in Arusha, born from a lifelong passion for the incredible wildlife, diverse cultures, and breathtaking landscapes of our homeland.",
@@ -64,7 +66,7 @@ export const aboutTeam = [
     role: 'Founder & Lead Safari Guide',
     body: "With years of experience exploring Tanzania's national parks, Erlend founded Golden Memories Safaris to share his deep love for the wild. A certified guide with expert knowledge of the Serengeti ecosystem, Ngorongoro Crater, and off-the-beaten-path destinations, he personally ensures every safari exceeds expectations.",
     tags: ['Certified Safari Guide', 'Serengeti Specialist'],
-    image: 'https://www.gmsafaris.co.tz/img/Erlend%20G.webp',
+    image: GM.cultureTeam,
     imageAlt: 'Erlend G., Founder & Lead Safari Guide at Golden Memories Safaris',
   },
   {
@@ -72,7 +74,7 @@ export const aboutTeam = [
     role: 'Safari Planning & Logistics',
     body: 'Our dedicated operations team handles every detail of your safari, from accommodation bookings and park permits to airport transfers and dietary requirements. Fluent in English, Italian, French, and Swedish, they ensure seamless communication from your first inquiry to your farewell.',
     tags: ['Multilingual Support', '24/7 Availability'],
-    image: 'https://www.gmsafaris.co.tz/img/about-1.webp',
+    image: GM.dayTrip,
     imageAlt: 'Golden Memories Safaris operations and guest relations team in Arusha',
   },
   {
@@ -80,7 +82,7 @@ export const aboutTeam = [
     role: 'Wildlife & Wilderness Experts',
     body: "Our driver-guides are the heart of the safari experience. Each holds professional guiding certifications, with specialized knowledge in animal behavior, bird identification, and Tanzania's ecology. Many have grown up in communities surrounding the national parks, offering authentic insights no guidebook can provide.",
     tags: ['Wildlife Tracking', '5-Star Rated'],
-    image: 'https://www.gmsafaris.co.tz/img/serval-eland.webp',
+    image: GM.northern,
     imageAlt: 'Professional safari driver-guides at Golden Memories Safaris',
   },
 ];

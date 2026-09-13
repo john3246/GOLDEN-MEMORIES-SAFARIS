@@ -3,6 +3,7 @@
 @import './tokens.css';
 @import './motion.css';
 @import './header.css';
+@import './tours-board.css';
 @import './why-slideshow.css';
 
 @theme {
@@ -52,7 +53,7 @@
 @layer components {
   .container-site {
     width: 100%;
-    max-width: 80rem;
+    max-width: 86rem;
     margin-inline: auto;
     padding-inline: 1rem;
   }
@@ -131,7 +132,7 @@
 
   .section-title {
     font-family: var(--font-display);
-    font-size: 1.875rem;
+    font-size: 1.45rem;
     font-weight: 600;
     letter-spacing: -0.01em;
     color: var(--color-navy);
@@ -139,18 +140,18 @@
 
   @media (min-width: 640px) {
     .section-title {
-      font-size: 2.25rem;
+      font-size: 1.7rem;
     }
   }
 
   @media (min-width: 1024px) {
     .section-title {
-      font-size: 2.75rem;
+      font-size: 1.9rem;
     }
   }
 
   .section-kicker {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.45rem;
     font-family: var(--font-body);
     font-size: 0.8rem;
     font-weight: 700;
@@ -162,6 +163,7 @@
   .tour-card,
   .destination-card {
     position: relative;
+    min-width: 0;
     overflow: hidden;
     background-color: #fff;
     text-align: left;
@@ -235,7 +237,7 @@
 
   .safari-card {
     position: relative;
-    min-height: 28rem;
+    min-height: 16.5rem;
     overflow: hidden;
     color: #fff;
     border-radius: 0.35rem;
@@ -267,7 +269,7 @@
     position: relative;
     z-index: 1;
     display: flex;
-    min-height: 28rem;
+    min-height: 20rem;
     flex-direction: column;
     justify-content: space-between;
     padding: 1.85rem 1.6rem 1.6rem;
@@ -855,13 +857,80 @@
       grid-template-columns: 1.2fr 0.8fr;
       grid-template-rows: 1fr 1fr;
       gap: 1.15rem;
-      min-height: 28rem;
+      min-height: 20rem;
     }
 
     .dest-gallery-item:first-child {
       grid-row: 1 / span 2;
       aspect-ratio: auto;
-      min-height: 28rem;
+      min-height: 20rem;
+    }
+  }
+
+  .site-fab {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.55rem;
+  }
+
+  .site-fab-item,
+  .site-fab-main {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.15rem;
+    height: 3.15rem;
+    border-radius: 9999px;
+    box-shadow: 0 10px 24px rgb(0 0 0 / 0.22);
+  }
+
+  .site-fab-item {
+    width: 2.65rem;
+    height: 2.65rem;
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .site-fab:hover .site-fab-item,
+  .site-fab:focus-within .site-fab-item {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .site-fab-mail {
+    background: #14213d;
+    color: #fff;
+  }
+
+  .site-fab-call {
+    background: var(--color-gold);
+    color: #14213d;
+  }
+
+  .site-fab-main {
+    background: #25d366;
+    color: #fff;
+  }
+
+  .site-fab-item svg,
+  .site-fab-main svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  @media (hover: none) {
+    .site-fab-item {
+      opacity: 1;
+      transform: none;
+      pointer-events: auto;
     }
   }
 }

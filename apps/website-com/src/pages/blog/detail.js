@@ -9,7 +9,7 @@ export function renderBlogArticle(slug) {
   const article = articleBySlug(slug);
   if (!article) {
     return `
-      <main id="main" class="bg-mist py-24">
+      <main id="main" class="bg-mist py-12">
         <div class="container-site max-w-2xl text-center">
           <p class="section-kicker">Blog</p>
           <h1 class="section-title">Article not found</h1>
@@ -41,7 +41,7 @@ export function renderBlogArticle(slug) {
           fetchpriority="high"
         />
         <div class="absolute inset-0 bg-black/55"></div>
-        <div class="container-site relative flex min-h-[22rem] flex-col items-center justify-center py-16 text-center sm:min-h-[28rem]">
+        <div class="container-site relative flex min-h-[11rem] flex-col items-center justify-center py-8 text-center sm:min-h-[13rem]">
           <p class="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-1.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-black">
             ${topic}
           </p>
@@ -64,7 +64,7 @@ export function renderBlogArticle(slug) {
         </div>
       </nav>
 
-      <article class="bg-white py-16 sm:py-20">
+      <article class="bg-white py-8 sm:py-10">
         <div class="container-site max-w-3xl">
           <p class="font-display text-xl leading-relaxed text-ink/80">${article.excerpt}</p>
           <div class="blog-article-body mt-8">
@@ -74,7 +74,7 @@ export function renderBlogArticle(slug) {
         </div>
       </article>
 
-      <section class="bg-mist py-16 sm:py-20" aria-labelledby="related-articles-title">
+      <section class="bg-mist py-8 sm:py-10" aria-labelledby="related-articles-title">
         <div class="container-site">
           <div class="reveal max-w-2xl">
             <p class="section-kicker">Keep reading</p>

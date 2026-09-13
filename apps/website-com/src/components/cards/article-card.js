@@ -6,17 +6,18 @@
 export function articleCard(article, topicName) {
   const href = `/blog/${article.slug}/`;
   return `
-    <article class="tour-card flex h-full flex-col border border-ink/10">
-      <a href="${href}" class="relative block aspect-[16/11] overflow-hidden">
+    <article class="tour-card flex h-full min-w-0 flex-col border border-ink/10">
+      <a href="${href}" class="relative block aspect-[16/9] overflow-hidden bg-mist">
         <img
+          class="absolute inset-0 h-full w-full object-cover"
           src="${article.image}"
           alt=""
           loading="lazy"
           width="800"
-          height="550"
+          height="450"
         />
       </a>
-      <div class="flex flex-1 flex-col p-5 sm:p-6">
+      <div class="flex flex-1 flex-col p-3.5 sm:p-4">
         <div class="flex flex-wrap gap-x-3 gap-y-1 font-body text-xs font-semibold uppercase tracking-[0.12em] text-black/60">
           <span>${topicName}</span>
           <span aria-hidden="true">·</span>

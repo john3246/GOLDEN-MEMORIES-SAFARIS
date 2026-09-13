@@ -69,7 +69,7 @@ export function initList() {
       status: document.querySelector('#filter-status')?.value,
       featured: document.querySelector('#filter-featured')?.value,
       sort: document.querySelector('#filter-sort')?.value,
-      limit: 50,
+        limit: 200,
     };
     try {
       const result = await api.listSafaris(params);

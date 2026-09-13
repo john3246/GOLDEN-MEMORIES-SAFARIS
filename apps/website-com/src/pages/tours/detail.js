@@ -1,10 +1,28 @@
 import { safariCard } from '../../components/cards/safari-card.js';
 import { renderSafariPage, applySafariMeta, renderSafariCard } from '@gm-safaris/safari-ui';
+import { ensureGalleryUrl, photoForTrip } from '../../media/gallery.js';
 import { media as GM } from '../home/content.js';
 import { getTourBySlug, relatedTours } from './catalog.js';
 
+function localizeSafari(doc, index = 0) {
+  if (!doc) return doc;
+  const image = photoForTrip(doc, index);
+  const gallery = Array.isArray(doc.gallery)
+    ? doc.gallery.map((item, offset) => ({
+        ...item,
+        url: photoForTrip(doc, index + offset + 1),
+      }))
+    : doc.gallery;
+  return {
+    ...doc,
+    hero_image: { ...(doc.hero_image || {}), url: image, alt: doc.hero_image?.alt || doc.title || '' },
+    gallery,
+    seo: doc.seo ? { ...doc.seo, og_image: image } : doc.seo,
+  };
+}
+
 function dayImage(item, tour) {
-  if (item.image) return item.image;
+  if (item.image) return ensureGalleryUrl(item.image, `${tour.title} ${item.title}`, 0);
   const t = `${item.title} ${item.body}`.toLowerCase();
   if (t.includes('tarangire')) return GM.tarangire;
   if (t.includes('manyara')) return GM.manyara;
@@ -52,14 +70,15 @@ function dayFacts(item, tour, index, total) {
  */
 export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
   if (cmsSafari) {
-    const relatedHtml = cmsRelated.map((item) => renderSafariCard(item)).join('');
-    return renderSafariPage(cmsSafari, { relatedHtml });
+    const local = localizeSafari(cmsSafari);
+    const relatedHtml = cmsRelated.map((item, index) => renderSafariCard(localizeSafari(item, index + 1))).join('');
+    return renderSafariPage(local, { relatedHtml });
   }
 
   const tour = getTourBySlug(slug);
   if (!tour) {
     return `
-      <main id="main" class="bg-mist py-24">
+      <main id="main" class="bg-mist py-12">
         <div class="container-site max-w-2xl text-center">
           <p class="section-kicker">Safaris</p>
           <h1 class="section-title">Package not found</h1>
@@ -116,7 +135,7 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
           fetchpriority="high"
         />
         <div class="absolute inset-0 bg-black/55"></div>
-        <div class="container-site relative flex min-h-[26rem] flex-col items-center justify-center py-20 text-center sm:min-h-[30rem]">
+        <div class="container-site relative flex min-h-[11rem] flex-col items-center justify-center py-8 text-center sm:min-h-[13rem]">
           ${tour.featured ? `<p class="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-1.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-black">Trip of the month</p>` : `<p class="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-1.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-black">${tour.activity || 'Safari package'}</p>`}
           <h1 id="tour-title" class="mt-5 max-w-4xl font-display text-3xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
             ${tour.title}
@@ -138,7 +157,7 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
         </div>
       </nav>
 
-      <section class="bg-gold py-16 sm:py-20 lg:py-24" aria-labelledby="tour-overview-title">
+      <section class="bg-gold py-8 sm:py-10" aria-labelledby="tour-overview-title">
         <div class="container-site grid items-start gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(18rem,0.8fr)] lg:gap-16">
           <div class="reveal bg-white p-6 sm:p-10">
             <p class="section-kicker">Overview</p>
@@ -178,7 +197,7 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
         </div>
       </section>
 
-      <section class="bg-black py-16 text-white sm:py-20 lg:py-24" aria-labelledby="itinerary-title">
+      <section class="bg-black py-10 text-white sm:py-12 lg:py-14" aria-labelledby="itinerary-title">
         <div class="container-site">
           <div class="reveal max-w-3xl">
             <p class="section-kicker !text-gold">Itinerary</p>
@@ -191,7 +210,7 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
         </div>
       </section>
 
-      <section class="bg-mist py-16 sm:py-20" aria-labelledby="included-title">
+      <section class="bg-mist py-8 sm:py-10" aria-labelledby="included-title">
         <div class="container-site grid gap-6 md:grid-cols-2">
           <article class="reveal bg-white p-6 sm:p-8">
             <h2 id="included-title" class="font-display text-2xl font-semibold text-black">What’s included</h2>
@@ -204,7 +223,7 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
         </div>
       </section>
 
-      <section class="bg-black py-16 sm:py-20" aria-labelledby="related-title">
+      <section class="bg-black py-8 sm:py-10" aria-labelledby="related-title">
         <div class="container-site">
           <div class="reveal max-w-2xl">
             <p class="section-kicker !text-gold">Keep exploring</p>
@@ -216,7 +235,7 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
         </div>
       </section>
 
-      <section class="bg-gold py-14 sm:py-16" aria-labelledby="tour-cta-title">
+      <section class="bg-gold py-8 sm:py-10" aria-labelledby="tour-cta-title">
         <div class="container-site flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
           <div class="reveal">
             <h2 id="tour-cta-title" class="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
@@ -233,7 +252,7 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
 
 export function applyTourMeta(slug, cmsSafari = null) {
   if (cmsSafari) {
-    applySafariMeta(cmsSafari);
+    applySafariMeta(localizeSafari(cmsSafari));
     return;
   }
   const tour = getTourBySlug(slug);

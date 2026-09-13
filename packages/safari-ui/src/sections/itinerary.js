@@ -9,7 +9,7 @@ export function renderItinerary(safari, options = {}) {
   const articles = days.map((item, index) => renderDay(item, safari, index, days.length)).join('');
 
   return `
-    <section class="bg-black py-16 text-white sm:py-20 lg:py-24" aria-labelledby="itinerary-title"${editAttr(options.editable, 'itinerary')}>
+    <section class="bg-black py-10 text-white sm:py-12 lg:py-14" aria-labelledby="itinerary-title"${editAttr(options.editable, 'itinerary')}>
       <div class="container-site">
         <div class="reveal max-w-3xl">
           <p class="section-kicker !text-gold">Itinerary</p>
@@ -76,7 +76,7 @@ function dayFacts(item, safari, index, total) {
 export function renderAccommodation(safari, options = {}) {
   if (!safari.accommodation && !options.editable) return '';
   return `
-    <section class="bg-white py-16 sm:py-20" aria-labelledby="stay-title"${editAttr(options.editable, 'accommodation')}>
+    <section class="bg-white py-8 sm:py-10" aria-labelledby="stay-title"${editAttr(options.editable, 'accommodation')}>
       <div class="container-site max-w-3xl">
         <p class="section-kicker">Accommodation</p>
         <h2 id="stay-title" class="section-title">Where you stay</h2>

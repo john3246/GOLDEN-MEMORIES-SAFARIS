@@ -19,7 +19,7 @@
 .why-slideshow-stage {
   position: relative;
   width: 100%;
-  aspect-ratio: 5 / 4;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   background: var(--color-mist);
   clip-path: url("#why-spill-clip");
@@ -27,14 +27,14 @@
 
 @media (min-width: 1024px) {
   .why-slideshow {
-    width: 112%;
-    max-width: 42rem;
+    width: 100%;
+    max-width: 34rem;
   }
 }
 
 @media (max-width: 639px) {
   .why-slideshow-stage {
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 16 / 11;
   }
 }
 

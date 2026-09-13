@@ -20,7 +20,7 @@ export function renderHero(safari, options = {}) {
           : `<div class="absolute inset-0 bg-black"></div>`
       }
       <div class="absolute inset-0 bg-black/55"></div>
-      <div class="container-site relative flex min-h-[26rem] flex-col items-center justify-center py-20 text-center sm:min-h-[30rem]">
+      <div class="container-site relative flex min-h-[11rem] flex-col items-center justify-center py-8 text-center sm:min-h-[13rem]">
         <p class="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-1.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-black">${escapeHtml(kicker)}</p>
         <h1 id="tour-title" class="mt-5 max-w-4xl font-display text-3xl font-semibold leading-[1.1] tracking-tight sm:text-5xl"${editAttr(editable, 'title')}>
           ${escapeHtml(safari.title || 'Untitled safari')}
@@ -49,7 +49,7 @@ export function renderOverview(safari, options = {}) {
     .join('');
 
   return `
-    <section class="bg-gold py-16 sm:py-20 lg:py-24" aria-labelledby="tour-overview-title">
+    <section class="bg-gold py-8 sm:py-10" aria-labelledby="tour-overview-title">
       <div class="container-site grid items-start gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(18rem,0.8fr)] lg:gap-16">
         <div class="reveal bg-white p-6 sm:p-10">
           <p class="section-kicker">Overview</p>

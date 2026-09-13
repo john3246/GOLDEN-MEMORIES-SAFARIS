@@ -5,7 +5,7 @@
 export function destinationCard(destination) {
   return `
     <a
-      class="destination-card block aspect-[4/5] sm:aspect-[3/4]"
+      class="destination-card block aspect-[16/10]"
       href="/destinations/#${destination.slug}"
       aria-label="${destination.name} — ${destination.trips} trips"
     >
@@ -17,10 +17,10 @@ export function destinationCard(destination) {
         height="800"
       />
       <div class="absolute inset-0 destination-overlay bg-gradient-to-t from-ink/85 via-ink/25 to-transparent"></div>
-      <div class="destination-copy absolute inset-x-0 bottom-0 p-5 text-white sm:p-6">
+      <div class="destination-copy absolute inset-x-0 bottom-0 p-3.5 text-white sm:p-4">
         <p class="font-body text-xs font-bold uppercase tracking-[0.14em] text-gold">${destination.trips} trips</p>
-        <h3 class="mt-1 font-display text-2xl font-semibold tracking-tight sm:text-3xl">${destination.name}</h3>
-        <p class="mt-2 max-w-xs text-sm text-white/85">${destination.blurb}</p>
+        <h3 class="mt-1 font-display text-xl font-semibold tracking-tight sm:text-2xl">${destination.name}</h3>
+        <p class="mt-1 max-w-xs text-sm text-white/85">${destination.blurb}</p>
       </div>
     </a>
   `;

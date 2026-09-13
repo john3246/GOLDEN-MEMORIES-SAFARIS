@@ -31,7 +31,7 @@ export function renderContact() {
           fetchpriority="high"
         />
         <div class="absolute inset-0 bg-black/55"></div>
-        <div class="container-site relative flex min-h-[28rem] flex-col items-center justify-center py-20 text-center sm:min-h-[32rem] lg:min-h-[36rem]">
+        <div class="container-site relative flex min-h-[11rem] flex-col items-center justify-center py-8 text-center sm:min-h-[13rem] lg:min-h-[14rem]">
           <p class="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-1.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-black">
             ${contactHero.kicker}
           </p>
@@ -50,7 +50,7 @@ export function renderContact() {
         </div>
       </nav>
 
-      <section class="bg-gold py-16 sm:py-20 lg:py-24" aria-labelledby="contact-intro-title">
+      <section class="bg-gold py-8 sm:py-10" aria-labelledby="contact-intro-title">
         <div class="container-site grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
           <div class="reveal bg-white p-6 sm:p-10">
             <p class="section-kicker">${contactIntro.kicker}</p>
@@ -97,7 +97,7 @@ export function renderContact() {
         </div>
       </section>
 
-      <section class="bg-black py-16 sm:py-20" aria-labelledby="map-title">
+      <section class="bg-black py-8 sm:py-10" aria-labelledby="map-title">
         <div class="container-site">
           <div class="reveal max-w-2xl">
             <p class="section-kicker !text-gold">Visit us</p>

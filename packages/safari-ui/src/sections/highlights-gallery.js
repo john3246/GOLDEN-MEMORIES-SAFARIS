@@ -6,7 +6,7 @@ export function renderHighlights(safari, options = {}) {
   if (!items.length && !options.editable) return '';
   const list = items.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
   return `
-    <section class="bg-white py-16 sm:py-20" aria-labelledby="highlights-title">
+    <section class="bg-white py-8 sm:py-10" aria-labelledby="highlights-title">
       <div class="container-site max-w-3xl">
         <p class="section-kicker">Highlights</p>
         <h2 id="highlights-title" class="section-title">What this safari is known for</h2>
@@ -31,7 +31,7 @@ export function renderGallery(safari, options = {}) {
     .join('');
 
   return `
-    <section class="bg-mist py-16 sm:py-20" aria-labelledby="gallery-title"${editAttr(options.editable, 'gallery')}>
+    <section class="bg-mist py-8 sm:py-10" aria-labelledby="gallery-title"${editAttr(options.editable, 'gallery')}>
       <div class="container-site">
         <p class="section-kicker">Gallery</p>
         <h2 id="gallery-title" class="section-title">Moments on this route</h2>
@@ -56,7 +56,7 @@ export function renderFacts(safari, options = {}) {
   if (!rows.length && !options.editable) return '';
 
   return `
-    <section class="bg-white py-16 sm:py-20" aria-labelledby="facts-title"${editAttr(options.editable, 'facts')}>
+    <section class="bg-white py-8 sm:py-10" aria-labelledby="facts-title"${editAttr(options.editable, 'facts')}>
       <div class="container-site max-w-3xl">
         <p class="section-kicker">Safari facts</p>
         <h2 id="facts-title" class="section-title">At a glance</h2>

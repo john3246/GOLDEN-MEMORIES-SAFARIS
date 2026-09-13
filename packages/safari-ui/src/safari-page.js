@@ -39,7 +39,7 @@ const SECTION_RENDERERS = {
 export function renderSafariPage(safari, options = {}) {
   if (!safari) {
     return `
-      <main id="main" class="bg-mist py-24">
+      <main id="main" class="bg-mist py-12">
         <div class="container-site max-w-2xl text-center">
           <p class="section-kicker">Safaris</p>
           <h1 class="section-title">Package not found</h1>
@@ -78,7 +78,7 @@ export function renderSafariPage(safari, options = {}) {
         const included = renderIncluded(safari, options);
         const excluded = renderExcluded(safari, options);
         const pair = `
-          <section class="bg-mist py-16 sm:py-20" aria-labelledby="included-title">
+          <section class="bg-mist py-8 sm:py-10" aria-labelledby="included-title">
             <div class="container-site grid gap-6 md:grid-cols-2">
               ${included}
               ${excluded}

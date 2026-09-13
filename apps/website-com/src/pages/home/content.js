@@ -1,32 +1,33 @@
 /**
- * Home page content — all photos linked from https://www.gmsafaris.com/
- * (no Unsplash / AI-generated images). Later: hydrate from central API / CMS.
+ * Home page content — photos from the local GMS gallery only.
  */
 
-/** Real media URLs from the live GM Safaris WordPress media library */
+import { galleryPhoto } from '../../media/gallery.js';
+
 const GM = {
-  hero: 'https://www.gmsafaris.com/wp-content/uploads/2025/10/FB_IMG_1730556306660.webp',
-  northern: 'https://www.gmsafaris.com/wp-content/uploads/2025/01/serengeti-safaris-tanzania-wildlife-adventures.jpg',
-  coast: 'https://www.gmsafaris.com/wp-content/uploads/2025/01/zanzibar-beach1.jpg',
-  southern: 'https://www.gmsafaris.com/wp-content/uploads/2025/01/Ruaha-national-park-BW60CD.jpg',
-  western: 'https://www.gmsafaris.com/wp-content/uploads/2026/06/western-tz-luxury-tanzania-safaris-grey.webp',
-  safariPackages: 'https://www.gmsafaris.com/wp-content/uploads/2023/12/7-Best-Tanzania-Safari-Packages.webp',
-  migration: 'https://www.gmsafaris.com/wp-content/uploads/2023/12/wildebeest-migration-4.jpg',
-  selous: 'https://www.gmsafaris.com/wp-content/uploads/2026/06/Crocodiles_in_the_Selous_Game_Reserve_530504.webp',
-  tarangire: 'https://www.gmsafaris.com/wp-content/uploads/2023/12/trangire-5.jpg',
-  ngorongoro: 'https://www.gmsafaris.com/wp-content/uploads/2023/12/Ngorongoro-Crater-5.jpg',
-  ngorongoroTourists: 'https://www.gmsafaris.com/wp-content/uploads/2023/12/ngorongoro-wide-with-tourists.webp',
-  manyara: 'https://www.gmsafaris.com/wp-content/uploads/2023/12/Lake-Manyara-National-Park-1.jpg',
-  lakeEyasi: 'https://www.gmsafaris.com/wp-content/uploads/2023/12/lake-eyasi-tanzania-2.jpg',
-  materuni: 'https://www.gmsafaris.com/wp-content/uploads/2025/01/Materuni-Village-Experience-79.webp',
-  dayTrip: 'https://www.gmsafaris.com/wp-content/uploads/2025/01/IMG_3843-1.webp',
-  kilimanjaro: 'https://www.gmsafaris.com/wp-content/uploads/2025/01/climb-kilimanjaro.jpg',
-  machame: 'https://www.gmsafaris.com/wp-content/uploads/2025/01/Machame-Route-41.jpg',
-  meru: 'https://www.gmsafaris.com/wp-content/uploads/2025/01/shutterstock_285983723.webp',
-  spice: 'https://www.gmsafaris.com/wp-content/uploads/2025/01/buy-spice-scaled-1.jpg',
-  zanzibarBeach: 'https://www.gmsafaris.com/wp-content/uploads/2025/01/zanzibar-beach1.jpg',
-  ngorongoroAlt: 'https://www.gmsafaris.com/wp-content/uploads/2023/12/Ngorongoro-Crater-3.jpg',
-  savanna: 'https://www.gmsafaris.com/wp-content/uploads/2026/06/tz.webp',
+  hero: galleryPhoto('serengeti', 0),
+  northern: galleryPhoto('serengeti', 1),
+  coast: galleryPhoto('ngorongoro', 8),
+  southern: galleryPhoto('ngorongoro', 2),
+  western: galleryPhoto('serengeti', 5),
+  safariPackages: galleryPhoto('serengeti', 2),
+  migration: galleryPhoto('serengeti', 3),
+  selous: galleryPhoto('ngorongoro', 4),
+  tarangire: galleryPhoto('ngorongoro', 0),
+  ngorongoro: galleryPhoto('ngorongoro', 1),
+  ngorongoroTourists: galleryPhoto('ngorongoro', 5),
+  manyara: galleryPhoto('ngorongoro', 6),
+  lakeEyasi: galleryPhoto('culture', 0),
+  materuni: galleryPhoto('culture', 1),
+  dayTrip: galleryPhoto('culture', 2),
+  kilimanjaro: galleryPhoto('ngorongoro', 10),
+  machame: galleryPhoto('ngorongoro', 11),
+  meru: galleryPhoto('ngorongoro', 12),
+  spice: galleryPhoto('culture', 3),
+  zanzibarBeach: galleryPhoto('culture', 4),
+  ngorongoroAlt: galleryPhoto('ngorongoro', 3),
+  savanna: galleryPhoto('serengeti', 6),
+  cultureTeam: galleryPhoto('culture', 5),
 };
 
 export const media = GM;
@@ -48,14 +49,19 @@ export const site = {
 
 export const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'About Us', href: '/about/' },
   { label: 'Destinations', href: '/destinations/' },
   { label: 'Safaris', href: '/tours/' },
   { label: 'Join Safari', href: '/join-safari/' },
   { label: 'Kilimanjaro', href: '/kilimanjaro/' },
-  { label: 'Blog', href: '/blog/' },
   { label: 'Excursions', href: '/tours/#excursions' },
   { label: 'Contact Us', href: '/contact/' },
+];
+
+export const utilityLinks = [
+  { label: 'Accommodations', href: '/accommodations/', icon: 'bed' },
+  { label: 'Blogs', href: '/blog/', icon: 'doc' },
+  { label: 'About Us', href: '/about/', icon: 'people' },
+  { label: 'Reviews', href: '/reviews/', icon: 'star' },
 ];
 
 export const destinations = [

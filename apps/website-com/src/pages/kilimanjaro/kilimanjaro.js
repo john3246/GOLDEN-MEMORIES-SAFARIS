@@ -73,7 +73,7 @@ export function renderKilimanjaro() {
           fetchpriority="high"
         />
         <div class="absolute inset-0 bg-black/55"></div>
-        <div class="container-site relative flex min-h-[28rem] flex-col items-center justify-center py-20 text-center sm:min-h-[32rem] lg:min-h-[36rem]">
+        <div class="container-site relative flex min-h-[11rem] flex-col items-center justify-center py-8 text-center sm:min-h-[13rem] lg:min-h-[14rem]">
           <p class="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-1.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-black">
             ${kiliHero.kicker}
           </p>
@@ -92,11 +92,11 @@ export function renderKilimanjaro() {
         </div>
       </nav>
 
-      <section class="bg-gold py-16 sm:py-20 lg:py-24" aria-labelledby="kili-intro-title">
+      <section class="bg-gold py-8 sm:py-10" aria-labelledby="kili-intro-title">
         <div class="container-site grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div class="reveal overflow-hidden bg-black">
             <img
-              class="aspect-[4/5] w-full object-cover sm:aspect-[5/6]"
+              class="aspect-[16/10] w-full object-cover sm:aspect-[16/11]"
               src="${kiliIntro.image}"
               alt="${kiliIntro.imageAlt}"
               width="900"
@@ -115,7 +115,7 @@ export function renderKilimanjaro() {
         </div>
       </section>
 
-      <section class="bg-mist py-16 sm:py-20 lg:py-24" aria-labelledby="kili-routes-title">
+      <section class="bg-mist py-8 sm:py-10" aria-labelledby="kili-routes-title">
         <div class="container-site">
           <div class="reveal mx-auto max-w-3xl text-center">
             <p class="section-kicker">Choose your trail</p>
@@ -130,7 +130,7 @@ export function renderKilimanjaro() {
         </div>
       </section>
 
-      <section class="bg-white py-16 sm:py-20" aria-labelledby="kili-close-title">
+      <section class="bg-white py-8 sm:py-10" aria-labelledby="kili-close-title">
         <div class="container-site max-w-3xl">
           <div class="reveal">
             <h2 id="kili-close-title" class="section-title">${kiliClose.title}</h2>
@@ -140,7 +140,7 @@ export function renderKilimanjaro() {
         </div>
       </section>
 
-      <section class="bg-black py-16 sm:py-20 lg:py-24" id="packages" aria-labelledby="kili-packages-title">
+      <section class="bg-black py-8 sm:py-10" id="packages" aria-labelledby="kili-packages-title">
         <div class="container-site">
           <div class="reveal mx-auto max-w-3xl text-center">
             <p class="section-kicker !text-gold">Our trekking packages</p>
@@ -153,7 +153,7 @@ export function renderKilimanjaro() {
         </div>
       </section>
 
-      <section class="bg-mist py-16 sm:py-20" aria-labelledby="kili-quotes-title">
+      <section class="bg-mist py-8 sm:py-10" aria-labelledby="kili-quotes-title">
         <div class="container-site">
           <div class="reveal mx-auto max-w-2xl text-center">
             <p class="section-kicker">What our clients say</p>
@@ -165,7 +165,7 @@ export function renderKilimanjaro() {
         </div>
       </section>
 
-      <section class="bg-gold py-16 sm:py-20" aria-labelledby="kili-faq-title">
+      <section class="bg-gold py-8 sm:py-10" aria-labelledby="kili-faq-title">
         <div class="container-site max-w-3xl">
           <div class="reveal">
             <p class="section-kicker">On-the-trek notes</p>
@@ -177,7 +177,7 @@ export function renderKilimanjaro() {
         </div>
       </section>
 
-      <section class="bg-gold py-14 sm:py-16" aria-labelledby="kili-plan-title">
+      <section class="bg-gold py-8 sm:py-10" aria-labelledby="kili-plan-title">
         <div class="container-site flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
           <div class="reveal">
             <h2 id="kili-plan-title" class="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">

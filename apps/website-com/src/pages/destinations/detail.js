@@ -10,7 +10,7 @@ export function renderDestinationDetail(slug) {
   const place = getDestinationBySlug(slug);
   if (!place) {
     return `
-      <main id="main" class="bg-mist py-24">
+      <main id="main" class="bg-mist py-12">
         <div class="container-site max-w-2xl text-center">
           <p class="section-kicker">Destinations</p>
           <h1 class="section-title">Destination not found</h1>
@@ -119,7 +119,7 @@ export function renderDestinationDetail(slug) {
           fetchpriority="high"
         />
         <div class="absolute inset-0 bg-black/55"></div>
-        <div class="container-site relative flex min-h-[26rem] flex-col items-center justify-center py-20 text-center sm:min-h-[32rem] lg:min-h-[36rem]">
+        <div class="container-site relative flex min-h-[11rem] flex-col items-center justify-center py-8 text-center sm:min-h-[13rem] lg:min-h-[14rem]">
           <p class="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-1.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-black">
             ${place.kicker}
           </p>
@@ -143,7 +143,7 @@ export function renderDestinationDetail(slug) {
         </div>
       </nav>
 
-      <section class="bg-gold py-16 sm:py-20 lg:py-24" aria-labelledby="dest-about-title">
+      <section class="bg-gold py-8 sm:py-10" aria-labelledby="dest-about-title">
         <div class="container-site grid items-start gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(18rem,0.8fr)] lg:gap-16">
           <div class="reveal bg-white p-6 sm:p-10">
             <p class="section-kicker">About this destination</p>
@@ -160,7 +160,7 @@ export function renderDestinationDetail(slug) {
         </div>
       </section>
 
-      <section class="bg-mist py-16 sm:py-20" aria-labelledby="highlights-title">
+      <section class="bg-mist py-8 sm:py-10" aria-labelledby="highlights-title">
         <div class="container-site">
           <div class="reveal mx-auto max-w-3xl text-center">
             <p class="section-kicker">Why go</p>
@@ -172,7 +172,7 @@ export function renderDestinationDetail(slug) {
         </div>
       </section>
 
-      <section class="bg-white py-16 sm:py-20" aria-labelledby="season-title">
+      <section class="bg-white py-8 sm:py-10" aria-labelledby="season-title">
         <div class="container-site">
           <div class="reveal max-w-3xl">
             <p class="section-kicker">When to travel</p>
@@ -184,7 +184,7 @@ export function renderDestinationDetail(slug) {
         </div>
       </section>
 
-      <section class="bg-black py-16 text-white sm:py-20 lg:py-24" aria-labelledby="wildlife-title">
+      <section class="bg-black py-10 text-white sm:py-12 lg:py-14" aria-labelledby="wildlife-title">
         <div class="container-site grid gap-12 lg:grid-cols-2 lg:gap-16">
           <div class="reveal">
             <p class="section-kicker !text-gold">On the ground</p>
@@ -205,7 +205,7 @@ export function renderDestinationDetail(slug) {
       ${
         gallery
           ? `
-      <section class="bg-mist py-16 sm:py-20" aria-labelledby="gallery-title">
+      <section class="bg-mist py-8 sm:py-10" aria-labelledby="gallery-title">
         <div class="container-site">
           <div class="reveal max-w-3xl">
             <p class="section-kicker">Photos from this destination</p>
@@ -220,7 +220,7 @@ export function renderDestinationDetail(slug) {
           : ''
       }
 
-      <section class="bg-gold py-16 sm:py-20" aria-labelledby="faq-title">
+      <section class="bg-gold py-8 sm:py-10" aria-labelledby="faq-title">
         <div class="container-site">
           <div class="reveal mx-auto max-w-3xl text-center">
             <p class="section-kicker">Good to know</p>
@@ -235,7 +235,7 @@ export function renderDestinationDetail(slug) {
       ${
         relatedTours
           ? `
-      <section class="bg-black py-16 sm:py-20" aria-labelledby="dest-tours-title">
+      <section class="bg-black py-8 sm:py-10" aria-labelledby="dest-tours-title">
         <div class="container-site">
           <div class="reveal max-w-2xl">
             <p class="section-kicker !text-gold">Safaris in this destination</p>
@@ -251,7 +251,7 @@ export function renderDestinationDetail(slug) {
           : ''
       }
 
-      <section class="bg-white py-16 sm:py-20" aria-labelledby="more-dest-title">
+      <section class="bg-white py-8 sm:py-10" aria-labelledby="more-dest-title">
         <div class="container-site">
           <div class="reveal max-w-2xl">
             <p class="section-kicker">Explore more</p>
@@ -263,7 +263,7 @@ export function renderDestinationDetail(slug) {
         </div>
       </section>
 
-      <section class="bg-gold py-14 sm:py-16" aria-labelledby="dest-cta-title">
+      <section class="bg-gold py-8 sm:py-10" aria-labelledby="dest-cta-title">
         <div class="container-site flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
           <div class="reveal max-w-3xl">
             <h2 id="dest-cta-title" class="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">

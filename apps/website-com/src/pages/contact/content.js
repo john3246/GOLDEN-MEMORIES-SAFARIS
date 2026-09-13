@@ -1,10 +1,10 @@
-import { site } from '../home/content.js';
+import { site, media as GM } from '../home/content.js';
 
 export const contactHero = {
   kicker: 'Get in touch',
   title: "We're Here to Help Plan Your Adventure",
   cta: 'Send a message',
-  image: 'https://www.gmsafaris.co.tz/img/contact-hero.webp',
+  image: GM.savanna,
 };
 
 export const contactIntro = {

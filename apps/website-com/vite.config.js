@@ -21,6 +21,10 @@ function rewriteTourAndDestinationRoutes() {
           req.url = '/destinations/index.html';
         } else if (url === '/about' || url === '/about/') {
           req.url = '/about/index.html';
+        } else if (url === '/accommodations' || url === '/accommodations/') {
+          req.url = '/accommodations/index.html';
+        } else if (url === '/reviews' || url === '/reviews/') {
+          req.url = '/reviews/index.html';
         } else if (url === '/join-safari' || url === '/join-safari/') {
           req.url = '/join-safari/index.html';
         } else if (url === '/kilimanjaro' || url === '/kilimanjaro/') {
@@ -96,6 +100,8 @@ export default defineConfig({
         tours: path.resolve(__dirname, 'tours/index.html'),
         destinations: path.resolve(__dirname, 'destinations/index.html'),
         about: path.resolve(__dirname, 'about/index.html'),
+        accommodations: path.resolve(__dirname, 'accommodations/index.html'),
+        reviews: path.resolve(__dirname, 'reviews/index.html'),
         contact: path.resolve(__dirname, 'contact/index.html'),
         joinSafari: path.resolve(__dirname, 'join-safari/index.html'),
         kilimanjaro: path.resolve(__dirname, 'kilimanjaro/index.html'),

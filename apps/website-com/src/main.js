@@ -1,12 +1,16 @@
 import './styles/main.css';
 import { renderHeader, initHeader } from './components/navigation/header.js';
 import { renderFooter } from './components/layout/footer.js';
+import { renderFab } from './components/widgets/fab.js';
 import { renderHome, initHomeReveals } from './pages/home/home.js';
 import { renderTours } from './pages/tours/tours.js';
+import { initToursFilters } from './pages/tours/filters.js';
 import { renderTourDetail, applyTourMeta } from './pages/tours/detail.js';
 import { renderDestinations } from './pages/destinations/destinations.js';
 import { renderDestinationDetail, applyDestinationMeta } from './pages/destinations/detail.js';
 import { renderAbout } from './pages/about/about.js';
+import { renderAccommodations } from './pages/accommodations/accommodations.js';
+import { renderReviews } from './pages/reviews/reviews.js';
 import { renderContact, initContactForm } from './pages/contact/contact.js';
 import { renderJoinSafari, initJoinSafari } from './pages/join-safari/join.js';
 import { renderKilimanjaro } from './pages/kilimanjaro/kilimanjaro.js';
@@ -27,6 +31,14 @@ function isDestinationsPage() {
 
 function isAboutPage() {
   return pagePath() === '/about';
+}
+
+function isAccommodationsPage() {
+  return pagePath() === '/accommodations';
+}
+
+function isReviewsPage() {
+  return pagePath() === '/reviews';
 }
 
 function isJoinSafariPage() {
@@ -139,6 +151,18 @@ async function mount() {
   } else if (isAboutPage()) {
     page = renderAbout();
     applyAboutMeta();
+  } else if (isAccommodationsPage()) {
+    page = renderAccommodations();
+    setMeta(
+      'Safari Lodges and Camps | Golden Memories Safaris',
+      'Lodges and tented camps Golden Memories Safaris books across the Serengeti, Ngorongoro, and Zanzibar.'
+    );
+  } else if (isReviewsPage()) {
+    page = renderReviews();
+    setMeta(
+      'Guest Reviews | Golden Memories Safaris',
+      'Guest reviews of Golden Memories Safaris — Tanzania wildlife itineraries planned from Arusha.'
+    );
   } else if (isContactPage()) {
     page = renderContact();
     applyContactMeta();
@@ -160,7 +184,7 @@ async function mount() {
   } else if (isToursListing()) {
     let cmsPackages = [];
     try {
-      cmsPackages = await fetchPublishedSafaris({ limit: 50, sort: 'display_order' });
+      cmsPackages = await fetchPublishedSafaris({ limit: 200, sort: 'display_order' });
     } catch {
       cmsPackages = [];
     }
@@ -170,9 +194,10 @@ async function mount() {
     homeChrome = true;
   }
 
-  app.innerHTML = `${renderHeader()}${page}${renderFooter()}`;
+  app.innerHTML = `${renderHeader()}${page}${renderFooter()}${renderFab()}`;
   initHeader();
   initHomeReveals();
+  if (isToursListing()) initToursFilters();
   if (homeChrome) initWhyUsSlideshow();
   if (contactChrome) initContactForm();
   if (joinChrome) initJoinSafari();

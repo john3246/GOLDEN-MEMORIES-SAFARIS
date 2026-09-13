@@ -78,7 +78,7 @@ export function renderAbout() {
           fetchpriority="high"
         />
         <div class="absolute inset-0 bg-black/55"></div>
-        <div class="container-site relative flex min-h-[28rem] flex-col items-center justify-center py-20 text-center sm:min-h-[32rem] lg:min-h-[36rem]">
+        <div class="container-site relative flex min-h-[11rem] flex-col items-center justify-center py-8 text-center sm:min-h-[13rem] lg:min-h-[14rem]">
           <p class="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-1.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-black">
             ${aboutHero.kicker}
           </p>
@@ -97,11 +97,11 @@ export function renderAbout() {
         </div>
       </nav>
 
-      <section class="bg-gold py-16 sm:py-20 lg:py-24" aria-labelledby="about-story-title">
+      <section class="bg-gold py-8 sm:py-10" aria-labelledby="about-story-title">
         <div class="container-site grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div class="reveal overflow-hidden bg-black">
             <img
-              class="aspect-[4/5] w-full object-cover sm:aspect-[5/6]"
+              class="aspect-[16/10] w-full object-cover sm:aspect-[16/11]"
               src="${aboutStory.image}"
               alt="${aboutStory.imageAlt}"
               width="900"
@@ -120,7 +120,7 @@ export function renderAbout() {
         </div>
       </section>
 
-      <section class="bg-white py-16 sm:py-20" aria-labelledby="principles-title">
+      <section class="bg-white py-8 sm:py-10" aria-labelledby="principles-title">
         <div class="container-site">
           <div class="reveal mx-auto max-w-3xl text-center">
             <p class="section-kicker">Our purpose</p>
@@ -132,7 +132,7 @@ export function renderAbout() {
         </div>
       </section>
 
-      <section class="bg-mist py-16 sm:py-20 lg:py-24" aria-labelledby="advantage-title">
+      <section class="bg-mist py-8 sm:py-10" aria-labelledby="advantage-title">
         <div class="container-site">
           <div class="reveal mx-auto max-w-3xl text-center">
             <p class="section-kicker">Why choose us</p>
@@ -144,7 +144,7 @@ export function renderAbout() {
         </div>
       </section>
 
-      <section class="bg-white py-16 sm:py-20 lg:py-24" aria-labelledby="team-title">
+      <section class="bg-white py-8 sm:py-10" aria-labelledby="team-title">
         <div class="container-site">
           <div class="reveal mx-auto max-w-3xl text-center">
             <p class="section-kicker">Meet our team</p>
@@ -157,7 +157,7 @@ export function renderAbout() {
         </div>
       </section>
 
-      <section class="bg-black py-16 text-white sm:py-20 lg:py-24" aria-labelledby="trust-title">
+      <section class="bg-black py-10 text-white sm:py-12 lg:py-14" aria-labelledby="trust-title">
         <div class="container-site">
           <div class="reveal mx-auto max-w-3xl text-center">
             <p class="section-kicker !text-gold">Trust &amp; credentials</p>
@@ -169,7 +169,7 @@ export function renderAbout() {
         </div>
       </section>
 
-      <section class="bg-gold py-14 sm:py-16" aria-labelledby="about-cta-title">
+      <section class="bg-gold py-8 sm:py-10" aria-labelledby="about-cta-title">
         <div class="container-site flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
           <div class="reveal max-w-3xl">
             <h2 id="about-cta-title" class="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">

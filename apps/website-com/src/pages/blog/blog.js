@@ -33,7 +33,7 @@ function topicCard(topic, count) {
   const noun = count === 1 ? 'Article' : 'Articles';
   return `
     <a
-      class="destination-card block aspect-[4/5] sm:aspect-[3/4]"
+      class="destination-card block aspect-[16/11] sm:aspect-[4/3]"
       href="/blog/${topic.slug}/"
       aria-label="${topic.name} — ${count} ${noun.toLowerCase()}"
     >
@@ -71,7 +71,7 @@ export function renderBlog(topicSlug = '') {
 
   if (topicSlug && !topic) {
     return `
-      <main id="main" class="bg-mist py-24">
+      <main id="main" class="bg-mist py-12">
         <div class="container-site max-w-2xl text-center">
           <p class="section-kicker">Blog</p>
           <h1 class="section-title">Topic not found</h1>
@@ -107,7 +107,7 @@ export function renderBlog(topicSlug = '') {
           </div>
         </section>
 
-        <section class="bg-mist py-16 sm:py-20" aria-labelledby="blog-topic-list-title">
+        <section class="bg-mist py-8 sm:py-10" aria-labelledby="blog-topic-list-title">
           <div class="container-site">
             <h2 id="blog-topic-list-title" class="sr-only">Articles in ${topic.name}</h2>
             <div class="reveal grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -116,7 +116,7 @@ export function renderBlog(topicSlug = '') {
           </div>
         </section>
 
-        <section class="bg-white py-16 sm:py-20 lg:py-24" aria-labelledby="blog-other-title">
+        <section class="bg-white py-8 sm:py-10" aria-labelledby="blog-other-title">
           <div class="container-site">
             <div class="reveal mx-auto max-w-2xl text-center">
               <h2 id="blog-other-title" class="section-title">Other categories</h2>
@@ -172,7 +172,7 @@ export function renderBlog(topicSlug = '') {
         </div>
       </section>
 
-      <section class="bg-mist py-16 sm:py-20 lg:py-24" aria-labelledby="blog-latest-title">
+      <section class="bg-mist py-8 sm:py-10" aria-labelledby="blog-latest-title">
         <div class="container-site">
           <div class="reveal max-w-2xl">
             <p class="section-kicker">Latest reads</p>

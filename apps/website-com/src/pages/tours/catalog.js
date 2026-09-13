@@ -1,5 +1,6 @@
 import { dayTrips, kilimanjaro, zanzibar } from '../home/content.js';
 import { safariPackages } from './content.js';
+import { gmsTrips } from './gms-trips.js';
 import { slugify } from './paths.js';
 
 const sharedIncluded = [
@@ -272,7 +273,7 @@ function withDefaults(tour) {
 
 export function allTours() {
   const seen = new Set();
-  return [...safariPackages, ...dayTrips, ...kilimanjaro, ...zanzibar]
+  return [...gmsTrips, ...safariPackages, ...dayTrips, ...kilimanjaro, ...zanzibar]
     .map(withDefaults)
     .filter((tour) => {
       if (seen.has(tour.slug)) return false;

@@ -117,7 +117,7 @@ export function renderJoinSafari() {
           fetchpriority="high"
         />
         <div class="absolute inset-0 bg-black/55"></div>
-        <div class="container-site relative flex min-h-[28rem] flex-col justify-end py-16 sm:min-h-[32rem] lg:min-h-[36rem]">
+        <div class="container-site relative flex min-h-[11rem] flex-col justify-end py-8 sm:min-h-[13rem] lg:min-h-[14rem]">
           <nav class="font-body text-xs font-semibold uppercase tracking-[0.12em] text-white/75" aria-label="Breadcrumb">
             <a class="hover:text-gold" href="/">Home</a>
             <span aria-hidden="true"> » </span>
@@ -136,7 +136,7 @@ export function renderJoinSafari() {
         </div>
       </section>
 
-      <section class="bg-white py-16 sm:py-20" aria-labelledby="join-intro-title">
+      <section class="bg-white py-8 sm:py-10" aria-labelledby="join-intro-title">
         <div class="container-site max-w-3xl">
           <p class="section-kicker">Joining safari</p>
           <h2 id="join-intro-title" class="section-title">${joinIntro.title}</h2>
@@ -144,7 +144,7 @@ export function renderJoinSafari() {
         </div>
       </section>
 
-      <section class="bg-mist py-16 sm:py-20 lg:py-24" id="join-calendar" aria-labelledby="cal-title">
+      <section class="bg-mist py-8 sm:py-10" id="join-calendar" aria-labelledby="cal-title">
         <div class="container-site">
           <div class="reveal mx-auto max-w-3xl text-center">
             <p class="section-kicker">Open departures</p>
@@ -162,11 +162,11 @@ export function renderJoinSafari() {
         </div>
       </section>
 
-      <section class="bg-white py-16 sm:py-20" aria-labelledby="join-about-title">
+      <section class="bg-white py-8 sm:py-10" aria-labelledby="join-about-title">
         <div class="container-site grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
           <div class="reveal overflow-hidden bg-black">
             <img
-              class="aspect-[4/5] w-full object-cover sm:aspect-[5/6]"
+              class="aspect-[16/10] w-full object-cover sm:aspect-[16/11]"
               src="${trip.image}"
               alt="Wildebeest calving season on the Ndutu plains"
               width="900"
@@ -185,7 +185,7 @@ export function renderJoinSafari() {
         </div>
       </section>
 
-      <section class="bg-black py-16 text-white sm:py-20 lg:py-24" id="join-itinerary" aria-labelledby="join-itin-title">
+      <section class="bg-black py-10 text-white sm:py-12 lg:py-14" id="join-itinerary" aria-labelledby="join-itin-title">
         <div class="container-site">
           <div class="reveal max-w-3xl">
             <p class="section-kicker !text-gold">Safari itinerary</p>
@@ -198,7 +198,7 @@ export function renderJoinSafari() {
         </div>
       </section>
 
-      <section class="bg-mist py-16 sm:py-20" aria-labelledby="join-faq-title">
+      <section class="bg-mist py-8 sm:py-10" aria-labelledby="join-faq-title">
         <div class="container-site grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
           <div class="reveal">
             <p class="section-kicker">Group or private</p>
@@ -209,7 +209,7 @@ export function renderJoinSafari() {
         </div>
       </section>
 
-      <section class="bg-gold py-16 sm:py-20" id="join-book" aria-labelledby="join-book-title">
+      <section class="bg-gold py-8 sm:py-10" id="join-book" aria-labelledby="join-book-title">
         <div class="container-site grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
           <div class="reveal bg-white p-6 sm:p-10">
             <p class="section-kicker">Reserve a seat</p>
