@@ -49,24 +49,3 @@ export default defineConfig({
     emptyOutDir: true,
   },
 });
-
-  resolve: {
-    alias: {
-      '@site-styles': path.resolve(__dirname, '../website-com/src/styles/main.css'),
-    },
-  },
-  server: {
-    port: 5173,
-    proxy: {
-      '/api': 'http://localhost:3000',
-      '/health': 'http://localhost:3000',
-    },
-  },
-  preview: {
-    port: 5173,
-  },
-  build: {
-    outDir: 'dist',
-    emptyOutDir: true,
-  },
-});
