@@ -27,6 +27,10 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
+    max-width: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
@@ -34,6 +38,15 @@
     color: var(--color-ink);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+    max-width: 100%;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  body.nav-locked {
+    overflow: hidden;
+    height: 100dvh;
   }
 
   ::selection {
@@ -71,13 +84,25 @@
   }
 
   .home-hero {
-    min-height: 90vh;
-    min-height: 90dvh;
+    min-height: min(36rem, calc(100dvh - 6.8rem));
   }
 
   .home-hero > .container-site {
-    min-height: 90vh;
-    min-height: 90dvh;
+    min-height: min(36rem, calc(100dvh - 6.8rem));
+    padding-block: 3.5rem 3rem;
+  }
+
+  .home-hero h1,
+  .home-hero-title {
+    font-size: clamp(2.05rem, 9vw, 4.5rem);
+  }
+
+  @media (min-width: 640px) {
+    .home-hero,
+    .home-hero > .container-site {
+      min-height: 90vh;
+      min-height: 90dvh;
+    }
   }
 
   .btn,
@@ -88,6 +113,7 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+    min-height: 2.85rem;
     border-radius: 9999px;
     padding: 0.75rem 1.5rem;
     font-size: 0.875rem;
@@ -211,6 +237,16 @@
     transform: scale(1.06);
   }
 
+  @media (hover: none) {
+    .tour-card:hover,
+    .destination-card:hover,
+    .safari-card:hover img,
+    .tour-card:hover img,
+    .destination-card:hover img {
+      transform: none;
+    }
+  }
+
   .destination-card .destination-overlay {
     transition: opacity 0.35s ease;
   }
@@ -282,12 +318,19 @@
     position: relative;
     z-index: 1;
     display: flex;
-    min-height: 20rem;
+    min-height: 16.5rem;
     flex-direction: column;
     justify-content: space-between;
-    padding: 1.85rem 1.6rem 1.6rem;
+    padding: 1.35rem 1.15rem 1.2rem;
     background: linear-gradient(to top, rgb(0 0 0 / 0.78) 0%, rgb(0 0 0 / 0.2) 42%, rgb(0 0 0 / 0.35) 100%);
     pointer-events: none;
+  }
+
+  @media (min-width: 640px) {
+    .safari-card-overlay {
+      min-height: 20rem;
+      padding: 1.85rem 1.6rem 1.6rem;
+    }
   }
 
   .safari-card-overlay a {
@@ -882,8 +925,8 @@
 
   .site-fab {
     position: fixed;
-    right: 1rem;
-    bottom: 1rem;
+    right: max(0.85rem, env(safe-area-inset-right));
+    bottom: max(0.85rem, env(safe-area-inset-bottom));
     z-index: 60;
     display: flex;
     flex-direction: column;
@@ -944,6 +987,10 @@
       opacity: 1;
       transform: none;
       pointer-events: auto;
+    }
+
+    main {
+      padding-bottom: 7.5rem;
     }
   }
 }

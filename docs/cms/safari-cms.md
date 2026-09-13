@@ -37,7 +37,7 @@ Default local users (change immediately):
 
 | Role | Email | Password |
 |------|--------|----------|
-| Admin | `admin@gmsafaris.com` | `ChangeMeAdmin!23` |
+| Admin | `info@gms.co.tz` | `1234gms` |
 | Editor | `editor@gmsafaris.com` | `ChangeMeEditor!23` |
 | Viewer | `viewer@gmsafaris.com` | `ChangeMeViewer!23` |
 

@@ -36,6 +36,10 @@ export function createCors(allowedOrigins) {
         callback(null, true);
         return;
       }
+      if (config.isDevelopment && /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) {
+        callback(null, true);
+        return;
+      }
       callback(new Error(`CORS origin not allowed: ${origin}`));
     },
     credentials: true,

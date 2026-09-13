@@ -28,9 +28,9 @@ services:
       - key: CMS_SEED_SAFARIS
         value: 'true'
       - key: CMS_ADMIN_EMAIL
-        value: admin@gmsafaris.com
+        value: info@gms.co.tz
       - key: CMS_ADMIN_PASSWORD
-        sync: false
+        value: 1234gms
       - key: CORS_ORIGINS_CMS
         value: https://golden-memories-safaris-2.onrender.com
       - key: CORS_ORIGINS_WEBSITE

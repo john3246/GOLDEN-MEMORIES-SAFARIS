@@ -136,6 +136,7 @@ export function loadConfig(env = process.env) {
       website: envList(env, 'CORS_ORIGINS_WEBSITE', [
         'http://localhost:4173',
         'http://localhost:4174',
+        'http://localhost:4175',
         'https://golden-memories-safaris-2.onrender.com',
       ]),
       external: envList(env, 'CORS_ORIGINS_EXTERNAL', [
@@ -162,8 +163,8 @@ export function loadConfig(env = process.env) {
 
     cms: Object.freeze({
       dataDir: envString(env, 'CMS_DATA_DIR', './data/cms'),
-      adminEmail: envString(env, 'CMS_ADMIN_EMAIL', 'admin@gmsafaris.com'),
-      adminPassword: envString(env, 'CMS_ADMIN_PASSWORD', 'ChangeMeAdmin!23'),
+      adminEmail: envString(env, 'CMS_ADMIN_EMAIL', 'info@gms.co.tz'),
+      adminPassword: envString(env, 'CMS_ADMIN_PASSWORD', '1234gms'),
       editorEmail: envString(env, 'CMS_EDITOR_EMAIL', 'editor@gmsafaris.com'),
       editorPassword: envString(env, 'CMS_EDITOR_PASSWORD', 'ChangeMeEditor!23'),
       viewerEmail: envString(env, 'CMS_VIEWER_EMAIL', 'viewer@gmsafaris.com'),

@@ -47,41 +47,53 @@ export const usersRepository = {
 
 export async function seedDefaultUsers() {
   const store = await readStore();
-  if (store.meta.seededUsers && store.users.length) return;
+  if (!store.meta.seededUsers || !store.users.length) {
+    const defaults = [
+      {
+        email: config.cms.adminEmail,
+        name: 'Safari Admin',
+        role: CmsRole.ADMIN,
+        password: config.cms.adminPassword,
+      },
+      {
+        email: config.cms.editorEmail,
+        name: 'Safari Editor',
+        role: CmsRole.EDITOR,
+        password: config.cms.editorPassword,
+      },
+      {
+        email: config.cms.viewerEmail,
+        name: 'Safari Viewer',
+        role: CmsRole.VIEWER,
+        password: config.cms.viewerPassword,
+      },
+    ];
 
-  const defaults = [
-    {
-      email: config.cms.adminEmail,
-      name: 'Safari Admin',
-      role: CmsRole.ADMIN,
-      password: config.cms.adminPassword,
-    },
-    {
-      email: config.cms.editorEmail,
-      name: 'Safari Editor',
-      role: CmsRole.EDITOR,
-      password: config.cms.editorPassword,
-    },
-    {
-      email: config.cms.viewerEmail,
-      name: 'Safari Viewer',
-      role: CmsRole.VIEWER,
-      password: config.cms.viewerPassword,
-    },
-  ];
-
-  for (const item of defaults) {
-    const exists = await usersRepository.findByEmail(item.email);
-    if (exists) continue;
-    await usersRepository.create({
-      email: item.email,
-      name: item.name,
-      role: item.role,
-      passwordHash: await hashPassword(item.password),
-    });
+    for (const item of defaults) {
+      const exists = await usersRepository.findByEmail(item.email);
+      if (exists) continue;
+      await usersRepository.create({
+        email: item.email,
+        name: item.name,
+        role: item.role,
+        passwordHash: await hashPassword(item.password),
+      });
+    }
   }
 
-  await updateStore((s) => {
-    s.meta.seededUsers = true;
+  const adminEmail = String(config.cms.adminEmail || '').trim().toLowerCase();
+  const passwordHash = await hashPassword(config.cms.adminPassword);
+  await updateStore((next) => {
+    const admin =
+      next.users.find((user) => user.role === CmsRole.ADMIN) ||
+      next.users.find((user) => user.email === adminEmail) ||
+      next.users[0];
+    if (admin) {
+      admin.email = adminEmail;
+      admin.passwordHash = passwordHash;
+      admin.name = admin.name || 'Safari Admin';
+      admin.role = CmsRole.ADMIN;
+    }
+    next.meta = { ...(next.meta || {}), seededUsers: true };
   });
 }

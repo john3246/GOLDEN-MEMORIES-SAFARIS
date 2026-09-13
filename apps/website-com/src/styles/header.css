@@ -7,10 +7,20 @@
 
 .header-top-inner {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 0.75rem 1rem;
-  min-height: 2.55rem;
+  gap: 0.5rem 0.75rem;
+  min-height: 2.45rem;
+  padding-block: 0.2rem;
+}
+
+@media (min-width: 1024px) {
+  .header-top-inner {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 0.75rem 1rem;
+    min-height: 2.55rem;
+    padding-block: 0;
+  }
 }
 
 .header-utility {
@@ -74,7 +84,7 @@
   align-items: center;
   gap: 0.4rem;
   font-family: var(--font-body);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--color-black);
   white-space: nowrap;
@@ -85,7 +95,7 @@
 }
 
 @media (min-width: 1280px) {
-  .header-top-email {
+  .header-top-contact .header-top-email {
     display: inline-flex;
   }
 }
@@ -135,10 +145,10 @@
 
 .header-main-inner {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr) auto;
   align-items: center;
-  gap: 1rem;
-  min-height: 4.35rem;
+  gap: 0.65rem;
+  min-height: 3.85rem;
 }
 
 .brand-logo {
@@ -149,9 +159,9 @@
 
 .brand-logo img {
   display: block;
-  height: 2.85rem;
+  height: 2.45rem;
   width: auto;
-  max-width: 11rem;
+  max-width: min(9.5rem, 46vw);
   object-fit: contain;
 }
 
@@ -440,7 +450,8 @@
 
 .mobile-nav-sub {
   display: block;
-  padding: 0.45rem 0 0.45rem 0.75rem;
+  padding: 0.55rem 0 0.55rem 0.75rem;
+  min-height: 2.5rem;
   font-family: var(--font-body);
   font-size: 0.92rem;
   font-weight: 600;
@@ -543,8 +554,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.45rem;
-  height: 2.45rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border: 0;
   border-radius: 9999px;
   background: var(--color-gold);
@@ -560,6 +571,10 @@
 .mobile-nav {
   display: none;
   background: var(--color-black);
+  max-height: min(100dvh, calc(100dvh - 6.3rem));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 
 .site-header.nav-open .mobile-nav {
@@ -567,7 +582,44 @@
 }
 
 .mobile-nav-inner {
-  padding-block: 0.5rem 1.25rem;
+  padding-block: 0.5rem 1.5rem;
+}
+
+.mobile-search {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.35rem 0 0.85rem;
+}
+
+.mobile-search input {
+  flex: 1;
+  min-width: 0;
+  min-height: 2.75rem;
+  padding: 0 0.85rem;
+  border: 1px solid color-mix(in oklab, var(--color-gold) 55%, transparent);
+  background: transparent;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+.mobile-search input::placeholder {
+  color: rgb(255 255 255 / 0.55);
+}
+
+.mobile-search button {
+  flex-shrink: 0;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--color-gold);
+  color: var(--color-black);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .mobile-nav-phone {
@@ -583,6 +635,7 @@
 .mobile-nav-link {
   display: block;
   padding: 0.95rem 0;
+  min-height: 2.75rem;
   border-bottom: 1px solid color-mix(in oklab, var(--color-gold) 22%, transparent);
   font-family: var(--font-body);
   font-size: 1.05rem;
@@ -614,7 +667,7 @@
 }
 
 @media (max-width: 639px) {
-  .header-top-email {
+  .header-top-contact .header-top-email {
     display: none;
   }
 }
@@ -630,12 +683,18 @@
 
   .brand-logo img {
     height: 3.15rem;
+    max-width: 11rem;
+  }
+
+  .header-main-inner {
+    min-height: 4.35rem;
   }
 }
 
 @media (min-width: 1024px) {
   .header-main-inner {
     min-height: 4.75rem;
+    gap: 1rem;
   }
 
   .brand-logo img {

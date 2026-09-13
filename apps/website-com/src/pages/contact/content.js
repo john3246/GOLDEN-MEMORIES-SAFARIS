@@ -13,28 +13,30 @@ export const contactIntro = {
   body: 'Have questions or ready to start planning? Reach out to us using the details below, or fill out the contact form. We aim to respond to all inquiries within 24 hours.',
 };
 
-export const contactDetails = [
-  {
-    label: 'Our Office',
-    value: 'Sokoine Road, Arusha, Tanzania',
-    href: '',
-  },
-  {
-    label: 'Call Us',
-    value: site.phone,
-    href: `tel:${site.phone.replace(/\s+/g, '')}`,
-  },
-  {
-    label: 'Email Us',
-    value: site.email,
-    href: `mailto:${site.email}`,
-  },
-  {
-    label: 'Office Hours',
-    value: 'Monday – Saturday: 8:00 AM – 6:00 PM (EAT)',
-    href: '',
-  },
-];
+export function getContactDetails() {
+  return [
+    {
+      label: 'Our Office',
+      value: site.address,
+      href: '',
+    },
+    {
+      label: 'Call Us',
+      value: site.phone,
+      href: `tel:${site.phone.replace(/\s+/g, '')}`,
+    },
+    {
+      label: 'Email Us',
+      value: site.email,
+      href: `mailto:${site.email}`,
+    },
+    {
+      label: 'Office Hours',
+      value: 'Monday – Saturday: 8:00 AM – 6:00 PM (EAT)',
+      href: '',
+    },
+  ];
+}
 
 export const contactMap = {
   title: 'Find Us on the Map',

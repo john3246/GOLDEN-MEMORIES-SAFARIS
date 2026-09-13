@@ -80,6 +80,9 @@ async function mount() {
   const app = document.querySelector('#app');
   if (!app) return;
 
+  const { hydrateFromCms, seoForPath } = await import('./services/cms/overlay.js');
+  await hydrateFromCms();
+
   const [{ renderHeader, initHeader }, { renderFooter }, { renderFab }] = await Promise.all([
     import('./components/navigation/header.js'),
     import('./components/layout/footer.js'),
@@ -192,6 +195,14 @@ async function mount() {
     const { initWhyUsSlideshow } = await import('./components/gallery/why-slideshow.js');
     page = renderHome();
     afterPaint = async () => initWhyUsSlideshow();
+  }
+
+  const cmsPage = seoForPath(pagePath());
+  if (cmsPage?.seo_title || cmsPage?.title) {
+    setMeta(
+      cmsPage.seo_title || `${cmsPage.title} | Golden Memories Safaris`,
+      cmsPage.seo_description || cmsPage.excerpt || document.querySelector('meta[name="description"]')?.content || ''
+    );
   }
 
   app.innerHTML = `${renderHeader()}${page}${renderFooter()}${renderFab()}`;

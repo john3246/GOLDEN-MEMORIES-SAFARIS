@@ -22,7 +22,7 @@ npm run dev:cms
 ```
 
 - API: http://localhost:3000 (`GET /health`, docs at `/api/v1/docs`)
-- CMS: http://localhost:5173 (default admin `admin@gmsafaris.com` / `ChangeMeAdmin!23`)
+- CMS: http://localhost:5173 (default admin `info@gms.co.tz` / `1234gms`)
 - Public Safari API: `GET /api/v1/safaris`
 - Setup notes: [docs/cms/safari-cms.md](docs/cms/safari-cms.md)
 

@@ -81,7 +81,7 @@ export function renderHome() {
             <p id="hero-brand" class="font-body text-sm font-bold uppercase tracking-[0.18em] text-gold sm:text-base">
               Golden Memories Safaris
             </p>
-            <h1 class="mt-4 font-display text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-7xl">
+            <h1 class="home-hero-title mt-4 font-display font-semibold leading-[1.05] tracking-tight">
               Karibu Tanzania
             </h1>
             <p class="mt-5 max-w-xl text-base text-white/90 sm:text-lg">

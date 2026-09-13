@@ -61,8 +61,10 @@
 
 .safari-sort {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.45rem;
+  min-width: 0;
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -71,6 +73,8 @@
 }
 
 .safari-sort select {
+  max-width: 100%;
+  min-height: 2.5rem;
   border: 1px solid color-mix(in oklab, var(--color-ink) 14%, transparent);
   background: #fff;
   padding: 0.4rem 0.65rem;

@@ -152,6 +152,11 @@ export const api = {
     return body.data;
   },
 
+  async mediaLibrary() {
+    const body = await parse(await fetch(`${API_BASE}/api/v1/admin/media/library`, { headers: headers() }));
+    return body.data;
+  },
+
   async addMediaUrl(url, alt = '', caption = '') {
     const body = await parse(
       await fetch(`${API_BASE}/api/v1/admin/media`, {
@@ -204,5 +209,152 @@ export const api = {
       })
     );
     return body.data;
+  },
+
+  async listAudit() {
+    const body = await parse(await fetch(`${API_BASE}/api/v1/admin/audit`, { headers: headers() }));
+    return body;
+  },
+
+  async overview() {
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/content/overview`, { headers: headers() })
+    );
+    return body;
+  },
+
+  async listContent(type, params = {}) {
+    const query = new URLSearchParams(
+      Object.entries(params).filter(([, value]) => value !== '' && value != null)
+    );
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/content/${type}?${query}`, { headers: headers() })
+    );
+    return body;
+  },
+
+  async getContent(type, id) {
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/content/${type}/${id}`, { headers: headers() })
+    );
+    return body.data;
+  },
+
+  async createContent(type, payload) {
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/content/${type}`, {
+        method: 'POST',
+        headers: headers({ json: true }),
+        body: JSON.stringify(payload),
+      })
+    );
+    return body.data;
+  },
+
+  async saveContent(type, id, payload) {
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/content/${type}/${id}`, {
+        method: 'PATCH',
+        headers: headers({ json: true }),
+        body: JSON.stringify(payload),
+      })
+    );
+    return body.data;
+  },
+
+  async publishContent(type, id) {
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/content/${type}/${id}/publish`, {
+        method: 'POST',
+        headers: headers({ json: true }),
+        body: '{}',
+      })
+    );
+    return body.data;
+  },
+
+  async unpublishContent(type, id) {
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/content/${type}/${id}/unpublish`, {
+        method: 'POST',
+        headers: headers({ json: true }),
+        body: '{}',
+      })
+    );
+    return body.data;
+  },
+
+  async deleteContent(type, id) {
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/content/${type}/${id}`, {
+        method: 'DELETE',
+        headers: headers(),
+      })
+    );
+    return body.data;
+  },
+
+  async getSettings() {
+    const body = await parse(await fetch(`${API_BASE}/api/v1/admin/settings`, { headers: headers() }));
+    return body.data;
+  },
+
+  async saveSettings(payload) {
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/settings`, {
+        method: 'PATCH',
+        headers: headers({ json: true }),
+        body: JSON.stringify(payload),
+      })
+    );
+    return body.data;
+  },
+
+  async listInquiries() {
+    const body = await parse(await fetch(`${API_BASE}/api/v1/admin/inquiries`, { headers: headers() }));
+    return body;
+  },
+
+  async updateInquiry(id, status) {
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/inquiries/${id}`, {
+        method: 'PATCH',
+        headers: headers({ json: true }),
+        body: JSON.stringify({ status }),
+      })
+    );
+    return body.data;
+  },
+
+  async listBookings() {
+    const body = await parse(await fetch(`${API_BASE}/api/v1/admin/bookings`, { headers: headers() }));
+    return body;
+  },
+
+  async createBooking(payload) {
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/bookings`, {
+        method: 'POST',
+        headers: headers({ json: true }),
+        body: JSON.stringify(payload),
+      })
+    );
+    return body.data;
+  },
+
+  async updateBooking(id, payload) {
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/bookings/${id}`, {
+        method: 'PATCH',
+        headers: headers({ json: true }),
+        body: JSON.stringify(payload),
+      })
+    );
+    return body.data;
+  },
+
+  async listCustomers() {
+    const body = await parse(await fetch(`${API_BASE}/api/v1/admin/customers`, { headers: headers() }));
+    return body;
   },
 };

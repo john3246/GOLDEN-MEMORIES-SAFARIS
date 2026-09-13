@@ -21,6 +21,10 @@ import { authRoutes } from './modules/auth/index.js';
 import { publicSafariRoutes, adminSafariRoutes } from './modules/safaris/index.js';
 import { adminMediaRoutes, publicMediaRoutes } from './modules/media/index.js';
 import { apiClientRoutes } from './modules/api-clients/index.js';
+import { publicContentRoutes, adminContentRoutes } from './modules/content/index.js';
+import { publicSettingsRoutes, adminSettingsRoutes } from './modules/settings/index.js';
+import { publicEnquiryRoutes, adminEnquiryRoutes } from './modules/enquiries/index.js';
+import { adminBookingRoutes, adminCustomerRoutes } from './modules/bookings/index.js';
 import { docsRoutes } from './docs/docs.routes.js';
 import { readStore } from './cms-store/index.js';
 import { requireAuth, requireRole } from './security/requireAuth.js';
@@ -69,6 +73,9 @@ export function createApp() {
 
   app.use('/api/v1/safaris', websiteCors(), publicSafariRoutes);
   app.use('/api/v1/media', websiteCors(), publicMediaRoutes);
+  app.use('/api/v1/content', websiteCors(), publicContentRoutes);
+  app.use('/api/v1/settings', websiteCors(), publicSettingsRoutes);
+  app.use('/api/v1/inquiries', websiteCors(), publicEnquiryRoutes);
 
   app.use('/api/v1/external', externalCors(), externalApiRoutes);
 
@@ -79,6 +86,11 @@ export function createApp() {
   admin.use('/safaris', adminSafariRoutes);
   admin.use('/media', adminMediaRoutes);
   admin.use('/api-clients', apiClientRoutes);
+  admin.use('/content', adminContentRoutes);
+  admin.use('/settings', adminSettingsRoutes);
+  admin.use('/inquiries', adminEnquiryRoutes);
+  admin.use('/bookings', adminBookingRoutes);
+  admin.use('/customers', adminCustomerRoutes);
   admin.get('/audit', requireAuth, requireRole('Admin'), async (_req, res, next) => {
     try {
       const store = await readStore();
@@ -107,6 +119,9 @@ export function createApp() {
           health: '/health',
           docs: '/api/v1/docs',
           safaris: '/api/v1/safaris',
+          content: '/api/v1/content',
+          settings: '/api/v1/settings',
+          inquiries: '/api/v1/inquiries',
           external: '/api/v1/external',
           admin: '/api/v1/admin',
         },

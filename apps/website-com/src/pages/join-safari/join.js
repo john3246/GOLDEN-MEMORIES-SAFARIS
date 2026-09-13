@@ -1,5 +1,6 @@
 import { site } from '../home/content.js';
 import { joinHero, joiningSafaris, joinIntro, joinFaqs, MONTH_NAMES } from './content.js';
+import { submitInquiry } from '../../services/api/cms.js';
 import {
   renderCalendarMonth,
   defaultSelectedIso,
@@ -87,7 +88,7 @@ export function renderJoinSafari() {
     )
     .join('');
 
-  const days = trip.days
+  const days = (trip.days || [])
     .map((item) => {
       return `
         <article class="safari-day" id="join-day-${item.iso}">
@@ -326,25 +327,39 @@ export function initJoinSafari() {
 
   const form = document.querySelector('[data-join-form]');
   if (form) {
-    form.addEventListener('submit', (event) => {
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
       const data = new FormData(form);
-      const subject = `Join safari: ${data.get('departure')} (${data.get('dates')})`;
-      const body = [
-        `Name: ${data.get('name') || ''}`,
-        `Email: ${data.get('email') || ''}`,
-        `Phone: ${data.get('phone') || ''}`,
-        `Travellers: ${data.get('travellers') || ''}`,
-        `Departure: ${data.get('departure') || ''}`,
-        `Dates: ${data.get('dates') || ''}`,
-        '',
-        data.get('message') || '',
-      ].join('\n');
-      window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const payload = {
+        name: String(data.get('name') || ''),
+        email: String(data.get('email') || ''),
+        phone: String(data.get('phone') || ''),
+        subject: `Join safari: ${data.get('departure')} (${data.get('dates')})`,
+        message: [
+          `Travellers: ${data.get('travellers') || ''}`,
+          `Departure: ${data.get('departure') || ''}`,
+          `Dates: ${data.get('dates') || ''}`,
+          '',
+          data.get('message') || '',
+        ].join('\n'),
+        safari: String(data.get('departure') || ''),
+      };
       const note = form.querySelector('[data-join-note]');
-      if (note) {
-        note.hidden = false;
-        note.textContent = 'Thank you. Your email app should open with the join request.';
+      try {
+        await submitInquiry(payload);
+        form.reset();
+        if (note) {
+          note.hidden = false;
+          note.textContent = 'Thank you. Your join request is with the Arusha team.';
+        }
+      } catch {
+        window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(
+          [`Name: ${payload.name}`, `Email: ${payload.email}`, `Phone: ${payload.phone}`, '', payload.message].join('\n')
+        )}`;
+        if (note) {
+          note.hidden = false;
+          note.textContent = 'Thank you. Your email app should open with the join request.';
+        }
       }
     });
   }

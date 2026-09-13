@@ -67,6 +67,15 @@ export const mediaController = {
     }
   },
 
+  async library(_req, res, next) {
+    try {
+      const data = await mediaService.library();
+      res.json({ success: true, data });
+    } catch (err) {
+      next(err);
+    }
+  },
+
   async create(req, res, next) {
     try {
       let data;

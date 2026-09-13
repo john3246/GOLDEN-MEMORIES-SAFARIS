@@ -11,7 +11,7 @@ export function renderMedia(user) {
         <div>
           <p class="cms-kicker">Library</p>
           <h1>Media</h1>
-          <p class="cms-lead">Upload an image or attach an existing HTTPS URL. Files stay on disk, not in the database.</p>
+          <p class="cms-lead">Every image used on tours, destinations, blog, lodges, and the project gallery — plus files you upload here.</p>
         </div>
       </div>
       <form id="media-form" class="cms-panel cms-form-stack">
@@ -36,30 +36,69 @@ export function renderMedia(user) {
         <button class="cms-btn cms-btn-gold" type="submit">Add media</button>
       </form>
       <p class="cms-error" id="media-error" hidden></p>
-      <div id="media-grid" class="cms-media-grid" style="margin-top:1rem"></div>
+      <div id="media-tabs" class="cms-media-tabs"></div>
+      <p class="cms-muted" id="media-count"></p>
+      <div id="media-grid" class="cms-media-grid"></div>
     </section>
   `
   );
 }
 
+function renderGrid(items) {
+  if (!items.length) return '<p class="cms-muted">No media in this category.</p>';
+  return items
+    .map(
+      (item) => `
+        <figure class="cms-media-card">
+          <img src="${item.url}" alt="${item.alt || ''}" />
+          <figcaption>
+            <strong>${item.alt || item.filename}</strong>
+            <span>${(item.usedOn || []).join(' · ') || item.source}</span>
+          </figcaption>
+        </figure>`
+    )
+    .join('');
+}
+
 export async function initMedia() {
   const grid = document.querySelector('#media-grid');
+  const tabs = document.querySelector('#media-tabs');
+  const count = document.querySelector('#media-count');
   const error = document.querySelector('#media-error');
+  let library = { total: 0, groups: [] };
+  let active = 'all';
+
+  function paint() {
+    const group = library.groups.find((item) => item.id === active) || library.groups[0];
+    const items = group?.items || [];
+    tabs.innerHTML = library.groups
+      .map(
+        (item) =>
+          `<button class="cms-media-tab${item.id === active ? ' is-active' : ''}" type="button" data-media-group="${item.id}">${item.label} <em>${item.count}</em></button>`
+      )
+      .join('');
+    count.textContent = group ? `${group.count} files in ${group.label.toLowerCase()}` : '';
+    grid.innerHTML = renderGrid(items);
+  }
 
   async function refresh() {
-    const items = await api.listMedia();
-    grid.innerHTML = items.length
-      ? items
-          .map(
-            (item) => `
-        <figure class="cms-media-card">
-          <img src="${item.url}" alt="${item.alt || ''}" style="width:100%;height:10rem;object-fit:cover;border-radius:0.25rem" />
-          <figcaption class="cms-muted" style="margin-top:0.6rem;overflow-wrap:anywhere">${item.alt || item.filename || item.url}</figcaption>
-        </figure>`
-          )
-          .join('')
-      : '<p class="cms-muted">No media yet.</p>';
+    library = await api.mediaLibrary();
+    if (!library.groups?.length) {
+      const uploaded = await api.listMedia();
+      library = {
+        total: uploaded.length,
+        groups: [{ id: 'all', label: 'All media', count: uploaded.length, items: uploaded }],
+      };
+    }
+    paint();
   }
+
+  tabs?.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-media-group]');
+    if (!button) return;
+    active = button.getAttribute('data-media-group');
+    paint();
+  });
 
   document.querySelector('#media-form')?.addEventListener('submit', async (event) => {
     event.preventDefault();

@@ -360,6 +360,13 @@ export function renderHeader() {
 
       <div id="mobile-nav" class="mobile-nav" data-mobile-nav>
         <div class="container-site mobile-nav-inner">
+          <form class="mobile-search" data-mobile-search>
+            <label class="sr-only" for="mobile-search">Search trips</label>
+            <input id="mobile-search" type="search" name="q" placeholder="Search safaris" autocomplete="off" />
+            <button type="submit">Search</button>
+          </form>
+          <a class="mobile-nav-phone" href="${telHref(site.phone)}">${site.phone}</a>
+          <a class="mobile-nav-phone" href="mailto:${site.email}">${site.email}</a>
           ${mobileLinks}
           ${mobileUtility}
           <a class="nav-cta mobile-nav-cta" href="/contact/">Book Now</a>
@@ -381,12 +388,38 @@ export function initHeader() {
   const searchInput = searchForm?.querySelector('input');
 
   if (toggle && header) {
+    const setNavOpen = (open) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      header.classList.toggle('nav-open', open);
+      document.body.classList.toggle('nav-locked', open);
+    };
+
     toggle.addEventListener('click', () => {
       const open = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!open));
-      toggle.setAttribute('aria-label', open ? 'Open menu' : 'Close menu');
-      header.classList.toggle('nav-open', !open);
+      setNavOpen(!open);
     });
+
+    header.querySelector('[data-mobile-nav]')?.addEventListener('click', (event) => {
+      const link = event.target.closest('a[href]');
+      if (!link) return;
+      const url = new URL(link.getAttribute('href'), window.location.href);
+      const here = window.location.pathname.replace(/\/+$/, '') || '/';
+      const there = url.pathname.replace(/\/+$/, '') || '/';
+      if (there === here) setNavOpen(false);
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setNavOpen(false);
+    });
+
+    window.addEventListener(
+      'resize',
+      () => {
+        if (window.matchMedia('(min-width: 1024px)').matches) setNavOpen(false);
+      },
+      { passive: true }
+    );
   }
 
   const stillInside = (node, ...roots) =>
@@ -517,6 +550,21 @@ export function initHeader() {
     searchForm.addEventListener('submit', (event) => {
       event.preventDefault();
       const query = searchInput.value.trim().toLowerCase();
+      if (!query) return;
+      const match =
+        navLinks.find((link) => link.label.toLowerCase().includes(query)) ||
+        gmsTrips.find((trip) => trip.title.toLowerCase().includes(query));
+      if (match) window.location.href = match.href || tourHref(match);
+    });
+  }
+
+  const mobileSearch = document.querySelector('[data-mobile-search]');
+  if (mobileSearch) {
+    mobileSearch.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const query = String(new FormData(mobileSearch).get('q') || '')
+        .trim()
+        .toLowerCase();
       if (!query) return;
       const match =
         navLinks.find((link) => link.label.toLowerCase().includes(query)) ||

@@ -12,6 +12,7 @@ export const DOMAIN_MODULES = Object.freeze([
   'roles',
   'permissions',
   'safaris',
+  'content',
   'tours',
   'destinations',
   'itineraries',

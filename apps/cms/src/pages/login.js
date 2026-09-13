@@ -6,7 +6,7 @@ export function renderLogin() {
       <form class="cms-card" id="login-form">
         <p class="section-kicker" style="color:#c4a455">Golden Memories</p>
         <h1>Safari CMS</h1>
-        <p class="cms-muted">Sign in to manage safari packages.</p>
+        <p class="cms-muted">Sign in to manage the public website — tours, pages, media, bookings, email, and site settings.</p>
         <label>Email <input name="email" type="email" autocomplete="username" required /></label>
         <label>Password <input name="password" type="password" autocomplete="current-password" required /></label>
         <p class="cms-error" id="login-error" hidden></p>

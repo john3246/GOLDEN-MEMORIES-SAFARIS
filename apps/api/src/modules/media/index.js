@@ -6,6 +6,7 @@ import { mediaController, mediaUpload, optionalAuth } from './media.controller.j
 export const adminMediaRoutes = Router();
 adminMediaRoutes.use(requireAuth, requireScope(SafariScope.MEDIA));
 adminMediaRoutes.get('/', mediaController.list);
+adminMediaRoutes.get('/library', mediaController.library);
 adminMediaRoutes.post('/', mediaUpload.single('file'), mediaController.create);
 adminMediaRoutes.patch('/:id', mediaController.update);
 adminMediaRoutes.delete('/:id', mediaController.remove);

@@ -10,8 +10,8 @@ import { memoryCache } from '../../apps/api/src/cache/index.js';
 import { createTestRateLimiter } from '../../apps/api/src/middleware/rateLimit.js';
 import express from 'express';
 
-const adminEmail = 'admin@gmsafaris.com';
-const adminPassword = 'ChangeMeAdmin!23';
+const adminEmail = 'info@gms.co.tz';
+const adminPassword = '1234gms';
 const editorEmail = 'editor@gmsafaris.com';
 const editorPassword = 'ChangeMeEditor!23';
 const viewerEmail = 'viewer@gmsafaris.com';

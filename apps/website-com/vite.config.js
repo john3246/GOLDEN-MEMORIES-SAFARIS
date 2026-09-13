@@ -90,6 +90,10 @@ export default defineConfig({
   server: {
     port: 4173,
     open: false,
+    proxy: {
+      '/api': 'http://localhost:3000',
+      '/health': 'http://localhost:3000',
+    },
   },
   build: {
     outDir: 'dist',

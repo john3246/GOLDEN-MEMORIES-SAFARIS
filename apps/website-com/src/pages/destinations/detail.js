@@ -21,7 +21,7 @@ export function renderDestinationDetail(slug) {
     `;
   }
 
-  const facts = place.facts
+  const facts = (place.facts || [])
     .map(
       ([label, value]) => `
         <div class="flex justify-between gap-4 border-b border-black/10 pb-3">
@@ -32,7 +32,7 @@ export function renderDestinationDetail(slug) {
     )
     .join('');
 
-  const highlights = place.highlights
+  const highlights = (place.highlights || [])
     .map(
       (item) => `
         <article class="bg-white p-6 sm:p-8">
@@ -43,7 +43,7 @@ export function renderDestinationDetail(slug) {
     )
     .join('');
 
-  const seasons = place.seasons
+  const seasons = (place.seasons || [])
     .map(
       (item) => `
         <article class="bg-white p-6 sm:p-8">
@@ -54,7 +54,7 @@ export function renderDestinationDetail(slug) {
     )
     .join('');
 
-  const activities = place.activities
+  const activities = (place.activities || [])
     .map(
       (item) => `
         <article class="border border-gold/30 p-6">
@@ -65,10 +65,10 @@ export function renderDestinationDetail(slug) {
     )
     .join('');
 
-  const wildlife = place.wildlife.map((item) => `<li>${item}</li>`).join('');
-  const attractions = place.attractions.map((item) => `<span class="about-tag">${item}</span>`).join('');
+  const wildlife = (place.wildlife || []).map((item) => `<li>${item}</li>`).join('');
+  const attractions = (place.attractions || []).map((item) => `<span class="about-tag">${item}</span>`).join('');
 
-  const faqs = place.faqs
+  const faqs = (place.faqs || [])
     .map(
       (item) => `
         <article class="dest-faq">

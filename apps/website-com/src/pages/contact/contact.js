@@ -1,11 +1,12 @@
 import { site } from '../home/content.js';
-import { contactHero, contactIntro, contactDetails, contactMap, contactFormCopy } from './content.js';
+import { contactHero, contactIntro, getContactDetails, contactMap, contactFormCopy } from './content.js';
+import { submitInquiry } from '../../services/api/cms.js';
 
 /**
  * Contact page — live GM copy, map, and form fields with current site UI.
  */
 export function renderContact() {
-  const details = contactDetails
+  const details = getContactDetails()
     .map((item) => {
       const value = item.href
         ? `<a class="font-semibold text-black hover:text-gold-deep" href="${item.href}">${item.value}</a>`
@@ -122,24 +123,39 @@ export function initContactForm() {
   const form = document.querySelector('[data-contact-form]');
   if (!form) return;
 
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const data = new FormData(form);
-    const subject = data.get('subject') || 'Safari inquiry';
-    const body = [
-      `Name: ${data.get('name') || ''}`,
-      `Email: ${data.get('email') || ''}`,
-      `Phone: ${data.get('phone') || ''}`,
-      `Country: ${data.get('country') || ''}`,
-      '',
-      data.get('message') || '',
-    ].join('\n');
-    window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(String(subject))}&body=${encodeURIComponent(body)}`;
-
     const note = form.querySelector('[data-contact-note]');
-    if (note) {
-      note.hidden = false;
-      note.textContent = 'Thank you. Your email app should open with the message. We aim to reply within 24 hours.';
+    const payload = {
+      name: String(data.get('name') || ''),
+      email: String(data.get('email') || ''),
+      phone: String(data.get('phone') || ''),
+      country: String(data.get('country') || ''),
+      subject: String(data.get('subject') || 'Safari inquiry'),
+      message: String(data.get('message') || ''),
+    };
+    try {
+      await submitInquiry(payload);
+      form.reset();
+      if (note) {
+        note.hidden = false;
+        note.textContent = 'Thank you. Your message is with our Arusha team — we aim to reply within 24 hours.';
+      }
+    } catch {
+      const body = [
+        `Name: ${payload.name}`,
+        `Email: ${payload.email}`,
+        `Phone: ${payload.phone}`,
+        `Country: ${payload.country}`,
+        '',
+        payload.message,
+      ].join('\n');
+      window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(body)}`;
+      if (note) {
+        note.hidden = false;
+        note.textContent = 'Thank you. Your email app should open with the message. We aim to reply within 24 hours.';
+      }
     }
   });
 }

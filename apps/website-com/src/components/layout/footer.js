@@ -13,7 +13,7 @@ export function renderFooter() {
       <div class="container-site grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
         <div class="lg:col-span-1">
           <p class="font-display text-2xl font-semibold tracking-tight text-gold">
-            Golden Memories Safaris
+            ${site.name}
           </p>
           <p class="mt-4 max-w-xs text-sm leading-relaxed text-white/70">
             Premier Tanzania safari experiences — wildlife, Kilimanjaro, and Zanzibar — crafted by local experts in Arusha.
@@ -47,8 +47,8 @@ export function renderFooter() {
           <h2 class="font-body text-sm font-bold uppercase tracking-[0.12em] text-gold">Contact us</h2>
           <ul class="mt-4 space-y-2 text-sm text-white/75">
             <li>${site.address}</li>
-            <li><a class="hover:text-gold" href="tel:+255786383273">${site.phone}</a></li>
-            <li><a class="hover:text-gold" href="tel:+255754750070">${site.phoneAlt}</a></li>
+            <li><a class="hover:text-gold" href="tel:${site.phone.replace(/\s+/g, '')}">${site.phone}</a></li>
+            <li><a class="hover:text-gold" href="tel:${site.phoneAlt.replace(/\s+/g, '')}">${site.phoneAlt}</a></li>
             <li><a class="hover:text-gold" href="mailto:${site.email}">${site.email}</a></li>
           </ul>
         </div>

@@ -1,9 +1,31 @@
 import { api } from '../api/client.js';
 import { shell } from './shell.js';
+import {
+  cardImage,
+  categoryOptions,
+  groupedSections,
+  photoCard,
+  renderGroupedCards,
+  TOUR_ORDER,
+  tourCategory,
+} from '../content/cards.js';
 
-function pill(status, featured) {
-  const kind = status === 'PUBLISHED' ? 'is-live' : 'is-draft';
-  return `<span class="cms-pill ${kind}">${status}</span>${featured ? ' <span class="cms-pill">Featured</span>' : ''}`;
+function durationLabel(item) {
+  if (item.duration_label) return item.duration_label;
+  if (item.duration) return `${item.duration} Days`;
+  return '';
+}
+
+function tourCard(item) {
+  return photoCard({
+    href: `#/safaris/${item.id}`,
+    title: item.title,
+    image: cardImage(item.hero_image?.url),
+    kicker: durationLabel(item),
+    detail: item.destination || '',
+    status: item.status,
+    featured: item.featured,
+  });
 }
 
 export function renderList(user) {
@@ -36,6 +58,12 @@ export function renderList(user) {
           </select>
         </div>
         <div class="cms-field">
+          <label class="cms-label" for="filter-category">Category</label>
+          <select id="filter-category">
+            <option value="">All categories</option>
+          </select>
+        </div>
+        <div class="cms-field">
           <label class="cms-label" for="filter-featured">Featured</label>
           <select id="filter-featured">
             <option value="">Any</option>
@@ -62,6 +90,12 @@ export function renderList(user) {
 
 export function initList() {
   const mount = document.querySelector('#safari-table');
+  const saved = sessionStorage.getItem('gm_cms_search');
+  if (saved) {
+    const input = document.querySelector('#filter-q');
+    if (input) input.value = saved;
+    sessionStorage.removeItem('gm_cms_search');
+  }
 
   async function refresh() {
     const params = {
@@ -69,7 +103,7 @@ export function initList() {
       status: document.querySelector('#filter-status')?.value,
       featured: document.querySelector('#filter-featured')?.value,
       sort: document.querySelector('#filter-sort')?.value,
-        limit: 200,
+      limit: 200,
     };
     try {
       const result = await api.listSafaris(params);
@@ -77,23 +111,19 @@ export function initList() {
         mount.innerHTML = `<p class="cms-muted">No safari packages match these filters.</p>`;
         return;
       }
+      const allSections = groupedSections(result.data, tourCategory, TOUR_ORDER);
+      const selected = document.querySelector('#filter-category')?.value || '';
+      const sections = allSections.filter(([label]) => !selected || label === selected);
+      const select = document.querySelector('#filter-category');
+      if (select) {
+        const current = select.value;
+        select.innerHTML = `<option value="">All categories</option>${categoryOptions(allSections)
+          .map((item) => `<option value="${item.label}">${item.label} (${item.count})</option>`)
+          .join('')}`;
+        if (current && allSections.some(([label]) => label === current)) select.value = current;
+      }
       mount.innerHTML = `
-        <div class="cms-package-list">
-          ${result.data
-            .map(
-              (item) => `
-            <article class="cms-package-card">
-              <h3><a href="#/safaris/${item.id}">${item.title}</a></h3>
-              <div>${pill(item.status, item.featured)}</div>
-              <p class="cms-meta-row">
-                <span>${item.destination || 'No destination'}</span>
-                <span>${item.slug}</span>
-                <span>${item.updated_at?.slice(0, 16)?.replace('T', ' ') || ''}</span>
-              </p>
-            </article>`
-            )
-            .join('')}
-        </div>
+        ${renderGroupedCards(sections, tourCard)}
         <p class="cms-muted" style="margin-top:1rem">${result.meta.total} packages</p>
       `;
     } catch (err) {
@@ -102,6 +132,7 @@ export function initList() {
   }
 
   document.querySelector('[data-refresh]')?.addEventListener('click', refresh);
+  document.querySelector('#filter-category')?.addEventListener('change', refresh);
   document.querySelector('[data-create]')?.addEventListener('click', async () => {
     try {
       const created = await api.createSafari({ title: 'New safari package' });
