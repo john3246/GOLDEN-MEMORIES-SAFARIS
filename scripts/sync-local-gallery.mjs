@@ -39,7 +39,7 @@ for (const { folder, prefix } of GROUPS) {
   const files = sourceFiles(folder);
   counts[prefix] = files.length;
   files.forEach((src, index) => {
-    const destName = `${prefix}-${pad(index + 1)}${path.extname(src).toLowerCase()}`;
+    const destName = `${prefix}-${pad(index + 1)}.webp`;
     keep.add(destName);
     fs.copyFileSync(src, path.join(destDir, destName));
   });
@@ -47,6 +47,7 @@ for (const { folder, prefix } of GROUPS) {
 
 let removed = [];
 for (const name of fs.readdirSync(destDir)) {
+  if (name.endsWith('-card.webp')) continue;
   if (!keep.has(name)) {
     fs.unlinkSync(path.join(destDir, name));
     removed.push(name);

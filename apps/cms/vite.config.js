@@ -18,7 +18,7 @@ function serveWebsiteImages() {
         if (!url.startsWith('/images/')) return next();
         const file = path.join(galleryDir, url.replace(/^\/images/, ''));
         if (!file.startsWith(galleryDir) || !fs.existsSync(file)) return next();
-        res.setHeader('Content-Type', 'image/jpeg');
+        res.setHeader('Content-Type', file.endsWith('.webp') ? 'image/webp' : 'image/jpeg');
         fs.createReadStream(file).pipe(res);
       });
     },

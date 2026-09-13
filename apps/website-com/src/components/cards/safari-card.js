@@ -1,5 +1,6 @@
 import { tourHref } from '../../pages/tours/paths.js';
 import { safariPrice } from '@gm-safaris/safari-ui';
+import { cardUrl } from '../../media/gallery.js';
 
 /**
  * Full-bleed safari package card — Zara packages layout.
@@ -11,7 +12,7 @@ export function safariCard(tour) {
   return `
     <article class="safari-card">
       <a class="safari-card-media" href="${href}" tabindex="-1">
-        <img src="${tour.image}" alt="" loading="lazy" width="800" height="1100" />
+        <img src="${cardUrl(tour.image, tour, 0)}" alt="" loading="lazy" decoding="async" width="800" height="1100" />
       </a>
       <div class="safari-card-overlay">
         <div class="safari-card-top">

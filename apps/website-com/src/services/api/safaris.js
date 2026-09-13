@@ -4,11 +4,11 @@ const API_BASE =
 /**
  * Public Safari API client. Drafts are never requested from this module.
  */
-export async function fetchPublishedSafaris(params = {}) {
+export async function fetchPublishedSafaris(params = {}, signal) {
   const query = new URLSearchParams(
     Object.entries(params).filter(([, value]) => value !== '' && value != null)
   );
-  const res = await fetch(`${API_BASE}/api/v1/safaris?${query}`);
+  const res = await fetch(`${API_BASE}/api/v1/safaris?${query}`, signal ? { signal } : undefined);
   const body = await res.json();
   if (!res.ok || body.success === false) {
     throw new Error(body.error?.message || 'Unable to load safaris');
@@ -16,8 +16,8 @@ export async function fetchPublishedSafaris(params = {}) {
   return body.data || [];
 }
 
-export async function fetchPublishedSafariBySlug(slug) {
-  const res = await fetch(`${API_BASE}/api/v1/safaris/slug/${encodeURIComponent(slug)}`);
+export async function fetchPublishedSafariBySlug(slug, signal) {
+  const res = await fetch(`${API_BASE}/api/v1/safaris/slug/${encodeURIComponent(slug)}`, signal ? { signal } : undefined);
   const body = await res.json();
   if (res.status === 404) return null;
   if (!res.ok || body.success === false) {

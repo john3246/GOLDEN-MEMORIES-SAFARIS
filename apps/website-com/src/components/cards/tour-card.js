@@ -1,6 +1,7 @@
 import { tourHref } from '../../pages/tours/paths.js';
 import { safariPrice } from '@gm-safaris/safari-ui';
 import { durationDays } from '../../pages/tours/filters.js';
+import { cardUrl } from '../../media/gallery.js';
 
 /**
  * Tour card markup for featured packages and day trips.
@@ -29,9 +30,10 @@ export function tourCard(tour) {
         ${badge}
         <img
           class="absolute inset-0 h-full w-full object-cover"
-          src="${tour.image}"
+          src="${cardUrl(tour.image, tour, 0)}"
           alt=""
           loading="lazy"
+          decoding="async"
           width="800"
           height="450"
         />

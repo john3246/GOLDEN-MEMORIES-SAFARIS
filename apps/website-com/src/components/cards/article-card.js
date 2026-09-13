@@ -1,3 +1,5 @@
+import { cardUrl } from '../../media/gallery.js';
+
 /**
  * Article card — same tour-card layout used across the site.
  * @param {{ slug: string, title: string, excerpt: string, image: string, date: string, topic: string }} article
@@ -10,9 +12,10 @@ export function articleCard(article, topicName) {
       <a href="${href}" class="relative block aspect-[16/9] overflow-hidden bg-mist">
         <img
           class="absolute inset-0 h-full w-full object-cover"
-          src="${article.image}"
+          src="${cardUrl(article.image, article.title, 0)}"
           alt=""
           loading="lazy"
+          decoding="async"
           width="800"
           height="450"
         />

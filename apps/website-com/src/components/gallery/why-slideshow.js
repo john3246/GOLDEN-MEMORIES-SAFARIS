@@ -1,3 +1,5 @@
+import { cardUrl } from '../../media/gallery.js';
+
 /**
  * Animated image slideshow for the Why Us section.
  * @param {{ src: string, alt: string }[]} slides
@@ -8,7 +10,7 @@ export function whyUsSlideshow(slides) {
       (slide, index) => `
       <figure class="why-slide${index === 0 ? ' is-active' : ''}" data-slide-index="${index}">
         <img
-          src="${slide.src}"
+          src="${cardUrl(slide.src, slide.alt, index)}"
           alt="${slide.alt}"
           width="900"
           height="720"

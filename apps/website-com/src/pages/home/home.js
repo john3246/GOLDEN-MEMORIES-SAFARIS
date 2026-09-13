@@ -64,7 +64,7 @@ export function renderHome() {
   return `
     <main id="main">
       <!-- Hero: brand + one headline + one sentence + CTA group + full-bleed image -->
-      <section class="relative isolate min-h-[52vh] overflow-hidden text-white sm:min-h-[56vh] lg:min-h-[60vh]" aria-labelledby="hero-brand">
+      <section class="home-hero relative isolate overflow-hidden text-white" aria-labelledby="hero-brand">
         <img
           class="absolute inset-0 h-full w-full object-cover"
           src="${pageImages.hero}"
@@ -76,7 +76,7 @@ export function renderHome() {
         <div class="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/55 to-ink/25"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-ink/30"></div>
 
-        <div class="container-site relative flex min-h-[52vh] flex-col justify-center py-10 sm:min-h-[56vh] sm:py-12 lg:min-h-[60vh]">
+        <div class="container-site relative flex min-h-[inherit] flex-col justify-center py-12 sm:py-16">
           <div class="hero-animate max-w-3xl">
             <p id="hero-brand" class="font-body text-sm font-bold uppercase tracking-[0.18em] text-gold sm:text-base">
               Golden Memories Safaris

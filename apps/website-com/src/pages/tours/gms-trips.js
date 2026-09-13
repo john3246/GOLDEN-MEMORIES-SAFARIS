@@ -32,7 +32,7 @@ export const gmsTrips = [
     "duration": "5 Days / 4 Nights",
     "activity": "Luxury Safari",
     "places": "Tanzania",
-    "image": "/images/gallery/serengeti-01.jpg",
+    "image": "/images/gallery/serengeti-01.webp",
     "style": "luxury",
     "featured": true,
     "price_from": 4925,
@@ -46,7 +46,7 @@ export const gmsTrips = [
     "duration": "3 Days / 2 Nights",
     "activity": "Cultural Experience",
     "places": "Lake Natron",
-    "image": "/images/gallery/culture-01.jpg",
+    "image": "/images/gallery/culture-01.webp",
     "style": "cultural",
     "featured": false
   },
@@ -57,7 +57,7 @@ export const gmsTrips = [
     "duration": "4 Days / 3 Nights",
     "activity": "Cultural Experience",
     "places": "Usambara",
-    "image": "/images/gallery/culture-02.jpg",
+    "image": "/images/gallery/culture-02.webp",
     "style": "cultural",
     "featured": false
   },
@@ -68,7 +68,7 @@ export const gmsTrips = [
     "duration": "6 Days / 5 Nights",
     "activity": "Mountain climbing",
     "places": "Kilimanjaro",
-    "image": "/images/gallery/ngorongoro-01.jpg",
+    "image": "/images/gallery/ngorongoro-01.webp",
     "style": "mountain",
     "featured": false
   },
@@ -79,7 +79,7 @@ export const gmsTrips = [
     "duration": "5 Days / 4 Nights",
     "activity": "Mountain climbing",
     "places": "Kilimanjaro",
-    "image": "/images/gallery/ngorongoro-01.jpg",
+    "image": "/images/gallery/ngorongoro-01.webp",
     "style": "mountain",
     "featured": false
   },
@@ -90,7 +90,7 @@ export const gmsTrips = [
     "duration": "7 Days / 6 Nights",
     "activity": "Mountain climbing",
     "places": "Kilimanjaro",
-    "image": "/images/gallery/ngorongoro-01.jpg",
+    "image": "/images/gallery/ngorongoro-01.webp",
     "style": "mountain",
     "featured": false
   },
@@ -101,7 +101,7 @@ export const gmsTrips = [
     "duration": "6 Days / 5 Nights",
     "activity": "Mountain climbing",
     "places": "Kilimanjaro",
-    "image": "/images/gallery/ngorongoro-01.jpg",
+    "image": "/images/gallery/ngorongoro-01.webp",
     "style": "mountain",
     "featured": false
   },
@@ -112,7 +112,7 @@ export const gmsTrips = [
     "duration": "7 Days / 6 Nights",
     "activity": "Mountain climbing",
     "places": "Kilimanjaro",
-    "image": "/images/gallery/ngorongoro-01.jpg",
+    "image": "/images/gallery/ngorongoro-01.webp",
     "style": "mountain",
     "featured": false
   },
@@ -123,7 +123,7 @@ export const gmsTrips = [
     "duration": "6 Days / 5 Nights",
     "activity": "Mountain climbing",
     "places": "Kilimanjaro",
-    "image": "/images/gallery/ngorongoro-01.jpg",
+    "image": "/images/gallery/ngorongoro-01.webp",
     "style": "mountain",
     "featured": false
   },
@@ -134,7 +134,7 @@ export const gmsTrips = [
     "duration": "7 Days / 6 Nights",
     "activity": "Mountain climbing",
     "places": "Kilimanjaro",
-    "image": "/images/gallery/ngorongoro-01.jpg",
+    "image": "/images/gallery/ngorongoro-01.webp",
     "style": "mountain",
     "featured": false
   },
@@ -145,7 +145,7 @@ export const gmsTrips = [
     "duration": "9 Days / 8 Nights",
     "activity": "Mountain climbing",
     "places": "Kilimanjaro",
-    "image": "/images/gallery/ngorongoro-01.jpg",
+    "image": "/images/gallery/ngorongoro-01.webp",
     "style": "mountain",
     "featured": false
   },
@@ -156,7 +156,7 @@ export const gmsTrips = [
     "duration": "8 Days / 7 Nights",
     "activity": "Mountain climbing",
     "places": "Kilimanjaro",
-    "image": "/images/gallery/ngorongoro-01.jpg",
+    "image": "/images/gallery/ngorongoro-01.webp",
     "style": "mountain",
     "featured": false
   },
@@ -167,7 +167,7 @@ export const gmsTrips = [
     "duration": "3 Days / 2 Nights",
     "activity": "Mountain climbing",
     "places": "Mount Meru",
-    "image": "/images/gallery/ngorongoro-01.jpg",
+    "image": "/images/gallery/ngorongoro-01.webp",
     "style": "mountain",
     "featured": false
   },
@@ -178,7 +178,7 @@ export const gmsTrips = [
     "duration": "4 Days / 3 Nights",
     "activity": "Mountain climbing",
     "places": "Mount Meru",
-    "image": "/images/gallery/ngorongoro-01.jpg",
+    "image": "/images/gallery/ngorongoro-01.webp",
     "style": "mountain",
     "featured": false
   },
@@ -189,7 +189,7 @@ export const gmsTrips = [
     "duration": "4 Days / 3 Nights",
     "activity": "Wildlife Safari",
     "places": "Serengeti · Ngorongoro",
-    "image": "/images/gallery/serengeti-02.jpg",
+    "image": "/images/gallery/serengeti-02.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -200,7 +200,7 @@ export const gmsTrips = [
     "duration": "5 Days / 4 Nights",
     "activity": "Wildlife Safari",
     "places": "Serengeti",
-    "image": "/images/gallery/serengeti-03.jpg",
+    "image": "/images/gallery/serengeti-03.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -211,7 +211,7 @@ export const gmsTrips = [
     "duration": "6 Days / 5 Nights",
     "activity": "Wildlife Safari",
     "places": "Tanzania",
-    "image": "/images/gallery/serengeti-04.jpg",
+    "image": "/images/gallery/serengeti-04.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -222,7 +222,7 @@ export const gmsTrips = [
     "duration": "3 Days / 2 Nights",
     "activity": "Photographic Safari",
     "places": "Serengeti",
-    "image": "/images/gallery/serengeti-05.jpg",
+    "image": "/images/gallery/serengeti-05.webp",
     "style": "photographic",
     "featured": false
   },
@@ -233,7 +233,7 @@ export const gmsTrips = [
     "duration": "7 Days / 6 Nights",
     "activity": "Honeymoon",
     "places": "Serengeti · Zanzibar",
-    "image": "/images/gallery/serengeti-06.jpg",
+    "image": "/images/gallery/serengeti-06.webp",
     "style": "honeymoon",
     "featured": false
   },
@@ -244,7 +244,7 @@ export const gmsTrips = [
     "duration": "5 Days / 4 Nights",
     "activity": "Wildlife Safari",
     "places": "Serengeti · Ngorongoro",
-    "image": "/images/gallery/serengeti-07.jpg",
+    "image": "/images/gallery/serengeti-07.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -255,7 +255,7 @@ export const gmsTrips = [
     "duration": "7 Days / 6 Nights",
     "activity": "Wildlife Safari",
     "places": "Serengeti",
-    "image": "/images/gallery/serengeti-08.jpg",
+    "image": "/images/gallery/serengeti-08.webp",
     "style": "wildlife",
     "featured": true,
     "price_from": 3094,
@@ -269,7 +269,7 @@ export const gmsTrips = [
     "duration": "4 Days / 3 Nights",
     "activity": "Wildlife Safari",
     "places": "Tarangire · Serengeti · Ngorongoro",
-    "image": "/images/gallery/serengeti-09.jpg",
+    "image": "/images/gallery/serengeti-09.webp",
     "style": "wildlife",
     "featured": true,
     "price_from": 2168,
@@ -283,7 +283,7 @@ export const gmsTrips = [
     "duration": "6 Days / 5 Nights",
     "activity": "Luxury Safari",
     "places": "Serengeti",
-    "image": "/images/gallery/serengeti-01.jpg",
+    "image": "/images/gallery/serengeti-01.webp",
     "style": "luxury",
     "featured": true,
     "price_from": 5010,
@@ -297,7 +297,7 @@ export const gmsTrips = [
     "duration": "14 Days / 13 Nights",
     "activity": "Safari & Beach",
     "places": "Zanzibar",
-    "image": "/images/gallery/serengeti-01.jpg",
+    "image": "/images/gallery/serengeti-01.webp",
     "style": "zanzibar",
     "featured": true,
     "price_from": 7148,
@@ -311,7 +311,7 @@ export const gmsTrips = [
     "duration": "1 Day",
     "activity": "Fly-in Safari",
     "places": "Mikumi",
-    "image": "/images/gallery/serengeti-01.jpg",
+    "image": "/images/gallery/serengeti-01.webp",
     "style": "fly-in",
     "featured": false
   },
@@ -322,7 +322,7 @@ export const gmsTrips = [
     "duration": "3 Days / 2 Nights",
     "activity": "Fly-in Safari",
     "places": "Serengeti",
-    "image": "/images/gallery/serengeti-02.jpg",
+    "image": "/images/gallery/serengeti-02.webp",
     "style": "fly-in",
     "featured": false
   },
@@ -333,7 +333,7 @@ export const gmsTrips = [
     "duration": "2 Days / 1 Nights",
     "activity": "Wildlife Safari",
     "places": "Tanzania",
-    "image": "/images/gallery/serengeti-03.jpg",
+    "image": "/images/gallery/serengeti-03.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -344,7 +344,7 @@ export const gmsTrips = [
     "duration": "2 Days / 1 Nights",
     "activity": "Wildlife Safari",
     "places": "Tarangire · Ngorongoro",
-    "image": "/images/gallery/ngorongoro-01.jpg",
+    "image": "/images/gallery/ngorongoro-01.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -355,7 +355,7 @@ export const gmsTrips = [
     "duration": "3 Days / 2 Nights",
     "activity": "Cultural Experience",
     "places": "Tanzania",
-    "image": "/images/gallery/culture-03.jpg",
+    "image": "/images/gallery/culture-03.webp",
     "style": "cultural",
     "featured": false
   },
@@ -366,7 +366,7 @@ export const gmsTrips = [
     "duration": "4 Days / 3 Nights",
     "activity": "Wildlife Safari",
     "places": "Tarangire · Serengeti · Ngorongoro",
-    "image": "/images/gallery/serengeti-04.jpg",
+    "image": "/images/gallery/serengeti-04.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -377,7 +377,7 @@ export const gmsTrips = [
     "duration": "5 Days / 4 Nights",
     "activity": "Wildlife Safari",
     "places": "Tanzania",
-    "image": "/images/gallery/serengeti-05.jpg",
+    "image": "/images/gallery/serengeti-05.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -388,7 +388,7 @@ export const gmsTrips = [
     "duration": "6 Days / 5 Nights",
     "activity": "Cultural Experience",
     "places": "Tanzania",
-    "image": "/images/gallery/culture-04.jpg",
+    "image": "/images/gallery/culture-04.webp",
     "style": "cultural",
     "featured": false
   },
@@ -399,7 +399,7 @@ export const gmsTrips = [
     "duration": "13 Days / 12 Nights",
     "activity": "Beach holiday",
     "places": "Zanzibar",
-    "image": "/images/gallery/serengeti-01.jpg",
+    "image": "/images/gallery/serengeti-01.webp",
     "style": "zanzibar",
     "featured": false
   },
@@ -410,7 +410,7 @@ export const gmsTrips = [
     "duration": "5 Days / 4 Nights",
     "activity": "Wildlife Safari",
     "places": "Tanzania",
-    "image": "/images/gallery/serengeti-06.jpg",
+    "image": "/images/gallery/serengeti-06.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -421,7 +421,7 @@ export const gmsTrips = [
     "duration": "7 Days / 6 Nights",
     "activity": "Wildlife Safari",
     "places": "Tanzania",
-    "image": "/images/gallery/serengeti-07.jpg",
+    "image": "/images/gallery/serengeti-07.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -432,7 +432,7 @@ export const gmsTrips = [
     "duration": "5 Days / 4 Nights",
     "activity": "Wildlife Safari",
     "places": "Gombe",
-    "image": "/images/gallery/serengeti-08.jpg",
+    "image": "/images/gallery/serengeti-08.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -443,7 +443,7 @@ export const gmsTrips = [
     "duration": "2 Days / 1 Nights",
     "activity": "Fly-in Safari",
     "places": "Tarangire · Ngorongoro",
-    "image": "/images/gallery/ngorongoro-02.jpg",
+    "image": "/images/gallery/ngorongoro-02.webp",
     "style": "fly-in",
     "featured": false
   },
@@ -454,7 +454,7 @@ export const gmsTrips = [
     "duration": "3 Days / 2 Nights",
     "activity": "Luxury Safari",
     "places": "Serengeti · Ngorongoro",
-    "image": "/images/gallery/serengeti-09.jpg",
+    "image": "/images/gallery/serengeti-09.webp",
     "style": "luxury",
     "featured": false
   },
@@ -465,7 +465,7 @@ export const gmsTrips = [
     "duration": "3 Days / 2 Nights",
     "activity": "Wildlife Safari",
     "places": "Tarangire · Ngorongoro · Lake Manyara",
-    "image": "/images/gallery/ngorongoro-03.jpg",
+    "image": "/images/gallery/ngorongoro-03.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -476,7 +476,7 @@ export const gmsTrips = [
     "duration": "4 Days / 3 Nights",
     "activity": "Luxury Safari",
     "places": "Tarangire · Serengeti · Ngorongoro",
-    "image": "/images/gallery/serengeti-01.jpg",
+    "image": "/images/gallery/serengeti-01.webp",
     "style": "luxury",
     "featured": false
   },
@@ -487,7 +487,7 @@ export const gmsTrips = [
     "duration": "8 Days / 7 Nights",
     "activity": "Safari & Beach",
     "places": "Zanzibar",
-    "image": "/images/gallery/serengeti-01.jpg",
+    "image": "/images/gallery/serengeti-01.webp",
     "style": "zanzibar",
     "featured": false
   },
@@ -498,7 +498,7 @@ export const gmsTrips = [
     "duration": "4 Days / 3 Nights",
     "activity": "Luxury Safari",
     "places": "Tanzania",
-    "image": "/images/gallery/serengeti-02.jpg",
+    "image": "/images/gallery/serengeti-02.webp",
     "style": "luxury",
     "featured": false
   },
@@ -509,7 +509,7 @@ export const gmsTrips = [
     "duration": "5 Days / 4 Nights",
     "activity": "Luxury Safari",
     "places": "Serengeti",
-    "image": "/images/gallery/serengeti-03.jpg",
+    "image": "/images/gallery/serengeti-03.webp",
     "style": "luxury",
     "featured": false
   },
@@ -520,7 +520,7 @@ export const gmsTrips = [
     "duration": "7 Days / 6 Nights",
     "activity": "Luxury Safari",
     "places": "Serengeti · Arusha",
-    "image": "/images/gallery/serengeti-04.jpg",
+    "image": "/images/gallery/serengeti-04.webp",
     "style": "luxury",
     "featured": false
   },
@@ -531,7 +531,7 @@ export const gmsTrips = [
     "duration": "4 Days / 3 Nights",
     "activity": "Photographic Safari",
     "places": "Serengeti",
-    "image": "/images/gallery/serengeti-05.jpg",
+    "image": "/images/gallery/serengeti-05.webp",
     "style": "photographic",
     "featured": false
   },
@@ -542,7 +542,7 @@ export const gmsTrips = [
     "duration": "6 Days / 5 Nights",
     "activity": "Luxury Safari",
     "places": "Serengeti",
-    "image": "/images/gallery/serengeti-06.jpg",
+    "image": "/images/gallery/serengeti-06.webp",
     "style": "luxury",
     "featured": false
   },
@@ -553,7 +553,7 @@ export const gmsTrips = [
     "duration": "4 Days / 3 Nights",
     "activity": "Wildlife Safari",
     "places": "Arusha",
-    "image": "/images/gallery/ngorongoro-04.jpg",
+    "image": "/images/gallery/ngorongoro-04.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -564,7 +564,7 @@ export const gmsTrips = [
     "duration": "1 Day",
     "activity": "Mountain climbing",
     "places": "Kilimanjaro",
-    "image": "/images/gallery/ngorongoro-01.jpg",
+    "image": "/images/gallery/ngorongoro-01.webp",
     "style": "mountain",
     "featured": false
   },
@@ -575,7 +575,7 @@ export const gmsTrips = [
     "duration": "1 Day",
     "activity": "Day trip",
     "places": "Tanzania",
-    "image": "/images/gallery/serengeti-01.jpg",
+    "image": "/images/gallery/serengeti-01.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -586,7 +586,7 @@ export const gmsTrips = [
     "duration": "1 Day",
     "activity": "Cultural Experience",
     "places": "Tanzania",
-    "image": "/images/gallery/culture-05.jpg",
+    "image": "/images/gallery/culture-05.webp",
     "style": "cultural",
     "featured": false
   },
@@ -597,7 +597,7 @@ export const gmsTrips = [
     "duration": "1 Day",
     "activity": "Mountain climbing",
     "places": "Mount Meru",
-    "image": "/images/gallery/ngorongoro-01.jpg",
+    "image": "/images/gallery/ngorongoro-01.webp",
     "style": "mountain",
     "featured": false
   },
@@ -608,7 +608,7 @@ export const gmsTrips = [
     "duration": "1 Day",
     "activity": "Day trip",
     "places": "Ngorongoro",
-    "image": "/images/gallery/ngorongoro-05.jpg",
+    "image": "/images/gallery/ngorongoro-05.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -619,7 +619,7 @@ export const gmsTrips = [
     "duration": "1 Day",
     "activity": "Day trip",
     "places": "Arusha",
-    "image": "/images/gallery/ngorongoro-01.jpg",
+    "image": "/images/gallery/ngorongoro-01.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -630,7 +630,7 @@ export const gmsTrips = [
     "duration": "1 Day",
     "activity": "Cultural Experience",
     "places": "Materuni",
-    "image": "/images/gallery/culture-06.jpg",
+    "image": "/images/gallery/culture-06.webp",
     "style": "cultural",
     "featured": false
   },
@@ -641,7 +641,7 @@ export const gmsTrips = [
     "duration": "8 Days / 7 Nights",
     "activity": "Mountain climbing",
     "places": "Kilimanjaro",
-    "image": "/images/gallery/ngorongoro-01.jpg",
+    "image": "/images/gallery/ngorongoro-01.webp",
     "style": "mountain",
     "featured": false
   },
@@ -652,7 +652,7 @@ export const gmsTrips = [
     "duration": "8 Days / 7 Nights",
     "activity": "Mountain climbing",
     "places": "Kilimanjaro",
-    "image": "/images/gallery/ngorongoro-01.jpg",
+    "image": "/images/gallery/ngorongoro-01.webp",
     "style": "mountain",
     "featured": false
   },
@@ -663,7 +663,7 @@ export const gmsTrips = [
     "duration": "8 Days / 7 Nights",
     "activity": "Wildlife Safari",
     "places": "Serengeti",
-    "image": "/images/gallery/serengeti-07.jpg",
+    "image": "/images/gallery/serengeti-07.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -674,7 +674,7 @@ export const gmsTrips = [
     "duration": "4 Days / 3 Nights",
     "activity": "Camping Safari",
     "places": "Serengeti",
-    "image": "/images/gallery/serengeti-08.jpg",
+    "image": "/images/gallery/serengeti-08.webp",
     "style": "mobile",
     "featured": false
   },
@@ -685,7 +685,7 @@ export const gmsTrips = [
     "duration": "6 Days / 5 Nights",
     "activity": "Wildlife Safari",
     "places": "Serengeti",
-    "image": "/images/gallery/serengeti-09.jpg",
+    "image": "/images/gallery/serengeti-09.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -696,7 +696,7 @@ export const gmsTrips = [
     "duration": "6 Days / 5 Nights",
     "activity": "Wildlife Safari",
     "places": "Serengeti",
-    "image": "/images/gallery/serengeti-01.jpg",
+    "image": "/images/gallery/serengeti-01.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -707,7 +707,7 @@ export const gmsTrips = [
     "duration": "5 Days / 4 Nights",
     "activity": "Beach holiday",
     "places": "Zanzibar",
-    "image": "/images/gallery/serengeti-01.jpg",
+    "image": "/images/gallery/serengeti-01.webp",
     "style": "zanzibar",
     "featured": false
   },
@@ -718,7 +718,7 @@ export const gmsTrips = [
     "duration": "2 Days / 1 Nights",
     "activity": "Beach holiday",
     "places": "Zanzibar",
-    "image": "/images/gallery/serengeti-01.jpg",
+    "image": "/images/gallery/serengeti-01.webp",
     "style": "zanzibar",
     "featured": false
   },
@@ -729,7 +729,7 @@ export const gmsTrips = [
     "duration": "1 Day",
     "activity": "Day trip",
     "places": "Tarangire",
-    "image": "/images/gallery/ngorongoro-01.jpg",
+    "image": "/images/gallery/ngorongoro-01.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -740,7 +740,7 @@ export const gmsTrips = [
     "duration": "1 Day",
     "activity": "Day trip",
     "places": "Ngorongoro",
-    "image": "/images/gallery/ngorongoro-06.jpg",
+    "image": "/images/gallery/ngorongoro-06.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -751,7 +751,7 @@ export const gmsTrips = [
     "duration": "9 Days / 8 Nights",
     "activity": "Wildlife Safari",
     "places": "Tanzania",
-    "image": "/images/gallery/serengeti-02.jpg",
+    "image": "/images/gallery/serengeti-02.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -762,7 +762,7 @@ export const gmsTrips = [
     "duration": "6 Days / 5 Nights",
     "activity": "Cultural Experience",
     "places": "Tanzania",
-    "image": "/images/gallery/culture-07.jpg",
+    "image": "/images/gallery/culture-07.webp",
     "style": "cultural",
     "featured": false
   },
@@ -773,7 +773,7 @@ export const gmsTrips = [
     "duration": "7 Days / 6 Nights",
     "activity": "Cultural Experience",
     "places": "Tanzania",
-    "image": "/images/gallery/culture-01.jpg",
+    "image": "/images/gallery/culture-01.webp",
     "style": "cultural",
     "featured": false
   },
@@ -784,7 +784,7 @@ export const gmsTrips = [
     "duration": "7 Days / 6 Nights",
     "activity": "Camping Safari",
     "places": "Tanzania",
-    "image": "/images/gallery/culture-02.jpg",
+    "image": "/images/gallery/culture-02.webp",
     "style": "mobile",
     "featured": false
   },
@@ -795,7 +795,7 @@ export const gmsTrips = [
     "duration": "6 Days / 5 Nights",
     "activity": "Luxury Safari",
     "places": "Tanzania",
-    "image": "/images/gallery/ngorongoro-07.jpg",
+    "image": "/images/gallery/ngorongoro-07.webp",
     "style": "luxury",
     "featured": false
   },
@@ -806,7 +806,7 @@ export const gmsTrips = [
     "duration": "6 Days / 5 Nights",
     "activity": "Luxury Safari",
     "places": "Tanzania",
-    "image": "/images/gallery/ngorongoro-08.jpg",
+    "image": "/images/gallery/ngorongoro-08.webp",
     "style": "luxury",
     "featured": false
   },
@@ -817,7 +817,7 @@ export const gmsTrips = [
     "duration": "6 Days / 5 Nights",
     "activity": "Honeymoon",
     "places": "Tanzania",
-    "image": "/images/gallery/serengeti-03.jpg",
+    "image": "/images/gallery/serengeti-03.webp",
     "style": "honeymoon",
     "featured": false
   },
@@ -828,7 +828,7 @@ export const gmsTrips = [
     "duration": "6 Days / 5 Nights",
     "activity": "Wildlife Safari",
     "places": "Tanzania",
-    "image": "/images/gallery/serengeti-04.jpg",
+    "image": "/images/gallery/serengeti-04.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -839,7 +839,7 @@ export const gmsTrips = [
     "duration": "2 Days / 1 Nights",
     "activity": "Safari & Beach",
     "places": "Tarangire · Ngorongoro · Zanzibar",
-    "image": "/images/gallery/ngorongoro-09.jpg",
+    "image": "/images/gallery/ngorongoro-09.webp",
     "style": "zanzibar",
     "featured": false
   },
@@ -850,7 +850,7 @@ export const gmsTrips = [
     "duration": "10 Days / 9 Nights",
     "activity": "Wildlife Safari",
     "places": "Serengeti",
-    "image": "/images/gallery/serengeti-05.jpg",
+    "image": "/images/gallery/serengeti-05.webp",
     "style": "wildlife",
     "featured": false
   },
@@ -861,7 +861,7 @@ export const gmsTrips = [
     "duration": "3 Days / 2 Nights",
     "activity": "Wildlife Safari",
     "places": "Tarangire · Ngorongoro",
-    "image": "/images/gallery/ngorongoro-10.jpg",
+    "image": "/images/gallery/ngorongoro-10.webp",
     "style": "wildlife",
     "featured": false
   }

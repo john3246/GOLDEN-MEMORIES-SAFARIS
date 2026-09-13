@@ -3,6 +3,7 @@ import { safariStyles, mostBookedSlugs, gmsTrips } from '../../pages/tours/gms-t
 import { tourHref } from '../../pages/tours/paths.js';
 import { destinationRegions } from '../../pages/destinations/content.js';
 import { destinationHref } from '../../pages/destinations/paths.js';
+import { cardUrl } from '../../media/gallery.js';
 
 function pagePath() {
   return window.location.pathname.replace(/\/+$/, '') || '/';
@@ -139,7 +140,7 @@ export function renderHeader() {
               </ul>
             </div>
             <a class="nav-mega-feature" href="${tourHref(feature)}">
-              <img src="${feature.image}" alt="" width="480" height="360" />
+              <img src="${cardUrl(feature.image, feature, 0)}" alt="" width="480" height="360" loading="lazy" decoding="async" />
               <span>
                 <small>Featured journey</small>
                 <strong>${feature.title}</strong>
@@ -196,7 +197,6 @@ export function renderHeader() {
                           <span>
                             <strong>${park.name}</strong>
                           </span>
-                          </span>
                         </a>
                       </li>
                     `
@@ -205,7 +205,7 @@ export function renderHeader() {
               </ul>
             </div>
             <a class="nav-mega-feature" href="${destinationHref(destFeature)}">
-              <img src="${destFeature.image}" alt="" width="480" height="360" />
+              <img src="${cardUrl(destFeature.image, destFeature.name, 0)}" alt="" width="480" height="360" loading="lazy" decoding="async" />
               <span>
                 <small>Start here</small>
                 <strong>${destFeature.name}</strong>
@@ -389,7 +389,6 @@ export function initHeader() {
     });
   }
 
-  const headerMain = header?.querySelector('.header-main');
   const stillInside = (node, ...roots) =>
     Boolean(node && roots.some((root) => root && (root === node || root.contains(node))));
 
@@ -398,11 +397,6 @@ export function initHeader() {
     if (!moreBtn || !moreMenu) return;
     moreBtn.setAttribute('aria-expanded', 'false');
     moreMenu.classList.remove('is-open');
-  };
-
-  const closeMore = () => {
-    window.clearTimeout(moreTimer);
-    moreTimer = window.setTimeout(closeMoreNow, 480);
   };
 
   const openMore = () => {
@@ -444,9 +438,9 @@ export function initHeader() {
     item.panel.classList.add('is-open');
   };
 
-  const closeMega = (item) => {
+  const scheduleCloseMega = (item) => {
     window.clearTimeout(item.timer);
-    item.timer = window.setTimeout(() => closeMegaNow(item), 480);
+    item.timer = window.setTimeout(() => closeMegaNow(item), 120);
   };
 
   if (more && moreBtn && moreMenu) {
@@ -457,18 +451,15 @@ export function initHeader() {
       if (open) closeMoreNow();
       else openMore();
     });
-    more.addEventListener('mouseenter', openMore);
+    moreBtn.addEventListener('mouseenter', openMore);
     more.addEventListener('mouseleave', (event) => {
       if (stillInside(event.relatedTarget, more, moreMenu)) return;
-      closeMore();
+      closeMoreNow();
     });
     moreMenu.addEventListener('mouseenter', openMore);
     moreMenu.addEventListener('mouseleave', (event) => {
-      if (stillInside(event.relatedTarget, more)) {
-        window.clearTimeout(moreTimer);
-        return;
-      }
-      closeMore();
+      if (stillInside(event.relatedTarget, more)) return;
+      closeMoreNow();
     });
   }
 
@@ -480,21 +471,32 @@ export function initHeader() {
       if (open) closeMegaNow(item);
       else openMega(item);
     });
-    item.root.addEventListener('mouseenter', () => openMega(item));
-    item.panel.addEventListener('mouseenter', () => openMega(item));
-    item.panel.addEventListener('mouseleave', (event) => {
-      if (stillInside(event.relatedTarget, headerMain, item.root)) {
+    item.btn.addEventListener('mouseenter', () => openMega(item));
+    item.btn.addEventListener('mouseleave', (event) => {
+      if (stillInside(event.relatedTarget, item.panel)) {
         window.clearTimeout(item.timer);
         return;
       }
-      closeMega(item);
+      scheduleCloseMega(item);
+    });
+    item.panel.addEventListener('mouseenter', () => openMega(item));
+    item.panel.addEventListener('mouseleave', (event) => {
+      if (stillInside(event.relatedTarget, item.btn)) {
+        window.clearTimeout(item.timer);
+        return;
+      }
+      closeMegaNow(item);
     });
   }
 
-  headerMain?.addEventListener('mouseleave', (event) => {
-    if (megas.some((item) => stillInside(event.relatedTarget, headerMain, item.panel))) return;
-    megas.forEach(closeMega);
-  });
+  header
+    ?.querySelectorAll('.primary-nav > a.nav-link, .nav-cta, .brand-logo, .search-btn')
+    .forEach((el) => {
+      el.addEventListener('mouseenter', () => {
+        closeAllMegasNow();
+        if (!more?.contains(el)) closeMoreNow();
+      });
+    });
 
   const closeSearch = () => {
     if (!searchWrap || !searchToggle) return;

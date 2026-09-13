@@ -1,3 +1,5 @@
+import { cardUrl } from '../../media/gallery.js';
+
 /**
  * Destination card markup — used for interactive destination browsing.
  * @param {{ name: string, slug: string, trips: number, blurb: string, image: string }} destination
@@ -10,9 +12,10 @@ export function destinationCard(destination) {
       aria-label="${destination.name} — ${destination.trips} trips"
     >
       <img
-        src="${destination.image}"
+        src="${cardUrl(destination.image, destination.name, 0)}"
         alt="${destination.name}"
         loading="lazy"
+        decoding="async"
         width="600"
         height="800"
       />

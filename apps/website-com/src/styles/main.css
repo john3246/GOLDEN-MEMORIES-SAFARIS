@@ -70,6 +70,16 @@
     }
   }
 
+  .home-hero {
+    min-height: 90vh;
+    min-height: 90dvh;
+  }
+
+  .home-hero > .container-site {
+    min-height: 90vh;
+    min-height: 90dvh;
+  }
+
   .btn,
   .btn-gold,
   .btn-light,
@@ -172,8 +182,11 @@
       border-color 0.35s ease;
   }
 
-  .tour-card {
+  .tour-card,
+  .destination-card {
     border-color: rgb(11 22 38 / 0.1);
+    content-visibility: auto;
+    contain-intrinsic-size: 0 22rem;
   }
 
   .tour-card img,
