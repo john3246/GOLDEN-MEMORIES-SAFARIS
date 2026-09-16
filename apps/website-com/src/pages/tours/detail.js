@@ -1,16 +1,18 @@
 import { safariCard } from '../../components/cards/safari-card.js';
 import { renderSafariPage, applySafariMeta, renderSafariCard } from '@gm-safaris/safari-ui';
-import { ensureGalleryUrl, photoForTrip } from '../../media/gallery.js';
-import { media as GM } from '../home/content.js';
+import { isGalleryUrl, uniquePhoto, uniqueCoverFor, galleryKindForText } from '../../media/gallery.js';
 import { getTourBySlug, relatedTours } from './catalog.js';
+import { bookingHref } from './paths.js';
 
 function localizeSafari(doc, index = 0) {
   if (!doc) return doc;
-  const image = photoForTrip(doc, index);
+  const used = new Set();
+  const image = uniqueCoverFor(doc);
+  used.add(image);
   const gallery = Array.isArray(doc.gallery)
     ? doc.gallery.map((item, offset) => ({
         ...item,
-        url: photoForTrip(doc, index + offset + 1),
+        url: uniquePhoto(item.alt || item.caption || doc, used, index + offset + 1),
       }))
     : doc.gallery;
   return {
@@ -21,26 +23,18 @@ function localizeSafari(doc, index = 0) {
   };
 }
 
-function dayImage(item, tour) {
-  if (item.image) return ensureGalleryUrl(item.image, `${tour.title} ${item.title}`, 0);
-  const t = `${item.title} ${item.body}`.toLowerCase();
-  if (t.includes('tarangire')) return GM.tarangire;
-  if (t.includes('manyara')) return GM.manyara;
-  if (t.includes('ngorongoro') || t.includes('crater')) return GM.ngorongoro;
-  if (t.includes('migration') || t.includes('wildebeest')) return GM.migration;
-  if (t.includes('serengeti')) return GM.northern;
-  if (t.includes('ruaha')) return GM.southern;
-  if (t.includes('selous') || t.includes('nyerere') || t.includes('rufiji')) return GM.selous;
-  if (t.includes('mikumi')) return GM.dayTrip;
-  if (t.includes('materuni') || t.includes('coffee')) return GM.materuni;
-  if (t.includes('spice') || t.includes('stone town')) return GM.spice;
-  if (t.includes('zanzibar') || t.includes('beach')) return GM.zanzibarBeach;
-  if (t.includes('machame')) return GM.machame;
-  if (t.includes('meru') || t.includes('momella')) return GM.meru;
-  if (t.includes('kilimanjaro') || t.includes('marangu') || t.includes('summit')) return GM.kilimanjaro;
-  if (t.includes('eyasi')) return GM.lakeEyasi;
-  if (t.includes('gombe') || t.includes('mahale')) return GM.western;
-  return tour.image;
+function dayImage(item, tour, used) {
+  const hint = `${item.title} ${item.body || ''}`;
+  if (item.image && isGalleryUrl(item.image)) {
+    const url = String(item.image).split('?')[0];
+    const prefix = url.match(/\/images\/gallery\/([a-z]+)-/)?.[1];
+    const expected = galleryKindForText(hint);
+    if (prefix === expected && !used.has(url)) {
+      used.add(url);
+      return url;
+    }
+  }
+  return uniquePhoto(`${hint} ${tour.places || tour.title || ''}`, used, used.size);
 }
 
 function dayFacts(item, tour, index, total) {
@@ -89,6 +83,9 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
     `;
   }
 
+  const book = bookingHref(tour);
+  const cover = uniqueCoverFor(tour);
+  const used = new Set([cover]);
   const days = tour.itinerary
     .map((item, index) => {
       const facts = dayFacts(item, tour, index, tour.itinerary.length)
@@ -105,7 +102,7 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
       return `
         <article class="safari-day">
           <div class="safari-day-media">
-            <img src="${dayImage(item, tour)}" alt="" loading="lazy" width="900" height="680" />
+            <img src="${dayImage(item, tour, used)}" alt="" loading="lazy" width="900" height="680" />
           </div>
           <div class="safari-day-copy">
             <p class="safari-day-label">${item.day}</p>
@@ -128,7 +125,7 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
       <section class="page-hero relative isolate overflow-hidden text-white" aria-labelledby="tour-title">
         <img
           class="absolute inset-0 h-full w-full object-cover"
-          src="${tour.image}"
+          src="${cover}"
           alt=""
           width="2000"
           height="900"
@@ -143,7 +140,7 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
           <p class="mt-4 font-body text-sm font-semibold uppercase tracking-[0.12em] text-white/85">
             ${tour.duration}${tour.places ? ` · ${tour.places}` : ''}
           </p>
-          <a class="btn-navy mt-8 !rounded-none" href="/contact/">Book this safari</a>
+          <a class="btn-navy mt-8 !rounded-none" href="${book}">Book this safari</a>
         </div>
       </section>
 
@@ -192,7 +189,7 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
             </dl>
             <h3 class="mt-8 font-body text-xs font-bold uppercase tracking-[0.14em] text-gold-deep">Highlights</h3>
             <ul class="safari-bullets mt-3">${highlights}</ul>
-            <a class="btn-navy mt-8 w-full !rounded-none" href="/contact/">Enquire now</a>
+            <a class="btn-navy mt-8 w-full !rounded-none" href="${book}">Book this safari</a>
           </aside>
         </div>
       </section>
@@ -243,7 +240,7 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
             </h2>
             <p class="mt-3 max-w-xl text-ink/80">Share your dates and group size — we will confirm lodges, park fees, and the vehicle setup.</p>
           </div>
-          <a class="reveal btn-navy !rounded-none shrink-0" href="/contact/">Talk to an expert</a>
+          <a class="reveal btn-navy !rounded-none shrink-0" href="${book}">Book this safari</a>
         </div>
       </section>
     </main>

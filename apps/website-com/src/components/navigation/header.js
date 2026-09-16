@@ -1,9 +1,13 @@
 import { navLinks, site, utilityLinks } from '../../pages/home/content.js';
 import { safariStyles, mostBookedSlugs, gmsTrips } from '../../pages/tours/gms-trips.js';
+import { allTours } from '../../pages/tours/catalog.js';
 import { tourHref } from '../../pages/tours/paths.js';
 import { destinationRegions } from '../../pages/destinations/content.js';
 import { destinationHref } from '../../pages/destinations/paths.js';
 import { cardUrl } from '../../media/gallery.js';
+import { openJoiningPackages } from '../../pages/join-safari/packages.js';
+import { joinHref } from '../../pages/join-safari/paths.js';
+import { kilimanjaroTreks } from '../../pages/kilimanjaro/packages.js';
 
 function pagePath() {
   return window.location.pathname.replace(/\/+$/, '') || '/';
@@ -40,6 +44,14 @@ function isCurrentNav(link) {
     return path === '/reviews' || path.startsWith('/reviews/');
   }
 
+  if (normalized === '/join-safari') {
+    return path === '/join-safari' || path.startsWith('/join-safari/');
+  }
+
+  if (normalized === '/kilimanjaro') {
+    return path === '/kilimanjaro' || path.startsWith('/kilimanjaro/');
+  }
+
   return path === normalized;
 }
 
@@ -58,6 +70,7 @@ const ICONS = {
   bed: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 18v-6.5A2.5 2.5 0 0 1 5.5 9H21v9"/><path d="M3 18h18M3 14h18"/><path d="M7 9V7a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>`,
   doc: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg>`,
   pin: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>`,
+  mountain: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m3 18 6.5-9 3.2 4.4L16 9l5 9H3z"/><path d="M14.2 12.4 16 9l2.4 3.3"/></svg>`,
   WhatsApp: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.15 6.4 2.15 11.83c0 1.74.46 3.44 1.34 4.94L2 22l5.38-1.41a10 10 0 0 0 4.66 1.13h.01c5.46 0 9.89-4.4 9.89-9.83S17.5 2 12.04 2zm5.76 14.2c-.24.68-1.4 1.3-1.94 1.38-.5.07-1.13.1-1.82-.11-.42-.14-.96-.31-1.66-.61-2.92-1.26-4.82-4.2-4.97-4.4-.14-.2-1.18-1.57-1.18-3 0-1.41.74-2.11 1-2.4.24-.27.64-.39.86-.39h.62c.2 0 .46-.05.72.55.27.64.91 2.22.99 2.38.08.16.13.35.03.56-.1.22-.16.35-.31.54-.16.19-.33.42-.47.56-.16.16-.32.33-.14.64.19.32.84 1.38 1.8 2.24 1.24 1.1 2.28 1.45 2.6 1.61.32.16.5.13.69-.08.19-.2.8-.93 1.02-1.25.21-.32.43-.26.72-.16.3.1 1.88.89 2.2 1.05.32.16.54.24.62.38.08.13.08.77-.16 1.45z"/></svg>`,
   Facebook: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H9v3h2v7h3v-7h3l1-3h-4V9c0-.6.4-1 1-1z"/></svg>`,
   X: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 4h2.3l-5.1 5.8L21 20h-4.6l-3.6-4.7L8.7 20H6.4l5.4-6.2L4 4h4.7l3.3 4.4L17.5 4zm-.8 14.4h1.3L8.4 5.5H7L16.7 18.4z"/></svg>`,
@@ -65,20 +78,35 @@ const ICONS = {
   Instagram: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="3.6"/><circle cx="17.2" cy="6.8" r="0.8" fill="currentColor" stroke="none"/></svg>`,
 };
 
-const MORE_HREFS = new Set(['/kilimanjaro/', '/tours/#excursions']);
+function packageRows(items, hrefFor, icon) {
+  return items
+    .map((item) => {
+      const price = item.price_from ? `From $${Number(item.price_from).toLocaleString('en-US')}` : '';
+      return `
+        <li>
+          <a href="${hrefFor(item)}">
+            <span class="nav-mega-icon">${icon}</span>
+            <span>
+              <strong>${item.title}</strong>
+              <small>${item.duration || ''}${price ? ` · ${price}` : ''}</small>
+            </span>
+          </a>
+        </li>
+      `;
+    })
+    .join('');
+}
 
 /**
  * Header layout from the live GM screenshot:
  * gold contact bar, then black bar with logo | nav | search + Book Now.
  */
 export function renderHeader() {
-  const moreLinks = navLinks.filter((link) => MORE_HREFS.has(link.href));
   const contactLink = navLinks.find((link) => link.href === '/contact/');
-  const primaryLinks = navLinks.filter(
-    (link) => !MORE_HREFS.has(link.href) && link.href !== '/contact/' && link.href !== '/tours/'
-  );
-  const booked = mostBookedSlugs.map((slug) => gmsTrips.find((trip) => trip.slug === slug)).filter(Boolean);
-  const feature = booked[0] || gmsTrips[0];
+  const primaryLinks = navLinks.filter((link) => link.href !== '/contact/');
+  const pricedTrips = allTours();
+  const booked = mostBookedSlugs.map((slug) => pricedTrips.find((trip) => trip.slug === slug) || gmsTrips.find((trip) => trip.slug === slug)).filter(Boolean);
+  const feature = booked[0] || pricedTrips[0] || gmsTrips[0];
 
   const linkMarkup = (link) => {
     const current = isCurrentNav(link);
@@ -97,7 +125,7 @@ export function renderHeader() {
             <div class="nav-mega-intro">
               <p class="nav-mega-kicker">Tanzania safaris</p>
               <p>Private, tailor-made and small-group safaris across Tanzania’s Northern Circuit.</p>
-              <a class="nav-mega-all" href="/tours/">Browse all ${gmsTrips.length}+ safaris <span aria-hidden="true">→</span></a>
+              <a class="nav-mega-all" href="/tours/">Browse all ${pricedTrips.length} priced safaris <span aria-hidden="true">→</span></a>
             </div>
             <div>
               <p class="nav-mega-kicker">Safari styles</p>
@@ -205,7 +233,7 @@ export function renderHeader() {
               </ul>
             </div>
             <a class="nav-mega-feature" href="${destinationHref(destFeature)}">
-              <img src="${cardUrl(destFeature.image, destFeature.name, 0)}" alt="" width="480" height="360" loading="lazy" decoding="async" />
+              <img src="${cardUrl(destFeature.image, destFeature, 0)}" alt="" width="480" height="360" loading="lazy" decoding="async" />
               <span>
                 <small>Start here</small>
                 <strong>${destFeature.name}</strong>
@@ -216,32 +244,94 @@ export function renderHeader() {
         </div>
       </div>
     `;
+  const joinCurrent = isCurrentNav({ href: '/join-safari/' });
+  const joinFeature = openJoiningPackages.find((item) => item.featured) || openJoiningPackages[0];
+  const joinCols = [
+    openJoiningPackages.slice(0, Math.ceil(openJoiningPackages.length / 2)),
+    openJoiningPackages.slice(Math.ceil(openJoiningPackages.length / 2)),
+  ];
+  const joinMega = `
+      <div class="nav-mega" data-nav-mega>
+        <button type="button" class="nav-link nav-mega-btn" data-nav-mega-toggle aria-expanded="false" aria-haspopup="true" ${joinCurrent ? 'aria-current="page"' : ''}>
+          Join Safari
+          <span class="nav-more-chevron">${ICONS.chevron}</span>
+        </button>
+        <div class="nav-mega-panel" data-nav-mega-panel>
+          <div class="container-site nav-mega-grid">
+            <div class="nav-mega-intro">
+              <p class="nav-mega-kicker">Joining group safari</p>
+              <p>Share a vehicle on published 2026–2027 departures across Tarangire, Serengeti, and Ngorongoro.</p>
+              <a class="nav-mega-all" href="/join-safari/">Browse all joining safaris <span aria-hidden="true">→</span></a>
+            </div>
+            <div>
+              <p class="nav-mega-kicker">Open packages</p>
+              <ul class="nav-mega-booked">${packageRows(joinCols[0], joinHref, ICONS.people)}</ul>
+            </div>
+            <div>
+              <p class="nav-mega-kicker">More group trips</p>
+              <ul class="nav-mega-booked">${packageRows(joinCols[1], joinHref, ICONS.people)}</ul>
+            </div>
+            <a class="nav-mega-feature" href="${joinHref(joinFeature)}">
+              <img src="${cardUrl(joinFeature.image, joinFeature, 0)}" alt="" width="480" height="360" loading="lazy" decoding="async" />
+              <span>
+                <small>Join this group</small>
+                <strong>${joinFeature.title}</strong>
+                <em>${joinFeature.duration}</em>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
+  const kiliCurrent = isCurrentNav({ href: '/kilimanjaro/' });
+  const kiliFeature = kilimanjaroTreks.find((item) => item.featured) || kilimanjaroTreks[0];
+  const kiliCols = [
+    kilimanjaroTreks.slice(0, Math.ceil(kilimanjaroTreks.length / 2)),
+    kilimanjaroTreks.slice(Math.ceil(kilimanjaroTreks.length / 2)),
+  ];
+  const kiliMega = `
+      <div class="nav-mega" data-nav-mega>
+        <button type="button" class="nav-link nav-mega-btn" data-nav-mega-toggle aria-expanded="false" aria-haspopup="true" ${kiliCurrent ? 'aria-current="page"' : ''}>
+          Kilimanjaro
+          <span class="nav-more-chevron">${ICONS.chevron}</span>
+        </button>
+        <div class="nav-mega-panel" data-nav-mega-panel>
+          <div class="container-site nav-mega-grid">
+            <div class="nav-mega-intro">
+              <p class="nav-mega-kicker">Kilimanjaro trekking</p>
+              <p>Marangu, Machame, Lemosho, Umbwe, Rongai, and the Northern Circuit — guided climbs from Arusha and Moshi.</p>
+              <a class="nav-mega-all" href="/kilimanjaro/">Browse all Kilimanjaro treks <span aria-hidden="true">→</span></a>
+            </div>
+            <div>
+              <p class="nav-mega-kicker">Trekking packages</p>
+              <ul class="nav-mega-booked">${packageRows(kiliCols[0], tourHref, ICONS.mountain)}</ul>
+            </div>
+            <div>
+              <p class="nav-mega-kicker">More routes</p>
+              <ul class="nav-mega-booked">${packageRows(kiliCols[1], tourHref, ICONS.mountain)}</ul>
+            </div>
+            <a class="nav-mega-feature" href="${tourHref(kiliFeature)}">
+              <img src="${cardUrl(kiliFeature.image, kiliFeature, 0)}" alt="" width="480" height="360" loading="lazy" decoding="async" />
+              <span>
+                <small>Featured trek</small>
+                <strong>${kiliFeature.title}</strong>
+                <em>${kiliFeature.duration}</em>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    `;
   const desktopLinks = primaryLinks
     .map((link) => {
-      if (link.href === '/destinations/') return `${destMega}${safariMega}`;
+      if (link.href === '/destinations/') return destMega;
+      if (link.href === '/tours/') return safariMega;
+      if (link.href === '/join-safari/') return joinMega;
+      if (link.href === '/kilimanjaro/') return kiliMega;
       return linkMarkup(link);
     })
     .join('');
   const contactMarkup = contactLink ? linkMarkup(contactLink) : '';
-
-  const moreMenu = moreLinks.length
-    ? `
-      <div class="nav-more" data-nav-more>
-        <button type="button" class="nav-link nav-more-btn" data-nav-more-toggle aria-expanded="false" aria-haspopup="true">
-          More
-          <span class="nav-more-chevron">${ICONS.chevron}</span>
-        </button>
-        <div class="nav-more-menu" data-nav-more-menu>
-          ${moreLinks
-            .map((link) => {
-              const current = isCurrentNav(link);
-              return `<a href="${link.href}" ${current ? 'aria-current="page"' : ''}>${link.label}</a>`;
-            })
-            .join('')}
-        </div>
-      </div>
-    `
-    : '';
 
   const mobileSafari = `
       <div class="mobile-nav-group">
@@ -257,6 +347,20 @@ export function renderHeader() {
         ${destinationRegions.map((region) => `<a class="mobile-nav-sub" href="/destinations/#${region.id}">${region.name}</a>`).join('')}
       </div>
     `;
+  const mobileJoin = `
+      <div class="mobile-nav-group">
+        <p class="mobile-nav-link" aria-hidden="true">Join Safari</p>
+        <a class="mobile-nav-sub" href="/join-safari/">All joining group safaris</a>
+        ${openJoiningPackages.map((item) => `<a class="mobile-nav-sub" href="${joinHref(item)}">${item.title}</a>`).join('')}
+      </div>
+    `;
+  const mobileKili = `
+      <div class="mobile-nav-group">
+        <p class="mobile-nav-link" aria-hidden="true">Kilimanjaro</p>
+        <a class="mobile-nav-sub" href="/kilimanjaro/">All Kilimanjaro treks</a>
+        ${kilimanjaroTreks.map((item) => `<a class="mobile-nav-sub" href="${tourHref(item)}">${item.title}</a>`).join('')}
+      </div>
+    `;
   const mobileUtility = utilityLinks
     .map((link) => {
       const current = isCurrentNav(link);
@@ -267,6 +371,8 @@ export function renderHeader() {
     .map((link) => {
       if (link.href === '/tours/') return mobileSafari;
       if (link.href === '/destinations/') return mobileDest;
+      if (link.href === '/join-safari/') return mobileJoin;
+      if (link.href === '/kilimanjaro/') return mobileKili;
       const current = isCurrentNav(link);
       return `<a class="mobile-nav-link" href="${link.href}" ${current ? 'aria-current="page"' : ''}>${link.label}</a>`;
     })
@@ -325,7 +431,6 @@ export function renderHeader() {
 
           <nav class="primary-nav" aria-label="Primary">
             ${desktopLinks}
-            ${moreMenu}
             ${contactMarkup}
           </nav>
 
@@ -340,7 +445,7 @@ export function renderHeader() {
               </button>
             </div>
 
-            <a class="nav-cta desktop-only" href="/contact/">Book Now</a>
+            <a class="nav-cta desktop-only" href="/booking/">Book Now</a>
 
             <button
               type="button"
@@ -369,7 +474,7 @@ export function renderHeader() {
           <a class="mobile-nav-phone" href="mailto:${site.email}">${site.email}</a>
           ${mobileLinks}
           ${mobileUtility}
-          <a class="nav-cta mobile-nav-cta" href="/contact/">Book Now</a>
+          <a class="nav-cta mobile-nav-cta" href="/booking/">Book Now</a>
         </div>
       </div>
     </header>
@@ -379,9 +484,6 @@ export function renderHeader() {
 export function initHeader() {
   const header = document.querySelector('[data-site-header]');
   const toggle = document.querySelector('[data-nav-toggle]');
-  const more = document.querySelector('[data-nav-more]');
-  const moreBtn = document.querySelector('[data-nav-more-toggle]');
-  const moreMenu = document.querySelector('[data-nav-more-menu]');
   const searchWrap = document.querySelector('[data-header-search]');
   const searchToggle = document.querySelector('[data-search-toggle]');
   const searchForm = document.querySelector('[data-search-form]');
@@ -425,23 +527,6 @@ export function initHeader() {
   const stillInside = (node, ...roots) =>
     Boolean(node && roots.some((root) => root && (root === node || root.contains(node))));
 
-  const closeMoreNow = () => {
-    window.clearTimeout(moreTimer);
-    if (!moreBtn || !moreMenu) return;
-    moreBtn.setAttribute('aria-expanded', 'false');
-    moreMenu.classList.remove('is-open');
-  };
-
-  const openMore = () => {
-    window.clearTimeout(moreTimer);
-    closeAllMegasNow();
-    if (!moreBtn || !moreMenu) return;
-    moreBtn.setAttribute('aria-expanded', 'true');
-    moreMenu.classList.add('is-open');
-  };
-
-  let moreTimer = 0;
-
   const megas = [...document.querySelectorAll('[data-nav-mega]')].map((root) => ({
     root,
     btn: root.querySelector('[data-nav-mega-toggle]'),
@@ -463,7 +548,6 @@ export function initHeader() {
   const openMega = (item) => {
     if (!item.btn || !item.panel) return;
     window.clearTimeout(item.timer);
-    closeMoreNow();
     megas.forEach((other) => {
       if (other !== item) closeMegaNow(other);
     });
@@ -475,26 +559,6 @@ export function initHeader() {
     window.clearTimeout(item.timer);
     item.timer = window.setTimeout(() => closeMegaNow(item), 120);
   };
-
-  if (more && moreBtn && moreMenu) {
-    moreBtn.addEventListener('click', (event) => {
-      event.stopPropagation();
-      closeAllMegasNow();
-      const open = moreBtn.getAttribute('aria-expanded') === 'true';
-      if (open) closeMoreNow();
-      else openMore();
-    });
-    moreBtn.addEventListener('mouseenter', openMore);
-    more.addEventListener('mouseleave', (event) => {
-      if (stillInside(event.relatedTarget, more, moreMenu)) return;
-      closeMoreNow();
-    });
-    moreMenu.addEventListener('mouseenter', openMore);
-    moreMenu.addEventListener('mouseleave', (event) => {
-      if (stillInside(event.relatedTarget, more)) return;
-      closeMoreNow();
-    });
-  }
 
   for (const item of megas) {
     if (!item.btn || !item.panel) continue;
@@ -527,7 +591,6 @@ export function initHeader() {
     .forEach((el) => {
       el.addEventListener('mouseenter', () => {
         closeAllMegasNow();
-        if (!more?.contains(el)) closeMoreNow();
       });
     });
 
@@ -553,7 +616,7 @@ export function initHeader() {
       if (!query) return;
       const match =
         navLinks.find((link) => link.label.toLowerCase().includes(query)) ||
-        gmsTrips.find((trip) => trip.title.toLowerCase().includes(query));
+        allTours().find((trip) => trip.title.toLowerCase().includes(query));
       if (match) window.location.href = match.href || tourHref(match);
     });
   }
@@ -568,13 +631,12 @@ export function initHeader() {
       if (!query) return;
       const match =
         navLinks.find((link) => link.label.toLowerCase().includes(query)) ||
-        gmsTrips.find((trip) => trip.title.toLowerCase().includes(query));
+        allTours().find((trip) => trip.title.toLowerCase().includes(query));
       if (match) window.location.href = match.href || tourHref(match);
     });
   }
 
   document.addEventListener('click', (event) => {
-    if (more && !more.contains(event.target)) closeMoreNow();
     if (!megas.some((item) => item.root.contains(event.target))) closeAllMegasNow();
     if (searchWrap && !searchWrap.contains(event.target)) closeSearch();
   });

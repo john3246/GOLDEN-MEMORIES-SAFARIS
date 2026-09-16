@@ -34,7 +34,7 @@ export function renderSafariCard(safari, href) {
           <p class="safari-card-meta">${escapeHtml(tour.duration)}</p>
           ${tour.places ? `<p class="safari-card-places">${escapeHtml(tour.places)}</p>` : ''}
           ${price ? `<p class="safari-card-price">${escapeHtml(price.card)}</p>` : ''}
-          <a class="safari-card-book" href="/contact/">Book now</a>
+          <a class="safari-card-book" href="${tour.slug ? `/booking/?safari=${encodeURIComponent(tour.slug)}` : '/booking/'}">Book now</a>
         </div>
       </div>
     </article>

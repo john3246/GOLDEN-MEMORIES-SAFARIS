@@ -87,6 +87,28 @@
     min-height: min(36rem, calc(100dvh - 6.8rem));
   }
 
+  .home-hero-media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background: #111;
+  }
+
+  .home-hero-poster,
+  .home-hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .home-hero-video {
+      display: none;
+    }
+  }
+
   .home-hero > .container-site {
     min-height: min(36rem, calc(100dvh - 6.8rem));
     padding-block: 3.5rem 3rem;
@@ -542,61 +564,206 @@
     scroll-margin-top: 7.5rem;
   }
 
-  .join-card,
   .join-card-empty {
     background: #fff;
     padding: 1.35rem 1.25rem;
+    grid-column: 1 / -1;
   }
 
   .join-card {
-    display: grid;
-    gap: 1rem 1.5rem;
-    align-items: center;
+    position: relative;
+    min-height: 18rem;
+    overflow: hidden;
+    color: #fff;
   }
 
-  .join-card-copy h3 {
+  .join-card-media {
+    position: absolute;
+    inset: 0;
+  }
+
+  .join-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .join-card:hover img {
+    transform: scale(1.06);
+  }
+
+  .join-card-overlay {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    min-height: 18rem;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.35rem 1.15rem 1.2rem;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.82) 0%, rgb(0 0 0 / 0.22) 48%, rgb(0 0 0 / 0.4) 100%);
+    pointer-events: none;
+  }
+
+  .join-card-overlay a {
+    pointer-events: auto;
+  }
+
+  .join-card-title {
     margin: 0;
     font-family: var(--font-display);
-    font-size: 1.2rem;
+    font-size: 1.35rem;
     font-weight: 600;
-    color: var(--color-black);
-    line-height: 1.3;
+    line-height: 1.2;
   }
 
-  .join-card-copy p {
-    margin: 0.35rem 0 0;
-    font-size: 0.92rem;
-    color: rgb(0 0 0 / 0.62);
+  .join-card-title a {
+    color: inherit;
+  }
+
+  .join-card-top p {
+    margin: 0.4rem 0 0;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.8);
   }
 
   .join-card-meta {
     font-weight: 700;
-    color: rgb(0 0 0 / 0.75) !important;
+    color: #fff !important;
   }
 
   .join-card-tags {
-    margin: 0;
+    margin: 0.7rem 0 0;
     padding: 0;
     list-style: none;
     display: grid;
-    gap: 0.35rem;
+    gap: 0.2rem;
   }
 
   .join-card-tags li {
-    font-size: 0.85rem;
-    color: rgb(0 0 0 / 0.62);
+    font-size: 0.82rem;
+    color: rgb(255 255 255 / 0.78);
   }
 
   .join-card-tag-label {
-    display: block;
+    display: inline;
     font-weight: 800;
-    color: var(--color-black);
+    color: var(--color-gold);
+    margin-right: 0.35rem;
   }
 
-  @media (min-width: 900px) {
-    .join-card {
-      grid-template-columns: minmax(0, 1.2fr) minmax(10rem, 0.8fr) auto;
+  .join-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.9rem;
+  }
+
+  .join-card-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #fff;
+  }
+
+  .join-card-more-icon {
+    display: inline-flex;
+    width: 1.4rem;
+    height: 1.4rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(255 255 255 / 0.7);
+    border-radius: 9999px;
+    font-size: 0.75rem;
+  }
+
+  .join-card-more:hover {
+    color: var(--color-gold);
+  }
+
+  .join-card-book {
+    display: inline-flex;
+    padding: 0.45rem 0.9rem;
+    background: var(--color-gold);
+    color: var(--color-black);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .join-card-book:hover {
+    background: var(--color-gold-deep);
+  }
+
+  @media (min-width: 640px) {
+    .join-card,
+    .join-card-overlay {
+      min-height: 22rem;
     }
+  }
+
+  .join-package {
+    display: grid;
+    gap: 1.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgb(0 0 0 / 0.08);
+  }
+
+  .join-package-hero {
+    position: relative;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .join-package-hero img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .join-package-price {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    margin: 0;
+    background: var(--color-gold);
+    color: #000;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.7rem;
+  }
+
+  .join-package-copy h3 {
+    margin: 0.35rem 0 0;
+    font-family: var(--font-display);
+    font-size: 1.65rem;
+    font-weight: 600;
+  }
+
+  .join-package-copy p {
+    margin: 0.85rem 0 0;
+    color: rgb(0 0 0 / 0.72);
+    line-height: 1.6;
+  }
+
+  .join-package-days {
+    margin-top: 0.5rem;
   }
 
   .safari-itinerary {
@@ -691,11 +858,13 @@
     margin-top: 0.45rem;
   }
 
+  .quote-card {
+    border: 1px solid color-mix(in oklab, var(--color-ink) 10%, transparent);
+  }
+
   .safari-day.is-text {
     grid-template-columns: 1fr;
     max-width: 46rem;
-    padding-left: 1.15rem;
-    border-left: 2px solid var(--color-gold);
   }
 
   .safari-day.is-text .safari-day-copy {

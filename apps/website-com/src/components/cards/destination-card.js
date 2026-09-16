@@ -12,7 +12,7 @@ export function destinationCard(destination) {
       aria-label="${destination.name} — ${destination.trips} trips"
     >
       <img
-        src="${cardUrl(destination.image, destination.name, 0)}"
+        src="${cardUrl(destination.image, destination, 0)}"
         alt="${destination.name}"
         loading="lazy"
         decoding="async"

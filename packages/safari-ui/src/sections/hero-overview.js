@@ -2,6 +2,11 @@ import { escapeHtml, paragraphs } from '../escape.js';
 import { editAttr } from '../edit.js';
 import { safariPrice } from '../price.js';
 
+function bookingUrl(safari) {
+  const slug = safari?.slug;
+  return slug ? `/booking/?safari=${encodeURIComponent(slug)}` : '/booking/';
+}
+
 export function renderHero(safari, options = {}) {
   const editable = Boolean(options.editable);
   const image = safari.hero_image?.url || '';
@@ -34,7 +39,7 @@ export function renderHero(safari, options = {}) {
         <p class="mt-1 font-body text-xs font-semibold uppercase tracking-[0.12em] text-white/70">${escapeHtml(price.sharing)} for ${price.share} sharing</p>`
             : ''
         }
-        <a class="btn-navy mt-8 !rounded-none" href="/contact/">Book this safari</a>
+        <a class="btn-navy mt-8 !rounded-none" href="${bookingUrl(safari)}">Book this safari</a>
       </div>
     </section>
   `;
@@ -76,7 +81,7 @@ export function renderOverview(safari, options = {}) {
             <ul class="safari-bullets mt-3"${editAttr(editable, 'highlights')}>${highlights}</ul>`
               : ''
           }
-          <a class="btn-navy mt-8 w-full !rounded-none" href="/contact/">Enquire now</a>
+          <a class="btn-navy mt-8 w-full !rounded-none" href="${bookingUrl(safari)}">Book this safari</a>
         </aside>
       </div>
     </section>

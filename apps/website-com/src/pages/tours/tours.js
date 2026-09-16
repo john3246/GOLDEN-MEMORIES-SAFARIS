@@ -1,5 +1,5 @@
 import { tourCard } from '../../components/cards/tour-card.js';
-import { ensureGalleryUrl } from '../../media/gallery.js';
+import { uniqueCoverFor } from '../../media/gallery.js';
 import { testimonials as homeQuotes } from '../home/content.js';
 import { allTours } from './catalog.js';
 import { gmsTrips, styleBySlug } from './gms-trips.js';
@@ -9,7 +9,7 @@ import { safariHero, safariIntro, whySafari, safariFaqs, testimonials } from './
 const quotes = (testimonials.length ? testimonials : homeQuotes)
   .map(
     (t) => `
-      <blockquote class="border-l-4 border-gold bg-white p-5 sm:p-6">
+      <blockquote class="quote-card bg-white p-5 sm:p-6">
         <p class="font-display text-base italic leading-relaxed text-ink/80">“${t.quote}”</p>
         <footer class="mt-4">
           <cite class="not-italic font-body text-sm font-bold uppercase tracking-[0.1em] text-black">${t.name}</cite>
@@ -31,15 +31,17 @@ export function renderTours(cmsPackages) {
   const bySlug = new Map(catalog.map((item) => [item.slug, item]));
   if (Array.isArray(cmsPackages)) {
     for (const item of cmsPackages) {
+      const price = item.price_from ?? item.price;
+      if (!(Number(price) > 0)) continue;
       const gms = gmsTrips.find((trip) => trip.slug === item.slug);
       bySlug.set(item.slug, {
         slug: item.slug,
         title: item.title,
         duration: item.duration_label || item.duration || gms?.duration || '',
         places: item.destination || gms?.places || '',
-        image: ensureGalleryUrl(gms?.image || item.hero_image?.url, item),
+        image: uniqueCoverFor(gms || item),
         featured: item.featured,
-        price_from: item.price_from ?? item.price,
+        price_from: price,
         currency: item.currency || 'USD',
         minimum_people: item.minimum_people,
         activity: gms?.activity,
@@ -47,12 +49,12 @@ export function renderTours(cmsPackages) {
       });
     }
   }
-  const sourced = [...bySlug.values()];
+  const sourced = [...bySlug.values()].filter((tour) => Number(tour.price_from || tour.price) > 0);
   const packageGrid = sourced
-    .map((item, index) =>
+    .map((item) =>
       tourCard({
         ...item,
-        image: ensureGalleryUrl(item.image, item, index),
+        image: uniqueCoverFor(item),
       })
     )
     .join('');
@@ -98,7 +100,7 @@ export function renderTours(cmsPackages) {
             ${styleMeta ? styleMeta.label : 'Tanzania safari tours and safari packages'}
           </h1>
           <p class="mt-2 max-w-2xl text-sm leading-relaxed text-white/85 sm:text-base">
-            ${gmsTrips.length}+ private itineraries across the Northern Circuit, Kilimanjaro, and Zanzibar — priced per person and tailored to your dates.
+            ${sourced.length} priced safari packages across the Northern Circuit and joining group safaris — published per person.
           </p>
         </div>
       </section>

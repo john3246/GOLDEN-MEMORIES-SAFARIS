@@ -1,4 +1,5 @@
 import { media as GM, destinations as regions } from '../home/content.js';
+import { uniqueCoverFor } from '../../media/gallery.js';
 
 export { regions };
 
@@ -6,7 +7,7 @@ export const destinationsHero = {
   kicker: 'Explore Tanzania',
   title: 'Tanzania Safari Destinations',
   cta: 'Plan this journey',
-  image: GM.northern,
+  image: '/images/gallery/serengeti-01.webp',
 };
 
 export const destinationsIntro = {
@@ -163,3 +164,9 @@ export const destinationRegions = [
     ],
   },
 ];
+
+for (const region of destinationRegions) {
+  for (const park of region.parks || []) {
+    park.image = uniqueCoverFor(park);
+  }
+}

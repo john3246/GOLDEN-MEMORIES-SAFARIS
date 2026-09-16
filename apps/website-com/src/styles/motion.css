@@ -103,14 +103,11 @@ footer a:hover {
 }
 
 blockquote {
-  transition:
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.35s ease;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 blockquote:hover {
   transform: translateY(-3px);
-  border-left-color: var(--color-sun);
 }
 
 @media (prefers-reduced-motion: reduce) {

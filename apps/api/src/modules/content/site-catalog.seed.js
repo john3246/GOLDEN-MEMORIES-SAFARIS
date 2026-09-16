@@ -73,7 +73,7 @@ async function loadWebsiteCatalog() {
     destinations: destinationsMod.destinationPlaces || [],
     posts: blogMod.blogArticles || [],
     lodges: lodgesMod.lodges || [],
-    departures: joinMod.joiningSafaris || [],
+    departures: [...(joinMod.joiningSafaris || []), ...(joinMod.openJoiningPackages || [])],
     faqs: [
       ...(toursMod.safariFaqs || []).map((item) => ({ ...item, group: 'safaris' })),
       ...(kiliMod.kiliFaqs || []).map((item) => ({ ...item, group: 'kilimanjaro' })),
@@ -203,6 +203,7 @@ export async function seedWebsiteCatalog() {
             overview: trip.overview || '',
             highlights: lines(trip.highlights),
             image: trip.image || '',
+            price_from: trip.price_from || '',
           },
           at
         )

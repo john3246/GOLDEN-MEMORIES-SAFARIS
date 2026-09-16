@@ -1,25 +1,44 @@
-import { media as GM } from '../home/content.js';
+import { galleryPhoto, assignUniqueCovers } from '../../media/gallery.js';
+import { openJoiningPackages } from './packages.js';
+
+export { openJoiningPackages };
 
 export const joinHero = {
   kicker: 'Scheduled group departure',
   title: 'Join a Group Safari',
   subtitle: 'Share a vehicle, a camp, and the calving plains — a set date, a small group, and a local guide.',
   cta: 'View open departures',
-  image: GM.migration,
+  image: galleryPhoto('serengeti', 8),
 };
 
 export const joiningSafaris = [
   {
     id: 'ndutu-calving-2027',
+    slug: '6-days-great-wildebeest-calving-experience',
     title: '6 Days Great Wildebeest Calving Experience (Joining Safari)',
     datesLabel: 'February 15–20, 2027',
     start: '2027-02-15',
     end: '2027-02-20',
     duration: '6 Days / 5 Nights',
     places: 'Arusha · Ngorongoro · Ndutu',
-    image: GM.migration,
+    image: galleryPhoto('serengeti', 8),
     spaces: 'Spaces limited',
     deposit: 'Join group',
+    activity: 'Group Safari',
+    included: [
+      'Park and crater fees as per the itinerary',
+      'Shared 4x4 safari vehicle and professional English-speaking guide',
+      'Lodge and tented camp nights as listed',
+      'Meals as specified each day',
+      'Drinking water on game drives',
+      'Arusha airport or hotel transfers on safari days',
+    ],
+    excluded: [
+      'International flights and Tanzania visa',
+      'Travel insurance',
+      'Drinks, tips, and personal expenses',
+      'Optional balloon safari or cultural visits',
+    ],
     tags: [
       { label: 'Calving season', detail: 'Ndutu plains' },
       { label: 'Crater game drive', detail: 'Ngorongoro' },
@@ -47,7 +66,7 @@ export const joiningSafaris = [
         viewing: '—',
         transport: 'Airport or hotel transfer',
         meals: 'Dinner',
-        image: GM.meru,
+        image: galleryPhoto('culture', 3),
       },
       {
         iso: '2027-02-16',
@@ -59,7 +78,7 @@ export const joiningSafaris = [
         viewing: 'Crater game drive',
         transport: '4x4 safari vehicle',
         meals: 'Breakfast, lunch & dinner',
-        image: GM.ngorongoro,
+        image: galleryPhoto('ngorongoro', 9),
       },
       {
         iso: '2027-02-17',
@@ -71,7 +90,7 @@ export const joiningSafaris = [
         viewing: 'Full-day game drive',
         transport: '4x4 safari vehicle',
         meals: 'Breakfast, lunch & dinner',
-        image: GM.migration,
+        image: galleryPhoto('serengeti', 5),
       },
       {
         iso: '2027-02-18',
@@ -83,7 +102,7 @@ export const joiningSafaris = [
         viewing: 'Full-day game drive',
         transport: '4x4 safari vehicle',
         meals: 'Breakfast, lunch & dinner',
-        image: GM.northern,
+        image: galleryPhoto('serengeti', 6),
       },
       {
         iso: '2027-02-19',
@@ -95,7 +114,7 @@ export const joiningSafaris = [
         viewing: 'Morning & afternoon game drive',
         transport: '4x4 safari vehicle',
         meals: 'Breakfast, lunch & dinner',
-        image: GM.ngorongoroTourists,
+        image: galleryPhoto('serengeti', 7),
       },
       {
         iso: '2027-02-20',
@@ -107,11 +126,13 @@ export const joiningSafaris = [
         viewing: '—',
         transport: 'Transfer',
         meals: 'Breakfast',
-        image: GM.savanna,
+        image: galleryPhoto('culture', 4),
       },
     ],
   },
 ];
+
+assignUniqueCovers(joiningSafaris);
 
 export function isoInRange(iso, start, end) {
   return iso >= start && iso <= end;
@@ -149,8 +170,8 @@ export const CALENDAR_YEARS = [2026, 2027, 2028];
 export const joinIntro = {
   title: 'Open group safari departures',
   body: [
-    'Joining safaris run on published dates. You share a 4x4, a camp, and a local Golden Memories guide with a small group — a set itinerary, without building a private trip from scratch.',
-    'Choose a year and month to see open departures. If these dates do not fit, we can open another joining group or private-guide the same Ndutu calving route.',
+    'Joining safaris use a shared 4x4, a published itinerary, and a local Golden Memories guide. The 2026–2027 packages below have set prices per person. The Ndutu calving safari in February 2027 is a dated departure with its own camp nights.',
+    'Pick a joining package, or choose a year and month for scheduled departures. If these dates do not fit, we can open another group or run the same route as a private safari.',
   ],
 };
 

@@ -1,4 +1,6 @@
-import { media as GM, testimonials as homeQuotes, kilimanjaro as climbPackages } from '../home/content.js';
+import { uniqueCoverFor } from '../../media/gallery.js';
+import { testimonials as homeQuotes } from '../home/content.js';
+import { kilimanjaroTreks as climbPackages } from './packages.js';
 
 export { climbPackages };
 
@@ -6,13 +8,13 @@ export const kiliHero = {
   kicker: 'The roof of Africa',
   title: 'Climb the Magnificent Mount Kilimanjaro',
   cta: 'Plan this climb',
-  image: GM.kilimanjaro,
+  image: '/images/gallery/kilimanjaro-18.webp',
 };
 
 export const kiliIntro = {
   kicker: 'Uhuru Peak · 5,895 m',
   title: 'A wilderness trek to Africa’s highest point',
-  image: GM.machame,
+  image: '/images/gallery/kilimanjaro-19.webp',
   imageAlt: 'Trekkers on the Machame Route of Mount Kilimanjaro',
   paragraphs: [
     'Climbing Mount Kilimanjaro — the highest free-standing mountain in the world — sits on the bucket list of many adventure travellers. Summiting Uhuru Peak is a unique wilderness experience: you walk from rainforest to alpine desert to a glacier rim, then watch sunrise over the continent.',
@@ -24,39 +26,39 @@ export const kiliIntro = {
 export const kiliRoutes = [
   {
     name: 'Marangu Route',
-    slug: '8-days-mt-kilimanjaro-via-marangu-route',
-    image: GM.kilimanjaro,
+    slug: '6-day-mount-kilimanjaro-climbing-adventure-via-marangu-route',
+    image: uniqueCoverFor({ slug: '6-day-mount-kilimanjaro-climbing-adventure-via-marangu-route', title: 'Marangu Route', places: 'Kilimanjaro' }),
     body: 'A gradual ascent on the “Coca-Cola” trail, with overnight in mountain huts. You pass rainforest, moorland, and alpine desert — a classic, less strenuous profile for first-time trekkers who want a structured hut-to-hut climb.',
   },
   {
     name: 'Machame Route',
-    slug: '7-day-kilimanjaro-climb-via-machame-route',
-    image: GM.machame,
+    slug: '7-day-mount-kilimanjaro-climbing-adventure-via-machame-route',
+    image: uniqueCoverFor({ slug: '7-day-mount-kilimanjaro-climbing-adventure-via-machame-route', title: 'Machame Route', places: 'Kilimanjaro' }),
     body: 'A more scenic camping route: rainforest, the Shira Plateau, and the Barranco Wall. “Climb high, sleep low” gives a strong acclimatisation profile and some of the best views on the mountain.',
   },
   {
     name: 'Lemosho Route',
-    href: '/contact/',
-    image: GM.kilimanjaro,
+    slug: '8-day-mount-kilimanjaro-trekking-adventure-via-lemosho-route',
+    image: uniqueCoverFor({ slug: '8-day-mount-kilimanjaro-trekking-adventure-via-lemosho-route', title: 'Lemosho Route', places: 'Kilimanjaro' }),
     body: 'A quieter western start through forest and onto the Shira Plateau, then the Barranco Wall. Excellent acclimatisation and fewer crowds in the first days — a favourite when you can spare eight days.',
   },
   {
     name: 'Rongai Route',
-    href: '/contact/',
-    image: GM.meru,
+    slug: '7-day-mount-kilimanjaro-climbing-adventure-via-rongai-route',
+    image: uniqueCoverFor({ slug: '7-day-mount-kilimanjaro-climbing-adventure-via-rongai-route', title: 'Rongai Route', places: 'Kilimanjaro' }),
     body: 'The northern approach: drier slopes, more solitude, and a different angle on Kilimanjaro. A good choice in the wetter months, with a remote wilderness feel before you join the summit ridge.',
   },
   {
-    name: 'Londorossi Gate',
-    href: '/contact/',
-    image: GM.kilimanjaro,
-    body: 'A western-gate start used on longer Lemosho-style itineraries. Tranquil forest, a pristine wilderness feel, and extra days to settle into the altitude before the high camps.',
+    name: 'Umbwe Route',
+    slug: '6-day-mount-kilimanjaro-climbing-adventure-via-umbwe-route',
+    image: uniqueCoverFor({ slug: '6-day-mount-kilimanjaro-climbing-adventure-via-umbwe-route', title: 'Umbwe Route', places: 'Kilimanjaro' }),
+    body: 'The steepest and most direct path. For experienced trekkers who want a challenging ascent and do not mind a tougher acclimatisation profile. We brief this one carefully before we book it.',
   },
   {
-    name: 'Umbwe Route',
-    href: '/contact/',
-    image: GM.machame,
-    body: 'The steepest and most direct path. For experienced trekkers who want a challenging ascent and do not mind a tougher acclimatisation profile. We brief this one carefully before we book it.',
+    name: 'Northern Circuit',
+    slug: '9-day-mount-kilimanjaro-trekking-adventure-via-northern-circuit-route',
+    image: uniqueCoverFor({ slug: '9-day-mount-kilimanjaro-trekking-adventure-via-northern-circuit-route', title: 'Northern Circuit', places: 'Kilimanjaro' }),
+    body: 'The longest Kilimanjaro itinerary: a western Lemosho start, then the quiet northern slopes for extra acclimatisation before Uhuru Peak. The fullest circuit of the mountain.',
   },
 ];
 

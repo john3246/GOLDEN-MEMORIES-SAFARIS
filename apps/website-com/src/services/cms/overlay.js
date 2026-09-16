@@ -1,13 +1,19 @@
-import { navLinks, site, testimonials, utilityLinks } from '../../pages/home/content.js';
+import '../../pages/tours/gms-trips.js';
+import '../../pages/join-safari/packages.js';
+import { joiningSafaris, joinFaqs } from '../../pages/join-safari/content.js';
+import '../../pages/kilimanjaro/packages.js';
+import { navLinks, site, testimonials, utilityLinks, featuredTours } from '../../pages/home/content.js';
 import { lodges } from '../../pages/accommodations/content.js';
 import { blogArticles } from '../../pages/blog/content.js';
 import { destinationPlaces } from '../../pages/destinations/catalog.js';
 import { destinationRegions } from '../../pages/destinations/content.js';
-import { joiningSafaris, joinFaqs } from '../../pages/join-safari/content.js';
 import { reviewList } from '../../pages/reviews/content.js';
 import { safariFaqs } from '../../pages/tours/content.js';
 import { kiliFaqs } from '../../pages/kilimanjaro/content.js';
+import { assignUniqueCovers, uniqueCoverFor } from '../../media/gallery.js';
 import { fetchPublicSettings, fetchPublishedContent } from '../api/cms.js';
+
+assignUniqueCovers(featuredTours);
 
 let pagesBySlug = new Map();
 
@@ -244,6 +250,12 @@ export async function hydrateFromCms() {
           joiningSafaris.push({ ...mapped, days: mapped.days || [] });
         }
       }
+    }
+
+    for (const trip of joiningSafaris) trip.image = uniqueCoverFor(trip);
+    for (const place of destinationPlaces) place.image = uniqueCoverFor(place);
+    for (const region of destinationRegions) {
+      for (const park of region.parks || []) park.image = uniqueCoverFor(park);
     }
   } catch {
     /* keep local fallback */

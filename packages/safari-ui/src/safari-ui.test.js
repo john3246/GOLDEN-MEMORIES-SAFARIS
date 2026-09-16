@@ -58,4 +58,44 @@ describe('safari-ui', () => {
     expect(html).toContain('USD 6,188');
     expect(html).toContain('Price per person');
   });
+
+  it('uses destination-matched itinerary photos that differ between safaris', async () => {
+    const { resolveDayImage, galleryKindForText, galleryKindForCover } = await import('@gm-safaris/safari-ui');
+    expect(galleryKindForText('Tarangire, Serengeti & Ngorongoro')).toBe('tarangire');
+    expect(galleryKindForCover({
+      title: '4-Day Affordable Private Tanzania Safari – Tarangire, Serengeti & Ngorongoro Crater Adventure',
+    })).toBe('tarangire');
+    expect(galleryKindForCover({
+      title: '4 Days Shared Safari Tanzania',
+      itinerary: [
+        { title: 'Tarangire National Park' },
+        { title: 'Serengeti National Park' },
+        { title: 'Full day in the Serengeti' },
+        { title: 'Ngorongoro Crater and return' },
+      ],
+    })).toBe('serengeti');
+    expect(galleryKindForText('5 Day Great Migration Safari')).toBe('serengeti');
+    expect(galleryKindForText('Ngorongoro Crater Day Trip')).toBe('ngorongoro');
+    expect(galleryKindForText('Machame Route Kilimanjaro')).toBe('kilimanjaro');
+
+    const tarangire = resolveDayImage(
+      { title: 'Tarangire National Park', description: 'Elephants among baobabs.' },
+      { slug: '3-days-affordable-joining-safari', title: '3 Days Affordable Joining Safari' },
+      0
+    );
+    const serengeti = resolveDayImage(
+      { title: 'Serengeti National Park', description: 'Open plains.' },
+      { slug: '5-day-great-migration-safari', title: '5 Day Great Migration Safari' },
+      0
+    );
+    const otherTarangire = resolveDayImage(
+      { title: 'Tarangire National Park', description: 'Elephants among baobabs.' },
+      { slug: '2-days-tarangire-ngorongoro-safari', title: '2 Days Tarangire & Ngorongoro Safari' },
+      0
+    );
+    expect(tarangire).toMatch(/\/images\/gallery\/tarangire-\d+\.webp$/);
+    expect(serengeti).toMatch(/\/images\/gallery\/serengeti-\d+\.webp$/);
+    expect(otherTarangire).toMatch(/\/images\/gallery\/tarangire-\d+\.webp$/);
+    expect(tarangire).not.toBe(otherTarangire);
+  });
 });

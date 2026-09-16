@@ -1,4 +1,6 @@
+import { uniqueCoverFor } from '../../media/gallery.js';
 import { dayTrips, kilimanjaro, zanzibar } from '../home/content.js';
+import { openJoiningPackages } from '../join-safari/packages.js';
 import { safariPackages } from './content.js';
 import { gmsTrips } from './gms-trips.js';
 import { slugify } from './paths.js';
@@ -256,6 +258,20 @@ const extras = {
   },
 };
 
+function daysFromJoin(tour) {
+  if (!Array.isArray(tour.days) || !tour.days.length) return null;
+  return tour.days.map((item) => ({
+    day: item.day,
+    title: item.title,
+    body: item.body,
+    stay: item.stay,
+    meals: item.meals,
+    viewing: item.viewing,
+    transport: item.transport,
+    image: item.image,
+  }));
+}
+
 function withDefaults(tour) {
   const slug = tour.slug || slugify(tour.title);
   const extra = extras[slug] || {};
@@ -263,23 +279,29 @@ function withDefaults(tour) {
   return {
     ...tour,
     slug,
-    overview: extra.overview || `${tour.title} with Golden Memories Safaris — a private itinerary from Arusha, shaped around ${tour.places || 'Tanzania’s parks'}.`,
-    highlights: extra.highlights || [tour.places, tour.duration, tour.activity].filter(Boolean),
-    itinerary: extra.itinerary || [{ day: 'Itinerary', title: tour.title, body: 'Share your dates and we will send a day-by-day plan for this package.' }],
-    included: extra.included || (isClimb ? climbIncluded : sharedIncluded),
-    excluded: extra.excluded || (isClimb ? climbExcluded : sharedExcluded),
+    overview: extra.overview || tour.overview || `${tour.title} with Golden Memories Safaris — a private itinerary from Arusha, shaped around ${tour.places || 'Tanzania’s parks'}.`,
+    highlights: extra.highlights || tour.highlights || [tour.places, tour.duration, tour.activity].filter(Boolean),
+    itinerary: extra.itinerary || daysFromJoin(tour) || [{ day: 'Itinerary', title: tour.title, body: 'Share your dates and we will send a day-by-day plan for this package.' }],
+    included: extra.included || tour.included || (isClimb ? climbIncluded : sharedIncluded),
+    excluded: extra.excluded || tour.excluded || (isClimb ? climbExcluded : sharedExcluded),
   };
+}
+
+export function hasTourPrice(tour) {
+  return Number(tour.price_from ?? tour.price) > 0;
 }
 
 export function allTours() {
   const seen = new Set();
-  return [...gmsTrips, ...safariPackages, ...dayTrips, ...kilimanjaro, ...zanzibar]
+  return [...gmsTrips, ...openJoiningPackages, ...safariPackages, ...dayTrips, ...kilimanjaro, ...zanzibar]
     .map(withDefaults)
     .filter((tour) => {
+      if (!hasTourPrice(tour)) return false;
       if (seen.has(tour.slug)) return false;
       seen.add(tour.slug);
       return true;
-    });
+    })
+    .map((tour) => ({ ...tour, image: uniqueCoverFor(tour) }));
 }
 
 export function getTourBySlug(slug) {

@@ -16,6 +16,7 @@ const PUBLIC_OMIT = new Set([
 export function toPublicSafari(record) {
   if (!record || record.status !== SafariStatus.PUBLISHED || !record.published) return null;
   const doc = record.published;
+  if (!(Number(doc.price_from ?? doc.price) > 0)) return null;
   return {
     id: record.id,
     slug: doc.slug || record.slug,

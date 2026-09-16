@@ -1,0 +1,219 @@
+import { site } from '../home/content.js';
+import { galleryPhoto } from '../../media/gallery.js';
+import { submitInquiry } from '../../services/api/cms.js';
+import { safariPrice } from '@gm-safaris/safari-ui';
+import { allTours } from '../tours/catalog.js';
+import { allJoinPackages, isJoinPackage } from '../join-safari/catalog.js';
+import { safariSlugFromQuery, tourHref } from '../tours/paths.js';
+import { joinHref } from '../join-safari/paths.js';
+
+function bookableSafaris() {
+  const seen = new Set();
+  const list = [];
+  for (const item of [...allJoinPackages(), ...allTours()]) {
+    if (!item.slug || seen.has(item.slug)) continue;
+    seen.add(item.slug);
+    list.push(item);
+  }
+  return list;
+}
+
+function optionLabel(item) {
+  const price = safariPrice(item);
+  if (price) return `${item.title} — ${price.card}`;
+  if (item.datesLabel) return `${item.title} — ${item.datesLabel}`;
+  return item.title;
+}
+
+function groupedOptions(selectedSlug) {
+  const items = bookableSafaris();
+  const joining = items.filter(isJoinPackage);
+  const climbs = items.filter((item) => /kilimanjaro|marangu|machame|lemosho|umbwe|rongai/i.test(`${item.title} ${item.slug || ''}`));
+  const climbsSlugs = new Set(climbs.map((item) => item.slug));
+  const joiningSlugs = new Set(joining.map((item) => item.slug));
+  const privateSafaris = items.filter((item) => !joiningSlugs.has(item.slug) && !climbsSlugs.has(item.slug));
+
+  const group = (label, rows) => {
+    if (!rows.length) return '';
+    return `
+      <optgroup label="${label}">
+        ${rows
+          .map(
+            (item) =>
+              `<option value="${item.slug}" ${item.slug === selectedSlug ? 'selected' : ''}>${optionLabel(item)}</option>`
+          )
+          .join('')}
+      </optgroup>
+    `;
+  };
+
+  return `${group('Joining group safaris', joining)}${group('Private safaris', privateSafaris)}${group('Kilimanjaro treks', climbs)}`;
+}
+
+function selectedSafari(slug) {
+  return bookableSafaris().find((item) => item.slug === slug) || null;
+}
+
+function summaryHtml(item) {
+  if (!item) {
+    return `<p class="font-body text-base leading-relaxed text-ink/70">Choose a safari and this form will keep it selected while you add dates and traveller details.</p>`;
+  }
+  const price = safariPrice(item);
+  const href = isJoinPackage(item) ? joinHref(item) : tourHref(item);
+  return `
+    <p class="font-body text-xs font-bold uppercase tracking-[0.14em] text-gold-deep">${item.activity || 'Safari'}</p>
+    <h2 class="mt-3 font-display text-2xl font-semibold text-black">${item.title}</h2>
+    <p class="mt-3 font-body text-sm font-semibold uppercase tracking-[0.1em] text-ink/60">${item.duration || ''}${
+      item.places ? ` · ${item.places}` : ''
+    }</p>
+    ${price ? `<p class="mt-4 font-body text-lg font-bold text-black">${price.hero}</p>` : ''}
+    <p class="mt-4 font-body text-base leading-relaxed text-ink/75">${item.overview || ''}</p>
+    <a class="btn-navy mt-6 !rounded-none" href="${href}">View itinerary</a>
+  `;
+}
+
+/**
+ * Booking page — safari is preselected from ?safari=slug.
+ */
+export function renderBooking() {
+  const selectedSlug = safariSlugFromQuery();
+  const current = selectedSafari(selectedSlug);
+
+  return `
+    <main id="main">
+      <section class="page-hero relative isolate overflow-hidden text-white" aria-labelledby="booking-hero-title">
+        <img
+          class="absolute inset-0 h-full w-full object-cover"
+          src="${current?.image || galleryPhoto('ngorongoro', 10)}"
+          alt=""
+          width="2000"
+          height="900"
+          fetchpriority="high"
+        />
+        <div class="absolute inset-0 bg-black/55"></div>
+        <div class="container-site relative flex min-h-[11rem] flex-col items-center justify-center py-8 text-center sm:min-h-[13rem] lg:min-h-[14rem]">
+          <p class="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-1.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-black">
+            Book a safari
+          </p>
+          <h1 id="booking-hero-title" class="mt-5 max-w-4xl font-display text-3xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
+            ${current ? `Book ${current.title}` : 'Book your Tanzania safari'}
+          </h1>
+          <p class="mt-4 max-w-2xl font-body text-base text-white/85 sm:text-lg">Tell us your dates and group size — we confirm lodges, park fees, and the vehicle from Arusha.</p>
+        </div>
+      </section>
+
+      <nav class="bg-white py-4" aria-label="Breadcrumb">
+        <div class="container-site font-body text-sm text-black/60">
+          <a class="hover:text-gold-deep" href="/">Home</a>
+          <span aria-hidden="true"> › </span>
+          <span class="text-black">Booking</span>
+        </div>
+      </nav>
+
+      <section class="bg-gold py-8 sm:py-10" aria-labelledby="booking-form-title">
+        <div class="container-site grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
+          <div class="reveal bg-white p-6 sm:p-10" data-booking-summary>
+            ${summaryHtml(current)}
+          </div>
+
+          <div class="reveal bg-white p-6 sm:p-10" id="booking-form">
+            <h2 id="booking-form-title" class="section-title">Booking request</h2>
+            <p class="mt-4 font-body text-base leading-relaxed text-ink/75">The safari you chose is selected below. Change it only if you want a different itinerary.</p>
+            <form class="contact-form mt-8" data-booking-form>
+              <label class="contact-form-full">
+                <span>Safari *</span>
+                <select name="safari" required data-booking-safari>
+                  <option value="">Select a safari</option>
+                  ${groupedOptions(selectedSlug)}
+                </select>
+              </label>
+              <label>
+                <span>Preferred travel dates *</span>
+                <input type="text" name="dates" required placeholder="e.g. 12–20 July 2027" autocomplete="off" />
+              </label>
+              <label>
+                <span>Travellers *</span>
+                <input type="number" name="travellers" required min="1" max="20" value="2" />
+              </label>
+              <label>
+                <span>Your Name *</span>
+                <input type="text" name="name" required placeholder="Full name" autocomplete="name" />
+              </label>
+              <label>
+                <span>Your Email *</span>
+                <input type="email" name="email" required placeholder="you@example.com" autocomplete="email" />
+              </label>
+              <label>
+                <span>Phone</span>
+                <input type="tel" name="phone" placeholder="${site.phone}" autocomplete="tel" />
+              </label>
+              <label>
+                <span>Country</span>
+                <input type="text" name="country" placeholder="Your country" autocomplete="country-name" />
+              </label>
+              <label class="contact-form-full">
+                <span>Message</span>
+                <textarea name="message" rows="4" placeholder="Room sharing, flights into Kilimanjaro, or diet notes..."></textarea>
+              </label>
+              <p class="contact-form-full" data-booking-note hidden></p>
+              <button class="btn-navy contact-form-full !rounded-none" type="submit">Send booking request</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+  `;
+}
+
+export function initBookingForm() {
+  const form = document.querySelector('[data-booking-form]');
+  const select = form?.querySelector('[data-booking-safari]');
+  const summary = document.querySelector('[data-booking-summary]');
+  const paintSummary = () => {
+    if (!summary || !select) return;
+    summary.innerHTML = summaryHtml(selectedSafari(select.value));
+  };
+  select?.addEventListener('change', paintSummary);
+
+  if (!form) return;
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const safari = selectedSafari(String(data.get('safari') || ''));
+    const note = form.querySelector('[data-booking-note]');
+    const payload = {
+      name: String(data.get('name') || ''),
+      email: String(data.get('email') || ''),
+      phone: String(data.get('phone') || ''),
+      country: String(data.get('country') || ''),
+      safari: safari?.title || String(data.get('safari') || ''),
+      subject: `Booking request: ${safari?.title || data.get('safari')}`,
+      message: [
+        `Safari: ${safari?.title || data.get('safari') || ''}`,
+        `Dates: ${data.get('dates') || ''}`,
+        `Travellers: ${data.get('travellers') || ''}`,
+        `Country: ${data.get('country') || ''}`,
+        '',
+        data.get('message') || '',
+      ].join('\n'),
+    };
+    try {
+      await submitInquiry(payload);
+      form.reset();
+      if (select && safari?.slug) select.value = safari.slug;
+      paintSummary();
+      if (note) {
+        note.hidden = false;
+        note.textContent = 'Thank you. Your booking request is with the Arusha team — we aim to reply within 24 hours.';
+      }
+    } catch {
+      window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(
+        [`Name: ${payload.name}`, `Email: ${payload.email}`, `Phone: ${payload.phone}`, '', payload.message].join('\n')
+      )}`;
+      if (note) {
+        note.hidden = false;
+        note.textContent = 'Thank you. Your email app should open with the booking request.';
+      }
+    }
+  });
+}

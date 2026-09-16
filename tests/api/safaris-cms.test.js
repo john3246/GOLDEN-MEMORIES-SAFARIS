@@ -75,6 +75,7 @@ describe('Safari CMS', () => {
     const created = await send(app, 'POST', '/api/v1/admin/safaris', { title: 'Tarangire Elephant Safari' }, auth(token));
     const id = created.body.data.id;
     const slug = created.body.data.slug;
+    await send(app, 'PATCH', `/api/v1/admin/safaris/${id}`, { price_from: 1800 }, auth(token));
 
     const published = await send(app, 'POST', `/api/v1/admin/safaris/${id}/publish`, {}, auth(token));
     expect(published.status).toBe(200);
@@ -163,6 +164,7 @@ describe('Safari CMS', () => {
   it('issues a third-party key that can read published safaris only', async () => {
     const admin = await login(app, adminEmail, adminPassword);
     const created = await send(app, 'POST', '/api/v1/admin/safaris', { title: 'Public Key Safari', slug: 'public-key-safari' }, auth(admin));
+    await send(app, 'PATCH', `/api/v1/admin/safaris/${created.body.data.id}`, { price_from: 2100 }, auth(admin));
     await send(app, 'POST', `/api/v1/admin/safaris/${created.body.data.id}/publish`, {}, auth(admin));
 
     const keyRes = await send(app, 'POST', '/api/v1/admin/api-clients', { name: 'co.tz', scopes: ['safaris:read'] }, auth(admin));
@@ -189,6 +191,7 @@ describe('Safari CMS', () => {
   it('invalidates public cache after publish', async () => {
     const token = await login(app, adminEmail, adminPassword);
     const created = await send(app, 'POST', '/api/v1/admin/safaris', { title: 'Cache Safari', slug: 'cache-safari' }, auth(token));
+    await send(app, 'PATCH', `/api/v1/admin/safaris/${created.body.data.id}`, { price_from: 1900 }, auth(token));
     const before = await send(app, 'GET', '/api/v1/safaris');
     expect(before.body.data.find((item) => item.slug === 'cache-safari')).toBeUndefined();
     await send(app, 'POST', `/api/v1/admin/safaris/${created.body.data.id}/publish`, {}, auth(token));

@@ -1,3 +1,4 @@
+import { galleryPhoto, assignUniqueCovers } from '../../media/gallery.js';
 import { media as GM } from '../home/content.js';
 import { allTours } from '../tours/catalog.js';
 
@@ -121,7 +122,7 @@ export const destinationPlaces = [
     regionSlug: 'northern-tanzania',
     cta: 'Explore Tarangire',
     image: GM.tarangire,
-    gallery: [GM.tarangire, GM.savanna, GM.dayTrip],
+    gallery: [GM.tarangire, galleryPhoto('tarangire', 1), galleryPhoto('tarangire', 2)],
     match: ['tarangire'],
     paragraphs: [
       'Tarangire National Park is a hidden gem in northern Tanzania, often described as the “Land of Giants” for its massive elephant herds and iconic baobab trees. Spanning 2,850 square kilometers, the park is named after the Tarangire River, which serves as the lifeline for wildlife during the dry season. During this time, the park hosts one of the highest concentrations of wildlife outside the Serengeti.',
@@ -283,7 +284,7 @@ export const destinationPlaces = [
     regionSlug: 'northern-tanzania',
     cta: 'Start your Kilimanjaro adventure',
     image: GM.kilimanjaro,
-    gallery: [GM.kilimanjaro, GM.machame, GM.materuni],
+    gallery: [GM.kilimanjaro, GM.machame, galleryPhoto('kilimanjaro', 3)],
     match: ['kilimanjaro', 'machame', 'marangu', 'lemosho', 'umbwe'],
     paragraphs: [
       'Embark on the adventure of a lifetime: climbing Mount Kilimanjaro. Standing at 5,895 meters (19,341 ft), it’s not just Africa’s highest peak but also the world’s tallest free-standing mountain, rising dramatically from the surrounding plains. Reaching the summit, Uhuru Peak, is a profound personal achievement accessible to determined hikers.',
@@ -442,7 +443,7 @@ export const destinationPlaces = [
     regionSlug: 'the-coast',
     cta: 'Plan a Stone Town day',
     image: GM.spice,
-    gallery: [GM.spice, GM.zanzibarBeach, GM.coast],
+    gallery: [GM.spice, GM.zanzibarBeach, galleryPhoto('zanzibar', 4)],
     match: ['stone town', 'spice'],
     paragraphs: [
       'Stone Town is a maze of narrow streets, historic buildings, and bustling markets. A UNESCO World Heritage Site, it bears witness to the island’s rich trading history. A walking day here sits naturally after a northern safari, before you continue to the east or north coast beaches.',
@@ -756,3 +757,5 @@ export function toursForDestination(place, count = 4) {
     })
     .slice(0, count);
 }
+
+assignUniqueCovers(destinationPlaces);

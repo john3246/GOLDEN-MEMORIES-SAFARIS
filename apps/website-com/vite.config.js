@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { allTourSlugs } from './src/pages/tours/catalog.js';
 import { allDestinationSlugs } from './src/pages/destinations/catalog.js';
 import { allBlogSlugs } from './src/pages/blog/content.js';
+import { allJoinSlugs } from './src/pages/join-safari/catalog.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -27,6 +28,10 @@ function rewriteTourAndDestinationRoutes() {
           req.url = '/reviews/index.html';
         } else if (url === '/join-safari' || url === '/join-safari/') {
           req.url = '/join-safari/index.html';
+        } else if (/^\/join-safari\/[a-z0-9-]+\/?$/.test(url)) {
+          req.url = '/join-safari/index.html';
+        } else if (url === '/booking' || url === '/booking/') {
+          req.url = '/booking/index.html';
         } else if (url === '/kilimanjaro' || url === '/kilimanjaro/') {
           req.url = '/kilimanjaro/index.html';
         } else if (url === '/blog' || url === '/blog/') {
@@ -71,6 +76,16 @@ function rewriteTourAndDestinationRoutes() {
           fs.writeFileSync(path.join(dir, 'index.html'), html);
         }
       }
+
+      const joinHtml = path.resolve(__dirname, 'dist/join-safari/index.html');
+      if (fs.existsSync(joinHtml)) {
+        const html = fs.readFileSync(joinHtml, 'utf8');
+        for (const slug of allJoinSlugs()) {
+          const dir = path.resolve(__dirname, 'dist/join-safari', slug);
+          fs.mkdirSync(dir, { recursive: true });
+          fs.writeFileSync(path.join(dir, 'index.html'), html);
+        }
+      }
     },
   };
 }
@@ -108,6 +123,7 @@ export default defineConfig({
         reviews: path.resolve(__dirname, 'reviews/index.html'),
         contact: path.resolve(__dirname, 'contact/index.html'),
         joinSafari: path.resolve(__dirname, 'join-safari/index.html'),
+        booking: path.resolve(__dirname, 'booking/index.html'),
         kilimanjaro: path.resolve(__dirname, 'kilimanjaro/index.html'),
         blog: path.resolve(__dirname, 'blog/index.html'),
       },

@@ -127,7 +127,7 @@ export function renderBookingCta(safari, options = {}) {
           }
           <p class="mt-3 max-w-xl text-ink/80">${escapeHtml(safari.short_description || 'Share your dates and group size — we will confirm lodges, park fees, and the vehicle setup.')}</p>
         </div>
-        <a class="reveal btn-navy !rounded-none shrink-0" href="/contact/">Talk to an expert</a>
+        <a class="reveal btn-navy !rounded-none shrink-0" href="${safari?.slug ? `/booking/?safari=${encodeURIComponent(safari.slug)}` : '/booking/'}">Book this safari</a>
       </div>
     </section>
   `;

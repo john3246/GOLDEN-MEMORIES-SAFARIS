@@ -14,9 +14,10 @@ import {
  * Kilimanjaro climbing page — Zara-style structure, GM tour and park cards.
  */
 export function renderKilimanjaro() {
+  const pricedClimbs = climbPackages.filter((item) => Number(item.price_from || item.price) > 0);
   const routeGrid = kiliRoutes
     .map((route) => {
-      const href = route.slug ? tourHref({ slug: route.slug, title: route.name }) : route.href;
+      const href = route.slug ? tourHref({ slug: route.slug, title: route.name }) : route.href || '/contact/';
       return `
         <a class="park-card" href="${href}" aria-label="${route.name}">
           <div class="park-card-media">
@@ -34,12 +35,12 @@ export function renderKilimanjaro() {
     })
     .join('');
 
-  const packageGrid = climbPackages.map(tourCard).join('');
+  const packageGrid = pricedClimbs.map(tourCard).join('');
 
   const quotes = kiliQuotes
     .map(
       (t) => `
-        <blockquote class="border-l-4 border-gold bg-white p-6 sm:p-8">
+        <blockquote class="quote-card bg-white p-6 sm:p-8">
           <p class="font-display text-base italic leading-relaxed text-ink/80 sm:text-lg">“${t.quote}”</p>
           <footer class="mt-5">
             <cite class="not-italic font-body text-sm font-bold uppercase tracking-[0.1em] text-black">${t.name}</cite>
@@ -140,18 +141,23 @@ export function renderKilimanjaro() {
         </div>
       </section>
 
+      ${
+        packageGrid
+          ? `
       <section class="bg-black py-8 sm:py-10" id="packages" aria-labelledby="kili-packages-title">
         <div class="container-site">
           <div class="reveal mx-auto max-w-3xl text-center">
             <p class="section-kicker !text-gold">Our trekking packages</p>
-            <h2 id="kili-packages-title" class="section-title !text-white">Kilimanjaro &amp; Meru climbs</h2>
-            <p class="mt-4 text-white/75">Guided itineraries with park fees, crew, meals, and transfers as agreed from Arusha or Moshi.</p>
+            <h2 id="kili-packages-title" class="section-title !text-white">Kilimanjaro trekking packages</h2>
+            <p class="mt-4 text-white/75">Guided Kilimanjaro routes with park fees, crew, meals, and transfers as agreed from Arusha or Moshi. Prices are per person for two climbers sharing.</p>
           </div>
           <div class="reveal mt-12 grid gap-6 md:grid-cols-3">
             ${packageGrid}
           </div>
         </div>
-      </section>
+      </section>`
+          : ''
+      }
 
       <section class="bg-mist py-8 sm:py-10" aria-labelledby="kili-quotes-title">
         <div class="container-site">

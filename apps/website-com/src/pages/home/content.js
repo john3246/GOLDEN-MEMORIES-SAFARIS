@@ -3,30 +3,31 @@
  */
 
 import { galleryPhoto } from '../../media/gallery.js';
+import { kilimanjaroTreks } from '../kilimanjaro/packages.js';
 
 const GM = {
   hero: galleryPhoto('serengeti', 0),
   northern: galleryPhoto('serengeti', 1),
-  coast: galleryPhoto('ngorongoro', 8),
-  southern: galleryPhoto('ngorongoro', 2),
-  western: galleryPhoto('serengeti', 5),
+  coast: galleryPhoto('zanzibar', 0),
+  southern: galleryPhoto('tarangire', 10),
+  western: galleryPhoto('culture', 6),
   safariPackages: galleryPhoto('serengeti', 2),
   migration: galleryPhoto('serengeti', 3),
-  selous: galleryPhoto('ngorongoro', 4),
-  tarangire: galleryPhoto('ngorongoro', 0),
+  selous: galleryPhoto('tarangire', 12),
+  tarangire: galleryPhoto('tarangire', 0),
   ngorongoro: galleryPhoto('ngorongoro', 1),
   ngorongoroTourists: galleryPhoto('ngorongoro', 5),
   manyara: galleryPhoto('ngorongoro', 6),
   lakeEyasi: galleryPhoto('culture', 0),
   materuni: galleryPhoto('culture', 1),
   dayTrip: galleryPhoto('culture', 2),
-  kilimanjaro: galleryPhoto('ngorongoro', 10),
-  machame: galleryPhoto('ngorongoro', 11),
-  meru: galleryPhoto('ngorongoro', 12),
-  spice: galleryPhoto('culture', 3),
-  zanzibarBeach: galleryPhoto('culture', 4),
+  kilimanjaro: galleryPhoto('kilimanjaro', 0),
+  machame: galleryPhoto('kilimanjaro', 1),
+  meru: galleryPhoto('kilimanjaro', 2),
+  spice: galleryPhoto('zanzibar', 1),
+  zanzibarBeach: galleryPhoto('zanzibar', 2),
   ngorongoroAlt: galleryPhoto('ngorongoro', 3),
-  savanna: galleryPhoto('serengeti', 6),
+  savanna: galleryPhoto('serengeti', 7),
   cultureTeam: galleryPhoto('culture', 5),
 };
 
@@ -170,32 +171,7 @@ export const dayTrips = [
   },
 ];
 
-export const kilimanjaro = [
-  {
-    slug: '8-days-mt-kilimanjaro-via-marangu-route',
-    title: '8 Days Mt. Kilimanjaro via Marangu Route',
-    duration: '8 Days',
-    activity: 'Mountain climbing',
-    places: 'Kilimanjaro',
-    image: GM.kilimanjaro,
-  },
-  {
-    slug: '7-day-kilimanjaro-climb-via-machame-route',
-    title: '7 Day Kilimanjaro Climb via Machame Route',
-    duration: '7 Days',
-    activity: 'Mountain climbing',
-    places: 'Kilimanjaro',
-    image: GM.machame,
-  },
-  {
-    slug: '4-days-mt-meru-trekking-via-momella-gate',
-    title: '4 Days Mt Meru Trekking via Momella Gate',
-    duration: '4 Days',
-    activity: 'Mountain climbing',
-    places: 'Mount Meru',
-    image: GM.meru,
-  },
-];
+export const kilimanjaro = kilimanjaroTreks;
 
 export const zanzibar = [
   {
@@ -253,6 +229,8 @@ export const whyBook = {
 
 export const pageImages = {
   hero: GM.hero,
+  heroVideo: '/videos/hero.mp4',
+  heroPoster: '/videos/hero-poster.webp',
   kilimanjaroSection: GM.kilimanjaro,
 };
 
@@ -263,3 +241,4 @@ export const travelInfo = [
   { label: 'Travel Insurance for Tanzania', href: '/blog/how-to-prepare-for-kilimanjaro/' },
   { label: 'When is the Best Time to Visit Tanzania?', href: '/blog/best-time-for-a-tanzania-safari/' },
 ];
+

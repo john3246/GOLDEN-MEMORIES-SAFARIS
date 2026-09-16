@@ -12,6 +12,8 @@ import {
   pageImages,
 } from './content.js';
 import { joiningSafaris } from '../join-safari/content.js';
+import { openJoiningPackages } from '../join-safari/packages.js';
+import { hasTourPrice } from '../tours/catalog.js';
 
 /**
  * Home landing page body (below header).
@@ -19,15 +21,15 @@ import { joiningSafaris } from '../join-safari/content.js';
  */
 export function renderHome() {
   const destinationGrid = destinations.map(destinationCard).join('');
-  const safariGrid = featuredTours.map(tourCard).join('');
-  const dayTripGrid = dayTrips.map(tourCard).join('');
-  const climbGrid = kilimanjaro.map(tourCard).join('');
-  const beachGrid = zanzibar.map(tourCard).join('');
+  const safariGrid = featuredTours.filter(hasTourPrice).map(tourCard).join('');
+  const dayTripGrid = dayTrips.filter(hasTourPrice).map(tourCard).join('');
+  const climbGrid = kilimanjaro.filter((tour) => tour.featured && hasTourPrice(tour)).map(tourCard).join('');
+  const beachGrid = zanzibar.filter(hasTourPrice).map(tourCard).join('');
   const whySlides = whyUsSlideshow(whyBook.slides);
   const quotes = testimonials
     .map(
       (t) => `
-      <blockquote class="border-l-4 border-gold bg-white p-6 sm:p-8">
+      <blockquote class="quote-card bg-white p-6 sm:p-8">
         <p class="font-display text-base italic leading-relaxed text-ink/80 sm:text-lg">“${t.quote}”</p>
         <footer class="mt-5">
           <cite class="not-italic font-body text-sm font-bold uppercase tracking-[0.1em] text-navy">${t.name}</cite>
@@ -38,21 +40,28 @@ export function renderHome() {
     )
     .join('');
 
-  const joining = joiningSafaris[0];
+  const joining = openJoiningPackages[0] || joiningSafaris[0];
   const joinTeaser = joining
     ? `
-      <section class="bg-gold py-8 sm:py-10" aria-labelledby="join-home-title">
-        <div class="container-site grid items-center gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-10">
+      <section class="relative isolate overflow-hidden text-white" aria-labelledby="join-home-title">
+        <img class="absolute inset-0 h-full w-full object-cover" src="${joining.image}" alt="" width="2000" height="900" loading="lazy" />
+        <div class="absolute inset-0 bg-black/55"></div>
+        <div class="container-site relative grid items-center gap-6 py-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-10 lg:py-14">
           <div class="reveal">
-            <p class="section-kicker">Join a group safari</p>
-            <h2 id="join-home-title" class="section-title">${joining.title}</h2>
-            <p class="mt-3 font-body text-sm font-semibold uppercase tracking-[0.12em] text-black/60">${joining.datesLabel} · ${joining.duration}</p>
-            <p class="mt-5 max-w-2xl font-body text-base leading-relaxed text-ink/80">${joining.overview}</p>
-            <a class="btn-navy mt-8 !rounded-none" href="/join-safari/">View open departures</a>
+            <p class="section-kicker !text-gold">Join a group safari</p>
+            <h2 id="join-home-title" class="section-title !text-white">${joining.title}</h2>
+            <p class="mt-3 font-body text-sm font-semibold uppercase tracking-[0.12em] text-white/70">${joining.datesLabel} · ${joining.duration}${
+              joining.price_from ? ` · from USD ${Number(joining.price_from).toLocaleString('en-US')}` : ''
+            }</p>
+            <p class="mt-5 max-w-2xl font-body text-base leading-relaxed text-white/85">${joining.overview}</p>
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a class="btn-navy !rounded-none" href="/join-safari/">View open departures</a>
+              <a class="btn-gold !rounded-none" href="/booking/?safari=${encodeURIComponent(joining.slug || '')}">Book this safari</a>
+            </div>
           </div>
-          <div class="reveal bg-white p-6 sm:p-8">
-            <p class="font-body text-xs font-bold uppercase tracking-[0.14em] text-gold-deep">${joining.spaces}</p>
-            <ul class="safari-bullets mt-4">
+          <div class="reveal bg-black/35 p-6 sm:p-8 ring-1 ring-white/20">
+            <p class="font-body text-xs font-bold uppercase tracking-[0.14em] text-gold">${joining.spaces}</p>
+            <ul class="safari-bullets mt-4 !text-white">
               ${joining.highlights.map((item) => `<li>${item}</li>`).join('')}
             </ul>
           </div>
@@ -63,16 +72,31 @@ export function renderHome() {
 
   return `
     <main id="main">
-      <!-- Hero: brand + one headline + one sentence + CTA group + full-bleed image -->
+      <!-- Hero: brand + one headline + one sentence + CTA group + looping video -->
       <section class="home-hero relative isolate overflow-hidden text-white" aria-labelledby="hero-brand">
-        <img
-          class="absolute inset-0 h-full w-full object-cover"
-          src="${pageImages.hero}"
-          alt="Safari experience with Golden Memories Safaris"
-          width="2000"
-          height="1200"
-          fetchpriority="high"
-        />
+        <div class="home-hero-media" aria-hidden="true">
+          <img
+            class="home-hero-poster"
+            src="${pageImages.heroPoster}"
+            alt=""
+            width="1600"
+            height="900"
+            fetchpriority="high"
+            decoding="async"
+          />
+          <video
+            class="home-hero-video"
+            data-home-hero-video
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+            poster="${pageImages.heroPoster}"
+          >
+            <source src="${pageImages.heroVideo}" type="video/mp4" />
+          </video>
+        </div>
         <div class="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/55 to-ink/25"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-ink/30"></div>
 
@@ -88,7 +112,7 @@ export function renderHome() {
               Grab your stuff and let’s get lost in Tanzania’s wonders.
             </p>
             <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <a class="btn-gold" href="/contact/">Book now</a>
+              <a class="btn-gold" href="/booking/">Book now</a>
               <a class="btn-light !border-white/40 !bg-white/95" href="/tours/">Tanzania safaris</a>
               <a class="btn-light !border-white/40 !bg-white/95" href="/kilimanjaro/">Kilimanjaro trek</a>
             </div>
@@ -147,7 +171,9 @@ export function renderHome() {
 
       ${joinTeaser}
 
-      <!-- Day trips -->
+      ${
+        dayTripGrid
+          ? `
       <section class="bg-mist py-8 sm:py-10" aria-labelledby="daytrips-title" id="excursions">
         <div class="container-site">
           <div class="reveal max-w-2xl">
@@ -159,7 +185,9 @@ export function renderHome() {
             ${dayTripGrid}
           </div>
         </div>
-      </section>
+      </section>`
+          : ''
+      }
 
       <!-- Kilimanjaro -->
       <section class="relative isolate overflow-hidden py-8 text-white sm:py-10 lg:py-12" id="kilimanjaro" aria-labelledby="kili-title">
@@ -174,27 +202,23 @@ export function renderHome() {
         <div class="container-site relative">
           <div class="reveal max-w-2xl">
             <p class="section-kicker !text-gold">Mountain climbing &amp; treks</p>
-            <h2 id="kili-title" class="section-title !text-white">Climb Kilimanjaro &amp; Meru</h2>
-            <p class="mt-4 text-white/80">Guided routes for summit seekers — Marangu, Machame, and Mount Meru.</p>
+            <h2 id="kili-title" class="section-title !text-white">Climb Kilimanjaro</h2>
+            <p class="mt-4 text-white/80">Guided trekking packages for summit seekers — Marangu, Machame, Lemosho, Umbwe, Rongai, and the Northern Circuit.</p>
             <a class="btn-gold mt-6 !rounded-none" href="/kilimanjaro/">Kilimanjaro climbing</a>
           </div>
-          <div class="reveal mt-6 grid gap-4 md:grid-cols-3">
-            ${climbGrid}
-          </div>
+            ${climbGrid ? `<div class="reveal mt-6 grid gap-4 md:grid-cols-3">${climbGrid}</div>` : ''}
         </div>
       </section>
 
-      <!-- Zanzibar -->
       <section class="bg-white py-8 sm:py-10" aria-labelledby="zanzibar-title">
         <div class="container-site">
           <div class="reveal max-w-2xl">
             <p class="section-kicker">Beach vacations</p>
             <h2 id="zanzibar-title" class="section-title">Explore Zanzibar Island</h2>
             <p class="mt-3 text-ink/70">Spice tours, Stone Town, and beach days after the safari dust settles.</p>
+            <a class="btn-navy mt-6 !rounded-none" href="/destinations/zanzibar/">View Zanzibar</a>
           </div>
-          <div class="reveal mt-6 grid gap-4 md:grid-cols-3">
-            ${beachGrid}
-          </div>
+          ${beachGrid ? `<div class="reveal mt-6 grid gap-4 md:grid-cols-3">${beachGrid}</div>` : ''}
         </div>
       </section>
 
@@ -230,6 +254,27 @@ export function renderHome() {
       </section>
     </main>
   `;
+}
+
+export function initHomeHero() {
+  const video = document.querySelector('[data-home-hero-video]');
+  if (!video) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    video.remove();
+    return;
+  }
+  video.muted = true;
+  video.defaultMuted = true;
+  video.playsInline = true;
+  const play = () => {
+    const start = video.play();
+    if (start && typeof start.catch === 'function') start.catch(() => {});
+  };
+  if (video.readyState >= 2) play();
+  else video.addEventListener('canplay', play, { once: true });
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && video.paused) play();
+  });
 }
 
 export function initHomeReveals() {

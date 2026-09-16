@@ -1,6 +1,7 @@
 import { safariCard } from '../../components/cards/safari-card.js';
 import { getDestinationBySlug, relatedDestinations, toursForDestination } from './catalog.js';
 import { destinationHref } from './paths.js';
+import { withoutCover, uniqueCoverFor } from '../../media/gallery.js';
 
 /**
  * Individual park / place page — live GM destination copy in our gold/black layout.
@@ -21,6 +22,7 @@ export function renderDestinationDetail(slug) {
     `;
   }
 
+  const cover = uniqueCoverFor(place);
   const facts = (place.facts || [])
     .map(
       ([label, value]) => `
@@ -79,7 +81,7 @@ export function renderDestinationDetail(slug) {
     )
     .join('');
 
-  const gallery = (place.gallery || [])
+  const gallery = withoutCover(place.gallery, cover)
     .map(
       (src, index) => `
         <div class="dest-gallery-item">
@@ -95,7 +97,7 @@ export function renderDestinationDetail(slug) {
       (item) => `
         <a class="park-card" href="${destinationHref(item)}">
           <div class="park-card-media">
-            <img src="${item.image}" alt="${item.name}" loading="lazy" width="800" height="520" />
+            <img src="${uniqueCoverFor(item)}" alt="${item.name}" loading="lazy" width="800" height="520" />
           </div>
           <div class="park-card-body">
             <p class="font-body text-xs font-bold uppercase tracking-[0.12em] text-gold-deep">${item.kicker}</p>
@@ -112,7 +114,7 @@ export function renderDestinationDetail(slug) {
       <section class="page-hero relative isolate overflow-hidden text-white" aria-labelledby="dest-title">
         <img
           class="absolute inset-0 h-full w-full object-cover"
-          src="${place.image}"
+          src="${cover}"
           alt="${place.name}"
           width="2000"
           height="900"

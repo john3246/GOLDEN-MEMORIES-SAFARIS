@@ -1,4 +1,4 @@
-import { tourHref } from '../../pages/tours/paths.js';
+import { tourHref, bookingHref } from '../../pages/tours/paths.js';
 import { safariPrice } from '@gm-safaris/safari-ui';
 import { cardUrl } from '../../media/gallery.js';
 
@@ -28,7 +28,7 @@ export function safariCard(tour) {
           <p class="safari-card-meta">${tour.duration}</p>
           ${tour.places ? `<p class="safari-card-places">${tour.places}</p>` : ''}
           ${price ? `<p class="safari-card-price">${price.card}</p>` : ''}
-          <a class="safari-card-book" href="/contact/">Book now</a>
+          <a class="safari-card-book" href="${bookingHref(tour)}">Book now</a>
         </div>
       </div>
     </article>

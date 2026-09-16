@@ -2,7 +2,7 @@
  * Cloned from https://www.gmsafaris.com/trip-search-result/ (WP Travel Engine trips).
  * Photos: local GMS gallery only.
  */
-import { photoForTrip } from '../../media/gallery.js';
+import { assignUniqueCovers } from '../../media/gallery.js';
 export const safariStyles = [
   { slug: 'wildlife', label: 'Wildlife Safari Tours' },
   { slug: 'luxury', label: 'Luxury Safaris' },
@@ -886,11 +886,15 @@ function placesFromText(text) {
   return [...new Set(bits)].join(' · ');
 }
 
-for (const [index, trip] of gmsTrips.entries()) {
+for (const trip of gmsTrips) {
   const fromSlug = placesFromText(`${trip.title} ${trip.slug}`);
   if (fromSlug) trip.places = fromSlug;
-  trip.image = photoForTrip(trip, index);
 }
+
+const pricedTrips = gmsTrips.filter((trip) => Number(trip.price_from) > 0);
+gmsTrips.length = 0;
+gmsTrips.push(...pricedTrips);
+assignUniqueCovers(gmsTrips);
 
 export function tripsByStyle(style) {
   if (!style) return gmsTrips;

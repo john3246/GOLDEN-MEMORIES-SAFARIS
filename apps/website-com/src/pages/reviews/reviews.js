@@ -4,7 +4,7 @@ export function renderReviews() {
   const cards = reviewList
     .map(
       (item) => `
-        <blockquote class="border-l-4 border-gold bg-white p-5 sm:p-6">
+        <blockquote class="quote-card bg-white p-5 sm:p-6">
           <p class="font-display text-base italic leading-relaxed text-ink/80">“${item.quote}”</p>
           <footer class="mt-4">
             <cite class="not-italic font-body text-sm font-bold uppercase tracking-[0.1em] text-black">${item.name}</cite>

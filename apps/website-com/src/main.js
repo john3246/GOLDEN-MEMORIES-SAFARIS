@@ -2,6 +2,7 @@ import './styles/main.css';
 import { pagePath, tourSlugFromPath } from './pages/tours/paths.js';
 import { destinationSlugFromPath } from './pages/destinations/paths.js';
 import { blogSlugFromPath } from './pages/blog/paths.js';
+import { joinSlugFromPath } from './pages/join-safari/paths.js';
 
 function isToursListing() {
   return pagePath() === '/tours';
@@ -29,6 +30,10 @@ function isJoinSafariPage() {
 
 function isContactPage() {
   return pagePath() === '/contact';
+}
+
+function isBookingPage() {
+  return pagePath() === '/booking';
 }
 
 function isKilimanjaroPage() {
@@ -92,6 +97,7 @@ async function mount() {
   const slug = tourSlugFromPath();
   const destSlug = destinationSlugFromPath();
   const blogSlug = blogSlugFromPath();
+  const joinSlug = joinSlugFromPath();
   let page = '';
   let afterPaint = async () => {};
 
@@ -106,6 +112,10 @@ async function mount() {
       'Tanzania Safari Destinations | Golden Memories Safaris',
       'Explore Tanzania safari destinations with Golden Memories Safaris — Serengeti, Ngorongoro, Tarangire, Kilimanjaro, Zanzibar, and the southern and western parks.'
     );
+  } else if (joinSlug) {
+    const { renderJoinDetail, applyJoinMeta } = await import('./pages/join-safari/detail.js');
+    page = renderJoinDetail(joinSlug);
+    applyJoinMeta(joinSlug);
   } else if (isJoinSafariPage()) {
     const { renderJoinSafari, initJoinSafari } = await import('./pages/join-safari/join.js');
     page = renderJoinSafari();
@@ -166,6 +176,14 @@ async function mount() {
       'Contact Golden Memories Safaris in Arusha. Call +255 786 383 273, email info@gmsafaris.co.tz, or send a message to plan your Tanzania safari.'
     );
     afterPaint = async () => initContactForm();
+  } else if (isBookingPage()) {
+    const { renderBooking, initBookingForm } = await import('./pages/booking/booking.js');
+    page = renderBooking();
+    setMeta(
+      'Book a Tanzania Safari | Golden Memories Safaris',
+      'Book a Tanzania safari, joining group departure, or Kilimanjaro trek with Golden Memories Safaris in Arusha.'
+    );
+    afterPaint = async () => initBookingForm();
   } else if (slug) {
     const { renderTourDetail, applyTourMeta } = await import('./pages/tours/detail.js');
     const { fetchPublishedSafariBySlug, fetchPublishedSafaris } = await import('./services/api/safaris.js');
@@ -191,10 +209,13 @@ async function mount() {
     page = renderTours();
     afterPaint = async () => initToursFilters();
   } else {
-    const { renderHome } = await import('./pages/home/home.js');
+    const { renderHome, initHomeHero } = await import('./pages/home/home.js');
     const { initWhyUsSlideshow } = await import('./components/gallery/why-slideshow.js');
     page = renderHome();
-    afterPaint = async () => initWhyUsSlideshow();
+    afterPaint = async () => {
+      initHomeHero();
+      await initWhyUsSlideshow();
+    };
   }
 
   const cmsPage = seoForPath(pagePath());

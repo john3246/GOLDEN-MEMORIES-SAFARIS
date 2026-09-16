@@ -1,6 +1,7 @@
-import { site } from '../home/content.js';
-import { joinHero, joiningSafaris, joinIntro, joinFaqs, MONTH_NAMES } from './content.js';
-import { submitInquiry } from '../../services/api/cms.js';
+import { joinHero, joiningSafaris, openJoiningPackages, joinIntro, joinFaqs, MONTH_NAMES } from './content.js';
+import { joinCard } from '../../components/cards/join-card.js';
+import { bookingHref } from '../tours/paths.js';
+import { joinHref } from './paths.js';
 import {
   renderCalendarMonth,
   defaultSelectedIso,
@@ -10,51 +11,6 @@ import {
 } from './calendar.js';
 
 const trip = joiningSafaris[0];
-
-function facts(day) {
-  return [
-    ['Date', day.dateLabel],
-    day.viewing && day.viewing !== '—' ? ['Game viewing', day.viewing] : null,
-    ['Transport', day.transport],
-    ['Meals included', day.meals],
-    ['Accommodation', day.stay],
-  ]
-    .filter(Boolean)
-    .map(
-      ([label, value]) => `
-        <div>
-          <dt>${label}</dt>
-          <dd>${value}</dd>
-        </div>
-      `
-    )
-    .join('');
-}
-
-function renderDepartureCard(item) {
-  const tags = (item.tags || [])
-    .map(
-      (tag) => `
-        <li>
-          <span class="join-card-tag-label">${tag.label}</span>
-          <span>${tag.detail}</span>
-        </li>
-      `
-    )
-    .join('');
-
-  return `
-    <article class="join-card">
-      <div class="join-card-copy">
-        <h3>${item.title}</h3>
-        <p>From ${item.datesLabel}</p>
-        <p class="join-card-meta">${item.duration} · ${item.places}</p>
-      </div>
-      <ul class="join-card-tags">${tags}</ul>
-      <a class="btn-navy !rounded-none" href="#join-book">${item.deposit || 'Join group'}</a>
-    </article>
-  `;
-}
 
 function renderDepartureList(year, monthIndex) {
   const trips = tripsInMonth(year, monthIndex);
@@ -66,16 +22,16 @@ function renderDepartureList(year, monthIndex) {
       </div>
     `;
   }
-  return trips.map((item) => renderDepartureCard(item)).join('');
+  return trips.map((item) => joinCard(item)).join('');
 }
 
 /**
- * Join-group safari page — year/month departure list, itinerary, and booking.
+ * Join-group safari listing — overlay cards, calendar, and booking CTA.
  */
 export function renderJoinSafari() {
   const selected = defaultSelectedIso();
   const { year, monthIndex } = monthFromIso(selected);
-  const highlights = trip.highlights.map((item) => `<li>${item}</li>`).join('');
+  const highlights = (trip.highlights || []).map((item) => `<li>${item}</li>`).join('');
   const intro = joinIntro.body.map((p) => `<p>${p}</p>`).join('');
   const faqs = joinFaqs
     .map(
@@ -86,24 +42,6 @@ export function renderJoinSafari() {
         </details>
       `
     )
-    .join('');
-
-  const days = (trip.days || [])
-    .map((item) => {
-      return `
-        <article class="safari-day" id="join-day-${item.iso}">
-          <div class="safari-day-media">
-            <img src="${item.image}" alt="" loading="lazy" width="900" height="680" />
-          </div>
-          <div class="safari-day-copy">
-            <p class="safari-day-label">${item.day}</p>
-            <h3 class="safari-day-title">${item.title}</h3>
-            <p class="safari-day-body">${item.body}</p>
-            <dl class="safari-day-facts">${facts(item)}</dl>
-          </div>
-        </article>
-      `;
-    })
     .join('');
 
   return `
@@ -133,7 +71,7 @@ export function renderJoinSafari() {
             ${joinHero.title}
           </h1>
           <p class="mt-4 max-w-2xl font-body text-base text-white/85 sm:text-lg">${joinHero.subtitle}</p>
-          <a class="btn-navy mt-8 !rounded-none self-start" href="#join-calendar">${joinHero.cta}</a>
+          <a class="btn-navy mt-8 !rounded-none self-start" href="#join-packages">${joinHero.cta}</a>
         </div>
       </section>
 
@@ -145,19 +83,32 @@ export function renderJoinSafari() {
         </div>
       </section>
 
+      <section class="bg-mist py-8 sm:py-10" id="join-packages" aria-labelledby="join-packages-title">
+        <div class="container-site">
+          <div class="reveal mx-auto max-w-3xl text-center">
+            <p class="section-kicker">2026–2027 joining packages</p>
+            <h2 id="join-packages-title" class="section-title">Group safaris with published prices</h2>
+            <p class="mt-4 text-ink/75">Shared 4x4, professional guide, and Northern Circuit parks — open a package for the full day-by-day itinerary.</p>
+          </div>
+          <div class="reveal mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            ${openJoiningPackages.map(joinCard).join('')}
+          </div>
+        </div>
+      </section>
+
       <section class="bg-mist py-8 sm:py-10" id="join-calendar" aria-labelledby="cal-title">
         <div class="container-site">
           <div class="reveal mx-auto max-w-3xl text-center">
             <p class="section-kicker">Open departures</p>
             <h2 id="cal-title" class="section-title">Find a group safari</h2>
-            <p class="mt-4 text-ink/75">Choose a year and month. February 2027 is open for the Ndutu calving season.</p>
+            <p class="mt-4 text-ink/75">Choose a year and month for dated departures such as the Ndutu calving safari.</p>
           </div>
 
           <div class="reveal mt-10" data-cal-host>
             ${renderCalendarMonth(year, monthIndex)}
           </div>
 
-          <div class="reveal mt-8 space-y-4" data-join-departures>
+          <div class="reveal mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3" data-join-departures>
             ${renderDepartureList(year, monthIndex)}
           </div>
         </div>
@@ -165,7 +116,7 @@ export function renderJoinSafari() {
 
       <section class="bg-white py-8 sm:py-10" aria-labelledby="join-about-title">
         <div class="container-site grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <div class="reveal overflow-hidden bg-black">
+          <a class="reveal join-featured-media overflow-hidden bg-black" href="${joinHref(trip)}">
             <img
               class="aspect-[16/10] w-full object-cover sm:aspect-[16/11]"
               src="${trip.image}"
@@ -174,27 +125,17 @@ export function renderJoinSafari() {
               height="1100"
               loading="lazy"
             />
-          </div>
+          </a>
           <div class="reveal">
-            <p class="section-kicker">This departure</p>
+            <p class="section-kicker">Dated departure</p>
             <h2 id="join-about-title" class="section-title">${trip.title}</h2>
             <p class="mt-3 font-body text-sm font-semibold uppercase tracking-[0.1em] text-gold-deep">${trip.datesLabel}</p>
             <p class="mt-5 font-body text-base leading-relaxed text-ink/75">${trip.overview}</p>
             <ul class="safari-bullets mt-6">${highlights}</ul>
-            <a class="btn-navy mt-8 !rounded-none" href="#join-book">Join this group</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="bg-black py-10 text-white sm:py-12 lg:py-14" id="join-itinerary" aria-labelledby="join-itin-title">
-        <div class="container-site">
-          <div class="reveal max-w-3xl">
-            <p class="section-kicker !text-gold">Safari itinerary</p>
-            <h2 id="join-itin-title" class="section-title !text-white">${trip.duration} — day to day</h2>
-            <p class="mt-4 text-white/75">Lodges: Njiro Legacy in Arusha and Ang’ata Migration Camp in Ndutu.</p>
-          </div>
-          <div class="safari-itinerary reveal mt-12">
-            ${days}
+            <div class="mt-8 flex flex-wrap gap-3">
+              <a class="btn-navy !rounded-none" href="${joinHref(trip)}">View itinerary</a>
+              <a class="btn-gold !rounded-none" href="${bookingHref(trip)}">Book this safari</a>
+            </div>
           </div>
         </div>
       </section>
@@ -211,57 +152,13 @@ export function renderJoinSafari() {
       </section>
 
       <section class="bg-gold py-8 sm:py-10" id="join-book" aria-labelledby="join-book-title">
-        <div class="container-site grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
-          <div class="reveal bg-white p-6 sm:p-10">
+        <div class="container-site flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
+          <div class="reveal">
             <p class="section-kicker">Reserve a seat</p>
-            <h2 id="join-book-title" class="section-title">Join this group</h2>
-            <p class="mt-5 font-body text-base leading-relaxed text-ink/75">${trip.cta}</p>
-            <dl class="mt-8 space-y-3 font-body text-sm">
-              <div class="flex justify-between gap-4 border-b border-black/10 pb-3">
-                <dt class="text-ink/55">Dates</dt>
-                <dd class="font-bold text-black">${trip.datesLabel}</dd>
-              </div>
-              <div class="flex justify-between gap-4 border-b border-black/10 pb-3">
-                <dt class="text-ink/55">Duration</dt>
-                <dd class="font-bold text-black">${trip.duration}</dd>
-              </div>
-              <div class="flex justify-between gap-4 border-b border-black/10 pb-3">
-                <dt class="text-ink/55">Route</dt>
-                <dd class="text-right font-bold text-black">${trip.places}</dd>
-              </div>
-            </dl>
-            <a class="btn-navy mt-8 !rounded-none" href="https://wa.me/255786383273" rel="noreferrer">Chat on WhatsApp</a>
+            <h2 id="join-book-title" class="section-title">Book a joining safari</h2>
+            <p class="mt-4 max-w-xl font-body text-base leading-relaxed text-ink/75">Open a package for the full itinerary, then book — the form arrives with that safari already selected.</p>
           </div>
-          <div class="reveal bg-white p-6 sm:p-10">
-            <h2 class="section-title">Request to join</h2>
-            <p class="mt-4 font-body text-base leading-relaxed text-ink/75">Tell us your name and group size. We will confirm remaining seats for ${trip.datesLabel}.</p>
-            <form class="contact-form mt-8" data-join-form>
-              <input type="hidden" name="departure" value="${trip.title}" />
-              <input type="hidden" name="dates" value="${trip.datesLabel}" />
-              <label>
-                <span>Your Name *</span>
-                <input type="text" name="name" required placeholder="Full name" autocomplete="name" />
-              </label>
-              <label>
-                <span>Your Email *</span>
-                <input type="email" name="email" required placeholder="you@example.com" autocomplete="email" />
-              </label>
-              <label>
-                <span>Travellers *</span>
-                <input type="number" name="travellers" required min="1" max="12" value="2" />
-              </label>
-              <label>
-                <span>Phone</span>
-                <input type="tel" name="phone" placeholder="${site.phone}" autocomplete="tel" />
-              </label>
-              <label class="contact-form-full">
-                <span>Message</span>
-                <textarea name="message" rows="4" placeholder="Any arrival flights, room sharing, or diet notes..."></textarea>
-              </label>
-              <p class="contact-form-full" data-join-note hidden></p>
-              <button class="btn-navy contact-form-full !rounded-none" type="submit">Send join request</button>
-            </form>
-          </div>
+          <a class="reveal btn-navy !rounded-none shrink-0" href="/booking/?safari=${encodeURIComponent(openJoiningPackages[0]?.slug || trip.slug || '')}">Go to booking form</a>
         </div>
       </section>
     </main>
@@ -282,85 +179,44 @@ function paintMonth(host, year, monthIndex) {
 
 export function initJoinSafari() {
   const host = document.querySelector('[data-cal-host]');
-  if (host) {
-    const goToIso = (iso) => {
-      const next = monthFromIso(iso);
-      paintMonth(host, next.year, next.monthIndex);
-    };
+  if (!host) return;
 
-    host.addEventListener('click', (event) => {
-      const jump = event.target.closest('[data-cal-jump]');
-      if (jump) {
-        goToIso(jump.getAttribute('data-cal-jump') || defaultSelectedIso());
-        return;
+  const goToIso = (iso) => {
+    const next = monthFromIso(iso);
+    paintMonth(host, next.year, next.monthIndex);
+  };
+
+  host.addEventListener('click', (event) => {
+    const jump = event.target.closest('[data-cal-jump]');
+    if (jump) {
+      goToIso(jump.getAttribute('data-cal-jump') || defaultSelectedIso());
+      return;
+    }
+
+    const yearPick = event.target.closest('[data-cal-year-pick]');
+    if (yearPick) {
+      const year = Number(yearPick.getAttribute('data-cal-year-pick'));
+      const root = host.querySelector('[data-cal-root]');
+      let monthIndex = Number(root?.getAttribute('data-cal-month') || 0);
+      if (!monthHasDeparture(year, monthIndex)) {
+        const openMonth = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].find((index) => monthHasDeparture(year, index));
+        monthIndex = openMonth ?? 0;
       }
+      paintMonth(host, year, monthIndex);
+      return;
+    }
 
-      const yearPick = event.target.closest('[data-cal-year-pick]');
-      if (yearPick) {
-        const year = Number(yearPick.getAttribute('data-cal-year-pick'));
-        const root = host.querySelector('[data-cal-root]');
-        let monthIndex = Number(root?.getAttribute('data-cal-month') || 0);
-        if (!monthHasDeparture(year, monthIndex)) {
-          const openMonth = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].find((index) =>
-            monthHasDeparture(year, index)
-          );
-          monthIndex = openMonth ?? 0;
-        }
-        paintMonth(host, year, monthIndex);
-        return;
-      }
+    const monthPick = event.target.closest('[data-cal-month-pick]');
+    if (monthPick) {
+      const root = host.querySelector('[data-cal-root]');
+      const year = Number(root?.getAttribute('data-cal-year'));
+      const monthIndex = Number(monthPick.getAttribute('data-cal-month-pick'));
+      paintMonth(host, year, monthIndex);
+    }
+  });
 
-      const monthPick = event.target.closest('[data-cal-month-pick]');
-      if (monthPick) {
-        const root = host.querySelector('[data-cal-root]');
-        const year = Number(root?.getAttribute('data-cal-year'));
-        const monthIndex = Number(monthPick.getAttribute('data-cal-month-pick'));
-        paintMonth(host, year, monthIndex);
-      }
-    });
-
-    document.querySelector('[data-join-departures]')?.addEventListener('click', (event) => {
-      const jump = event.target.closest('[data-cal-jump]');
-      if (jump) goToIso(jump.getAttribute('data-cal-jump') || defaultSelectedIso());
-    });
-  }
-
-  const form = document.querySelector('[data-join-form]');
-  if (form) {
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
-      const data = new FormData(form);
-      const payload = {
-        name: String(data.get('name') || ''),
-        email: String(data.get('email') || ''),
-        phone: String(data.get('phone') || ''),
-        subject: `Join safari: ${data.get('departure')} (${data.get('dates')})`,
-        message: [
-          `Travellers: ${data.get('travellers') || ''}`,
-          `Departure: ${data.get('departure') || ''}`,
-          `Dates: ${data.get('dates') || ''}`,
-          '',
-          data.get('message') || '',
-        ].join('\n'),
-        safari: String(data.get('departure') || ''),
-      };
-      const note = form.querySelector('[data-join-note]');
-      try {
-        await submitInquiry(payload);
-        form.reset();
-        if (note) {
-          note.hidden = false;
-          note.textContent = 'Thank you. Your join request is with the Arusha team.';
-        }
-      } catch {
-        window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(
-          [`Name: ${payload.name}`, `Email: ${payload.email}`, `Phone: ${payload.phone}`, '', payload.message].join('\n')
-        )}`;
-        if (note) {
-          note.hidden = false;
-          note.textContent = 'Thank you. Your email app should open with the join request.';
-        }
-      }
-    });
-  }
+  document.querySelector('[data-join-departures]')?.addEventListener('click', (event) => {
+    const jump = event.target.closest('[data-cal-jump]');
+    if (jump) goToIso(jump.getAttribute('data-cal-jump') || defaultSelectedIso());
+  });
 }
