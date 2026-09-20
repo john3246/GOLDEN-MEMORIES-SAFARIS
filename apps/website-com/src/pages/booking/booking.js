@@ -1,6 +1,6 @@
 import { site } from '../home/content.js';
 import { galleryPhoto } from '../../media/gallery.js';
-import { submitInquiry } from '../../services/api/cms.js';
+import { submitBooking } from '../../services/api/cms.js';
 import { safariPrice } from '@gm-safaris/safari-ui';
 import { allTours } from '../tours/catalog.js';
 import { allJoinPackages, isJoinPackage } from '../join-safari/catalog.js';
@@ -128,13 +128,22 @@ export function renderBooking() {
                 </select>
               </label>
               <label>
-                <span>Preferred travel dates *</span>
-                <input type="text" name="dates" required placeholder="e.g. 12–20 July 2027" autocomplete="off" />
+                <span>Preferred travel date *</span>
+                <input type="date" name="travelDate" required />
               </label>
               <label>
-                <span>Travellers *</span>
-                <input type="number" name="travellers" required min="1" max="20" value="2" />
+                <span>Adults *</span>
+                <input type="number" name="adults" required min="1" max="20" value="2" />
               </label>
+              <label>
+                <span>Children</span>
+                <input type="number" name="children" min="0" max="12" value="0" data-booking-children />
+              </label>
+              <div class="contact-form-full" data-child-details hidden>
+                <p class="contact-form-legend">Child details</p>
+                <p class="font-body text-sm font-medium normal-case tracking-normal text-ink/70">Name and age for each child — lodges and park fees change at about 12 years.</p>
+                <div data-child-rows></div>
+              </div>
               <label>
                 <span>Your Name *</span>
                 <input type="text" name="name" required placeholder="Full name" autocomplete="name" />
@@ -169,11 +178,37 @@ export function initBookingForm() {
   const form = document.querySelector('[data-booking-form]');
   const select = form?.querySelector('[data-booking-safari]');
   const summary = document.querySelector('[data-booking-summary]');
+  const childrenInput = form?.querySelector('[data-booking-children]');
+  const childWrap = form?.querySelector('[data-child-details]');
+  const childRows = form?.querySelector('[data-child-rows]');
+
   const paintSummary = () => {
     if (!summary || !select) return;
     summary.innerHTML = summaryHtml(selectedSafari(select.value));
   };
+
+  const paintChildren = () => {
+    if (!childWrap || !childRows || !childrenInput) return;
+    const count = Math.max(0, Math.min(12, Number(childrenInput.value) || 0));
+    childWrap.hidden = count === 0;
+    childRows.innerHTML = Array.from({ length: count }, (_, index) => `
+      <div class="booking-child-row">
+        <label>
+          <span>Child ${index + 1} name</span>
+          <input type="text" name="childName_${index}" placeholder="First name" autocomplete="off" />
+        </label>
+        <label>
+          <span>Age *</span>
+          <input type="number" name="childAge_${index}" required min="0" max="17" placeholder="Years" />
+        </label>
+      </div>
+    `).join('');
+  };
+
   select?.addEventListener('change', paintSummary);
+  childrenInput?.addEventListener('input', paintChildren);
+  childrenInput?.addEventListener('change', paintChildren);
+  paintChildren();
 
   if (!form) return;
   form.addEventListener('submit', async (event) => {
@@ -181,34 +216,54 @@ export function initBookingForm() {
     const data = new FormData(form);
     const safari = selectedSafari(String(data.get('safari') || ''));
     const note = form.querySelector('[data-booking-note]');
+    const adults = Number(data.get('adults') || 1);
+    const children = Number(data.get('children') || 0);
+    const childDetails = Array.from({ length: children }, (_, index) => ({
+      name: String(data.get(`childName_${index}`) || '').trim(),
+      age: Number(data.get(`childAge_${index}`)),
+    }));
     const payload = {
       name: String(data.get('name') || ''),
       email: String(data.get('email') || ''),
       phone: String(data.get('phone') || ''),
       country: String(data.get('country') || ''),
       safari: safari?.title || String(data.get('safari') || ''),
-      subject: `Booking request: ${safari?.title || data.get('safari')}`,
-      message: [
-        `Safari: ${safari?.title || data.get('safari') || ''}`,
-        `Dates: ${data.get('dates') || ''}`,
-        `Travellers: ${data.get('travellers') || ''}`,
-        `Country: ${data.get('country') || ''}`,
-        '',
+      safariId: safari?.slug || String(data.get('safari') || ''),
+      travelDate: String(data.get('travelDate') || ''),
+      adults,
+      children,
+      childDetails,
+      travellers: adults + children,
+      notes: [
+        data.get('country') ? `Country: ${data.get('country')}` : '',
         data.get('message') || '',
-      ].join('\n'),
+      ]
+        .filter(Boolean)
+        .join('\n'),
     };
     try {
-      await submitInquiry(payload);
+      const result = await submitBooking(payload);
       form.reset();
       if (select && safari?.slug) select.value = safari.slug;
       paintSummary();
+      paintChildren();
       if (note) {
         note.hidden = false;
-        note.textContent = 'Thank you. Your booking request is with the Arusha team — we aim to reply within 24 hours.';
+        note.textContent = `Thank you. Booking ${result.code || ''} is with the Arusha team — you will receive a confirmation email, and a reminder within 24 hours of travel.`;
       }
     } catch {
-      window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(
-        [`Name: ${payload.name}`, `Email: ${payload.email}`, `Phone: ${payload.phone}`, '', payload.message].join('\n')
+      window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(`Booking request: ${payload.safari}`)}&body=${encodeURIComponent(
+        [
+          `Name: ${payload.name}`,
+          `Email: ${payload.email}`,
+          `Phone: ${payload.phone}`,
+          `Travel date: ${payload.travelDate}`,
+          `Adults: ${payload.adults}`,
+          `Children: ${payload.children}`,
+          payload.childDetails.map((child, index) => `Child ${index + 1}: ${child.name || '—'}, age ${child.age}`).join('\n'),
+          '',
+          payload.notes,
+        ].join('\n')
       )}`;
       if (note) {
         note.hidden = false;

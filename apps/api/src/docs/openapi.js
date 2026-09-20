@@ -135,11 +135,19 @@ export const safariOpenApi = {
     '/admin/safaris/{id}/duplicate': {
       post: { tags: ['Admin'], security: [{ bearerAuth: [] }], summary: 'Duplicate as a new draft', parameters: [{ name: 'id', in: 'path', required: true, schema: { type: 'string' } }], responses: { 201: { description: 'Copy created' } } },
     },
+    '/external/catalog': {
+      get: {
+        tags: ['External'],
+        security: [{ apiKey: [] }],
+        summary: 'Counts and paths for every published collection the sister site can consume',
+        responses: { 200: { description: 'Catalog' }, 401: { description: 'Invalid key' } },
+      },
+    },
     '/external/safaris': {
       get: {
         tags: ['External'],
         security: [{ apiKey: [] }],
-        summary: 'Third-party list of published Safaris (scope safaris:read)',
+        summary: 'Published safari packages (same payload as /tours)',
         responses: { 200: { description: 'Published packages' }, 401: { description: 'Invalid key' } },
       },
     },
@@ -151,6 +159,41 @@ export const safariOpenApi = {
         parameters: [{ name: 'slug', in: 'path', required: true, schema: { type: 'string' } }],
         responses: { 200: { description: 'Safari' }, 404: { description: 'Not published' } },
       },
+    },
+    '/external/tours': {
+      get: {
+        tags: ['External'],
+        security: [{ apiKey: [] }],
+        summary: 'Published tours (alias of /safaris)',
+        responses: { 200: { description: 'Published tours' } },
+      },
+    },
+    '/external/destinations': {
+      get: { tags: ['External'], security: [{ apiKey: [] }], summary: 'Published destinations', responses: { 200: { description: 'Destinations' } } },
+    },
+    '/external/blogs': {
+      get: { tags: ['External'], security: [{ apiKey: [] }], summary: 'Published blog articles', responses: { 200: { description: 'Posts' } } },
+    },
+    '/external/join-safaris': {
+      get: { tags: ['External'], security: [{ apiKey: [] }], summary: 'Published joining-safari departures', responses: { 200: { description: 'Departures' } } },
+    },
+    '/external/pages': {
+      get: { tags: ['External'], security: [{ apiKey: [] }], summary: 'Published website pages', responses: { 200: { description: 'Pages' } } },
+    },
+    '/external/menus': {
+      get: { tags: ['External'], security: [{ apiKey: [] }], summary: 'Published navigation menus', responses: { 200: { description: 'Menus' } } },
+    },
+    '/external/faqs': {
+      get: { tags: ['External'], security: [{ apiKey: [] }], summary: 'Published FAQs', responses: { 200: { description: 'FAQs' } } },
+    },
+    '/external/lodges': {
+      get: { tags: ['External'], security: [{ apiKey: [] }], summary: 'Published lodges', responses: { 200: { description: 'Lodges' } } },
+    },
+    '/external/testimonials': {
+      get: { tags: ['External'], security: [{ apiKey: [] }], summary: 'Published reviews', responses: { 200: { description: 'Testimonials' } } },
+    },
+    '/external/settings': {
+      get: { tags: ['External'], security: [{ apiKey: [] }], summary: 'Public site settings (no SMTP secrets)', responses: { 200: { description: 'Settings' } } },
     },
   },
 };

@@ -1,5 +1,6 @@
 import { api } from '../api/client.js';
 import { shell } from './shell.js';
+import { bindImagePickers, galleryField, imageField } from '../components/image-picker.js';
 
 function escapeValue(value) {
   return String(value ?? '')
@@ -10,6 +11,24 @@ function escapeValue(value) {
 }
 
 function fieldMarkup(field, value) {
+  if (field.type === 'select') {
+    const options = field.options || [];
+    return `<div class="cms-field"><label class="cms-label" for="${field.name}">${field.label}</label><select id="${field.name}" name="${field.name}">${options
+      .map((option) => {
+        const item = typeof option === 'string' ? { value: option, label: option } : option;
+        return `<option value="${escapeValue(item.value)}"${item.value === value ? ' selected' : ''}>${escapeValue(item.label)}</option>`;
+      })
+      .join('')}</select>${field.hint ? `<p class="cms-hint">${field.hint}</p>` : ''}</div>`;
+  }
+  if (field.type === 'image') {
+    return imageField(field.label, field.name, value);
+  }
+  if (field.type === 'gallery') {
+    const urls = Array.isArray(value)
+      ? value.map((item) => (typeof item === 'string' ? item : item?.url || '')).filter(Boolean)
+      : String(value || '').split('\n');
+    return galleryField(field.label, field.name, urls);
+  }
   if (field.type === 'textarea') {
     return `<div class="cms-field"><label class="cms-label" for="${field.name}">${field.label}</label><textarea id="${field.name}" name="${field.name}" rows="6">${escapeValue(value)}</textarea>${field.hint ? `<p class="cms-hint">${field.hint}</p>` : ''}</div>`;
   }
@@ -56,13 +75,22 @@ export async function initContentEditor(type, id, spec) {
   function readForm() {
     const data = {};
     for (const field of spec.fields) {
-      data[field.name] = form.elements[field.name]?.value || '';
+      const value = form.elements[field.name]?.value || '';
+      if (field.type === 'gallery') {
+        data[field.name] = value
+          .split('\n')
+          .map((item) => item.trim())
+          .filter(Boolean);
+      } else {
+        data[field.name] = value;
+      }
     }
     return data;
   }
 
   function renderFields(draft) {
     form.innerHTML = spec.fields.map((field) => fieldMarkup(field, draft?.[field.name] || '')).join('');
+    bindImagePickers(form);
   }
 
   async function load() {

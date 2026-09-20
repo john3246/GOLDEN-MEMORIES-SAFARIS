@@ -46,6 +46,11 @@ describe('API foundation', () => {
     expect(res.status).toBe(200);
     expect(res.body.success).toBe(true);
     expect(res.body.data.mode).toBe('read-only');
+    const catalog = await send(app, 'GET', '/api/v1/external/catalog', undefined, {
+      'X-Api-Key': 'test_external_key_phase1',
+    });
+    expect(catalog.status).toBe(200);
+    expect(catalog.body.data.collections.tours.path).toBe('/tours');
     delete process.env.EXTERNAL_API_KEYS;
   });
 });

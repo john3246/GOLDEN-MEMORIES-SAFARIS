@@ -1,8 +1,16 @@
 import { safariCard } from '../../components/cards/safari-card.js';
-import { renderSafariPage, applySafariMeta, renderSafariCard } from '@gm-safaris/safari-ui';
+import { renderSafariPage, applySafariMeta, renderSafariCard, normalizeItinerary } from '@gm-safaris/safari-ui';
 import { isGalleryUrl, uniquePhoto, uniqueCoverFor, galleryKindForText } from '../../media/gallery.js';
 import { getTourBySlug, relatedTours } from './catalog.js';
 import { bookingHref } from './paths.js';
+
+function withCatalogItinerary(cmsSafari, slug) {
+  const catalog = getTourBySlug(slug);
+  const cmsDays = normalizeItinerary(cmsSafari.itinerary);
+  if (cmsDays.length) return { ...cmsSafari, itinerary: cmsDays };
+  const fallback = normalizeItinerary(catalog?.itinerary);
+  return fallback.length ? { ...cmsSafari, itinerary: fallback } : { ...cmsSafari, itinerary: cmsDays };
+}
 
 function localizeSafari(doc, index = 0) {
   if (!doc) return doc;
@@ -64,7 +72,7 @@ function dayFacts(item, tour, index, total) {
  */
 export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
   if (cmsSafari) {
-    const local = localizeSafari(cmsSafari);
+    const local = localizeSafari(withCatalogItinerary(cmsSafari, slug));
     const relatedHtml = cmsRelated.map((item, index) => renderSafariCard(localizeSafari(item, index + 1))).join('');
     return renderSafariPage(local, { relatedHtml });
   }

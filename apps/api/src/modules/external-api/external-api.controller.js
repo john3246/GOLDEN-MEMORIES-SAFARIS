@@ -7,8 +7,23 @@ import { sendSuccess, sendCollection } from './external-api.response.js';
 export const externalApiController = {
   async getStatus(req, res, next) {
     try {
-      const data = await externalApiService.getStatus();
-      sendSuccess(res, data);
+      sendSuccess(res, await externalApiService.getStatus());
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  async getCatalog(req, res, next) {
+    try {
+      sendSuccess(res, await externalApiService.getCatalog());
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  async getSettings(req, res, next) {
+    try {
+      sendSuccess(res, await externalApiService.getSettings());
     } catch (err) {
       next(err);
     }
@@ -16,8 +31,8 @@ export const externalApiController = {
 
   async listTours(req, res, next) {
     try {
-      const data = await externalApiService.listTours();
-      sendSuccess(res, data);
+      const result = await externalApiService.listTours(req.query);
+      sendCollection(res, result.data, result.meta);
     } catch (err) {
       next(err);
     }
@@ -25,17 +40,7 @@ export const externalApiController = {
 
   async getTourBySlug(req, res, next) {
     try {
-      const data = await externalApiService.getTourBySlug(req.params.slug);
-      sendSuccess(res, data);
-    } catch (err) {
-      next(err);
-    }
-  },
-
-  async listDestinations(req, res, next) {
-    try {
-      const data = await externalApiService.listDestinations();
-      sendSuccess(res, data);
+      sendSuccess(res, await externalApiService.getTourBySlug(req.params.slug));
     } catch (err) {
       next(err);
     }
@@ -52,8 +57,7 @@ export const externalApiController = {
 
   async getSafariBySlug(req, res, next) {
     try {
-      const data = await externalApiService.getSafariBySlug(req.params.slug);
-      sendSuccess(res, data);
+      sendSuccess(res, await externalApiService.getSafariBySlug(req.params.slug));
     } catch (err) {
       next(err);
     }
@@ -61,8 +65,24 @@ export const externalApiController = {
 
   async getSafariById(req, res, next) {
     try {
-      const data = await externalApiService.getSafariById(req.params.id);
-      sendSuccess(res, data);
+      sendSuccess(res, await externalApiService.getSafariById(req.params.id));
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  async listCollection(req, res, next) {
+    try {
+      const result = await externalApiService.listCollection(req.params.type);
+      sendCollection(res, result.data, result.meta);
+    } catch (err) {
+      next(err);
+    }
+  },
+
+  async getCollectionBySlug(req, res, next) {
+    try {
+      sendSuccess(res, await externalApiService.getCollectionBySlug(req.params.type, req.params.slug));
     } catch (err) {
       next(err);
     }

@@ -24,10 +24,11 @@ import { apiClientRoutes } from './modules/api-clients/index.js';
 import { publicContentRoutes, adminContentRoutes } from './modules/content/index.js';
 import { publicSettingsRoutes, adminSettingsRoutes } from './modules/settings/index.js';
 import { publicEnquiryRoutes, adminEnquiryRoutes } from './modules/enquiries/index.js';
-import { adminBookingRoutes, adminCustomerRoutes } from './modules/bookings/index.js';
+import { publicBookingRoutes, adminBookingRoutes, adminCustomerRoutes } from './modules/bookings/index.js';
+import { adminUserRoutes } from './modules/users/index.js';
 import { docsRoutes } from './docs/docs.routes.js';
 import { readStore } from './cms-store/index.js';
-import { requireAuth, requireRole } from './security/requireAuth.js';
+import { requireAuth, requireStaffAdmin } from './security/requireAuth.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const monorepoRoot = path.resolve(__dirname, '../../..');
@@ -54,7 +55,7 @@ export function servePublicSite(app, publicDir = publicSiteDir()) {
     }
     next();
   });
-  app.use(express.static(publicDir, { index: 'index.html', fallthrough: true }));
+  app.use(express.static(publicDir, { index: 'index.html', fallthrough: true, maxAge: '7d' }));
   app.use('/cms', (_req, res, next) => {
     res.sendFile(cmsIndex, (err) => {
       if (err) next(err);
@@ -87,6 +88,7 @@ export function createApp() {
   app.use('/api/v1/content', websiteCors(), publicContentRoutes);
   app.use('/api/v1/settings', websiteCors(), publicSettingsRoutes);
   app.use('/api/v1/inquiries', websiteCors(), publicEnquiryRoutes);
+  app.use('/api/v1/bookings', websiteCors(), publicBookingRoutes);
 
   app.use('/api/v1/external', externalCors(), externalApiRoutes);
 
@@ -102,7 +104,8 @@ export function createApp() {
   admin.use('/inquiries', adminEnquiryRoutes);
   admin.use('/bookings', adminBookingRoutes);
   admin.use('/customers', adminCustomerRoutes);
-  admin.get('/audit', requireAuth, requireRole('Admin'), async (_req, res, next) => {
+  admin.use('/users', adminUserRoutes);
+  admin.get('/audit', requireAuth, requireStaffAdmin(), async (_req, res, next) => {
     try {
       const store = await readStore();
       res.json({
@@ -133,6 +136,7 @@ export function createApp() {
           content: '/api/v1/content',
           settings: '/api/v1/settings',
           inquiries: '/api/v1/inquiries',
+          bookings: '/api/v1/bookings',
           external: '/api/v1/external',
           admin: '/api/v1/admin',
         },

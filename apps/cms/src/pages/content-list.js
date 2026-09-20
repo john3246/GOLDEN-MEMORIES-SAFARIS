@@ -61,9 +61,11 @@ function photoSections(type, rows, selected) {
   const getCategory =
     type === 'destinations'
       ? (item) => destinationCategory(item, item.draft || item.published || {})
-      : (item) => blogCategory(item, item.draft || item.published || {});
-  const order = type === 'destinations' ? DESTINATION_ORDER : BLOG_ORDER;
-  const renderItem = type === 'destinations' ? destinationCard : blogCard;
+      : type === 'lodges'
+        ? (item) => lodgeCategory(item, item.draft || item.published || {})
+        : (item) => blogCategory(item, item.draft || item.published || {});
+  const order = type === 'destinations' ? DESTINATION_ORDER : type === 'lodges' ? ['Mid-range', 'Luxury'] : BLOG_ORDER;
+  const renderItem = type === 'destinations' ? destinationCard : type === 'lodges' ? lodgeCard : blogCard;
   const sections = groupedSections(rows, getCategory, order).filter(([label]) => !selected || label === selected);
   const select = document.querySelector('#filter-category');
   if (select) {
@@ -77,8 +79,24 @@ function photoSections(type, rows, selected) {
   return renderGroupedCards(sections, renderItem);
 }
 
+function lodgeCategory(item, doc = {}) {
+  return doc.category === 'luxury' ? 'Luxury' : 'Mid-range';
+}
+
+function lodgeCard(item) {
+  const doc = item.draft || item.published || {};
+  return photoCard({
+    href: `#/lodges/${item.id}`,
+    title: item.title,
+    image: cardImage(doc.image),
+    kicker: lodgeCategory(item, doc),
+    detail: shortText(doc.place || doc.blurb),
+    status: item.status,
+  });
+}
+
 export function renderContentList(user, spec) {
-  const photo = spec.key === 'destinations' || spec.key === 'posts';
+  const photo = spec.key === 'destinations' || spec.key === 'posts' || spec.key === 'lodges';
   return shell(
     user,
     spec.key,
@@ -146,7 +164,7 @@ export function initContentList(type) {
       }
       const selected = document.querySelector('#filter-category')?.value || '';
       const body =
-        type === 'destinations' || type === 'posts'
+        type === 'destinations' || type === 'posts' || type === 'lodges'
           ? photoSections(type, result.data, selected)
           : packageCards(type, result.data);
       mount.innerHTML = `

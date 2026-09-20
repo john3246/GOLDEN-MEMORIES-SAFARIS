@@ -2,7 +2,8 @@ import { createId } from '@gm-safaris/shared-utils';
 import { validationError, notFound } from '../../errors/index.js';
 import { readStore, updateStore } from '../../cms-store/index.js';
 import { recordAudit } from '../audit/audit.service.js';
-import { sendSiteMail } from '../settings/mailer.js';
+import { sendSiteMail, loadMailSettings } from '../settings/mailer.js';
+import { inquiryGuestEmail, inquiryAdminEmail } from '../settings/email-templates.js';
 import { DEFAULT_SETTINGS } from '../content/content.seed.js';
 
 function now() {
@@ -56,14 +57,25 @@ export const enquiriesService = {
       store.inquiries.unshift(record);
     });
     await upsertCustomer(record);
-    const store = await readStore();
-    const notifyTo = store.settings?.email?.notifyTo || store.settings?.site?.email || DEFAULT_SETTINGS.site.email;
-    await sendSiteMail({
-      to: notifyTo,
-      replyTo: email,
-      subject: `[GMS] ${record.subject} — ${name}`,
-      text: [`Name: ${name}`, `Email: ${email}`, `Phone: ${record.phone}`, `Country: ${record.country}`, '', message].join('\n'),
-    });
+    const settings = await loadMailSettings();
+    const notifyTo = settings.email?.notifyTo || settings.site?.email || DEFAULT_SETTINGS.site.email;
+    const guest = inquiryGuestEmail(record, settings);
+    const admin = inquiryAdminEmail(record, settings);
+    await Promise.all([
+      sendSiteMail({
+        to: email,
+        subject: guest.subject,
+        text: guest.text,
+        html: guest.html,
+      }),
+      sendSiteMail({
+        to: notifyTo,
+        replyTo: email,
+        subject: admin.subject,
+        text: admin.text,
+        html: admin.html,
+      }),
+    ]);
     return { id: record.id, status: record.status };
   },
 

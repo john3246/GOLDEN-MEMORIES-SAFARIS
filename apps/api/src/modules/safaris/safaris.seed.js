@@ -1,5 +1,5 @@
 import { SafariStatus } from '@gm-safaris/shared-types';
-import { emptySafariDocument, SAFARI_DAY_IMAGES } from '@gm-safaris/safari-ui';
+import { emptySafariDocument, SAFARI_DAY_IMAGES, hasSafariPrice } from '@gm-safaris/safari-ui';
 import { config } from '../../config/index.js';
 import { updateStore } from '../../cms-store/index.js';
 import { safarisRepository } from './safaris.repository.js';
@@ -245,8 +245,15 @@ export async function seedSafariPackages() {
     if (!record) {
       record = await safarisRepository.create({ draft: toDraft(item), actor: { userId: 'seed' } });
     }
-    if (record.status === SafariStatus.PUBLISHED && record.published) continue;
+    if (record.status === SafariStatus.PUBLISHED && record.published && hasSafariPrice(record.published)) continue;
     if (record.created_by !== 'seed') continue;
+    if (!hasSafariPrice(record.draft)) {
+      record.status = SafariStatus.DRAFT;
+      record.published = null;
+      record.published_at = null;
+      await safarisRepository.save(record);
+      continue;
+    }
     record.status = SafariStatus.PUBLISHED;
     record.published = { ...record.draft };
     record.published_at = record.published_at || new Date().toISOString();

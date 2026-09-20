@@ -1,15 +1,19 @@
 import { lodges, accommodationsHero } from './content.js';
 
+function categoryLabel(value) {
+  return value === 'luxury' ? 'Luxury' : 'Mid-range';
+}
+
 export function renderAccommodations() {
   const cards = lodges
     .map(
       (lodge) => `
-        <article class="tour-card flex min-w-0 flex-col border border-ink/10">
+        <article class="tour-card flex min-w-0 flex-col border border-ink/10" data-lodge-category="${lodge.category || 'midrange'}">
           <div class="relative aspect-[16/9] overflow-hidden bg-mist">
             <img class="absolute inset-0 h-full w-full object-cover" src="${lodge.image}" alt="${lodge.name}" loading="lazy" width="800" height="450" />
           </div>
           <div class="flex flex-1 flex-col p-4">
-            <p class="font-body text-xs font-bold uppercase tracking-[0.12em] text-gold-deep">${lodge.place}</p>
+            <p class="font-body text-xs font-bold uppercase tracking-[0.12em] text-gold-deep">${categoryLabel(lodge.category)}${lodge.place ? ` · ${lodge.place}` : ''}</p>
             <h3 class="mt-1 font-display text-lg font-semibold text-black">${lodge.name}</h3>
             <p class="mt-2 text-sm leading-relaxed text-ink/70">${lodge.blurb}</p>
           </div>

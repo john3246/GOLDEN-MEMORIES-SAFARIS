@@ -81,3 +81,9 @@ export function requireRole(...roles) {
     next();
   };
 }
+
+export const STAFF_ADMIN_ROLES = Object.freeze(['Admin', 'Super Admin']);
+
+export function requireStaffAdmin() {
+  return requireRole(...STAFF_ADMIN_ROLES);
+}

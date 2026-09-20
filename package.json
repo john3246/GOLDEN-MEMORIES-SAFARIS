@@ -23,7 +23,9 @@
     "format:check": "prettier --check .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "db:up": "docker compose -f infrastructure/docker/docker-compose.yml up -d postgres",
+    "db:migrate": "node scripts/db-migrate.mjs"
   },
   "engines": {
     "node": ">=20.0.0"

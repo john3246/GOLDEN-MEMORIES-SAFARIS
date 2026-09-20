@@ -7,6 +7,7 @@ export default defineConfig({
     include: ['tests/**/*.{test,spec}.js', 'apps/**/*.{test,spec}.js', 'packages/**/*.{test,spec}.js'],
     env: {
       CMS_SEED_SAFARIS: 'false',
+      CMS_SYNC_POSTGRES: 'false',
       BCRYPT_ROUNDS: '4',
     },
     coverage: {

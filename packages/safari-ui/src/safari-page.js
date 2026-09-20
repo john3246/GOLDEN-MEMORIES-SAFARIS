@@ -3,7 +3,7 @@ import { wrapSection } from './edit.js';
 import { escapeHtml } from './escape.js';
 import { renderHero, renderOverview } from './sections/hero-overview.js';
 import { renderHighlights, renderGallery, renderFacts } from './sections/highlights-gallery.js';
-import { renderItinerary, renderAccommodation } from './sections/itinerary.js';
+import { renderItinerary, renderAccommodation, renderLodges } from './sections/itinerary.js';
 import {
   renderIncluded,
   renderExcluded,
@@ -22,6 +22,7 @@ const SECTION_RENDERERS = {
   facts: renderFacts,
   itinerary: renderItinerary,
   accommodation: renderAccommodation,
+  lodges: renderLodges,
   included: renderIncluded,
   excluded: renderExcluded,
   destination: renderDestination,
@@ -116,6 +117,7 @@ function isEmptySection(type, safari, options = {}) {
   if (type === 'included') return !(safari.inclusions || safari.included || []).filter(Boolean).length;
   if (type === 'excluded') return !(safari.exclusions || safari.excluded || []).filter(Boolean).length;
   if (type === 'itinerary') return !(safari.itinerary || []).length;
+  if (type === 'lodges') return !(safari.lodges || []).length;
   return false;
 }
 

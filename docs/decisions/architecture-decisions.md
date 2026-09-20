@@ -39,3 +39,19 @@
 **Decision:** All authoritative reads/writes go through PostgreSQL via repositories; Redis is optional performance.
 
 **Why:** Prevents split-brain; external consumers never bind to cache semantics.
+
+## ADR-006: One `tours` table with `product_type`
+
+**Status:** Accepted (Phase 2)
+
+**Decision:** Private safaris, join safaris, Kilimanjaro, Meru, day trips, beach, and cultural packages share `tours` plus typed children (`tour_departures`, `climb_routes`).
+
+**Why:** Shared itinerary, price, inclusion, media, and booking relations. Listing filters use `product_type` and `tour_categories` instead of parallel product tables.
+
+## ADR-007: RBAC with Super Admin
+
+**Status:** Accepted (Phase 2)
+
+**Decision:** `users` + `roles` + `permissions` + join tables. System roles: Super Admin, Admin, Manager, Editor, Viewer.
+
+**Why:** Super Admin owns users, roles, settings, and API keys. Other admins manage catalog and bookings without being able to rewrite role definitions. Matches the CMS permission model already used on JWT scopes.

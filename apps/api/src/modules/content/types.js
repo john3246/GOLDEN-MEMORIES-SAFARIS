@@ -1,4 +1,5 @@
 import { SafariStatus } from '@gm-safaris/shared-types';
+import { emptyBlogDocument, normalizeBlogDocument } from '@gm-safaris/safari-ui';
 
 export const CONTENT_TYPES = Object.freeze({
   pages: {
@@ -11,7 +12,7 @@ export const CONTENT_TYPES = Object.freeze({
       { name: 'title', label: 'Title', type: 'text' },
       { name: 'slug', label: 'Slug', type: 'text', hint: 'Used on the public URL' },
       { name: 'kicker', label: 'Kicker', type: 'text' },
-      { name: 'hero_image', label: 'Hero image URL', type: 'text' },
+      { name: 'hero_image', label: 'Hero photo', type: 'image' },
       { name: 'excerpt', label: 'Excerpt', type: 'textarea' },
       { name: 'body', label: 'Body', type: 'textarea' },
       { name: 'seo_title', label: 'SEO title', type: 'text' },
@@ -29,7 +30,8 @@ export const CONTENT_TYPES = Object.freeze({
       { name: 'slug', label: 'Slug', type: 'text' },
       { name: 'region', label: 'Region', type: 'text' },
       { name: 'blurb', label: 'Short blurb', type: 'textarea' },
-      { name: 'image', label: 'Image URL', type: 'text' },
+      { name: 'image', label: 'Cover photo', type: 'image' },
+      { name: 'gallery', label: 'Gallery photos', type: 'gallery' },
       { name: 'paragraphs', label: 'Page copy (one paragraph per line)', type: 'textarea' },
       { name: 'highlights', label: 'Highlights (one per line)', type: 'textarea' },
       { name: 'seo_title', label: 'SEO title', type: 'text' },
@@ -48,7 +50,7 @@ export const CONTENT_TYPES = Object.freeze({
       { name: 'topic', label: 'Topic', type: 'text', hint: 'climbing, safari, about-us, about-tanzania, islands, wildlife' },
       { name: 'date', label: 'Date', type: 'text' },
       { name: 'excerpt', label: 'Excerpt', type: 'textarea' },
-      { name: 'image', label: 'Image URL', type: 'text' },
+      { name: 'image', label: 'Cover photo', type: 'image' },
       { name: 'paragraphs', label: 'Article body (one paragraph per line)', type: 'textarea' },
       { name: 'seo_title', label: 'SEO title', type: 'text' },
       { name: 'seo_description', label: 'SEO description', type: 'textarea' },
@@ -64,6 +66,7 @@ export const CONTENT_TYPES = Object.freeze({
       { name: 'title', label: 'Guest name', type: 'text' },
       { name: 'detail', label: 'Trip / location', type: 'text' },
       { name: 'quote', label: 'Quote', type: 'textarea' },
+      { name: 'image', label: 'Guest photo', type: 'image' },
     ],
   },
   faqs: {
@@ -88,7 +91,18 @@ export const CONTENT_TYPES = Object.freeze({
       { name: 'title', label: 'Name', type: 'text' },
       { name: 'place', label: 'Place', type: 'text' },
       { name: 'blurb', label: 'Blurb', type: 'textarea' },
-      { name: 'image', label: 'Image URL', type: 'text' },
+      {
+        name: 'category',
+        label: 'Category',
+        type: 'select',
+        options: [
+          { value: 'midrange', label: 'Mid-range' },
+          { value: 'luxury', label: 'Luxury' },
+        ],
+        hint: 'Required. Used to filter lodges on the website and in this list.',
+      },
+      { name: 'image', label: 'Cover photo', type: 'image' },
+      { name: 'gallery', label: 'Extra photos', type: 'gallery' },
     ],
   },
   departures: {
@@ -106,7 +120,7 @@ export const CONTENT_TYPES = Object.freeze({
       { name: 'spaces', label: 'Spaces label', type: 'text' },
       { name: 'overview', label: 'Overview', type: 'textarea' },
       { name: 'highlights', label: 'Highlights (one per line)', type: 'textarea' },
-      { name: 'image', label: 'Image URL', type: 'text' },
+      { name: 'image', label: 'Photo', type: 'image' },
     ],
   },
   menus: {
@@ -124,6 +138,9 @@ export const CONTENT_TYPES = Object.freeze({
 });
 
 export function emptyDraft(type, extras = {}) {
+  if (type === 'posts') {
+    return normalizeBlogDocument(emptyBlogDocument(extras));
+  }
   const spec = CONTENT_TYPES[type];
   const draft = { title: extras.title || `New ${spec?.singular || 'item'}` };
   for (const field of spec?.fields || []) {

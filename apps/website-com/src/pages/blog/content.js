@@ -1,4 +1,6 @@
 import { media as GM } from '../home/content.js';
+import { rewrittenJournalArticles } from './rewritten-journal.js';
+import { zaraInspiredJournalArticles } from './zara-inspired-journal.js';
 
 export const blogIntro = {
   title: 'Golden Memories Safaris Blog',
@@ -227,6 +229,92 @@ export const blogArticles = [
       'Mount Meru, inside Arusha National Park, is the trek where wildlife and walking really mix — giraffe and buffalo on the lower trail, then a sharp crater rim. It is a serious peak in its own right.',
     ],
   },
+  {
+    slug: 'serengeti-or-ngorongoro',
+    topic: 'safari',
+    date: '8 September 2026',
+    title: 'Serengeti or Ngorongoro — how we choose',
+    excerpt: 'Open plains versus a crater floor: both belong on most northern itineraries, for different reasons.',
+    image: GM.ngorongoro,
+    paragraphs: [
+      'The Serengeti is scale: kopjes, riverine woodland, and enough country that camp location matters more than the park name on the permit. Ngorongoro is concentration — a caldera you descend into, with a full-day crater drive and a highland night on the rim.',
+      'We almost never treat them as either/or. A classic circuit uses both: Serengeti nights for cats and space, then a crater day that often produces rhino, dense lion, and a picnic that guests remember for years.',
+      'If time is short, two Serengeti nights and one crater day still work. If you only have a day from Arusha, the crater is the stronger single hit. If migration is the priority, we add Serengeti nights in the right sector and keep Ngorongoro as the bookend.',
+      'Tell us the month and how many nights you have. We will say which park should get the extra night, not a generic “do both” that ignores the calendar.',
+    ],
+  },
+  {
+    slug: 'how-many-days-for-a-northern-circuit-safari',
+    topic: 'safari',
+    date: '2 September 2026',
+    title: 'How many days for a northern circuit safari?',
+    excerpt: 'Four days is a taste. Six to eight is the shape we recommend when Tarangire, Serengeti, and the crater all matter.',
+    image: GM.savanna,
+    paragraphs: [
+      'A four-day private safari from Arusha can cover Tarangire and Ngorongoro with a night in between. It is a real safari, not a sample day, but you will feel the road.',
+      'Six days lets Serengeti in: two nights on the plains, a crater day, and Tarangire without rushing every gate. Eight days is when we stop arguing with the clock — extra game-drive mornings, a slower transfer, or a second Serengeti sector.',
+      'Families and first-timers usually thank us for the sixth night. Photographers and migration travellers often want eight or more, plus a flight between airstrips if the herds are far north.',
+      'We would rather cut a park than squeeze three parks into three days. Share your dates; we will draw the shortest itinerary that still feels like Tanzania.',
+    ],
+  },
+  {
+    slug: 'flying-or-driving-between-tanzania-parks',
+    topic: 'safari',
+    date: '26 August 2026',
+    title: 'Flying or driving between Tanzania parks',
+    excerpt: 'When a scheduled hop saves a safari day, and when the road is part of the story.',
+    image: GM.northern,
+    paragraphs: [
+      'The northern circuit is built for vehicles: Arusha to Tarangire, across to Serengeti, up to the crater rim. Those drives are game-viewing time, not dead hours, if we time the gates well.',
+      'Flying makes sense when the Serengeti camp is in the far north or west, or when you are coming from Zanzibar and cannot spare two road days. A short hop to Seronera or Kogatende can replace a long transfer.',
+      'Light aircraft have tight bag limits. Soft duffels, not hard cases. We put the weight rules in the joining notes so nobody is surprised at the airstrip.',
+      'A mixed plan is common: drive the classic parks, fly one leg to protect a game-drive morning. We price both so you can choose with the map in front of you.',
+    ],
+  },
+  {
+    slug: 'tanzania-safari-with-children',
+    topic: 'safari',
+    date: '21 August 2026',
+    title: 'Tanzania safari with children',
+    excerpt: 'Ages, pacing, crater rules, and the lodges that still feel like a family trip.',
+    image: GM.ngorongoroTourists,
+    paragraphs: [
+      'A private vehicle is the difference for families. You stop when someone needs a biscuit, a bathroom, or five quiet minutes with elephants instead of the next sighting.',
+      'Some crater and camp rules set a minimum age. We check that before we book, and we pick lodges with family rooms or connecting tents rather than hoping a twin will do.',
+      'Short game drives, a midday swim or rest, and an afternoon loop beat a heroic dawn-to-dusk schedule. Teenagers who want migration often handle longer Serengeti days; younger children usually prefer Tarangire and a single crater descent.',
+      'We brief guides on allergies, naps, and how much wildlife commentary you want. The aim is a trip the adults remember fondly, not a test of endurance.',
+    ],
+  },
+  {
+    slug: 'after-kilimanjaro-what-comes-next',
+    topic: 'climbing',
+    date: '16 August 2026',
+    title: 'After Kilimanjaro: rest, safari, or the coast',
+    excerpt: 'Give the knees a night in town, then choose plains or ocean — not both on the same afternoon.',
+    image: GM.kilimanjaro,
+    paragraphs: [
+      'Summit night empties people. We plan a hotel night in Moshi or Arusha after the descent: a shower, a real bed, and a meal that is not freeze-dried.',
+      'A safari after the climb works if you leave a buffer. One rest night, then Tarangire or the crater, is kinder than a 5 a.m. game drive the morning you come off the mountain.',
+      'Zanzibar is the other classic finish: fly to the island and let salt water do the recovery. Combining a hard trek, a full northern circuit, and a beach week in one tight itinerary is how trips feel rushed.',
+      'Tell us whether the mountain or the wildlife is the headline. We will order the chapters so the last day still feels like a holiday.',
+    ],
+  },
+  {
+    slug: 'nungwi-or-the-east-coast-zanzibar',
+    topic: 'islands',
+    date: '10 August 2026',
+    title: 'Nungwi or the east coast: choosing a Zanzibar beach',
+    excerpt: 'Swimmable water in the north, tidal flats in the east, and why Stone Town still deserves a night.',
+    image: GM.zanzibarBeach,
+    paragraphs: [
+      'Nungwi and Kendwa sit on the north-west: fewer extreme tides, more all-day swimming, and a livelier evening scene. East-coast beaches are quieter, with long low-tide walks and seaweed farms in the shallows.',
+      'Neither is wrong. Couples who want to float after safari usually prefer the north. Guests who like space, kitesurf, or a slower village feel often take the east.',
+      'Stone Town is not a beach. It is one or two nights of doors, rooftops, and spice history before you transfer. Skipping it to go straight to a resort is fine if rest is the only goal.',
+      'We book the beach as the last chapter so you are not reverse-commuting through Unguja with dusty bags. Say how many idle days you want, and whether swimming at all tides matters.',
+    ],
+  },
+  ...rewrittenJournalArticles,
+  ...zaraInspiredJournalArticles,
 ];
 
 export function topicBySlug(slug) {

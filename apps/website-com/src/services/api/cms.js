@@ -31,3 +31,16 @@ export async function submitInquiry(payload) {
   }
   return body.data;
 }
+
+export async function submitBooking(payload) {
+  const res = await fetch(`${API_BASE}/api/v1/bookings`, {
+    method: 'POST',
+    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  const body = await res.json().catch(() => ({}));
+  if (!res.ok || body.success === false) {
+    throw new Error(body.error?.message || 'Unable to send the booking');
+  }
+  return body.data;
+}

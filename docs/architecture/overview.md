@@ -76,8 +76,8 @@ External API normally returns **PUBLISHED** only.
 
 ## Implementation phases
 
-1. Project foundation ← **current**
-2. Database architecture
+1. Project foundation
+2. Database architecture ← **current (schema landed; API pool is Phase 3)**
 3. API foundation (pool, cache client)
 4. Security foundation
 5. Authentication + RBAC

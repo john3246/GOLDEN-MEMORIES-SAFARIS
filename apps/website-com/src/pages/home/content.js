@@ -39,7 +39,7 @@ export const site = {
   tagline: 'Your Culture or Ours',
   phone: '+255 786 383 273',
   phoneAlt: '+255 754 750 070',
-  email: 'info@gmsafaris.co.tz',
+  email: 'info@gmsafaris.com',
   address: 'Njiro, Arusha, Tanzania',
   socials: [
     { label: 'Facebook', href: 'https://www.facebook.com/' },

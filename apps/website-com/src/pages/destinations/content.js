@@ -42,48 +42,48 @@ export const destinationRegions = [
     id: 'northern-tanzania',
     kicker: 'The classic circuit',
     summary:
-      'The northern circuit is Tanzania’s signature safari: Tarangire, Manyara, Ngorongoro, and the Serengeti, with Kilimanjaro and Arusha National Park close to town.',
+      'Africa’s best-known safari country: Serengeti migration and predators, Ngorongoro’s Big Five crater, Tarangire’s dry-season elephants, Manyara as a scenic stop, plus Kilimanjaro, Meru and Eyasi off the main loop.',
     parks: [
       {
         slug: 'serengeti',
         name: 'Serengeti National Park',
-        blurb: 'Endless plains, big cats, and the Great Migration — the centrepiece of most first Tanzania safaris.',
+        blurb: 'Four regions, two million wildebeest, and the highest predator densities in Africa — camp location must match the month.',
         image: GM.northern,
       },
       {
         slug: 'ngorongoro',
         name: 'Ngorongoro Conservation Area',
-        blurb: 'A UNESCO caldera with an extraordinary density of wildlife, including the chance of black rhino.',
+        blurb: 'The world’s largest intact caldera: Big Five including black rhino, best as two nights, crater drives only by day.',
         image: GM.ngorongoro,
       },
       {
         slug: 'tarangire',
         name: 'Tarangire National Park',
-        blurb: 'Baobabs, the Tarangire River, and some of the largest elephant herds in the north.',
+        blurb: 'Quiet northern park: ~3,000 elephants on the river June–October, baobabs, birding, and walking or night drives at some camps.',
         image: GM.tarangire,
       },
       {
         slug: 'lake-manyara',
         name: 'Lake Manyara National Park',
-        blurb: 'Rift Valley escarpment, groundwater forest, birdlife, and the park’s famous tree-climbing lions.',
+        blurb: 'Rift escarpment and soda lake — a scenic half-day for tree lions and flamingos, not a heavyweight game park.',
         image: GM.manyara,
       },
       {
         slug: 'arusha-national-park',
         name: 'Arusha National Park',
-        blurb: 'Mount Meru, colobus monkeys, and walking or canoeing days close to the safari gateway.',
+        blurb: 'Quiet day from town: Meru, colobus, walking and canoeing. Beautiful, few predators — not a Serengeti substitute.',
         image: GM.meru,
       },
       {
         slug: 'kilimanjaro',
         name: 'Mount Kilimanjaro',
-        blurb: 'Africa’s highest peak — trek it before or after the safari, with rest days built into the plan.',
+        blurb: '5,895 m free-standing volcano. Altitude, not ropes, is the test — then add the northern parks.',
         image: GM.kilimanjaro,
       },
       {
         slug: 'lake-eyasi',
         name: 'Lake Eyasi',
-        blurb: 'A seasonal salt lake and a considered cultural day with Hadzabe and Datoga communities.',
+        blurb: 'Rift salt lake and Hadzabe country — walking and cultural time the national parks do not allow.',
         image: GM.lakeEyasi,
       },
     ],
@@ -93,24 +93,24 @@ export const destinationRegions = [
     id: 'the-coast',
     kicker: 'Indian Ocean',
     summary:
-      'Zanzibar is the natural last chapter after the dust of the parks: Stone Town, spice farms, and beach days on Unguja.',
+      'Swahili islands after safari: Stone Town for a night or two, then Nungwi, Kendwa or the tidal east. Nyerere is 45 minutes by air; the north is a longer hop.',
     parks: [
       {
         slug: 'zanzibar',
         name: 'Zanzibar Archipelago',
-        blurb: 'Turquoise water, historic Stone Town, and spice tours after the northern or southern circuit.',
+        blurb: 'Spice-island history, north vs east beaches, reefs and Jozani — the usual last chapter after the parks.',
         image: GM.zanzibarBeach,
       },
       {
         slug: 'stone-town',
         name: 'Stone Town & spice tours',
-        blurb: 'Carved doors, waterfront lanes, and a farm visit that explains why the islands were once the spice trade’s heart.',
+        blurb: 'UNESCO labyrinth of sultans’ doors and markets. One or two nights, then the beach.',
         image: GM.spice,
       },
       {
         slug: 'safari-from-zanzibar',
         name: 'Safari from Zanzibar',
-        blurb: 'Fly in for Tarangire and Ngorongoro when time is short, then return to the coast.',
+        blurb: 'Easiest hop is Nyerere (~45 min). Compact north option: Tarangire and Ngorongoro, then back to Unguja.',
         image: GM.ngorongoroAlt,
       },
     ],
@@ -120,24 +120,24 @@ export const destinationRegions = [
     id: 'southern-tanzania',
     kicker: 'Quieter parks',
     summary:
-      'Ruaha, Nyerere (Selous), and Mikumi reward travellers who want space, walking potential, and fewer vehicles on the road.',
+      'Quieter than the north, with open-sided vehicles, walking, boats and fly-camp. Ruaha for predators and baobabs; Nyerere for the Rufiji; Mikumi when you only have a day from Dar.',
     parks: [
       {
         slug: 'ruaha',
         name: 'Ruaha National Park',
-        blurb: 'Tanzania’s largest national park: baobab ridges, the Great Ruaha River, and outstanding predator country.',
+        blurb: 'Largest national park: ~10% of the world’s lions, wild dog, elephant, and a dry-season river safari with almost no crowds.',
         image: GM.southern,
       },
       {
         slug: 'nyerere',
         name: 'Nyerere (Selous)',
-        blurb: 'Boat safari on the Rufiji, fly-camp energy, and a wilder southern circuit than the north.',
+        blurb: 'Africa’s former largest reserve: Rufiji boats, walking, fly-camp, and over half of remaining wild dog — 45 minutes from Zanzibar.',
         image: GM.selous,
       },
       {
         slug: 'mikumi',
         name: 'Mikumi National Park',
-        blurb: 'Open grassland and a practical fly-in day trip from the coast or Dar es Salaam.',
+        blurb: 'Mkata floodplain on the Dar road — a pocket grassland day, not a week-long Serengeti.',
         image: GM.dayTrip,
       },
     ],
@@ -147,18 +147,18 @@ export const destinationRegions = [
     id: 'western-tanzania',
     kicker: 'Chimpanzee country',
     summary:
-      'The far west is for longer journeys: chimpanzee tracking on the shores of Lake Tanganyika, with forest and boat days rather than classic game drives.',
+      'Infrequent, expensive flights and no classic game-drive loop: chimpanzee forest on Lake Tanganyika. Gombe is steep and compact; Mahale is a fly-in beach-and-chimp stay, best in July–October.',
     parks: [
       {
         slug: 'gombe',
         name: 'Gombe Stream National Park',
-        blurb: 'Jane Goodall’s forest on Lake Tanganyika — compact, steep, and devoted to chimpanzee trekking.',
+        blurb: 'Jane Goodall’s forest — boat from Kigoma, then walk. Tanzania’s smallest park, not a 4x4 safari.',
         image: GM.western,
       },
       {
         slug: 'mahale',
         name: 'Mahale Mountains',
-        blurb: 'Remoter chimp habitat, lake beaches, and a fly-in stay that pairs with a longer Tanzania itinerary.',
+        blurb: 'Finest chimp viewing in the country plus gin-clear lake days. Walks get easier August–October.',
         image: GM.savanna,
       },
     ],

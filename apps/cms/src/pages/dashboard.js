@@ -1,6 +1,7 @@
 import { api } from '../api/client.js';
 import { shell } from './shell.js';
 import { apiOrigin, siteHref } from './site.js';
+import { isStaffAdmin } from '../auth/roles.js';
 
 function pill(status) {
   const kind = /confirm/i.test(status)
@@ -87,7 +88,7 @@ export function renderDashboard(user) {
             <a href="#/pages">Manage pages</a>
             <a href="#/media">Upload media</a>
             <a href="#/bookings">View bookings</a>
-            <a href="#/settings">Email &amp; site settings</a>
+            ${isStaffAdmin(user) ? '<a href="#/settings">Email &amp; site settings</a>' : ''}
             <a href="#/inquiries">Inquiries</a>
             <a href="${apiOrigin()}/api/v1/docs" target="_blank" rel="noreferrer">API documentation</a>
           </div>

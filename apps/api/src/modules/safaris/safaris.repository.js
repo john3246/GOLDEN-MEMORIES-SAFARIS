@@ -27,7 +27,10 @@ export const safarisRepository = {
         if (includeUnpublished) {
           return item.slug === needle || item.published?.slug === needle || item.draft?.slug === needle;
         }
-        return item.status === SafariStatus.PUBLISHED && item.published?.slug === needle;
+        return (
+          item.status === SafariStatus.PUBLISHED &&
+          (item.published?.slug === needle || item.slug === needle)
+        );
       }) || null
     );
   },

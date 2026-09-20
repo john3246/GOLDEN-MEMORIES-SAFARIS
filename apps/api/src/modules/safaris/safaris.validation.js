@@ -43,6 +43,7 @@ export const WRITABLE_FIELDS = Object.freeze([
   'map',
   'seo',
   'sections',
+  'lodge_ids',
 ]);
 
 function fail(result) {
@@ -223,6 +224,15 @@ export function validateSafariPayload(body = {}, options = {}) {
   if (seoValue) next.seo = seoValue;
   const sectionValue = sections(input.sections);
   if (sectionValue) next.sections = sectionValue;
+  if (input.lodge_ids !== undefined) {
+    const raw = Array.isArray(input.lodge_ids)
+      ? input.lodge_ids
+      : String(input.lodge_ids || '')
+          .split(/[\n,]/)
+          .map((item) => item.trim())
+          .filter(Boolean);
+    next.lodge_ids = [...new Set(raw.map((item) => String(item)))].slice(0, 40);
+  }
 
   if (!partial && !next.title) throw validationError('title is required');
   return next;

@@ -21,7 +21,7 @@ export function renderSettings(user) {
         <div>
           <p class="cms-kicker">System</p>
           <h1>Site settings</h1>
-          <p class="cms-lead">Contact details, SEO defaults, and outbound email. These values drive the public website header, footer, and enquiry notifications.</p>
+          <p class="cms-lead">Contact details, SEO defaults, and outbound email. These values drive the public website on gmsafaris.com, booking confirmations, travel reminders, and password resets.</p>
         </div>
         <button class="cms-btn cms-btn-gold" type="button" data-save>Save settings</button>
       </div>
@@ -66,6 +66,8 @@ export async function initSettings() {
       ${field('Phone', 'phone', site.phone, 'tel')}
       ${field('Second phone', 'phoneAlt', site.phoneAlt, 'tel')}
       ${field('Public email', 'email', site.email, 'email')}
+      ${field('Public website URL', 'websiteUrl', site.websiteUrl || 'https://www.gmsafaris.com', 'url')}
+      ${field('CMS URL (optional)', 'cmsUrl', site.cmsUrl, 'url')}
       ${field('Address', 'address', site.address)}
       ${field('Social links (Label | URL per line)', 'socials', socialLines(site.socials), 'textarea')}
       ${field('Website is live', 'websiteLive', data.websiteLive !== false, 'checkbox')}
@@ -77,7 +79,7 @@ export async function initSettings() {
     </div>
     <div class="cms-panel cms-form-stack">
       <h2 class="cms-hub-title">Email configuration</h2>
-      <p class="cms-muted">Inquiries from the public contact form are stored in CMS. If SMTP is filled, a copy is also emailed to the notify address.</p>
+      <p class="cms-muted">Used for booking confirmations (guest and staff), 24-hour travel reminders, password resets, and contact-form replies. Fill SMTP from your mailbox provider (for example Gmail, Zoho, or the gmsafaris.com mail host).</p>
       ${field('From name', 'fromName', email.fromName)}
       ${field('From email', 'fromEmail', email.fromEmail, 'email')}
       ${field('Reply-to', 'replyTo', email.replyTo, 'email')}
@@ -87,6 +89,10 @@ export async function initSettings() {
       ${field('SMTP username', 'smtpUser', email.smtpUser)}
       ${field('SMTP password', 'smtpPass', email.smtpPass, 'password')}
       ${field('Use TLS/SSL', 'smtpSecure', email.smtpSecure, 'checkbox')}
+      <div class="cms-editor-actions">
+        <button class="cms-btn" type="button" data-test-email>Send test email</button>
+      </div>
+      <p class="cms-muted" id="settings-mail" hidden></p>
     </div>
   `;
 
@@ -105,6 +111,8 @@ export async function initSettings() {
           phoneAlt: fd.get('phoneAlt'),
           email: fd.get('email'),
           address: fd.get('address'),
+          websiteUrl: fd.get('websiteUrl'),
+          cmsUrl: fd.get('cmsUrl'),
           socials: parseSocials(fd.get('socials')),
         },
         seo: {
@@ -124,6 +132,24 @@ export async function initSettings() {
         },
       });
       ok.hidden = false;
+    } catch (err) {
+      error.hidden = false;
+      error.textContent = err.message;
+    }
+  });
+
+  document.querySelector('[data-test-email]')?.addEventListener('click', async () => {
+    const mailNote = document.querySelector('#settings-mail');
+    error.hidden = true;
+    if (mailNote) mailNote.hidden = true;
+    try {
+      const result = await api.testEmail(form.elements.notifyTo?.value);
+      if (mailNote) {
+        mailNote.hidden = false;
+        mailNote.textContent = result.sent
+          ? `Test email sent to ${result.to}.`
+          : `SMTP is not sending yet (${result.reason || 'not configured'}). Save host, user, and password, then try again.`;
+      }
     } catch (err) {
       error.hidden = false;
       error.textContent = err.message;

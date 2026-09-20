@@ -1,8 +1,9 @@
 # Seed data
 
-Development and staging seeds only. Never seed production with demo credentials.
+Development and staging only for anything that looks like demo content.
 
-Phase 2+ will add:
+`001_regions_and_menus.sql` is safe everywhere: it loads the four Tanzania regions and default public nav.
 
-- Initial CMS roles and permissions
-- Sample published tour / destination (non-production)
+Roles and permissions are created in the identity migration (system rows, not demo users).
+
+Never seed production with CMS passwords. Staff accounts are created by the API bootstrap / Super Admin.

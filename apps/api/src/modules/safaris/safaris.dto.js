@@ -1,4 +1,11 @@
 import { SafariStatus } from '@gm-safaris/shared-types';
+import { hasSafariPrice, normalizeItinerary } from '@gm-safaris/safari-ui';
+
+function publicItinerary(doc, draft) {
+  const published = normalizeItinerary(doc?.itinerary);
+  if (published.length) return published;
+  return normalizeItinerary(draft?.itinerary);
+}
 
 const PUBLIC_OMIT = new Set([
   'draft',
@@ -16,7 +23,7 @@ const PUBLIC_OMIT = new Set([
 export function toPublicSafari(record) {
   if (!record || record.status !== SafariStatus.PUBLISHED || !record.published) return null;
   const doc = record.published;
-  if (!(Number(doc.price_from ?? doc.price) > 0)) return null;
+  if (!hasSafariPrice(doc)) return null;
   return {
     id: record.id,
     slug: doc.slug || record.slug,
@@ -38,7 +45,9 @@ export function toPublicSafari(record) {
     hero_image: doc.hero_image,
     gallery: doc.gallery || [],
     highlights: doc.highlights || [],
-    itinerary: doc.itinerary || [],
+    itinerary: publicItinerary(doc, record.draft),
+    lodge_ids: doc.lodge_ids || record.draft?.lodge_ids || [],
+    lodges: doc.lodges || [],
     inclusions: doc.inclusions || [],
     exclusions: doc.exclusions || [],
     accommodation: doc.accommodation,
@@ -50,6 +59,24 @@ export function toPublicSafari(record) {
     published_at: record.published_at,
     updated_at: record.updated_at,
   };
+}
+
+export function attachPublicLodges(dto, lodges = []) {
+  if (!dto) return dto;
+  const ids = new Set(dto.lodge_ids || []);
+  dto.lodges = ids.size
+    ? lodges
+        .filter((item) => item.status === SafariStatus.PUBLISHED && item.published && ids.has(item.id))
+        .map((item) => ({
+          id: item.id,
+          name: item.published.title,
+          place: item.published.place || '',
+          blurb: item.published.blurb || '',
+          category: item.published.category || 'midrange',
+          image: item.published.image || '',
+        }))
+    : [];
+  return dto;
 }
 
 /**

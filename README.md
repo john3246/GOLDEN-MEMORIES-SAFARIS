@@ -28,9 +28,9 @@ npm run dev:cms
 
 ## Current phase
 
-**Phase 1 — Project foundation** (this deliverable).
+**Phase 2 — Database architecture** (schema in `database/migrations`). The CMS still uses the file store until Phase 3 wires the PostgreSQL pool.
 
-Next: **Phase 2 — Database architecture**.
+Previous: Phase 1 — Project foundation.
 
 ## Prerequisites
 
@@ -49,11 +49,13 @@ npm run dev:api
 
 Health check: `GET http://localhost:3000/health`
 
-External API status (requires `EXTERNAL_API_KEYS` in `.env`):
+External API (requires `EXTERNAL_API_KEYS` in `.env` or a CMS-issued key):
 
 ```bash
-curl -H "X-Api-Key: your_key" http://localhost:3000/api/v1/external/status
+curl -H "X-Api-Key: your_key" http://localhost:3000/api/v1/external/catalog
 ```
+
+Sister-site contract: [docs/api/external-api.md](docs/api/external-api.md).
 
 ## Workspace layout
 
@@ -80,6 +82,8 @@ External consumer contract (for the `.co.tz` developer): [docs/api/external-api.
 | `npm run dev:api` | Run API with `--watch` |
 | `npm run dev:cms` | Safari CMS UI (Vite, port 5173) |
 | `npm run dev:website` | Public website |
+| `npm run db:up` | Start local Postgres (Docker) |
+| `npm run db:migrate` | Apply SQL migrations + seeds (`psql`) |
 | `npm run lint` | ESLint |
 | `npm run format` | Prettier |
 | `npm test` | Vitest |

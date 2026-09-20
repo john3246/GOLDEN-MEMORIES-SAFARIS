@@ -65,6 +65,28 @@ export const api = {
     sessionStorage.removeItem(USER_KEY);
   },
 
+  async forgotPassword(email) {
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/auth/forgot`, {
+        method: 'POST',
+        headers: headers({ json: true }),
+        body: JSON.stringify({ email }),
+      })
+    );
+    return body.data;
+  },
+
+  async resetPassword(token, password) {
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/auth/reset`, {
+        method: 'POST',
+        headers: headers({ json: true }),
+        body: JSON.stringify({ token, password }),
+      })
+    );
+    return body.data;
+  },
+
   async login(email, password) {
     const body = await parse(
       await fetch(`${API_BASE}/api/v1/admin/auth/login`, {
@@ -310,6 +332,28 @@ export const api = {
     return body.data;
   },
 
+  async testEmail(to) {
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/settings/test-email`, {
+        method: 'POST',
+        headers: headers({ json: true }),
+        body: JSON.stringify({ to }),
+      })
+    );
+    return body.data;
+  },
+
+  async remindBooking(id) {
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/bookings/${id}/remind`, {
+        method: 'POST',
+        headers: headers({ json: true }),
+        body: '{}',
+      })
+    );
+    return body.data;
+  },
+
   async listInquiries() {
     const body = await parse(await fetch(`${API_BASE}/api/v1/admin/inquiries`, { headers: headers() }));
     return body;
@@ -356,5 +400,32 @@ export const api = {
   async listCustomers() {
     const body = await parse(await fetch(`${API_BASE}/api/v1/admin/customers`, { headers: headers() }));
     return body;
+  },
+
+  async listUsers() {
+    const body = await parse(await fetch(`${API_BASE}/api/v1/admin/users`, { headers: headers() }));
+    return body;
+  },
+
+  async createUser(payload) {
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/users`, {
+        method: 'POST',
+        headers: headers({ json: true }),
+        body: JSON.stringify(payload),
+      })
+    );
+    return body.data;
+  },
+
+  async updateUser(id, payload) {
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/users/${id}`, {
+        method: 'PATCH',
+        headers: headers({ json: true }),
+        body: JSON.stringify(payload),
+      })
+    );
+    return body.data;
   },
 };

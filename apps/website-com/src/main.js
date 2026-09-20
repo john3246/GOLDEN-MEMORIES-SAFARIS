@@ -71,7 +71,7 @@ function initReveals() {
   nodes.forEach((el) => observer.observe(el));
 }
 
-function cmsTimeout(ms = 700) {
+function cmsTimeout(ms = 2500) {
   const ctrl = new AbortController();
   const timer = window.setTimeout(() => ctrl.abort(), ms);
   return { signal: ctrl.signal, done: () => window.clearTimeout(timer) };
@@ -173,7 +173,7 @@ async function mount() {
     page = renderContact();
     setMeta(
       'Contact Golden Memories Safaris | Tanzania Safari Experts in Arusha',
-      'Contact Golden Memories Safaris in Arusha. Call +255 786 383 273, email info@gmsafaris.co.tz, or send a message to plan your Tanzania safari.'
+      'Contact Golden Memories Safaris in Arusha. Call +255 786 383 273, email info@gmsafaris.com, or send a message to plan your Tanzania safari.'
     );
     afterPaint = async () => initContactForm();
   } else if (isBookingPage()) {

@@ -1,7 +1,8 @@
 import { SAFARI_SECTION_TYPES } from '@gm-safaris/shared-types';
-import { renderSafariPage, emptySafariDocument } from '@gm-safaris/safari-ui';
+import { renderSafariPage, emptySafariDocument, safariCompletenessErrors } from '@gm-safaris/safari-ui';
 import { api } from '../api/client.js';
 import { shell } from './shell.js';
+import { bindImagePickers, galleryField, imageField } from '../components/image-picker.js';
 
 const SECTION_LABELS = {
   hero: 'Hero',
@@ -11,6 +12,7 @@ const SECTION_LABELS = {
   facts: 'Safari facts',
   itinerary: 'Itinerary',
   accommodation: 'Accommodation',
+  lodges: 'Lodges',
   included: 'Included',
   excluded: 'Excluded',
   destination: 'Destination',
@@ -52,6 +54,7 @@ export function renderEditor(user, id) {
             <button class="cms-btn cms-btn-danger" type="button" data-archive>Archive</button>
           </div>
           <p class="cms-error" id="editor-error" hidden></p>
+          <p class="cms-hint" id="safari-ready"></p>
         </div>
         <div class="cms-editor-fields" id="editor-fields"></div>
       </aside>
@@ -114,6 +117,26 @@ function sectionList(sections) {
   return rows.join('');
 }
 
+function lodgePicker(selected, lodges) {
+  const ids = new Set(selected || []);
+  const cards = (lodges || [])
+    .map((lodge) => {
+      const doc = lodge.published || lodge.draft || {};
+      const checked = ids.has(lodge.id);
+      return `
+        <label class="cms-lodge-pick${checked ? ' is-on' : ''}">
+          <input type="checkbox" name="lodge_ids" value="${escapeValue(lodge.id)}" ${checked ? 'checked' : ''} />
+          <span class="cms-lodge-pick-media">${doc.image ? `<img src="${escapeValue(doc.image)}" alt="" />` : ''}</span>
+          <span>
+            <strong>${escapeValue(doc.title || lodge.title || 'Lodge')}</strong>
+            <small>${doc.category === 'luxury' ? 'Luxury' : 'Mid-range'}${doc.place ? ` · ${escapeValue(doc.place)}` : ''}</small>
+          </span>
+        </label>`;
+    })
+    .join('');
+  return `<p class="cms-hint">Pick lodges for this itinerary. Their photos appear on the public tour page.</p><div class="cms-lodge-grid">${cards || '<p class="cms-muted">Publish lodges under Accommodations first.</p>'}</div>`;
+}
+
 function itineraryEditor(days) {
   const blocks = (days || [])
     .map(
@@ -136,14 +159,14 @@ function itineraryEditor(days) {
           ${field('Accommodation', `day.${index}.accommodation`, day.accommodation)}
           ${field('Meals', `day.${index}.meals`, day.meals)}
         </div>
-        ${field('Image URL', `day.${index}.image`, day.image)}
+        ${imageField('Day photo', `day.${index}.image`, day.image)}
       </article>`
     )
     .join('');
-  return `<button class="cms-btn cms-btn-navy" type="button" data-add-day>Add itinerary day</button>${blocks}`;
+  return `<p class="cms-hint">Add one itinerary day for each duration day, and give every day a title.</p><button class="cms-btn cms-btn-navy" type="button" data-add-day>Add itinerary day</button>${blocks}`;
 }
 
-function renderFields(doc) {
+function renderFields(doc, lodges = []) {
   return `
     ${group(
       'Package details',
@@ -163,9 +186,9 @@ function renderFields(doc) {
       'Duration, price and facts',
       `
       <div class="cms-grid-3">
-        ${field('Duration (days)', 'duration', doc.duration, 'number')}
+        ${field('Duration (days)', 'duration', doc.duration, 'number', 'Must match the number of itinerary days.')}
         ${field('Duration label', 'duration_label', doc.duration_label)}
-        ${field('Price per person', 'price_from', doc.price_from, 'number', 'Shown on the website. Based on two travellers sharing unless you set a different minimum.')}
+        ${field('Price per person', 'price_from', doc.price_from, 'number', 'Required. Shown on the website. Based on two travellers sharing unless you set a different minimum.')}
         ${field('Currency', 'currency', doc.currency || 'USD')}
         ${field('Best season', 'best_season', doc.best_season)}
         ${field('Display order', 'display_order', doc.display_order, 'number')}
@@ -173,15 +196,17 @@ function renderFields(doc) {
         ${field('Maximum people', 'maximum_people', doc.maximum_people, 'number')}
       </div>
       ${field('Featured package', 'featured', doc.featured, 'checkbox')}
-    `
+    `,
+      true
     )}
     ${group(
       'Hero and gallery',
       `
-      ${field('Hero image URL', 'hero_url', doc.hero_image?.url)}
+      ${imageField('Hero photo', 'hero_url', doc.hero_image?.url)}
       ${field('Hero alt text', 'hero_alt', doc.hero_image?.alt)}
-      ${field('Gallery image URLs', 'gallery', (doc.gallery || []).map((i) => i.url).join('\n'), 'textarea', 'One HTTPS image URL per line.')}
-    `
+      ${galleryField('Gallery photos', 'gallery', (doc.gallery || []).map((item) => item.url))}
+    `,
+      true
     )}
     ${group(
       'Highlights, inclusions and copy',
@@ -195,6 +220,7 @@ function renderFields(doc) {
       ${field('Map embed URL', 'map_embed', doc.map?.embed_url)}
     `
     )}
+    ${group('Lodges on this tour', lodgePicker(doc.lodge_ids, lodges), true)}
     ${group('Itinerary', itineraryEditor(doc.itinerary), true)}
     ${group(
       'Search and sharing',
@@ -202,7 +228,7 @@ function renderFields(doc) {
       ${field('SEO title', 'seo_title', doc.seo?.title)}
       ${field('SEO description', 'seo_description', doc.seo?.description, 'textarea')}
       ${field('Canonical URL', 'seo_canonical', doc.seo?.canonical)}
-      ${field('Share image URL', 'seo_og_image', doc.seo?.og_image)}
+      ${imageField('Share photo', 'seo_og_image', doc.seo?.og_image)}
       ${field('Robots', 'seo_robots', doc.seo?.robots || 'index,follow')}
     `
     )}
@@ -278,6 +304,7 @@ function collect(form, current) {
       robots: form.seo_robots?.value,
     },
     itinerary: days,
+    lodge_ids: [...form.querySelectorAll('input[name="lodge_ids"]:checked')].map((input) => input.value),
     sections: sections.length ? sections : current.sections,
   };
 }
@@ -290,12 +317,34 @@ function paintPreview(doc) {
   if (url) url.textContent = `gmsafaris.com/tours/${doc.slug || 'preview'}/`;
 }
 
+function paintReady(doc) {
+  const hint = document.querySelector('#safari-ready');
+  const save = document.querySelector('[data-save]');
+  const publish = document.querySelector('[data-publish]');
+  const errors = safariCompletenessErrors(doc);
+  if (hint) {
+    hint.hidden = false;
+    hint.className = errors.length ? 'cms-error' : 'cms-hint';
+    hint.textContent = errors.length
+      ? errors.join(' ')
+      : 'This tour has a price and an itinerary that matches the number of days.';
+  }
+  if (save) save.disabled = Boolean(errors.length);
+  if (publish) publish.disabled = Boolean(errors.length);
+}
+
+function requireReady(doc) {
+  const errors = safariCompletenessErrors(doc);
+  if (errors.length) throw new Error(errors.join(' '));
+}
+
 export async function initEditor(id) {
   const status = document.querySelector('#editor-status');
   const fields = document.querySelector('#editor-fields');
   const error = document.querySelector('#editor-error');
   let current = emptySafariDocument();
   let record = null;
+  let lodgeOptions = [];
 
   function showError(err) {
     error.hidden = false;
@@ -305,8 +354,14 @@ export async function initEditor(id) {
   async function load() {
     record = await api.getSafari(id);
     current = { ...emptySafariDocument(), ...record.draft, slug: record.slug };
+    try {
+      const listed = await api.listContent('lodges');
+      lodgeOptions = listed.data || [];
+    } catch {
+      lodgeOptions = [];
+    }
     status.textContent = `${record.status} · ${record.slug}`;
-    fields.innerHTML = `<form id="safari-form">${renderFields(current)}</form>`;
+    fields.innerHTML = `<form id="safari-form">${renderFields(current, lodgeOptions)}</form>`;
     const list = document.querySelector('#revision-list');
     if (list) {
       list.innerHTML = (record.revisions || [])
@@ -314,18 +369,22 @@ export async function initEditor(id) {
         .join('') || '<li>No revisions yet</li>';
     }
     paintPreview(current);
+    paintReady(current);
     bindForm();
   }
 
   function bindForm() {
     const form = document.querySelector('#safari-form');
+    bindImagePickers(form);
     form?.addEventListener('input', () => {
       current = { ...current, ...collect(form, current) };
       paintPreview(current);
+      paintReady(current);
     });
     form?.addEventListener('change', () => {
       current = { ...current, ...collect(form, current) };
       paintPreview(current);
+      paintReady(current);
     });
 
     form?.querySelector('[data-add-day]')?.addEventListener('click', () => {
@@ -333,8 +392,9 @@ export async function initEditor(id) {
         ...(current.itinerary || []),
         { day: `Day ${(current.itinerary?.length || 0) + 1}`, title: '', description: '', activities: [] },
       ];
-      fields.innerHTML = `<form id="safari-form">${renderFields(current)}</form>`;
+      fields.innerHTML = `<form id="safari-form">${renderFields(current, lodgeOptions)}</form>`;
       paintPreview(current);
+      paintReady(current);
       bindForm();
     });
 
@@ -342,8 +402,9 @@ export async function initEditor(id) {
       btn.addEventListener('click', () => {
         const index = Number(btn.closest('[data-day-index]')?.dataset.dayIndex);
         current.itinerary = current.itinerary.filter((_, i) => i !== index);
-        fields.innerHTML = `<form id="safari-form">${renderFields(current)}</form>`;
+        fields.innerHTML = `<form id="safari-form">${renderFields(current, lodgeOptions)}</form>`;
         paintPreview(current);
+        paintReady(current);
         bindForm();
       });
     });
@@ -353,8 +414,9 @@ export async function initEditor(id) {
         const index = Number(btn.closest('[data-day-index]')?.dataset.dayIndex);
         const copy = { ...current.itinerary[index], id: undefined };
         current.itinerary.splice(index + 1, 0, copy);
-        fields.innerHTML = `<form id="safari-form">${renderFields(current)}</form>`;
+        fields.innerHTML = `<form id="safari-form">${renderFields(current, lodgeOptions)}</form>`;
         paintPreview(current);
+        paintReady(current);
         bindForm();
       });
     });
@@ -367,8 +429,9 @@ export async function initEditor(id) {
         if (swap < 0 || swap >= next.length) return;
         [next[index], next[swap]] = [next[swap], next[index]];
         current.sections = next.map((item, order) => ({ ...item, order }));
-        fields.innerHTML = `<form id="safari-form">${renderFields(current)}</form>`;
+        fields.innerHTML = `<form id="safari-form">${renderFields(current, lodgeOptions)}</form>`;
         paintPreview(current);
+        paintReady(current);
         bindForm();
       });
     });
@@ -378,10 +441,12 @@ export async function initEditor(id) {
     try {
       const form = document.querySelector('#safari-form');
       current = { ...current, ...collect(form, current) };
+      requireReady(current);
       record = await api.saveSafari(id, current);
       current = { ...emptySafariDocument(), ...record.draft };
       status.textContent = `Draft saved · ${record.status}`;
       error.hidden = true;
+      paintReady(current);
     } catch (err) {
       showError(err);
     }
@@ -391,9 +456,11 @@ export async function initEditor(id) {
     try {
       const form = document.querySelector('#safari-form');
       current = { ...current, ...collect(form, current) };
+      requireReady(current);
       await api.saveSafari(id, current);
       record = await api.action(id, 'publish');
       status.textContent = `PUBLISHED · ${record.slug}`;
+      paintReady(current);
     } catch (err) {
       showError(err);
     }

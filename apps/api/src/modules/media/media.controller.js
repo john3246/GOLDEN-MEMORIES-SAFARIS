@@ -126,7 +126,7 @@ export const mediaController = {
         return;
       }
       res.setHeader('Content-Type', payload.mimeType || 'application/octet-stream');
-      res.setHeader('Cache-Control', 'public, max-age=86400');
+      res.setHeader('Cache-Control', 'public, max-age=604800, immutable');
       res.sendFile(path.resolve(payload.filePath));
     } catch (err) {
       next(err);

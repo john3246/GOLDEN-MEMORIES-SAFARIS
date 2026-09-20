@@ -5,6 +5,7 @@ import { readStore } from '../../cms-store/index.js';
 import { CONTENT_TYPES, displayTitle, emptyDraft } from './types.js';
 import { contentRepository } from './content.repository.js';
 import { seedSiteContent } from './content.seed.js';
+import { syncBlogPost, removeBlogPost } from './blog.sync.js';
 
 function actorMeta(actor) {
   return { actorId: actor?.userId, actorEmail: actor?.email };
@@ -71,11 +72,15 @@ export const contentService = {
   async getAdmin(type, id) {
     const record = await contentRepository.findById(type, id);
     if (!record) throw notFound('Content not found');
+    if (type === 'posts') record.draft = emptyDraft('posts', record.draft || {});
     return toAdmin(record);
   },
 
   async create(type, body, actor) {
-    const record = await contentRepository.create(type, { draft: emptyDraft(type, body || {}), actor });
+    const incoming = { ...(body || {}) };
+    if (type === 'lodges' && incoming.category !== 'luxury') incoming.category = 'midrange';
+    const record = await contentRepository.create(type, { draft: emptyDraft(type, incoming), actor });
+    if (type === 'posts') await syncBlogPost(record);
     await recordAudit({ ...actorMeta(actor), action: 'content.create', resource: type, resourceId: record.id });
     return toAdmin(record);
   },
@@ -84,6 +89,19 @@ export const contentService = {
     const record = await contentRepository.findById(type, id);
     if (!record) throw notFound('Content not found');
     const nextDraft = emptyDraft(type, { ...record.draft, ...(body || {}) });
+    if (type === 'lodges') {
+      const category = String(nextDraft.category || '').toLowerCase();
+      if (category !== 'midrange' && category !== 'luxury') {
+        throw validationError('Category must be midrange or luxury', { field: 'category' });
+      }
+      nextDraft.category = category;
+      if (!Array.isArray(nextDraft.gallery)) {
+        nextDraft.gallery = String(nextDraft.gallery || '')
+          .split('\n')
+          .map((item) => item.trim())
+          .filter(Boolean);
+      }
+    }
     if (nextDraft.slug && nextDraft.slug !== record.slug) {
       if (await contentRepository.slugTaken(type, nextDraft.slug, id)) {
         throw validationError('slug is already in use', { field: 'slug' });
@@ -94,6 +112,7 @@ export const contentService = {
     record.updated_by = actor?.userId || null;
     record.updated_at = new Date().toISOString();
     await contentRepository.save(type, record);
+    if (type === 'posts') await syncBlogPost(record);
     await recordAudit({ ...actorMeta(actor), action: 'content.update', resource: type, resourceId: id });
     return toAdmin(record);
   },
@@ -107,6 +126,7 @@ export const contentService = {
     record.updated_at = record.published_at;
     record.updated_by = actor?.userId || null;
     await contentRepository.save(type, record);
+    if (type === 'posts') await syncBlogPost(record);
     await recordAudit({ ...actorMeta(actor), action: 'content.publish', resource: type, resourceId: id });
     return toAdmin(record);
   },
@@ -118,6 +138,7 @@ export const contentService = {
     record.updated_at = new Date().toISOString();
     record.updated_by = actor?.userId || null;
     await contentRepository.save(type, record);
+    if (type === 'posts') await syncBlogPost(record);
     await recordAudit({ ...actorMeta(actor), action: 'content.unpublish', resource: type, resourceId: id });
     return toAdmin(record);
   },
@@ -125,6 +146,7 @@ export const contentService = {
   async remove(type, id, actor) {
     const removed = await contentRepository.remove(type, id);
     if (!removed) throw notFound('Content not found');
+    if (type === 'posts') await removeBlogPost(removed);
     await recordAudit({ ...actorMeta(actor), action: 'content.delete', resource: type, resourceId: id });
     return { id };
   },

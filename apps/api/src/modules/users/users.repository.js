@@ -11,7 +11,10 @@ function publicUser(user) {
     email: user.email,
     name: user.name,
     role: user.role,
+    status: user.status || (user.disabledAt ? 'disabled' : 'active'),
     createdAt: user.createdAt,
+    updatedAt: user.updatedAt || null,
+    disabledAt: user.disabledAt || null,
   };
 }
 
@@ -27,19 +30,75 @@ export const usersRepository = {
     return store.users.find((user) => user.id === id) || null;
   },
 
-  async create({ email, name, role, passwordHash }) {
+  async findByResetTokenHash(tokenHash) {
+    const store = await readStore();
+    const needle = String(tokenHash || '');
+    const now = Date.now();
+    return (
+      store.users.find(
+        (user) =>
+          user.passwordResetTokenHash === needle &&
+          user.passwordResetExpires &&
+          Date.parse(user.passwordResetExpires) > now
+      ) || null
+    );
+  },
+
+  async setPasswordReset(id, tokenHash, expiresAt) {
+    return updateStore((store) => {
+      const user = store.users.find((item) => item.id === id);
+      if (!user) return null;
+      user.passwordResetTokenHash = tokenHash;
+      user.passwordResetExpires = expiresAt;
+      user.updatedAt = new Date().toISOString();
+      return user;
+    });
+  },
+
+  async updatePassword(id, passwordHash) {
+    return updateStore((store) => {
+      const user = store.users.find((item) => item.id === id);
+      if (!user) return null;
+      user.passwordHash = passwordHash;
+      user.passwordResetTokenHash = null;
+      user.passwordResetExpires = null;
+      user.updatedAt = new Date().toISOString();
+      return user;
+    });
+  },
+
+  async all() {
+    const store = await readStore();
+    return store.users || [];
+  },
+
+  async create({ email, name, role, passwordHash, status = 'active', actorId = null }) {
+    const now = new Date().toISOString();
     const user = {
       id: createId(),
       email: String(email).trim().toLowerCase(),
       name,
       role,
       passwordHash,
-      createdAt: new Date().toISOString(),
+      status: status === 'disabled' ? 'disabled' : 'active',
+      createdAt: now,
+      updatedAt: now,
+      disabledAt: status === 'disabled' ? now : null,
+      createdBy: actorId,
     };
     await updateStore((store) => {
       store.users.push(user);
     });
     return user;
+  },
+
+  async save(user) {
+    return updateStore((store) => {
+      const index = store.users.findIndex((item) => item.id === user.id);
+      if (index === -1) return null;
+      store.users[index] = user;
+      return user;
+    });
   },
 
   toPublic: publicUser,

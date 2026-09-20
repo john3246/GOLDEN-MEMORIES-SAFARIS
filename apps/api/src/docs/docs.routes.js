@@ -1,10 +1,15 @@
 import { Router } from 'express';
 import { safariOpenApi } from './openapi.js';
+import { externalPostmanCollection } from './postman-collection.js';
 
 export const docsRoutes = Router();
 
 docsRoutes.get('/openapi.json', (_req, res) => {
   res.json(safariOpenApi);
+});
+
+docsRoutes.get('/postman.json', (_req, res) => {
+  res.json(externalPostmanCollection);
 });
 
 docsRoutes.get('/', (_req, res) => {
@@ -22,12 +27,13 @@ docsRoutes.get('/', (_req, res) => {
   <body>
     <h1>Safari API documentation</h1>
     <p>OpenAPI document: <a href="/api/v1/docs/openapi.json">/api/v1/docs/openapi.json</a></p>
+    <p>Postman collection: <a href="/api/v1/docs/postman.json">/api/v1/docs/postman.json</a> (Import in Postman via Link)</p>
     <p>Markdown contract: <code>docs/api/safaris.md</code> in the repository.</p>
     <h2>Surfaces</h2>
     <ul>
       <li><code>GET /api/v1/safaris</code> — public published packages</li>
       <li><code>/api/v1/admin/safaris</code> — CMS JWT + RBAC</li>
-      <li><code>/api/v1/external/safaris</code> — third-party API key, scope <code>safaris:read</code></li>
+      <li><code>/api/v1/external</code> — third-party API key: tours, destinations, blogs, joining safaris, pages, menus, FAQs, lodges, reviews, settings</li>
     </ul>
   </body>
 </html>`);

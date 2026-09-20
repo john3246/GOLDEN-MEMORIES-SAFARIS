@@ -37,6 +37,36 @@ function mergeMissing(store, type, incoming) {
   store[type] = extra.length ? [...existing, ...extra] : existing;
 }
 
+function upsertPublished(store, type, incoming) {
+  const existing = store[type] || [];
+  const next = [...existing];
+  for (const record of incoming) {
+    const index = next.findIndex((item) => {
+      if (item.slug && record.slug && item.slug === record.slug) return true;
+      const existingTitle = String(item.draft?.title || item.published?.title || '').toLowerCase();
+      const title = String(record.draft?.title || '').toLowerCase();
+      return Boolean(title && existingTitle === title);
+    });
+    if (index === -1) {
+      next.push(record);
+      continue;
+    }
+    const prev = next[index];
+    const doc = { ...(prev.draft || {}), ...record.draft };
+    next[index] = {
+      ...prev,
+      slug: record.slug || prev.slug,
+      status: SafariStatus.PUBLISHED,
+      draft: doc,
+      published: { ...doc },
+      updated_at: record.updated_at,
+      published_at: record.published_at,
+      updated_by: record.updated_by || prev.updated_by,
+    };
+  }
+  store[type] = next;
+}
+
 function lines(value) {
   if (Array.isArray(value)) {
     return value
@@ -133,6 +163,7 @@ export async function seedWebsiteCatalog() {
             excerpt: post.excerpt || '',
             image: post.image || '',
             paragraphs: lines(post.paragraphs),
+            blocks: Array.isArray(post.blocks) ? post.blocks : [],
             seo_title: post.title,
             seo_description: post.excerpt || '',
           },
@@ -140,7 +171,7 @@ export async function seedWebsiteCatalog() {
         )
       )
     );
-    mergeMissing(
+    upsertPublished(
       store,
       'lodges',
       catalog.lodges.map((lodge) =>
@@ -150,7 +181,9 @@ export async function seedWebsiteCatalog() {
             title: lodge.name,
             place: lodge.place || '',
             blurb: lodge.blurb || '',
+            category: lodge.category === 'luxury' ? 'luxury' : 'midrange',
             image: lodge.image || '',
+            gallery: lodge.gallery || [],
           },
           at
         )

@@ -73,6 +73,44 @@ function dayFacts(item, safari, index, total) {
   ].filter((row) => row && row[1]);
 }
 
+export function renderLodges(safari, options = {}) {
+  const lodges = Array.isArray(safari.lodges) ? safari.lodges.filter((item) => item?.name) : [];
+  if (!lodges.length && !options.editable) return '';
+  const cards = lodges
+    .map(
+      (lodge) => `
+        <article class="tour-card flex min-w-0 flex-col border border-ink/10 bg-white">
+          <div class="relative aspect-[16/9] overflow-hidden bg-mist">
+            ${
+              lodge.image
+                ? `<img class="absolute inset-0 h-full w-full object-cover" src="${escapeHtml(lodge.image)}" alt="${escapeHtml(lodge.name)}" loading="lazy" width="800" height="450" />`
+                : ''
+            }
+          </div>
+          <div class="flex flex-1 flex-col p-4">
+            <p class="font-body text-xs font-bold uppercase tracking-[0.12em] text-gold-deep">${escapeHtml(
+              [lodge.category === 'luxury' ? 'Luxury' : lodge.category === 'midrange' ? 'Mid-range' : '', lodge.place]
+                .filter(Boolean)
+                .join(' · ')
+            )}</p>
+            <h3 class="mt-1 font-display text-lg font-semibold text-black">${escapeHtml(lodge.name)}</h3>
+            ${lodge.blurb ? `<p class="mt-2 text-sm leading-relaxed text-ink/70">${escapeHtml(lodge.blurb)}</p>` : ''}
+          </div>
+        </article>`
+    )
+    .join('');
+  return `
+    <section class="bg-mist py-8 sm:py-10" aria-labelledby="tour-lodges-title"${editAttr(options.editable, 'lodges')}>
+      <div class="container-site">
+        <p class="section-kicker">Where you stay</p>
+        <h2 id="tour-lodges-title" class="section-title">Lodges on this safari</h2>
+        <p class="mt-3 max-w-2xl text-ink/70">Properties we use on this circuit — confirmed to your dates from Arusha.</p>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">${cards || '<p class="text-ink/60">Pick lodges in the tour editor.</p>'}</div>
+      </div>
+    </section>
+  `;
+}
+
 export function renderAccommodation(safari, options = {}) {
   if (!safari.accommodation && !options.editable) return '';
   return `

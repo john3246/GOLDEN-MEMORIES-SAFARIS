@@ -1,7 +1,19 @@
 ﻿import { Router } from 'express';
 import { SafariScope } from '@gm-safaris/shared-types';
 import { requireAuth, requireScope } from '../../security/requireAuth.js';
+import { publicRateLimiter } from '../../middleware/index.js';
 import { bookingsService } from './bookings.service.js';
+
+export const publicBookingRoutes = Router();
+publicBookingRoutes.use(publicRateLimiter);
+publicBookingRoutes.post('/', async (req, res, next) => {
+  try {
+    const data = await bookingsService.createPublic(req.body || {});
+    res.status(201).json({ success: true, data: { id: data.id, code: data.code, status: data.status } });
+  } catch (err) {
+    next(err);
+  }
+});
 
 export const adminBookingRoutes = Router();
 adminBookingRoutes.use(requireAuth);
@@ -24,6 +36,14 @@ adminBookingRoutes.post('/', requireScope(SafariScope.WRITE), async (req, res, n
 adminBookingRoutes.patch('/:id', requireScope(SafariScope.WRITE), async (req, res, next) => {
   try {
     const data = await bookingsService.update(req.params.id, req.body || {}, req.auth);
+    res.json({ success: true, data });
+  } catch (err) {
+    next(err);
+  }
+});
+adminBookingRoutes.post('/:id/remind', requireScope(SafariScope.WRITE), async (req, res, next) => {
+  try {
+    const data = await bookingsService.sendReminder(req.params.id, req.auth);
     res.json({ success: true, data });
   } catch (err) {
     next(err);

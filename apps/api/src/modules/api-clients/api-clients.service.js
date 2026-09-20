@@ -1,9 +1,19 @@
 import crypto from 'node:crypto';
 import { createId } from '@gm-safaris/shared-utils';
-import { SafariScope } from '@gm-safaris/shared-types';
+import { SafariScope, ExternalPermission } from '@gm-safaris/shared-types';
 import { readStore, updateStore } from '../../cms-store/index.js';
 import { notFound, validationError, unauthorized, forbidden } from '../../errors/index.js';
 import { recordAudit } from '../audit/audit.service.js';
+
+const WRITE_SCOPES = new Set([
+  SafariScope.WRITE,
+  SafariScope.PUBLISH,
+  SafariScope.DELETE,
+  SafariScope.MEDIA,
+  SafariScope.API_CLIENTS,
+]);
+const ALLOWED_SCOPES = new Set([...Object.values(SafariScope), ...Object.values(ExternalPermission)]);
+const DEFAULT_PARTNER_SCOPES = Object.values(ExternalPermission);
 
 function hashKey(value) {
   return crypto.createHash('sha256').update(String(value)).digest('hex');
@@ -56,12 +66,11 @@ export const apiClientsService = {
   async create({ name, scopes, expiresAt }, actor) {
     if (!name || !String(name).trim()) throw validationError('name is required');
     const raw = generateKey();
-    const allowed = new Set(Object.values(SafariScope));
-    const resolved = Array.isArray(scopes) && scopes.length ? scopes : [SafariScope.READ];
-    if (resolved.some((scope) => !allowed.has(scope))) {
+    const resolved = Array.isArray(scopes) && scopes.length ? scopes : DEFAULT_PARTNER_SCOPES;
+    if (resolved.some((scope) => !ALLOWED_SCOPES.has(scope))) {
       throw validationError('One or more scopes are invalid');
     }
-    if (resolved.some((scope) => scope !== SafariScope.READ) && actor?.role !== 'Admin') {
+    if (resolved.some((scope) => WRITE_SCOPES.has(scope)) && actor?.role !== 'Admin') {
       throw forbidden('Only administrators can issue write scopes');
     }
 

@@ -131,12 +131,16 @@ export function loadConfig(env = process.env) {
     cors: Object.freeze({
       cms: envList(env, 'CORS_ORIGINS_CMS', [
         'http://localhost:5173',
+        'https://www.gmsafaris.com',
+        'https://gmsafaris.com',
         'https://golden-memories-safaris-2.onrender.com',
       ]),
       website: envList(env, 'CORS_ORIGINS_WEBSITE', [
         'http://localhost:4173',
         'http://localhost:4174',
         'http://localhost:4175',
+        'https://www.gmsafaris.com',
+        'https://gmsafaris.com',
         'https://golden-memories-safaris-2.onrender.com',
       ]),
       external: envList(env, 'CORS_ORIGINS_EXTERNAL', [
@@ -175,6 +179,14 @@ export function loadConfig(env = process.env) {
     sites: Object.freeze({
       com: envString(env, 'SITE_URL_COM', 'https://www.gmsafaris.com'),
       cotz: envString(env, 'SITE_URL_COTZ', 'https://www.gmsafaris.co.tz'),
+    }),
+
+    mail: Object.freeze({
+      host: env.SMTP_HOST || '',
+      port: envInt(env, 'SMTP_PORT', 587),
+      user: env.SMTP_USER || '',
+      pass: env.SMTP_PASS || '',
+      secure: envBool(env, 'SMTP_SECURE', false),
     }),
   });
 }

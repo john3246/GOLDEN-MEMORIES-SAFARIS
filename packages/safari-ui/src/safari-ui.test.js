@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { renderSafariPage, emptySafariDocument } from '@gm-safaris/safari-ui';
+import { renderSafariPage, emptySafariDocument, safariCompletenessErrors, hasSafariPrice } from '@gm-safaris/safari-ui';
 
 describe('safari-ui', () => {
   it('renders the same hero/overview structure for public and preview', () => {
@@ -22,6 +22,31 @@ describe('safari-ui', () => {
     expect(editable).not.toContain('role="button"');
     expect(editable).not.toContain('What this safari is known for');
     expect(editable).not.toContain('Moments on this route');
+  });
+
+  it('blocks incomplete tours until they have a price and matching itinerary days', () => {
+    expect(safariCompletenessErrors(emptySafariDocument({ title: 'Draft' }))).toHaveLength(2);
+    expect(
+      safariCompletenessErrors(
+        emptySafariDocument({
+          price_from: 1800,
+          duration: 2,
+          itinerary: [{ title: 'Tarangire' }],
+        })
+      ).join(' ')
+    ).toMatch(/exactly 2 days/);
+    expect(
+      safariCompletenessErrors(
+        emptySafariDocument({
+          price_from: 1800,
+          duration: 2,
+          itinerary: [{ title: 'Tarangire' }, { title: 'Serengeti' }],
+        })
+      )
+    ).toEqual([]);
+    expect(hasSafariPrice({ price_from: 0 })).toBe(false);
+    expect(hasSafariPrice({ price: 1800 })).toBe(true);
+    expect(hasSafariPrice(null)).toBe(false);
   });
 
   it('omits unpublished-only empty sections for public rendering', () => {

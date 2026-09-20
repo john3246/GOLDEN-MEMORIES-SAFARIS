@@ -47,30 +47,53 @@ function mapTestimonial(item) {
     name: item.title || 'Guest',
     detail: item.detail || '',
     quote: item.quote || '',
-  };
-}
-
-function mapLodge(item) {
-  return {
-    name: item.title,
-    place: item.place || '',
-    blurb: item.blurb || '',
     image: item.image || '',
   };
 }
 
+function mapLodge(item) {
+  const gallery = galleryUrls(item.gallery);
+  return {
+    id: item.id,
+    name: item.title,
+    place: item.place || '',
+    blurb: item.blurb || '',
+    category: item.category === 'luxury' ? 'luxury' : 'midrange',
+    image: item.image || gallery[0] || '',
+    gallery,
+  };
+}
+
 function mapPost(item) {
+  const paragraphs = lines(item.paragraphs);
+  const blocks = Array.isArray(item.blocks) && item.blocks.length
+    ? item.blocks
+    : paragraphs.map((text) => ({ type: 'paragraph', text }));
   return {
     slug: item.slug,
     topic: item.topic || 'safari',
     date: item.date || '',
     title: item.title,
     excerpt: item.excerpt || '',
-    image: item.image || '',
-    paragraphs: lines(item.paragraphs),
-    seo_title: item.seo_title,
-    seo_description: item.seo_description,
+    image: item.hero_image?.url || item.image || '',
+    hero_image: item.hero_image || { url: item.image || '', alt: item.title || '' },
+    kicker: item.kicker || '',
+    author: item.author || 'Golden Memories Safaris',
+    blocks,
+    paragraphs: paragraphs.length ? paragraphs : blocks.filter((block) => block.type === 'paragraph').map((block) => block.text),
+    gallery: item.gallery || [],
+    sections: item.sections,
+    cta_label: item.cta_label || 'Plan this trip',
+    cta_href: item.cta_href || '/contact/',
+    seo_title: item.seo_title || item.seo?.title,
+    seo_description: item.seo_description || item.seo?.description,
   };
+}
+
+function galleryUrls(value) {
+  if (!value) return [];
+  const list = Array.isArray(value) ? value : String(value).split('\n');
+  return list.map((item) => (typeof item === 'string' ? item : item?.url || '')).map((item) => item.trim()).filter(Boolean);
 }
 
 function mapDestination(item, existing = {}) {
@@ -78,6 +101,7 @@ function mapDestination(item, existing = {}) {
     const [title, ...rest] = line.split(/[—:-]/);
     return { title: (title || line).trim(), body: rest.join(' ').trim() || line };
   });
+  const gallery = galleryUrls(item.gallery);
   return {
     ...existing,
     slug: item.slug || existing.slug,
@@ -87,7 +111,7 @@ function mapDestination(item, existing = {}) {
     region: item.region || existing.region || '',
     cta: existing.cta || 'Plan this safari',
     image: item.image || existing.image || '',
-    gallery: existing.gallery || (item.image ? [item.image] : []),
+    gallery: gallery.length ? gallery : existing.gallery || (item.image ? [item.image] : []),
     match: existing.match || [item.slug],
     paragraphs: lines(item.paragraphs).length ? lines(item.paragraphs) : existing.paragraphs || [],
     highlights: highlights.length ? highlights : existing.highlights || [],
@@ -210,8 +234,10 @@ export async function hydrateFromCms() {
       }
     }
 
+    const cmsDestinationImages = new Map();
     if (destinations?.length) {
       for (const item of destinations) {
+        if (item.image) cmsDestinationImages.set(item.slug, item.image);
         const existingIndex = destinationPlaces.findIndex((place) => place.slug === item.slug);
         const mapped = mapDestination(item, existingIndex >= 0 ? destinationPlaces[existingIndex] : {});
         if (existingIndex >= 0) destinationPlaces.splice(existingIndex, 1, mapped);
@@ -228,9 +254,11 @@ export async function hydrateFromCms() {
       }
     }
 
+    const cmsDepartureImages = new Map();
     if (departures?.length) {
       for (const item of departures) {
         const mapped = mapDeparture(item);
+        if (mapped.image) cmsDepartureImages.set(mapped.id, mapped.image);
         const index = joiningSafaris.findIndex(
           (trip) => trip.id === mapped.id || trip.title === mapped.title
         );
@@ -246,16 +274,35 @@ export async function hydrateFromCms() {
             image: mapped.image || joiningSafaris[index].image,
             highlights: mapped.highlights.length ? mapped.highlights : joiningSafaris[index].highlights,
           });
+          if (mapped.image) cmsDepartureImages.set(joiningSafaris[index].id, mapped.image);
         } else {
           joiningSafaris.push({ ...mapped, days: mapped.days || [] });
         }
       }
     }
 
-    for (const trip of joiningSafaris) trip.image = uniqueCoverFor(trip);
-    for (const place of destinationPlaces) place.image = uniqueCoverFor(place);
+    for (const trip of joiningSafaris) {
+      if (cmsDepartureImages.has(trip.id)) {
+        trip.image = cmsDepartureImages.get(trip.id);
+        continue;
+      }
+      trip.image = uniqueCoverFor(trip);
+    }
+    for (const place of destinationPlaces) {
+      if (cmsDestinationImages.has(place.slug)) {
+        place.image = cmsDestinationImages.get(place.slug);
+        continue;
+      }
+      place.image = uniqueCoverFor(place);
+    }
     for (const region of destinationRegions) {
-      for (const park of region.parks || []) park.image = uniqueCoverFor(park);
+      for (const park of region.parks || []) {
+        if (cmsDestinationImages.has(park.slug)) {
+          park.image = cmsDestinationImages.get(park.slug);
+          continue;
+        }
+        park.image = uniqueCoverFor(park);
+      }
     }
   } catch {
     /* keep local fallback */

@@ -1,13 +1,21 @@
 import { createId, slugify } from '@gm-safaris/shared-utils';
 import { SafariStatus } from '@gm-safaris/shared-types';
-import { emptySafariDocument } from '@gm-safaris/safari-ui';
+import { emptySafariDocument, safariCompletenessErrors } from '@gm-safaris/safari-ui';
 import { notFound, forbidden, validationError } from '../../errors/index.js';
 import { recordAudit } from '../audit/audit.service.js';
 import { mediaService } from '../media/media.service.js';
 import { safarisRepository } from './safaris.repository.js';
 import { validateSafariPayload, parseAdminQuery, parsePublicQuery } from './safaris.validation.js';
-import { toAdminSafari, toAdminListItem, toPublicSafari } from './safaris.dto.js';
+import { toAdminSafari, toAdminListItem, toPublicSafari, attachPublicLodges } from './safaris.dto.js';
 import { safariCache } from './safaris.cache.js';
+import { syncSafari, removeSafari } from './safari.sync.js';
+import { readStore } from '../../cms-store/index.js';
+
+async function decoratePublic(dto) {
+  if (!dto) return dto;
+  const store = await readStore();
+  return attachPublicLodges(dto, store.lodges || []);
+}
 
 function actorMeta(actor) {
   return { userId: actor?.userId, email: actor?.email };
@@ -66,6 +74,11 @@ async function markMediaPublic(doc) {
   }
 }
 
+function requireReadyDraft(doc) {
+  const errors = safariCompletenessErrors(doc);
+  if (errors.length) throw validationError(errors.join(' '));
+}
+
 export const safarisService = {
   async listPublic(rawQuery) {
     const query = parsePublicQuery(rawQuery);
@@ -94,7 +107,10 @@ export const safarisService = {
     });
 
     const total = published.length;
-    const data = published.slice(query.offset, query.offset + query.limit);
+    const store = await readStore();
+    const data = published
+      .slice(query.offset, query.offset + query.limit)
+      .map((item) => attachPublicLodges(item, store.lodges || []));
     const result = { data, meta: { page: query.page, limit: query.limit, total } };
     await safariCache.set(cacheKey, result);
     return result;
@@ -105,7 +121,7 @@ export const safarisService = {
     const cached = await safariCache.get(cacheKey);
     if (cached) return cached;
     const record = await safarisRepository.findById(id);
-    const dto = toPublicSafari(record);
+    const dto = await decoratePublic(toPublicSafari(record));
     if (!dto) throw notFound('Safari package not found.');
     await safariCache.set(cacheKey, dto);
     return dto;
@@ -116,7 +132,7 @@ export const safarisService = {
     const cached = await safariCache.get(cacheKey);
     if (cached) return cached;
     const record = await safarisRepository.findBySlug(slug, { includeUnpublished: false });
-    const dto = toPublicSafari(record);
+    const dto = await decoratePublic(toPublicSafari(record));
     if (!dto) throw notFound('Safari package not found.');
     await safariCache.set(cacheKey, dto);
     return dto;
@@ -159,6 +175,7 @@ export const safarisService = {
       draft: { ...emptySafariDocument(), ...payload },
       actor: actorMeta(actor),
     });
+    await syncSafari(record);
     await snapshotRevision(record, 'created', actor);
     await recordAudit({
       actorId: actor?.userId,
@@ -182,9 +199,11 @@ export const safarisService = {
       record.slug = payload.slug;
     }
     record.draft = { ...record.draft, ...payload, slug: record.slug };
+    requireReadyDraft(record.draft);
     record.updated_by = actor?.userId || null;
     record.updated_at = new Date().toISOString();
     await safarisRepository.save(record);
+    await syncSafari(record);
     await snapshotRevision(record, 'updated', actor);
     await recordAudit({
       actorId: actor?.userId,
@@ -201,6 +220,7 @@ export const safarisService = {
     const record = await safarisRepository.findById(id);
     if (!record) throw notFound('Safari package not found.');
     if (!record.draft?.title) throw validationError('A title is required before publishing');
+    requireReadyDraft(record.draft);
     record.published = { ...record.draft, slug: record.slug };
     record.status = SafariStatus.PUBLISHED;
     record.published_at = new Date().toISOString();
@@ -208,6 +228,7 @@ export const safarisService = {
     record.updated_at = record.published_at;
     await safarisRepository.save(record);
     await markMediaPublic(record.published);
+    await syncSafari(record);
     await safariCache.invalidateAll();
     await snapshotRevision(record, 'published', actor);
     await recordAudit({
@@ -228,6 +249,7 @@ export const safarisService = {
     record.updated_by = actor?.userId || null;
     record.updated_at = new Date().toISOString();
     await safarisRepository.save(record);
+    await syncSafari(record);
     await safariCache.invalidateAll();
     await snapshotRevision(record, 'unpublished', actor);
     await recordAudit({
@@ -248,6 +270,7 @@ export const safarisService = {
     record.updated_by = actor?.userId || null;
     record.updated_at = new Date().toISOString();
     await safarisRepository.save(record);
+    await syncSafari(record);
     await safariCache.invalidateAll();
     await snapshotRevision(record, 'archived', actor);
     await recordAudit({
@@ -267,6 +290,7 @@ export const safarisService = {
     record.updated_by = actor?.userId || null;
     record.updated_at = new Date().toISOString();
     await safarisRepository.save(record);
+    await syncSafari(record);
     await safariCache.invalidateAll();
     await snapshotRevision(record, 'restored', actor);
     await recordAudit({
@@ -296,6 +320,7 @@ export const safarisService = {
     });
     copy.draft.slug = slug;
     await safarisRepository.save(copy);
+    await syncSafari(copy);
     await snapshotRevision(copy, 'duplicated', actor);
     await recordAudit({
       actorId: actor?.userId,
@@ -312,6 +337,7 @@ export const safarisService = {
     if (actor?.role !== 'Admin') throw forbidden('Only administrators can delete Safari packages');
     const record = await safarisRepository.remove(id);
     if (!record) throw notFound('Safari package not found.');
+    await removeSafari(record);
     await safariCache.invalidateAll();
     await recordAudit({
       actorId: actor?.userId,

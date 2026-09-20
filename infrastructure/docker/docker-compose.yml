@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: gm-safaris-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: gm_safaris
+      POSTGRES_USER: gm_safaris_app
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-change_me_strong_password}
+    ports:
+      - "${DATABASE_PORT:-5432}:5432"
+    volumes:
+      - gm_safaris_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gm_safaris_app -d gm_safaris"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: gm-safaris-redis
+    restart: unless-stopped
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+
+volumes:
+  gm_safaris_pg:

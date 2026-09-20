@@ -1,6 +1,8 @@
 # External API contract (gmsafaris.co.tz)
 
-This document is the integration contract for the second developer. You do **not** need PostgreSQL, Redis, CMS, SSH, or internal admin credentials.
+This document is the integration contract for the sister site on another domain. You do **not** need PostgreSQL, Redis, CMS, SSH, or internal admin credentials.
+
+Only **published** content is returned. Drafts never appear.
 
 ## 1. Base URL
 
@@ -23,47 +25,94 @@ X-Api-Key: <your_api_key>
 Authorization: Bearer <your_api_key>
 ```
 
-Keys are revocable and rotatable. Contact the platform owner for rotation.
+Create a key in the CMS: **API & integrations**. Copy it immediately; it is shown once.
 
-## 3. API version
+For a quick local test you can also set `EXTERNAL_API_KEYS=dev_test_key` in `.env` and use that value.
 
-Current: **v1** (`/api/v1/external`).
+## 3. How to test locally
 
-## 4. Required headers
+1. Start the API: `npm run dev:api` (port 3000).
+2. Create a key in the CMS at `http://localhost:5173/#/api-clients`, **or** add `EXTERNAL_API_KEYS=dev_test_key` to `.env` and restart the API.
+3. Call `/catalog` first. It lists every collection and how many published records each has.
+4. Then fetch each collection. Use `?limit=100` on tours/safaris if you want the full list (default page size is 20).
 
-| Header | Required | Notes |
-|--------|----------|-------|
-| `X-Api-Key` or `Authorization` | Yes | Machine credential |
-| `Accept: application/json` | Recommended | |
-| `X-Request-Id` | Optional | Echoed for support |
+```bash
+set KEY=dev_test_key
+set BASE=http://localhost:3000/api/v1/external
 
-## 5. Available endpoints (Phase 1)
+curl -s -H "X-Api-Key: %KEY%" %BASE%/status
+curl -s -H "X-Api-Key: %KEY%" %BASE%/catalog
 
-| Method | Path | Status |
-|--------|------|--------|
-| `GET` | `/status` | Available |
-| `GET` | `/safaris` | Available — published Safari packages |
-| `GET` | `/safaris/:id` | Available |
-| `GET` | `/safaris/slug/:slug` | Available |
-| `GET` | `/tours` | Stub — `501` until Phase 6/10 |
-| `GET` | `/tours/:slug` | Stub — `501` until Phase 6/10 |
-| `GET` | `/destinations` | Stub — `501` until Phase 7/10 |
+curl -s -H "X-Api-Key: %KEY%" "%BASE%/tours?limit=100"
+curl -s -H "X-Api-Key: %KEY%" %BASE%/tours/classic-tanzania-lodge-safari
 
-Planned (when domain modules ship): categories, pages, blog, testimonials, navigation, site-settings.
+curl -s -H "X-Api-Key: %KEY%" %BASE%/destinations
+curl -s -H "X-Api-Key: %KEY%" %BASE%/blogs
+curl -s -H "X-Api-Key: %KEY%" %BASE%/join-safaris
+curl -s -H "X-Api-Key: %KEY%" %BASE%/pages
+curl -s -H "X-Api-Key: %KEY%" %BASE%/menus
+curl -s -H "X-Api-Key: %KEY%" %BASE%/faqs
+curl -s -H "X-Api-Key: %KEY%" %BASE%/lodges
+curl -s -H "X-Api-Key: %KEY%" %BASE%/testimonials
+curl -s -H "X-Api-Key: %KEY%" %BASE%/settings
+```
+
+PowerShell:
+
+```powershell
+$headers = @{ "X-Api-Key" = "dev_test_key" }
+$base = "http://localhost:3000/api/v1/external"
+Invoke-RestMethod "$base/catalog" -Headers $headers
+Invoke-RestMethod "$base/tours?limit=100" -Headers $headers
+Invoke-RestMethod "$base/destinations" -Headers $headers
+Invoke-RestMethod "$base/blogs" -Headers $headers
+Invoke-RestMethod "$base/join-safaris" -Headers $headers
+```
+
+Checks that must pass:
+
+- No key → `401 UNAUTHORIZED`
+- Draft safari slug → `404`
+- Published tour in `/tours` has `price_from` > 0
+- `/catalog` counts match the arrays you fetch
+- Browser calls from another local origin work in development (localhost CORS is allowed)
+
+OpenAPI: `http://localhost:3000/api/v1/docs`
+
+## 4. Endpoints
+
+| Method | Path | What it returns |
+|--------|------|-----------------|
+| `GET` | `/status` | Health plus collection counts |
+| `GET` | `/catalog` | Paths and totals for every collection |
+| `GET` | `/tours` | Published safari packages (priced) |
+| `GET` | `/tours/:slug` | One published tour |
+| `GET` | `/safaris` | Same as `/tours` |
+| `GET` | `/safaris/slug/:slug` | One published safari |
+| `GET` | `/destinations` | Published parks / destinations |
+| `GET` | `/destinations/slug/:slug` | One destination |
+| `GET` | `/blogs` | Published journal articles |
+| `GET` | `/blogs/slug/:slug` | One article |
+| `GET` | `/join-safaris` | Published joining-safari departures |
+| `GET` | `/join-safaris/slug/:slug` | One departure |
+| `GET` | `/pages` | Published website pages |
+| `GET` | `/menus` | Navigation |
+| `GET` | `/faqs` | FAQs |
+| `GET` | `/lodges` | Accommodations |
+| `GET` | `/testimonials` | Reviews |
+| `GET` | `/settings` | Public site name, contact, SEO (no SMTP secrets) |
+
+Aliases: `/posts` → blogs, `/departures` → join-safaris, `/reviews` → testimonials.
 
 **Write methods are not available.** `POST`/`PUT`/`PATCH`/`DELETE` are not part of this contract.
 
-## 6. Pagination
+## 5. Pagination
 
-Query: `?page=1&limit=20` (max limit 100).
+Query: `?page=1&limit=20` (max limit 100 on most list endpoints; tours cap at 250).
 
-Returned in `meta`: `page`, `limit`, `total`.
+Returned in `meta`: `page`, `limit`, `total`. Content collections currently return `{ total }` and the full published array.
 
-## 7. Filtering / sorting
-
-Documented per endpoint as content modules land. Only published content is returned.
-
-## 8. Response format
+## 6. Response format
 
 ```json
 {
@@ -73,28 +122,7 @@ Documented per endpoint as content modules land. Only published content is retur
 }
 ```
 
-Stable content DTOs — never WordPress/`wp_postmeta` shapes.
-
-Example (future tour):
-
-```json
-{
-  "success": true,
-  "data": {
-    "id": "tour_123",
-    "slug": "serengeti-safari",
-    "title": "Serengeti Safari",
-    "description": "...",
-    "destination": { "slug": "serengeti", "name": "Serengeti" },
-    "price": { "amount": 1500, "currency": "USD" },
-    "images": [],
-    "itinerary": [],
-    "seo": {}
-  }
-}
-```
-
-## 9. Error format
+## 7. Error format
 
 ```json
 {
@@ -107,70 +135,22 @@ Example (future tour):
 }
 ```
 
-Common codes: `UNAUTHORIZED`, `FORBIDDEN`, `RESOURCE_NOT_FOUND`, `VALIDATION_ERROR`, `RATE_LIMITED`, `NOT_IMPLEMENTED`, `INTERNAL_ERROR`.
+Common codes: `UNAUTHORIZED`, `FORBIDDEN`, `RESOURCE_NOT_FOUND`, `VALIDATION_ERROR`, `RATE_LIMITED`, `INTERNAL_ERROR`.
 
-## 10. Rate limits
+## 8. Rate limits
 
-Configurable; default foundation values:
+Default: 120 requests per 60 seconds per client. Exceeding returns `429` with `RATE_LIMITED`.
 
-- Window: 60 seconds
-- Max: 120 requests per window per client
+## 9. Publishing behavior
 
-Exceeding returns `429` with `RATE_LIMITED`.
+Only `PUBLISHED` content is exposed. A tour without a price cannot stay published.
 
-## 11. Cache behavior
+## 10. API key rotation
 
-Responses may be served from Redis after PostgreSQL. Treat data as eventually consistent for a short TTL after CMS publishes. Do not build a second cache of secrets.
+1. Create a new key in the CMS  
+2. Deploy the sister site with the new key  
+3. Revoke the old key  
 
-## 12. Publishing behavior
+## 11. Permissions granted
 
-Only `PUBLISHED` content is exposed. Drafts/review/archived are invisible to this API.
-
-## 13. Image URLs
-
-Absolute HTTPS URLs to optimized media derivatives will be included on resources (Phase 8). Do not hotlink unpublished originals.
-
-## 14. API key rotation
-
-1. Request a new key from the platform owner  
-2. Deploy `.co.tz` with the new key  
-3. Old key is revoked  
-
-## 15. Deprecation policy
-
-- Non-breaking additive fields may appear in `v1`
-- Breaking changes require `v2` and advance notice
-- Deprecated fields will be documented before removal
-
-## 16. Example — status
-
-```bash
-curl -s -H "X-Api-Key: $GM_EXTERNAL_API_KEY" \
-  http://localhost:3000/api/v1/external/status
-```
-
-```json
-{
-  "success": true,
-  "data": {
-    "api": "external",
-    "version": "v1",
-    "mode": "read-only",
-    "status": "foundation"
-  }
-}
-```
-
-## 17. Permissions granted
-
-```
-content:tours:read
-content:destinations:read
-content:pages:read
-content:blog:read
-content:testimonials:read
-content:navigation:read
-content:site-settings:read
-```
-
-No create/update/delete/publish/user/settings admin rights.
+Read-only website content. No create/update/delete/publish/user/settings admin rights.

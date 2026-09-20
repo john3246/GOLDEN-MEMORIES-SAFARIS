@@ -6,6 +6,7 @@ import { createId } from '@gm-safaris/shared-utils';
 import { readStore, updateStore } from '../../cms-store/index.js';
 import { config } from '../../config/index.js';
 import { notFound, validationError, forbidden } from '../../errors/index.js';
+import { compressUpload } from './compress.js';
 
 const PUBLIC_FIELDS = ['id', 'url', 'alt', 'caption', 'mimeType', 'width', 'height', 'filename', 'createdAt'];
 
@@ -92,6 +93,18 @@ export const mediaService = {
     const store = await readStore();
     const items = new Map();
 
+    function prettyLabel(filename) {
+      return String(filename || '')
+        .replace(/\.[^.]+$/, '')
+        .replace(/[-_]+/g, ' ')
+        .replace(/\b\w/g, (letter) => letter.toUpperCase());
+    }
+
+    function folderFromName(filename, extra = '') {
+      const name = `${filename} ${extra}`.toLowerCase();
+      return ['serengeti', 'ngorongoro', 'tarangire', 'kilimanjaro', 'zanzibar', 'culture'].find((key) => name.includes(key)) || '';
+    }
+
     function add(url, alt, usedOn, source = 'content') {
       const clean = String(url || '').split('?')[0].trim();
       if (!clean) return;
@@ -99,17 +112,22 @@ export const mediaService = {
       const key = clean.replace(/-card\.webp$/i, '.webp');
       const display = key.endsWith('.webp') && !key.endsWith('-card.webp') ? key : clean;
       const filename = display.split('/').pop() || display;
+      const folder = folderFromName(filename, display);
       const existing = items.get(key) || {
         url: display.startsWith('http') ? display : display,
-        alt: alt || filename,
+        alt: alt || prettyLabel(filename),
         filename,
+        label: prettyLabel(filename),
+        folder,
         source,
         usedOn: [],
       };
       if (!existing.usedOn.includes(usedOn)) existing.usedOn.push(usedOn);
       if (source === 'upload') existing.source = 'upload';
       if (source === 'gallery' && existing.source !== 'upload') existing.source = 'gallery';
-      if (alt && (!existing.alt || existing.alt === filename)) existing.alt = alt;
+      if (alt && (!existing.alt || existing.alt === filename || existing.alt === existing.label)) existing.alt = alt;
+      if (!existing.label) existing.label = prettyLabel(filename);
+      if (!existing.folder && folder) existing.folder = folder;
       items.set(key, existing);
     }
 
@@ -126,10 +144,16 @@ export const mediaService = {
     for (const item of store.destinations || []) {
       const doc = item.draft || item.published || {};
       add(doc.image, doc.title, 'Destinations');
+      for (const shot of doc.gallery || []) add(typeof shot === 'string' ? shot : shot?.url, doc.title, 'Destinations');
     }
     for (const item of store.posts || []) {
       const doc = item.draft || item.published || {};
       add(doc.image, doc.title, 'Blog');
+      add(doc.hero_image?.url, doc.title, 'Blog');
+      for (const shot of doc.gallery || []) add(typeof shot === 'string' ? shot : shot?.url, doc.title, 'Blog');
+      for (const block of doc.blocks || []) {
+        if (block?.type === 'image') add(block.url, block.alt || doc.title, 'Blog');
+      }
     }
     for (const item of store.lodges || []) {
       const doc = item.draft || item.published || {};
@@ -137,7 +161,7 @@ export const mediaService = {
     }
     for (const item of store.pages || []) {
       const doc = item.draft || item.published || {};
-      add(doc.hero_image, doc.title, 'Pages');
+      add(typeof doc.hero_image === 'string' ? doc.hero_image : doc.hero_image?.url, doc.title, 'Pages');
     }
     for (const item of store.departures || []) {
       const doc = item.draft || item.published || {};
@@ -158,7 +182,7 @@ export const mediaService = {
           }
           if (!/\.(webp|jpe?g|png|gif)$/i.test(entry.name)) continue;
           if (/-card\.(webp|jpe?g|png)$/i.test(entry.name)) continue;
-          add(`${prefix}/${entry.name}`, entry.name.replace(/\.(webp|jpe?g|png|gif)$/i, ''), 'Project gallery', 'gallery');
+          add(`${prefix}/${entry.name}`, prettyLabel(entry.name), 'Project gallery', 'gallery');
         }
       }
       await walk(galleryRoot, '/images');
@@ -167,15 +191,28 @@ export const mediaService = {
     }
 
     const list = [...items.values()].sort((a, b) => a.filename.localeCompare(b.filename));
+    const folderLabels = {
+      serengeti: 'Serengeti',
+      ngorongoro: 'Ngorongoro',
+      tarangire: 'Tarangire',
+      kilimanjaro: 'Kilimanjaro',
+      zanzibar: 'Zanzibar',
+      culture: 'Culture',
+    };
     const groups = [
-      { id: 'all', label: 'All media', items: list },
+      { id: 'all', label: 'All photos', items: list },
       { id: 'gallery', label: 'Project gallery', items: list.filter((item) => item.source === 'gallery' || item.usedOn.includes('Project gallery')) },
-      { id: 'uploads', label: 'Uploads', items: list.filter((item) => item.source === 'upload' || item.usedOn.includes('Uploads')) },
-      { id: 'tours', label: 'Tours', items: list.filter((item) => item.usedOn.includes('Tours')) },
-      { id: 'destinations', label: 'Destinations', items: list.filter((item) => item.usedOn.includes('Destinations')) },
-      { id: 'blog', label: 'Blog', items: list.filter((item) => item.usedOn.includes('Blog')) },
-      { id: 'lodges', label: 'Lodges', items: list.filter((item) => item.usedOn.includes('Lodges')) },
-      { id: 'pages', label: 'Pages', items: list.filter((item) => item.usedOn.includes('Pages')) },
+      { id: 'uploads', label: 'Uploads from device', items: list.filter((item) => item.source === 'upload' || item.usedOn.includes('Uploads')) },
+      ...Object.entries(folderLabels).map(([id, label]) => ({
+        id: `folder-${id}`,
+        label,
+        items: list.filter((item) => item.folder === id),
+      })),
+      { id: 'tours', label: 'Used on tours', items: list.filter((item) => item.usedOn.includes('Tours')) },
+      { id: 'destinations', label: 'Used on destinations', items: list.filter((item) => item.usedOn.includes('Destinations')) },
+      { id: 'blog', label: 'Used on blog', items: list.filter((item) => item.usedOn.includes('Blog')) },
+      { id: 'lodges', label: 'Used on lodges', items: list.filter((item) => item.usedOn.includes('Lodges')) },
+      { id: 'pages', label: 'Used on pages', items: list.filter((item) => item.usedOn.includes('Pages')) },
     ].map((group) => ({ ...group, count: group.items.length }))
       .filter((group) => group.id === 'all' || group.count > 0);
 
@@ -193,12 +230,15 @@ export const mediaService = {
     if (!config.media.allowedMimeTypes.includes(file.mimetype)) {
       throw validationError('Unsupported image type');
     }
+    const stored = await compressUpload(file);
     const item = await mediaRepository.create({
-      filename: file.filename,
+      filename: stored.filename,
       originalName: file.originalname,
-      mimeType: file.mimetype,
-      size: file.size,
-      storagePath: file.path,
+      mimeType: stored.mimetype || file.mimetype,
+      size: stored.size || file.size,
+      width: stored.width || null,
+      height: stored.height || null,
+      storagePath: stored.path,
       alt: alt || '',
       caption: caption || '',
       visibility: 'private',

@@ -11,7 +11,7 @@ export function renderClients(user) {
         <div>
           <p class="cms-kicker">Access</p>
           <h1>API clients</h1>
-          <p class="cms-lead">Issue hashed, revocable keys for third-party read access. The secret is shown once.</p>
+          <p class="cms-lead">Issue hashed, revocable keys for the sister site. The key can read published tours, destinations, blogs, joining safaris, and the rest of the public website. The secret is shown once.</p>
         </div>
       </div>
       <form id="client-form" class="cms-panel cms-form-stack">
@@ -61,7 +61,7 @@ export async function initClients() {
   document.querySelector('#client-form')?.addEventListener('submit', async (event) => {
     event.preventDefault();
     const name = event.currentTarget.name.value;
-    const created = await api.createClient({ name, scopes: ['safaris:read'] });
+    const created = await api.createClient({ name });
     banner.hidden = false;
     banner.textContent = created.key
       ? `Copy this key now — it will not be shown again: ${created.key}`

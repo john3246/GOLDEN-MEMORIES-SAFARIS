@@ -18,13 +18,22 @@ describe('shared-types', () => {
   it('lists read-only external permissions', () => {
     expect(ExternalPermission.TOURS_READ).toBe('content:tours:read');
   });
+
+  it('defines Super Admin and product types for PostgreSQL', async () => {
+    const { CmsRole, ProductType, Permission, CmsRoleScopes } = await import('@gm-safaris/shared-types');
+    expect(CmsRole.SUPER_ADMIN).toBe('Super Admin');
+    expect(ProductType.JOIN_SAFARI).toBe('join_safari');
+    expect(ProductType.KILIMANJARO).toBe('kilimanjaro');
+    expect(CmsRoleScopes['Super Admin']).toContain(Permission.ROLES_MANAGE);
+    expect(CmsRoleScopes.Admin).not.toContain(Permission.ROLES_MANAGE);
+  });
 });
 
 describe('shared-validation', () => {
   it('parses pagination with defaults and caps', () => {
     expect(parsePagination({})).toEqual({ page: 1, limit: 20, offset: 0 });
     expect(parsePagination({ page: '2', limit: '50' }).offset).toBe(50);
-    expect(parsePagination({ limit: '999' }).limit).toBe(100);
+    expect(parsePagination({ limit: '999' }).limit).toBe(250);
   });
 
   it('validates slugs', () => {

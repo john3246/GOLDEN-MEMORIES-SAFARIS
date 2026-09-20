@@ -24,4 +24,5 @@ adminContentRoutes.delete('/:type/:id', requireScope(SafariScope.DELETE), adminC
 
 export { contentService } from './content.service.js';
 export { seedSiteContent } from './content.seed.js';
+export { upgradeBlogDocuments } from './blog.upgrade.js';
 export const moduleStatus = 'active';

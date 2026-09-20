@@ -26,6 +26,7 @@ const EMPTY = () => ({
 
 let dataDir = config.cms.dataDir;
 let cache = null;
+let cacheMtime = 0;
 let writeChain = Promise.resolve();
 
 export function getCmsDataDir() {
@@ -35,6 +36,7 @@ export function getCmsDataDir() {
 export function setCmsDataDir(dir) {
   dataDir = dir;
   cache = null;
+  cacheMtime = 0;
 }
 
 function filePath() {
@@ -46,14 +48,18 @@ async function ensureDir() {
 }
 
 async function readUnlocked() {
-  if (cache) return cache;
   await ensureDir();
   try {
-    const raw = await fs.readFile(filePath(), 'utf8');
+    const fp = filePath();
+    const stat = await fs.stat(fp);
+    if (cache && stat.mtimeMs === cacheMtime) return cache;
+    const raw = await fs.readFile(fp, 'utf8');
     cache = { ...EMPTY(), ...JSON.parse(raw) };
+    cacheMtime = stat.mtimeMs;
   } catch (err) {
     if (err && err.code !== 'ENOENT') throw err;
     cache = EMPTY();
+    cacheMtime = 0;
   }
   return cache;
 }
@@ -64,6 +70,11 @@ async function writeUnlocked(next) {
   await fs.writeFile(tmp, JSON.stringify(next, null, 2), 'utf8');
   await fs.rename(tmp, filePath());
   cache = next;
+  try {
+    cacheMtime = (await fs.stat(filePath())).mtimeMs;
+  } catch {
+    cacheMtime = Date.now();
+  }
 }
 
 function withLock(fn) {

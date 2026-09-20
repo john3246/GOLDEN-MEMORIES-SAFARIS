@@ -1,3 +1,5 @@
+import { isStaffAdmin } from '../auth/roles.js';
+
 function item(href, label, current, extra = '') {
   const key = href.replace(/^#\//, '').split('/')[0] || 'dashboard';
   const active = current === extra || current === key || (extra && current.startsWith(extra));
@@ -9,7 +11,7 @@ function group(title, inner) {
 }
 
 export function shell(user, current, inner) {
-  const admin = user?.role === 'Admin';
+  const admin = isStaffAdmin(user);
   const name = user?.name || (user?.email || 'Staff').split('@')[0];
   return `
     <div class="cms-app">
@@ -47,6 +49,7 @@ export function shell(user, current, inner) {
             `
             ${admin ? item('#/api-clients', 'API & integrations', current, 'clients') : ''}
             ${admin ? item('#/activity', 'Audit log', current, 'activity') : ''}
+            ${admin ? item('#/users', 'Users', current, 'users') : ''}
             ${admin ? item('#/settings', 'Site settings', current, 'settings') : ''}
           `
           )}

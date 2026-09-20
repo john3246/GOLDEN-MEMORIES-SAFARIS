@@ -6,17 +6,21 @@ PostgreSQL is the **single source of truth** for GM Safaris.
 
 | Path | Responsibility |
 |------|----------------|
-| `migrations/` | Versioned schema migrations (Phase 2) |
-| `seed/` | Deterministic seed data for development |
-| `documentation/` | Schema notes, ERD references, indexing rationale |
+| `migrations/` | Versioned schema (Safari CMS + Phase 2 domain) |
+| `seed/` | Lookup data (regions, menus). Never seed production staff passwords here |
+| `documentation/` | Indexing notes, migration rules |
+
+## Apply
+
+```bash
+docker compose -f infrastructure/docker/docker-compose.yml up -d postgres
+node scripts/db-migrate.mjs
+```
 
 ## Rules
 
 - Do not reproduce the WordPress schema blindly.
-- Design around business entities (tours, destinations, media, etc.).
+- Design around business entities (tours, destinations, media, bookings).
 - Application DB users get least privilege.
 - External `.co.tz` consumers never connect here — only via `/api/v1/external`.
-
-## Next phase
-
-**Phase 2 — Database architecture:** domain model, migrations, relationships, publishing status enums.
+- Keep `@gm-safaris/shared-types` enums aligned with PostgreSQL.

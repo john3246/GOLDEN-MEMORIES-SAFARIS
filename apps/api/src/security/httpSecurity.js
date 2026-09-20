@@ -8,9 +8,12 @@ import { config } from '../config/index.js';
  */
 export function securityHeaders() {
   return helmet({
-    // Google Fonts + the hosted CMS/API split; tighten once hosts are fixed.
     contentSecurityPolicy: false,
     crossOriginEmbedderPolicy: false,
+    hsts: config.isProduction
+      ? { maxAge: 15552000, includeSubDomains: true, preload: false }
+      : false,
+    referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
   });
 }
 

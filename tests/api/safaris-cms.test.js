@@ -37,6 +37,18 @@ function auth(token) {
   return { Authorization: `Bearer ${token}` };
 }
 
+function readySafari(extra = {}) {
+  return {
+    duration: 2,
+    price_from: 1800,
+    itinerary: [
+      { day: 'Day 1', title: 'Tarangire National Park' },
+      { day: 'Day 2', title: 'Serengeti National Park' },
+    ],
+    ...extra,
+  };
+}
+
 describe('Safari CMS', () => {
   let app;
 
@@ -56,7 +68,7 @@ describe('Safari CMS', () => {
       app,
       'PATCH',
       `/api/v1/admin/safaris/${id}`,
-      { description: 'Private northern-circuit days from Arusha.', price_from: 3200 },
+      readySafari({ description: 'Private northern-circuit days from Arusha.', price_from: 3200 }),
       auth(token)
     );
     expect(updated.status).toBe(200);
@@ -75,7 +87,7 @@ describe('Safari CMS', () => {
     const created = await send(app, 'POST', '/api/v1/admin/safaris', { title: 'Tarangire Elephant Safari' }, auth(token));
     const id = created.body.data.id;
     const slug = created.body.data.slug;
-    await send(app, 'PATCH', `/api/v1/admin/safaris/${id}`, { price_from: 1800 }, auth(token));
+    await send(app, 'PATCH', `/api/v1/admin/safaris/${id}`, readySafari({ price_from: 1800 }), auth(token));
 
     const published = await send(app, 'POST', `/api/v1/admin/safaris/${id}/publish`, {}, auth(token));
     expect(published.status).toBe(200);
@@ -99,7 +111,13 @@ describe('Safari CMS', () => {
     const token = await login(app, adminEmail, adminPassword);
     const created = await send(app, 'POST', '/api/v1/admin/safaris', { title: 'Serengeti Luxury Safari' }, auth(token));
     const id = created.body.data.id;
-    const renamed = await send(app, 'PATCH', `/api/v1/admin/safaris/${id}`, { title: 'Luxury Serengeti Safari' }, auth(token));
+    const renamed = await send(
+      app,
+      'PATCH',
+      `/api/v1/admin/safaris/${id}`,
+      readySafari({ title: 'Luxury Serengeti Safari' }),
+      auth(token)
+    );
     expect(renamed.body.data.id).toBe(id);
   });
 
@@ -107,7 +125,7 @@ describe('Safari CMS', () => {
     const token = await login(app, adminEmail, adminPassword);
     const created = await send(app, 'POST', '/api/v1/admin/safaris', { title: 'Ngorongoro Crater Safari' }, auth(token));
     const id = created.body.data.id;
-    await send(app, 'PATCH', `/api/v1/admin/safaris/${id}`, { destination: 'Ngorongoro' }, auth(token));
+    await send(app, 'PATCH', `/api/v1/admin/safaris/${id}`, readySafari({ destination: 'Ngorongoro' }), auth(token));
     await send(app, 'POST', `/api/v1/admin/safaris/${id}/publish`, {}, auth(token));
     const got = await send(app, 'GET', `/api/v1/admin/safaris/${id}`, undefined, auth(token));
     const actions = got.body.data.revisions.map((item) => item.action);
@@ -155,6 +173,7 @@ describe('Safari CMS', () => {
   it('lets an editor publish but not manage API clients', async () => {
     const editor = await login(app, editorEmail, editorPassword);
     const created = await send(app, 'POST', '/api/v1/admin/safaris', { title: 'Editor Safari' }, auth(editor));
+    await send(app, 'PATCH', `/api/v1/admin/safaris/${created.body.data.id}`, readySafari(), auth(editor));
     const published = await send(app, 'POST', `/api/v1/admin/safaris/${created.body.data.id}/publish`, {}, auth(editor));
     expect(published.status).toBe(200);
     const clients = await send(app, 'GET', '/api/v1/admin/api-clients', undefined, auth(editor));
@@ -164,7 +183,7 @@ describe('Safari CMS', () => {
   it('issues a third-party key that can read published safaris only', async () => {
     const admin = await login(app, adminEmail, adminPassword);
     const created = await send(app, 'POST', '/api/v1/admin/safaris', { title: 'Public Key Safari', slug: 'public-key-safari' }, auth(admin));
-    await send(app, 'PATCH', `/api/v1/admin/safaris/${created.body.data.id}`, { price_from: 2100 }, auth(admin));
+    await send(app, 'PATCH', `/api/v1/admin/safaris/${created.body.data.id}`, readySafari({ price_from: 2100 }), auth(admin));
     await send(app, 'POST', `/api/v1/admin/safaris/${created.body.data.id}/publish`, {}, auth(admin));
 
     const keyRes = await send(app, 'POST', '/api/v1/admin/api-clients', { name: 'co.tz', scopes: ['safaris:read'] }, auth(admin));
@@ -180,6 +199,27 @@ describe('Safari CMS', () => {
     const leak = await send(app, 'GET', '/api/v1/external/safaris/slug/hidden-draft', undefined, { 'X-Api-Key': apiKey });
     expect(leak.status).toBe(404);
 
+    const catalog = await send(app, 'GET', '/api/v1/external/catalog', undefined, { 'X-Api-Key': apiKey });
+    expect(catalog.status).toBe(200);
+    expect(catalog.body.data.collections.safaris.total).toBeGreaterThanOrEqual(1);
+    expect(catalog.body.data.collections.destinations.path).toBe('/destinations');
+    expect(catalog.body.data.collections.blogs.path).toBe('/blogs');
+    expect(catalog.body.data.collections['join-safaris'].path).toBe('/join-safaris');
+
+    const destinations = await send(app, 'GET', '/api/v1/external/destinations', undefined, { 'X-Api-Key': apiKey });
+    expect(destinations.status).toBe(200);
+    expect(Array.isArray(destinations.body.data)).toBe(true);
+
+    const blogs = await send(app, 'GET', '/api/v1/external/blogs', undefined, { 'X-Api-Key': apiKey });
+    expect(blogs.status).toBe(200);
+
+    const joining = await send(app, 'GET', '/api/v1/external/join-safaris', undefined, { 'X-Api-Key': apiKey });
+    expect(joining.status).toBe(200);
+
+    const tours = await send(app, 'GET', '/api/v1/external/tours?limit=100', undefined, { 'X-Api-Key': apiKey });
+    expect(tours.status).toBe(200);
+    expect(tours.body.data.find((item) => item.slug === 'public-key-safari')).toBeTruthy();
+
     const noKey = await send(app, 'GET', '/api/v1/external/safaris');
     expect(noKey.status).toBe(401);
 
@@ -188,10 +228,56 @@ describe('Safari CMS', () => {
     expect(revoked.status).toBe(401);
   });
 
+  it('rejects drafts and publishes that have no price or a mismatched itinerary', async () => {
+    const token = await login(app, adminEmail, adminPassword);
+    const created = await send(app, 'POST', '/api/v1/admin/safaris', { title: 'Incomplete Safari' }, auth(token));
+    const id = created.body.data.id;
+
+    const noPrice = await send(app, 'PATCH', `/api/v1/admin/safaris/${id}`, { duration: 2, itinerary: [{ title: 'Day one' }, { title: 'Day two' }] }, auth(token));
+    expect(noPrice.status).toBe(400);
+    expect(noPrice.body.error.message).toMatch(/price/i);
+
+    const mismatch = await send(
+      app,
+      'PATCH',
+      `/api/v1/admin/safaris/${id}`,
+      { price_from: 1500, duration: 3, itinerary: [{ title: 'Day one' }] },
+      auth(token)
+    );
+    expect(mismatch.status).toBe(400);
+    expect(mismatch.body.error.message).toMatch(/exactly 3 days/i);
+
+    const unpublished = await send(app, 'POST', `/api/v1/admin/safaris/${id}/publish`, {}, auth(token));
+    expect(unpublished.status).toBe(400);
+    expect(unpublished.body.error.message).toMatch(/price|duration|itinerary/i);
+  });
+
+  it('unpublishes live tours without a price and keeps them as drafts', async () => {
+    const token = await login(app, adminEmail, adminPassword);
+    const created = await send(app, 'POST', '/api/v1/admin/safaris', { title: 'No Price Safari', slug: 'no-price-safari' }, auth(token));
+    const id = created.body.data.id;
+    const { safarisRepository } = await import('../../apps/api/src/modules/safaris/safaris.repository.js');
+    const { unpublishPricelessSafaris } = await import('../../apps/api/src/modules/safaris/safari.maintenance.js');
+    const record = await safarisRepository.findById(id);
+    record.status = 'PUBLISHED';
+    record.published = { ...record.draft, slug: record.slug };
+    record.published_at = new Date().toISOString();
+    await safarisRepository.save(record);
+
+    const count = await unpublishPricelessSafaris();
+    expect(count).toBeGreaterThanOrEqual(1);
+
+    const got = await send(app, 'GET', `/api/v1/admin/safaris/${id}`, undefined, auth(token));
+    expect(got.body.data.status).toBe('DRAFT');
+    expect(got.body.data.published).toBeNull();
+    const hidden = await send(app, 'GET', '/api/v1/safaris/slug/no-price-safari');
+    expect(hidden.status).toBe(404);
+  });
+
   it('invalidates public cache after publish', async () => {
     const token = await login(app, adminEmail, adminPassword);
     const created = await send(app, 'POST', '/api/v1/admin/safaris', { title: 'Cache Safari', slug: 'cache-safari' }, auth(token));
-    await send(app, 'PATCH', `/api/v1/admin/safaris/${created.body.data.id}`, { price_from: 1900 }, auth(token));
+    await send(app, 'PATCH', `/api/v1/admin/safaris/${created.body.data.id}`, readySafari({ price_from: 1900 }), auth(token));
     const before = await send(app, 'GET', '/api/v1/safaris');
     expect(before.body.data.find((item) => item.slug === 'cache-safari')).toBeUndefined();
     await send(app, 'POST', `/api/v1/admin/safaris/${created.body.data.id}/publish`, {}, auth(token));
