@@ -4,7 +4,10 @@ import { hasSafariPrice } from '@gm-safaris/safari-ui';
 import { readStore, updateStore } from '../../cms-store/index.js';
 import { logger } from '../../logging/index.js';
 import { safariCache } from './safaris.cache.js';
-import { safariDbSyncEnabled, syncSafari } from './safari.sync.js';
+import { safariDbSyncEnabled, syncSafari, deleteSafariFromDb, deleteDraftSafarisFromDb } from './safari.sync.js';
+import { PDF_PACKAGES, PDF_PACKAGE_SLUGS, REPLACED_SAFARI_SLUGS, toSafariDocument } from './pdf-packages.js';
+import { safarisRepository } from './safaris.repository.js';
+import { config } from '../../config/index.js';
 
 function lacksPrice(record) {
   return !hasSafariPrice(record?.published || record?.draft);
@@ -121,4 +124,70 @@ export async function syncAllSafaris() {
   for (const record of store.safaris || []) {
     await syncSafari(record);
   }
+}
+
+function pdfDraft(item) {
+  const draft = toSafariDocument(item);
+  draft.seo = {
+    ...draft.seo,
+    canonical: draft.seo?.canonical || `${config.sites.com}/tours/${item.slug}/`,
+    og_image: draft.seo?.og_image || item.hero_image?.url,
+  };
+  return draft;
+}
+
+/**
+ * Remove every DRAFT safari from the file store and PostgreSQL, drop retired
+ * catalog slugs, then publish the 12 PDF packages with matching itineraries.
+ */
+export async function replacePdfSafariCatalog() {
+  const now = new Date().toISOString();
+  const removed = [];
+
+  await updateStore((store) => {
+    const next = [];
+    for (const record of store.safaris || []) {
+      const isDraft = record.status === SafariStatus.DRAFT;
+      const retired = REPLACED_SAFARI_SLUGS.has(record.slug) && !PDF_PACKAGE_SLUGS.has(record.slug);
+      if (isDraft || retired) {
+        removed.push(record);
+        store.revisions = (store.revisions || []).filter((item) => item.safariId !== record.id);
+        continue;
+      }
+      next.push(record);
+    }
+    store.safaris = next;
+  });
+
+  for (const record of removed) {
+    await deleteSafariFromDb(record);
+  }
+  const dbDrafts = await deleteDraftSafarisFromDb();
+
+  for (const item of PDF_PACKAGES) {
+    const draft = pdfDraft(item);
+    let record = await safarisRepository.findBySlug(item.slug, { includeUnpublished: true });
+    if (!record) {
+      record = await safarisRepository.create({ draft, actor: { userId: 'seed' } });
+    } else {
+      record.draft = draft;
+      record.slug = item.slug;
+      record.updated_at = now;
+    }
+    record.status = SafariStatus.PUBLISHED;
+    record.published = { ...draft };
+    record.published_at = record.published_at || now;
+    await safarisRepository.save(record);
+    await syncSafari(record);
+  }
+
+  await safariCache.invalidateAll();
+  await syncAllSafaris();
+
+  logger.info('Replaced safari catalog with published PDF packages', {
+    removed: removed.length,
+    published: PDF_PACKAGES.length,
+    dbDrafts,
+  });
+  return { removed: removed.length, published: PDF_PACKAGES.length, dbDrafts };
 }

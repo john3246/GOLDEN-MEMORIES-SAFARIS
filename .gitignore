@@ -44,6 +44,9 @@ media/storage/
 
 # Safari CMS file store (authoritative content lives here until PostgreSQL is wired)
 data/cms/*.json
+data/cms/*.tmp
+apps/api/data/cms/*.tmp
+apps/api/data/cms/store.json.*
 !data/cms/.gitkeep
 
 # Test artifacts

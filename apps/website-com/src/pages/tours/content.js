@@ -1,3 +1,4 @@
+import { PDF_PACKAGES, toWebsiteTrip } from '../../../../api/src/modules/safaris/pdf-packages.js';
 import { media as GM, testimonials } from '../home/content.js';
 
 export { testimonials };
@@ -20,73 +21,13 @@ export const safariIntro = {
   ],
 };
 
-export const safariPackages = [
-  {
-    slug: '6-days-best-tanzania-adventure-safari',
-    title: '6 Days Best Tanzania Adventure Safari',
-    duration: '6 Days / 5 Nights',
-    activity: 'Game Drive',
-    places: 'Arusha · Ngorongoro · Serengeti · Tarangire',
-    image: GM.safariPackages,
-    featured: true,
-  },
-  {
-    slug: '10-days-river-crossing-great-wildebeest-migration-safari',
-    title: '10 Days River Crossing & Great Wildebeest Migration Safari',
-    duration: '10 Days / 9 Nights',
-    activity: 'Wildlife Safari',
-    places: 'Serengeti · Ngorongoro · Tarangire',
-    image: GM.migration,
-  },
-  {
-    slug: '8-days-best-safari-to-ruaha-and-selous',
-    title: '8 Days Best Safari To Ruaha And Selous',
-    duration: '8 Days / 7 Nights',
-    activity: 'Wildlife Safari',
-    places: 'Ruaha · Selous / Nyerere',
-    image: GM.selous,
-  },
-  {
-    slug: '5-days-budget-tanzania-lodge-safari',
-    title: '5 Days Budget Tanzania Lodge Safari',
-    duration: '5 Days / 4 Nights',
-    activity: 'Lodge Safari',
-    places: 'Ngorongoro · Tarangire · Arusha',
-    image: GM.tarangire,
-  },
-  {
-    slug: 'ngorongoro-northern-circuit-safari',
-    title: 'Ngorongoro & Northern Circuit Safari',
-    duration: '7 Days / 6 Nights',
-    activity: 'Game Drive',
-    places: 'Tarangire · Serengeti · Ngorongoro',
-    image: GM.ngorongoro,
-  },
-  {
-    slug: 'tarangire-elephant-safari',
-    title: 'Tarangire Elephant Safari',
-    duration: '4 Days / 3 Nights',
-    activity: 'Game Drive',
-    places: 'Tarangire · Lake Manyara',
-    image: GM.manyara,
-  },
-  {
-    slug: 'serengeti-wildlife-safari',
-    title: 'Serengeti Wildlife Safari',
-    duration: '6 Days / 5 Nights',
-    activity: 'Wildlife Safari',
-    places: 'Serengeti · Ngorongoro',
-    image: GM.northern,
-  },
-  {
-    slug: 'classic-tanzania-lodge-safari',
-    title: 'Classic Tanzania Lodge Safari',
-    duration: '5 Days / 4 Nights',
-    activity: 'Lodge Safari',
-    places: 'Lake Manyara · Ngorongoro · Tarangire',
-    image: GM.ngorongoroAlt,
-  },
-];
+export const safariPackages = PDF_PACKAGES.map((pkg) => {
+  const trip = toWebsiteTrip(pkg);
+  return {
+    ...trip,
+    image: trip.image || GM.safariPackages,
+  };
+});
 
 export const whySafari = [
   {

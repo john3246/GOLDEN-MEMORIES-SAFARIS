@@ -27,5 +27,5 @@ adminSafariRoutes.post('/:id/duplicate', requireScope(SafariScope.WRITE), adminS
 
 export { safarisService } from './safaris.service.js';
 export { seedSafariPackages } from './safaris.seed.js';
-export { unpublishPricelessSafaris, syncAllSafaris, fillEmptyItineraries } from './safari.maintenance.js';
+export { unpublishPricelessSafaris, syncAllSafaris, fillEmptyItineraries, replacePdfSafariCatalog } from './safari.maintenance.js';
 export const moduleStatus = 'active';

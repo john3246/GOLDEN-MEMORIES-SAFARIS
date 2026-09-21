@@ -66,12 +66,22 @@ async function readUnlocked() {
 
 async function writeUnlocked(next) {
   await ensureDir();
-  const tmp = `${filePath()}.${process.pid}.tmp`;
+  const dest = filePath();
+  const tmp = `${dest}.${process.pid}.tmp`;
   await fs.writeFile(tmp, JSON.stringify(next, null, 2), 'utf8');
-  await fs.rename(tmp, filePath());
+  try {
+    await fs.rename(tmp, dest);
+  } catch (err) {
+    if (err && (err.code === 'EPERM' || err.code === 'EEXIST' || err.code === 'EACCES')) {
+      await fs.copyFile(tmp, dest);
+      await fs.unlink(tmp).catch(() => {});
+    } else {
+      throw err;
+    }
+  }
   cache = next;
   try {
-    cacheMtime = (await fs.stat(filePath())).mtimeMs;
+    cacheMtime = (await fs.stat(dest)).mtimeMs;
   } catch {
     cacheMtime = Date.now();
   }

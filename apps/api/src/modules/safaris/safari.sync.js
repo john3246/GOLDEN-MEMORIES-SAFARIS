@@ -181,3 +181,34 @@ export async function removeSafari(record) {
     logger.error('Failed to archive safari in PostgreSQL', { slug: record.slug, message: err.message });
   }
 }
+
+export async function deleteSafariFromDb(record) {
+  if (!safariDbSyncEnabled()) return;
+  const pool = getPool();
+  if (!pool || !record?.slug) return;
+  try {
+    await pool.query(`DELETE FROM tours WHERE slug = $1`, [record.slug]);
+    await pool.query(`DELETE FROM cms_safaris WHERE slug = $1`, [record.slug]);
+  } catch (err) {
+    logger.error('Failed to delete safari from PostgreSQL', {
+      slug: record.slug,
+      message: err instanceof Error ? err.message : String(err),
+    });
+  }
+}
+
+export async function deleteDraftSafarisFromDb() {
+  if (!safariDbSyncEnabled()) return { tours: 0, cms: 0 };
+  const pool = getPool();
+  if (!pool) return { tours: 0, cms: 0 };
+  try {
+    const tours = await pool.query(`DELETE FROM tours WHERE status::text = 'DRAFT'`);
+    const cms = await pool.query(`DELETE FROM cms_safaris WHERE status = 'DRAFT'`);
+    return { tours: tours.rowCount || 0, cms: cms.rowCount || 0 };
+  } catch (err) {
+    logger.error('Failed to delete draft safaris from PostgreSQL', {
+      message: err instanceof Error ? err.message : String(err),
+    });
+    return { tours: 0, cms: 0 };
+  }
+}

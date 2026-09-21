@@ -3,6 +3,12 @@
  * Photos: local GMS gallery only.
  */
 import { assignUniqueCovers } from '../../media/gallery.js';
+import {
+  PDF_PACKAGES,
+  REPLACED_SAFARI_SLUGS,
+  toWebsiteTrip,
+} from '../../../../api/src/modules/safaris/pdf-packages.js';
+
 export const safariStyles = [
   { slug: 'wildlife', label: 'Wildlife Safari Tours' },
   { slug: 'luxury', label: 'Luxury Safaris' },
@@ -17,14 +23,14 @@ export const safariStyles = [
 ];
 
 export const mostBookedSlugs = [
-  '7-day-family-wildebeest-migration-safari',
-  '5-day-luxury-tanzania-safari-tarangire-serengeti-ngorongoro-crater-exclusive-retreat',
-  '4-day-affordable-private-tanzania-safari-tarangire-serengeti-ngorongoro-crater-adventure',
-  '6-day-luxury-great-migration-safari-serengeti-river-crossing-exclusive-experience',
-  '14-day-tanzania-luxury-safari-zanzibar-escape',
+  '4-day-midrange-private-safari',
+  '8-day-luxury-tanzania-safari-zanzibar-beach-escape',
+  '5-day-midrange-migration-safari',
+  '3-day-serengeti-hot-air-balloon-safari',
+  '7-day-ndutu-zanzibar-honeymoon-safari',
 ];
 
-export const gmsTrips = [
+const legacyGmsTrips = [
   {
     "slug": "5-day-luxury-tanzania-safari-tarangire-serengeti-ngorongoro-crater-exclusive-retreat",
     "sourceSlug": "5-day-luxury-tanzania-safari-tarangire-serengeti-ngorongoro-crater-exclusive-retreat",
@@ -885,6 +891,11 @@ function placesFromText(text) {
   if (/materuni/.test(t)) bits.push('Materuni');
   return [...new Set(bits)].join(' · ');
 }
+
+export const gmsTrips = [
+  ...PDF_PACKAGES.map(toWebsiteTrip),
+  ...legacyGmsTrips.filter((trip) => !REPLACED_SAFARI_SLUGS.has(trip.slug)),
+];
 
 for (const trip of gmsTrips) {
   const fromSlug = placesFromText(`${trip.title} ${trip.slug}`);

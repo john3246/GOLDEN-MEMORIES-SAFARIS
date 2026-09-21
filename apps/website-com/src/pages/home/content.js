@@ -4,6 +4,7 @@
 
 import { galleryPhoto } from '../../media/gallery.js';
 import { kilimanjaroTreks } from '../kilimanjaro/packages.js';
+import { PDF_PACKAGES, toWebsiteTrip } from '../../../../api/src/modules/safaris/pdf-packages.js';
 
 const GM = {
   hero: galleryPhoto('serengeti', 0),
@@ -96,53 +97,16 @@ export const destinations = [
   },
 ];
 
-export const featuredTours = [
-  {
-    slug: '7-day-family-wildebeest-migration-safari',
-    title: '7-Day Family Wildebeest Migration Safari',
-    duration: '7 Days / 6 Nights',
-    activity: 'Family Safari',
-    places: 'Tarangire · Serengeti · Ngorongoro · Lake Manyara',
-    image: GM.migration,
-    featured: true,
-    price_from: 3094,
-    currency: 'USD',
-    minimum_people: 2,
-  },
-  {
-    slug: '5-day-luxury-tanzania-safari-tarangire-serengeti-ngorongoro',
-    title: '5-Day Luxury Tanzania Safari',
-    duration: '5 Days / 4 Nights',
-    activity: 'Luxury Safari',
-    places: 'Tarangire · Serengeti · Ngorongoro',
-    image: GM.ngorongoroAlt,
-    price_from: 4925,
-    currency: 'USD',
-    minimum_people: 2,
-  },
-  {
-    slug: '4-day-affordable-private-tanzania-safari',
-    title: '4-Day Affordable Private Tanzania Safari',
-    duration: '4 Days / 3 Nights',
-    activity: 'Private Safari',
-    places: 'Tarangire · Serengeti · Ngorongoro',
-    image: GM.tarangire,
-    price_from: 2168,
-    currency: 'USD',
-    minimum_people: 2,
-  },
-  {
-    slug: '14-day-tanzania-safari-zanzibar-escape',
-    title: '14-Day Tanzania Safari & Zanzibar Escape',
-    duration: '14 Days / 13 Nights',
-    activity: 'Safari & Beach',
-    places: 'Serengeti · Ngorongoro · Zanzibar',
-    image: GM.zanzibarBeach,
-    price_from: 7148,
-    currency: 'USD',
-    minimum_people: 2,
-  },
+const FEATURED_SLUGS = [
+  '8-day-luxury-tanzania-safari-zanzibar-beach-escape',
+  '4-day-midrange-private-safari',
+  '6-day-family-tour-tanzania',
+  '7-day-ndutu-zanzibar-honeymoon-safari',
 ];
+
+export const featuredTours = FEATURED_SLUGS.map((slug) => PDF_PACKAGES.find((pkg) => pkg.slug === slug))
+  .filter(Boolean)
+  .map((pkg) => toWebsiteTrip(pkg));
 
 export const dayTrips = [
   {

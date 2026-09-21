@@ -1,4 +1,5 @@
 import { uniqueCoverFor } from '../../media/gallery.js';
+import { PDF_PACKAGES, toWebsiteTrip } from '../../../../api/src/modules/safaris/pdf-packages.js';
 import { dayTrips, kilimanjaro, zanzibar } from '../home/content.js';
 import { openJoiningPackages } from '../join-safari/packages.js';
 import { safariPackages } from './content.js';
@@ -39,7 +40,24 @@ function days(items) {
   return items.map(([day, title, body, extra = {}]) => ({ day, title, body, ...extra }));
 }
 
+const pdfExtras = Object.fromEntries(
+  PDF_PACKAGES.map((pkg) => {
+    const trip = toWebsiteTrip(pkg);
+    return [
+      pkg.slug,
+      {
+        overview: trip.overview,
+        highlights: trip.highlights,
+        itinerary: trip.itinerary,
+        included: trip.included,
+        excluded: trip.excluded,
+      },
+    ];
+  })
+);
+
 const extras = {
+  ...pdfExtras,
   '6-days-best-tanzania-adventure-safari': {
     overview:
       'A six-day northern-circuit safari from Arusha: Tarangire’s elephants, two nights in the Serengeti, and a full crater day at Ngorongoro before you return to town.',
@@ -281,9 +299,9 @@ function withDefaults(tour) {
     slug,
     overview: extra.overview || tour.overview || `${tour.title} with Golden Memories Safaris — a private itinerary from Arusha, shaped around ${tour.places || 'Tanzania’s parks'}.`,
     highlights: extra.highlights || tour.highlights || [tour.places, tour.duration, tour.activity].filter(Boolean),
-    itinerary: extra.itinerary || daysFromJoin(tour) || [{ day: 'Itinerary', title: tour.title, body: 'Share your dates and we will send a day-by-day plan for this package.' }],
-    included: extra.included || tour.included || (isClimb ? climbIncluded : sharedIncluded),
-    excluded: extra.excluded || tour.excluded || (isClimb ? climbExcluded : sharedExcluded),
+    itinerary: extra.itinerary || tour.itinerary || daysFromJoin(tour) || [{ day: 'Itinerary', title: tour.title, body: 'Share your dates and we will send a day-by-day plan for this package.' }],
+    included: extra.included || tour.included || tour.inclusions || (isClimb ? climbIncluded : sharedIncluded),
+    excluded: extra.excluded || tour.excluded || tour.exclusions || (isClimb ? climbExcluded : sharedExcluded),
   };
 }
 
