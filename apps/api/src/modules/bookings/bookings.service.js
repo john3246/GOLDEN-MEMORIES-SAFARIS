@@ -118,6 +118,13 @@ export const bookingsService = {
     return { data: store.bookings || [], meta: { total: (store.bookings || []).length } };
   },
 
+  async get(id) {
+    const store = await readStore();
+    const item = (store.bookings || []).find((row) => row.id === id);
+    if (!item) throw notFound('Booking not found');
+    return item;
+  },
+
   async create(body, actor) {
     return persistBooking(toRecord(body), actor);
   },

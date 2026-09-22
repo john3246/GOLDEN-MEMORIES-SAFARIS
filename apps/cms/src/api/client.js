@@ -375,6 +375,11 @@ export const api = {
     return body;
   },
 
+  async getBooking(id) {
+    const body = await parse(await fetch(`${API_BASE}/api/v1/admin/bookings/${id}`, { headers: headers() }));
+    return body.data;
+  },
+
   async createBooking(payload) {
     const body = await parse(
       await fetch(`${API_BASE}/api/v1/admin/bookings`, {

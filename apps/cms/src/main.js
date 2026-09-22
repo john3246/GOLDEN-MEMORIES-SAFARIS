@@ -13,7 +13,7 @@ import { renderContentList, initContentList } from './pages/content-list.js';
 import { renderContentEditor, initContentEditor } from './pages/content-editor.js';
 import { renderBlogEditor, initBlogEditor } from './pages/blog-editor.js';
 import { renderSettings, initSettings } from './pages/settings.js';
-import { renderOperations, initOperations } from './pages/operations.js';
+import { renderOperations, initOperations, renderBookingDetail, initBookingDetail } from './pages/operations.js';
 import { renderUsers, initUsers } from './pages/users.js';
 import { initShell } from './pages/shell.js';
 
@@ -33,7 +33,9 @@ function route() {
   if (hash === '/api-clients') return { name: 'clients' };
   if (hash === '/activity') return { name: 'activity' };
   if (hash === '/settings') return { name: 'settings' };
+  const booking = hash.match(/^\/bookings\/([^/]+)$/);
   if (hash === '/bookings') return { name: 'ops', kind: 'bookings' };
+  if (booking) return { name: 'booking', id: booking[1] };
   if (hash === '/inquiries') return { name: 'ops', kind: 'inquiries' };
   if (hash === '/customers') return { name: 'ops', kind: 'customers' };
   if (hash === '/users') return { name: 'users' };
@@ -137,6 +139,12 @@ async function mount() {
     app.innerHTML = renderOperations(user, current.kind);
     readyChrome();
     await initOperations(current.kind);
+    return;
+  }
+  if (current.name === 'booking') {
+    app.innerHTML = renderBookingDetail(user, current.id);
+    readyChrome();
+    await initBookingDetail(current.id);
     return;
   }
   if (current.name === 'blog-editor') {

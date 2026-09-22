@@ -84,9 +84,9 @@ export const CONTENT_TYPES = Object.freeze({
   lodges: {
     key: 'lodges',
     label: 'Accommodations',
-    singular: 'lodge',
+    singular: 'accommodation',
     nav: 'lodges',
-    createTitle: 'New lodge',
+    createTitle: 'New accommodation',
     fields: [
       { name: 'title', label: 'Name', type: 'text' },
       { name: 'place', label: 'Place', type: 'text' },

@@ -25,6 +25,14 @@ adminBookingRoutes.get('/', requireScope(SafariScope.READ), async (_req, res, ne
     next(err);
   }
 });
+adminBookingRoutes.get('/:id', requireScope(SafariScope.READ), async (req, res, next) => {
+  try {
+    const data = await bookingsService.get(req.params.id);
+    res.json({ success: true, data });
+  } catch (err) {
+    next(err);
+  }
+});
 adminBookingRoutes.post('/', requireScope(SafariScope.WRITE), async (req, res, next) => {
   try {
     const data = await bookingsService.create(req.body || {}, req.auth);

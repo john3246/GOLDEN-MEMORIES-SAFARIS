@@ -6,7 +6,9 @@ export function pill(status, featured) {
 export function cardImage(url) {
   const src = String(url || '').split('?')[0];
   if (src.endsWith('-card.webp')) return src;
-  if (src.endsWith('.webp')) return src.replace(/\.webp$/i, '-card.webp');
+  if (/\/images\/gallery\//.test(src) && src.endsWith('.webp')) {
+    return src.replace(/\.webp$/i, '-card.webp');
+  }
   if (src) return src;
   return '/images/gallery/serengeti-01-card.webp';
 }

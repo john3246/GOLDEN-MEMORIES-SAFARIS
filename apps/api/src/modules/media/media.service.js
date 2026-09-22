@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { createId } from '@gm-safaris/shared-utils';
 import { readStore, updateStore } from '../../cms-store/index.js';
 import { config } from '../../config/index.js';
-import { notFound, validationError, forbidden } from '../../errors/index.js';
+import { notFound, validationError } from '../../errors/index.js';
 import { compressUpload } from './compress.js';
 
 const PUBLIC_FIELDS = ['id', 'url', 'alt', 'caption', 'mimeType', 'width', 'height', 'filename', 'createdAt'];
@@ -52,7 +52,7 @@ export const mediaRepository = {
     const item = {
       id: createId(),
       createdAt: new Date().toISOString(),
-      visibility: 'private',
+      visibility: 'public',
       ...record,
     };
     await updateStore((store) => {
@@ -158,6 +158,7 @@ export const mediaService = {
     for (const item of store.lodges || []) {
       const doc = item.draft || item.published || {};
       add(doc.image, doc.title, 'Lodges');
+      for (const shot of doc.gallery || []) add(typeof shot === 'string' ? shot : shot?.url, doc.title, 'Lodges');
     }
     for (const item of store.pages || []) {
       const doc = item.draft || item.published || {};
@@ -241,7 +242,7 @@ export const mediaService = {
       storagePath: stored.path,
       alt: alt || '',
       caption: caption || '',
-      visibility: 'private',
+      visibility: 'public',
       createdBy: actor?.userId || null,
     });
     await import('../audit/audit.service.js').then(({ recordAudit }) =>
@@ -319,14 +320,11 @@ export const mediaService = {
     return mediaRepository.update(id, { visibility });
   },
 
-  async filePayload(id, auth) {
+  async filePayload(id) {
     const item = await mediaRepository.findById(id);
     if (!item) throw notFound('Media not found');
     if (item.externalUrl) {
       return { redirect: item.externalUrl };
-    }
-    if (item.visibility !== 'public' && !auth) {
-      throw forbidden('This media is not public');
     }
     if (!item.storagePath) throw notFound('Media file is missing');
     return { filePath: item.storagePath, mimeType: item.mimeType, filename: item.originalName || item.filename };

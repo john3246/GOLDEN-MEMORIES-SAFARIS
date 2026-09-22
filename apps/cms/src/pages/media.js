@@ -109,6 +109,7 @@ export async function initMedia() {
       if (file) await api.uploadMedia(file, form.alt.value, form.caption.value);
       else await api.addMediaUrl(form.url.value, form.alt.value, form.caption.value);
       form.reset();
+      active = 'uploads';
       await refresh();
     } catch (err) {
       error.hidden = false;

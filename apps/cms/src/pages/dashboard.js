@@ -30,7 +30,7 @@ const TYPE_LABELS = {
   posts: 'Blog',
   testimonials: 'Reviews',
   faqs: 'FAQs',
-  lodges: 'Lodges',
+  lodges: 'Accommodations',
   departures: 'Join safari',
   menus: 'Menus',
 };
@@ -84,6 +84,7 @@ export function renderDashboard(user) {
           <header><h2>Quick actions</h2></header>
           <div class="cms-quick-grid">
             <a href="#/safaris">Add new tour</a>
+            <a href="#/lodges">Add accommodation</a>
             <a href="#/posts">Create blog post</a>
             <a href="#/pages">Manage pages</a>
             <a href="#/media">Upload media</a>
@@ -148,7 +149,7 @@ export async function initDashboard() {
       bookings.innerHTML = `<table class="cms-table"><thead><tr><th>ID</th><th>Guest</th><th>Tour</th><th>Date</th><th>Status</th><th>Amount</th></tr></thead><tbody>${data.recentBookings
         .map(
           (row) =>
-            `<tr><td>${row.code || row.id.slice(0, 8)}</td><td>${row.customerName}</td><td>${row.safariTitle}</td><td>${row.travelDate || '—'}</td><td>${pill(row.status)}</td><td>${money(row.amount)}</td></tr>`
+            `<tr><td><a href="#/bookings/${row.id}">${row.code || row.id.slice(0, 8)}</a></td><td>${row.customerName}</td><td>${row.safariTitle}</td><td>${row.travelDate || '—'}</td><td>${pill(row.status)}</td><td>${money(row.amount)}</td></tr>`
         )
         .join('')}</tbody></table>`;
     } else if ((data.recentSafaris || []).length) {
@@ -205,7 +206,7 @@ export async function initDashboard() {
       ? `<table class="cms-table"><thead><tr><th>Date</th><th>Guest</th><th>Tour</th><th>Status</th></tr></thead><tbody>${data.upcomingBookings
           .map(
             (row) =>
-              `<tr><td>${row.travelDate || '—'}</td><td>${row.customerName}</td><td>${row.safariTitle}</td><td>${pill(row.status)}</td></tr>`
+              `<tr><td>${row.travelDate || '—'}</td><td><a href="#/bookings/${row.id}">${row.customerName}</a></td><td>${row.safariTitle}</td><td>${pill(row.status)}</td></tr>`
           )
           .join('')}</tbody></table>`
       : '<p class="cms-muted">No upcoming travel dates recorded.</p>';
