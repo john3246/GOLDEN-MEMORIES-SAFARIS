@@ -19,7 +19,7 @@ export const openJoiningPackages = [
   {
     id: '3-days-affordable-joining-safari',
     slug: '3-days-affordable-joining-safari',
-    title: '3 Days Affordable Joining Safari',
+    title: '3-Day Affordable Joining Safari',
     datesLabel: 'Open 2026–2027',
     start: '',
     end: '',
@@ -84,7 +84,7 @@ export const openJoiningPackages = [
   {
     id: '4-days-shared-safari-tanzania',
     slug: '4-days-shared-safari-tanzania',
-    title: '4 Days Shared Safari Tanzania',
+    title: '4-Day Shared Safari Tanzania',
     datesLabel: 'Open 2026–2027',
     start: '',
     end: '',
@@ -154,7 +154,7 @@ export const openJoiningPackages = [
   {
     id: '5-day-shared-group-camping-safari',
     slug: '5-day-shared-group-camping-safari',
-    title: '5 Day Shared Group Camping Safari',
+    title: '5-Day Shared Group Camping Safari',
     datesLabel: 'Open 2026–2027',
     start: '',
     end: '',
@@ -230,7 +230,7 @@ export const openJoiningPackages = [
   {
     id: '3-day-serengeti-ngorongoro-joining-safari',
     slug: '3-day-serengeti-ngorongoro-joining-safari',
-    title: '3 Day Serengeti & Ngorongoro Joining Safari',
+    title: '3-Day Serengeti & Ngorongoro Joining Safari',
     datesLabel: 'Open 2026–2027',
     start: '',
     end: '',
@@ -294,7 +294,7 @@ export const openJoiningPackages = [
   {
     id: '2-day-tarangire-ngorongoro-joining-safari',
     slug: '2-day-tarangire-ngorongoro-joining-safari',
-    title: '2 Day Tarangire & Ngorongoro Joining Safari',
+    title: '2-Day Tarangire & Ngorongoro Joining Safari',
     datesLabel: 'Open 2026–2027',
     start: '',
     end: '',

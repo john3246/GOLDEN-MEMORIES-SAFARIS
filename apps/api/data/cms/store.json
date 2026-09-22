@@ -5,7 +5,7 @@
       "email": "info@gms.co.tz",
       "name": "Safari Admin",
       "role": "Admin",
-      "passwordHash": "$2b$12$Ow7891ueFK.9hkh.4GuBUux96Uy4K5ixq9NMiqYAh/wbCSQZ4kUiy",
+      "passwordHash": "$2b$12$pwr4k6M.vEoAxNT4Lg4rM.w21YaXidx9c7nAEgWu6aCIcs/84OL1q",
       "createdAt": "2026-09-11T16:16:26.219Z",
       "passwordResetTokenHash": "12f419849014defc4249f4fcb1c941a1631ce8a905477b388862d06a9539dffc",
       "passwordResetExpires": "2026-09-20T22:43:21.304Z",
@@ -46,10 +46,10 @@
       "slug": "4-days-mt-meru-trekking-via-momella-gate",
       "status": "PUBLISHED",
       "draft": {
-        "title": "4 Days Mt Meru Trekking Via Momella Gate",
+        "title": "4-Day Mt Meru Trekking Via Momella Gate",
         "slug": "4-days-mt-meru-trekking-via-momella-gate",
-        "short_description": "4 Days Mt Meru Trekking Via Momella Gate — private Tanzania itinerary visiting Mount Meru.",
-        "description": "4 Days Mt Meru Trekking Via Momella Gate — private Tanzania itinerary visiting Mount Meru.",
+        "short_description": "4-Day Mt Meru Trekking Via Momella Gate — private Tanzania itinerary visiting Mount Meru.",
+        "description": "4-Day Mt Meru Trekking Via Momella Gate — private Tanzania itinerary visiting Mount Meru.",
         "featured": false,
         "display_order": 43,
         "duration": 4,
@@ -65,7 +65,7 @@
         "hero_image": {
           "id": null,
           "url": "/images/gallery/kilimanjaro-01.webp",
-          "alt": "4 Days Mt Meru Trekking Via Momella Gate",
+          "alt": "4-Day Mt Meru Trekking Via Momella Gate",
           "caption": ""
         },
         "gallery": [],
@@ -95,11 +95,11 @@
           "notes": ""
         },
         "seo": {
-          "title": "4 Days Mt Meru Trekking Via Momella Gate | Golden Memories Safaris",
-          "description": "4 Days Mt Meru Trekking Via Momella Gate — private Tanzania itinerary visiting Mount Meru.",
+          "title": "4-Day Mt Meru Trekking Via Momella Gate | Golden Memories Safaris",
+          "description": "4-Day Mt Meru Trekking Via Momella Gate — private Tanzania itinerary visiting Mount Meru.",
           "canonical": "https://www.gmsafaris.com/tours/4-days-mt-meru-trekking-via-momella-gate/",
-          "og_title": "4 Days Mt Meru Trekking Via Momella Gate | Golden Memories Safaris",
-          "og_description": "4 Days Mt Meru Trekking Via Momella Gate — private Tanzania itinerary visiting Mount Meru.",
+          "og_title": "4-Day Mt Meru Trekking Via Momella Gate | Golden Memories Safaris",
+          "og_description": "4-Day Mt Meru Trekking Via Momella Gate — private Tanzania itinerary visiting Mount Meru.",
           "og_image": "/images/gallery/kilimanjaro-01.webp",
           "robots": "index,follow"
         },
@@ -177,10 +177,10 @@
         ]
       },
       "published": {
-        "title": "4 Days Mt Meru Trekking Via Momella Gate",
+        "title": "4-Day Mt Meru Trekking Via Momella Gate",
         "slug": "4-days-mt-meru-trekking-via-momella-gate",
-        "short_description": "4 Days Mt Meru Trekking Via Momella Gate — private Tanzania itinerary visiting Mount Meru.",
-        "description": "4 Days Mt Meru Trekking Via Momella Gate — private Tanzania itinerary visiting Mount Meru.",
+        "short_description": "4-Day Mt Meru Trekking Via Momella Gate — private Tanzania itinerary visiting Mount Meru.",
+        "description": "4-Day Mt Meru Trekking Via Momella Gate — private Tanzania itinerary visiting Mount Meru.",
         "featured": false,
         "display_order": 43,
         "duration": 4,
@@ -196,7 +196,7 @@
         "hero_image": {
           "id": null,
           "url": "/images/gallery/kilimanjaro-01.webp",
-          "alt": "4 Days Mt Meru Trekking Via Momella Gate",
+          "alt": "4-Day Mt Meru Trekking Via Momella Gate",
           "caption": ""
         },
         "gallery": [],
@@ -226,11 +226,11 @@
           "notes": ""
         },
         "seo": {
-          "title": "4 Days Mt Meru Trekking Via Momella Gate | Golden Memories Safaris",
-          "description": "4 Days Mt Meru Trekking Via Momella Gate — private Tanzania itinerary visiting Mount Meru.",
+          "title": "4-Day Mt Meru Trekking Via Momella Gate | Golden Memories Safaris",
+          "description": "4-Day Mt Meru Trekking Via Momella Gate — private Tanzania itinerary visiting Mount Meru.",
           "canonical": "https://www.gmsafaris.com/tours/4-days-mt-meru-trekking-via-momella-gate/",
-          "og_title": "4 Days Mt Meru Trekking Via Momella Gate | Golden Memories Safaris",
-          "og_description": "4 Days Mt Meru Trekking Via Momella Gate — private Tanzania itinerary visiting Mount Meru.",
+          "og_title": "4-Day Mt Meru Trekking Via Momella Gate | Golden Memories Safaris",
+          "og_description": "4-Day Mt Meru Trekking Via Momella Gate — private Tanzania itinerary visiting Mount Meru.",
           "og_image": "/images/gallery/kilimanjaro-01.webp",
           "robots": "index,follow"
         },
@@ -318,7 +318,7 @@
       "slug": "6-day-family-tour-tanzania",
       "status": "PUBLISHED",
       "draft": {
-        "title": "6 Days Family Tour Tanzania 2026–2027",
+        "title": "6-Day Family Tour Tanzania 2026–2027",
         "slug": "6-day-family-tour-tanzania",
         "short_description": "A 6-day family safari with a relaxed pace: Arusha, Lake Manyara, three Serengeti days, and Ngorongoro Crater — USD 2,750 per person.",
         "description": "Create unforgettable family memories on this 6-day Tanzania safari, combining adventure, comfort, and education for all ages. Built for a relaxed pace, extended wildlife viewing, and meaningful shared experiences: family-friendly lodges, child-friendly meals, flexible game drives, and three full days in the Serengeti before a Ngorongoro Crater finale.",
@@ -473,10 +473,10 @@
         "faq": [],
         "map": null,
         "seo": {
-          "title": "6 Days Family Tour Tanzania 2026–2027 | Golden Memories Safaris",
+          "title": "6-Day Family Tour Tanzania 2026–2027 | Golden Memories Safaris",
           "description": "A 6-day family safari with a relaxed pace: Arusha, Lake Manyara, three Serengeti days, and Ngorongoro Crater — USD 2,750 per person.",
           "canonical": "https://www.gmsafaris.com/tours/6-day-family-tour-tanzania/",
-          "og_title": "6 Days Family Tour Tanzania 2026–2027",
+          "og_title": "6-Day Family Tour Tanzania 2026–2027",
           "og_description": "A 6-day family safari with a relaxed pace: Arusha, Lake Manyara, three Serengeti days, and Ngorongoro Crater — USD 2,750 per person.",
           "og_image": "/images/gallery/ngorongoro-05.webp",
           "robots": "index,follow"
@@ -562,7 +562,7 @@
         "style": "wildlife"
       },
       "published": {
-        "title": "6 Days Family Tour Tanzania 2026–2027",
+        "title": "6-Day Family Tour Tanzania 2026–2027",
         "slug": "6-day-family-tour-tanzania",
         "short_description": "A 6-day family safari with a relaxed pace: Arusha, Lake Manyara, three Serengeti days, and Ngorongoro Crater — USD 2,750 per person.",
         "description": "Create unforgettable family memories on this 6-day Tanzania safari, combining adventure, comfort, and education for all ages. Built for a relaxed pace, extended wildlife viewing, and meaningful shared experiences: family-friendly lodges, child-friendly meals, flexible game drives, and three full days in the Serengeti before a Ngorongoro Crater finale.",
@@ -717,10 +717,10 @@
         "faq": [],
         "map": null,
         "seo": {
-          "title": "6 Days Family Tour Tanzania 2026–2027 | Golden Memories Safaris",
+          "title": "6-Day Family Tour Tanzania 2026–2027 | Golden Memories Safaris",
           "description": "A 6-day family safari with a relaxed pace: Arusha, Lake Manyara, three Serengeti days, and Ngorongoro Crater — USD 2,750 per person.",
           "canonical": "https://www.gmsafaris.com/tours/6-day-family-tour-tanzania/",
-          "og_title": "6 Days Family Tour Tanzania 2026–2027",
+          "og_title": "6-Day Family Tour Tanzania 2026–2027",
           "og_description": "A 6-day family safari with a relaxed pace: Arusha, Lake Manyara, three Serengeti days, and Ngorongoro Crater — USD 2,750 per person.",
           "og_image": "/images/gallery/ngorongoro-05.webp",
           "robots": "index,follow"
@@ -807,7 +807,7 @@
       },
       "published_at": "2026-09-21T20:25:06.245Z",
       "created_at": "2026-09-13T00:54:35.151Z",
-      "updated_at": "2026-09-22T06:14:00.251Z",
+      "updated_at": "2026-09-22T21:46:36.843Z",
       "created_by": "seed",
       "updated_by": "seed"
     },
@@ -816,7 +816,7 @@
       "slug": "3-day-serengeti-hot-air-balloon-safari",
       "status": "PUBLISHED",
       "draft": {
-        "title": "3 Day Serengeti Hot Air Balloon Safari 2026–2027",
+        "title": "3-Day Serengeti Hot Air Balloon Safari 2026–2027",
         "slug": "3-day-serengeti-hot-air-balloon-safari",
         "short_description": "A 3-day Central Serengeti safari with a sunrise hot air balloon flight and champagne bush breakfast — USD 1,900 per person.",
         "description": "One of Africa’s most exclusive short safaris: classic game drives plus a sunrise hot air balloon flight over the Serengeti. Designed for travellers seeking a premium, compact wildlife experience in Central Serengeti, with a champagne bush breakfast after landing.",
@@ -925,10 +925,10 @@
         "faq": [],
         "map": null,
         "seo": {
-          "title": "3 Day Serengeti Hot Air Balloon Safari 2026–2027 | Golden Memories Safaris",
+          "title": "3-Day Serengeti Hot Air Balloon Safari 2026–2027 | Golden Memories Safaris",
           "description": "A 3-day Central Serengeti safari with a sunrise hot air balloon flight and champagne bush breakfast — USD 1,900 per person.",
           "canonical": "https://www.gmsafaris.com/tours/3-day-serengeti-hot-air-balloon-safari/",
-          "og_title": "3 Day Serengeti Hot Air Balloon Safari 2026–2027",
+          "og_title": "3-Day Serengeti Hot Air Balloon Safari 2026–2027",
           "og_description": "A 3-day Central Serengeti safari with a sunrise hot air balloon flight and champagne bush breakfast — USD 1,900 per person.",
           "og_image": "/images/gallery/serengeti-01.webp",
           "robots": "index,follow"
@@ -1014,7 +1014,7 @@
         "style": "wildlife"
       },
       "published": {
-        "title": "3 Day Serengeti Hot Air Balloon Safari 2026–2027",
+        "title": "3-Day Serengeti Hot Air Balloon Safari 2026–2027",
         "slug": "3-day-serengeti-hot-air-balloon-safari",
         "short_description": "A 3-day Central Serengeti safari with a sunrise hot air balloon flight and champagne bush breakfast — USD 1,900 per person.",
         "description": "One of Africa’s most exclusive short safaris: classic game drives plus a sunrise hot air balloon flight over the Serengeti. Designed for travellers seeking a premium, compact wildlife experience in Central Serengeti, with a champagne bush breakfast after landing.",
@@ -1123,10 +1123,10 @@
         "faq": [],
         "map": null,
         "seo": {
-          "title": "3 Day Serengeti Hot Air Balloon Safari 2026–2027 | Golden Memories Safaris",
+          "title": "3-Day Serengeti Hot Air Balloon Safari 2026–2027 | Golden Memories Safaris",
           "description": "A 3-day Central Serengeti safari with a sunrise hot air balloon flight and champagne bush breakfast — USD 1,900 per person.",
           "canonical": "https://www.gmsafaris.com/tours/3-day-serengeti-hot-air-balloon-safari/",
-          "og_title": "3 Day Serengeti Hot Air Balloon Safari 2026–2027",
+          "og_title": "3-Day Serengeti Hot Air Balloon Safari 2026–2027",
           "og_description": "A 3-day Central Serengeti safari with a sunrise hot air balloon flight and champagne bush breakfast — USD 1,900 per person.",
           "og_image": "/images/gallery/serengeti-01.webp",
           "robots": "index,follow"
@@ -1213,7 +1213,7 @@
       },
       "published_at": "2026-09-21T20:25:06.245Z",
       "created_at": "2026-09-13T00:54:35.151Z",
-      "updated_at": "2026-09-22T06:14:00.251Z",
+      "updated_at": "2026-09-22T21:46:36.843Z",
       "created_by": "seed",
       "updated_by": "seed"
     },
@@ -1789,7 +1789,7 @@
       },
       "published_at": "2026-09-21T20:25:06.245Z",
       "created_at": "2026-09-13T00:54:35.151Z",
-      "updated_at": "2026-09-22T06:14:00.251Z",
+      "updated_at": "2026-09-22T21:46:36.843Z",
       "created_by": "seed",
       "updated_by": "seed"
     },
@@ -2241,7 +2241,7 @@
       },
       "published_at": "2026-09-21T20:25:06.245Z",
       "created_at": "2026-09-13T00:54:35.151Z",
-      "updated_at": "2026-09-22T06:14:00.251Z",
+      "updated_at": "2026-09-22T21:46:36.843Z",
       "created_by": "seed",
       "updated_by": "seed"
     },
@@ -2693,7 +2693,7 @@
       },
       "published_at": "2026-09-21T20:25:06.245Z",
       "created_at": "2026-09-13T00:54:35.151Z",
-      "updated_at": "2026-09-22T06:14:00.251Z",
+      "updated_at": "2026-09-22T21:46:36.843Z",
       "created_by": "seed",
       "updated_by": "seed"
     },
@@ -3170,7 +3170,7 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-21T20:24:46.913Z",
-      "updated_at": "2026-09-22T06:14:00.251Z",
+      "updated_at": "2026-09-22T21:46:36.843Z",
       "published_at": "2026-09-21T20:24:46.978Z"
     },
     {
@@ -3710,7 +3710,7 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-21T20:24:47.045Z",
-      "updated_at": "2026-09-22T06:14:00.251Z",
+      "updated_at": "2026-09-22T21:46:36.843Z",
       "published_at": "2026-09-21T20:24:47.100Z"
     },
     {
@@ -4212,7 +4212,7 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-21T20:24:47.249Z",
-      "updated_at": "2026-09-22T06:14:00.251Z",
+      "updated_at": "2026-09-22T21:46:36.843Z",
       "published_at": "2026-09-21T20:24:47.304Z"
     },
     {
@@ -4660,7 +4660,7 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-21T20:24:47.376Z",
-      "updated_at": "2026-09-22T06:14:00.251Z",
+      "updated_at": "2026-09-22T21:46:36.843Z",
       "published_at": "2026-09-21T20:24:47.429Z"
     },
     {
@@ -5130,7 +5130,7 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-21T20:24:47.504Z",
-      "updated_at": "2026-09-22T06:14:00.251Z",
+      "updated_at": "2026-09-22T21:46:36.843Z",
       "published_at": "2026-09-21T20:24:47.645Z"
     },
     {
@@ -5138,7 +5138,7 @@
       "slug": "7-day-ndutu-zanzibar-honeymoon-safari",
       "status": "PUBLISHED",
       "draft": {
-        "title": "7 Days Ndutu & Zanzibar Honeymoon Safari 2026–2027",
+        "title": "7-Day Ndutu & Zanzibar Honeymoon Safari 2026–2027",
         "slug": "7-day-ndutu-zanzibar-honeymoon-safari",
         "short_description": "A 7-day honeymoon: private safari through Tarangire, Ndutu calving season, Ngorongoro Crater, then Zanzibar beaches — USD 3,200 per person.",
         "description": "The perfect blend of wilderness and tropical romance. This 7-day honeymoon combines private safari days in Tarangire, the Ndutu region during Great Migration calving season (December–April), and Ngorongoro Crater with a domestic flight to Zanzibar for beachfront nights, private dining, and couple-focused activities.",
@@ -5311,10 +5311,10 @@
         "faq": [],
         "map": null,
         "seo": {
-          "title": "7 Days Ndutu & Zanzibar Honeymoon Safari 2026–2027 | Golden Memories Safaris",
+          "title": "7-Day Ndutu & Zanzibar Honeymoon Safari 2026–2027 | Golden Memories Safaris",
           "description": "A 7-day honeymoon: private safari through Tarangire, Ndutu calving season, Ngorongoro Crater, then Zanzibar beaches — USD 3,200 per person.",
           "canonical": "https://www.gmsafaris.com/tours/7-day-ndutu-zanzibar-honeymoon-safari/",
-          "og_title": "7 Days Ndutu & Zanzibar Honeymoon Safari 2026–2027",
+          "og_title": "7-Day Ndutu & Zanzibar Honeymoon Safari 2026–2027",
           "og_description": "A 7-day honeymoon: private safari through Tarangire, Ndutu calving season, Ngorongoro Crater, then Zanzibar beaches — USD 3,200 per person.",
           "og_image": "/images/gallery/zanzibar-01.webp",
           "robots": "index,follow"
@@ -5400,7 +5400,7 @@
         "style": "honeymoon"
       },
       "published": {
-        "title": "7 Days Ndutu & Zanzibar Honeymoon Safari 2026–2027",
+        "title": "7-Day Ndutu & Zanzibar Honeymoon Safari 2026–2027",
         "slug": "7-day-ndutu-zanzibar-honeymoon-safari",
         "short_description": "A 7-day honeymoon: private safari through Tarangire, Ndutu calving season, Ngorongoro Crater, then Zanzibar beaches — USD 3,200 per person.",
         "description": "The perfect blend of wilderness and tropical romance. This 7-day honeymoon combines private safari days in Tarangire, the Ndutu region during Great Migration calving season (December–April), and Ngorongoro Crater with a domestic flight to Zanzibar for beachfront nights, private dining, and couple-focused activities.",
@@ -5573,10 +5573,10 @@
         "faq": [],
         "map": null,
         "seo": {
-          "title": "7 Days Ndutu & Zanzibar Honeymoon Safari 2026–2027 | Golden Memories Safaris",
+          "title": "7-Day Ndutu & Zanzibar Honeymoon Safari 2026–2027 | Golden Memories Safaris",
           "description": "A 7-day honeymoon: private safari through Tarangire, Ndutu calving season, Ngorongoro Crater, then Zanzibar beaches — USD 3,200 per person.",
           "canonical": "https://www.gmsafaris.com/tours/7-day-ndutu-zanzibar-honeymoon-safari/",
-          "og_title": "7 Days Ndutu & Zanzibar Honeymoon Safari 2026–2027",
+          "og_title": "7-Day Ndutu & Zanzibar Honeymoon Safari 2026–2027",
           "og_description": "A 7-day honeymoon: private safari through Tarangire, Ndutu calving season, Ngorongoro Crater, then Zanzibar beaches — USD 3,200 per person.",
           "og_image": "/images/gallery/zanzibar-01.webp",
           "robots": "index,follow"
@@ -5664,7 +5664,7 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-21T20:24:48.186Z",
-      "updated_at": "2026-09-22T06:14:00.251Z",
+      "updated_at": "2026-09-22T21:46:36.843Z",
       "published_at": "2026-09-21T20:24:48.243Z"
     },
     {
@@ -5672,7 +5672,7 @@
       "slug": "5-day-midrange-serengeti-ngorongoro-safari",
       "status": "PUBLISHED",
       "draft": {
-        "title": "5 Days Mid-Range Safari: Serengeti & Ngorongoro Crater 2026–2027",
+        "title": "5-Day Mid-Range Safari: Serengeti & Ngorongoro Crater 2026–2027",
         "slug": "5-day-midrange-serengeti-ngorongoro-safari",
         "short_description": "A 5-day midrange safari through Serengeti National Park and Ngorongoro Crater — from USD 2,050 per person.",
         "description": "An authentic 5-day mid-range safari through Tanzania’s most iconic wildlife destinations: the endless Serengeti plains, famous for the Great Migration and big cats, and Ngorongoro Crater, a UNESCO World Heritage Site and one of Africa’s densest wildlife habitats. Comfortable 4×4 vehicles, an experienced Big Five guide, and carefully selected mid-range lodges and tented camps.",
@@ -5812,10 +5812,10 @@
         "faq": [],
         "map": null,
         "seo": {
-          "title": "5 Days Mid-Range Safari: Serengeti & Ngorongoro Crater 2026–2027 | Golden Memories Safaris",
+          "title": "5-Day Mid-Range Safari: Serengeti & Ngorongoro Crater 2026–2027 | Golden Memories Safaris",
           "description": "A 5-day midrange safari through Serengeti National Park and Ngorongoro Crater — from USD 2,050 per person.",
           "canonical": "https://www.gmsafaris.com/tours/5-day-midrange-serengeti-ngorongoro-safari/",
-          "og_title": "5 Days Mid-Range Safari: Serengeti & Ngorongoro Crater 2026–2027",
+          "og_title": "5-Day Mid-Range Safari: Serengeti & Ngorongoro Crater 2026–2027",
           "og_description": "A 5-day midrange safari through Serengeti National Park and Ngorongoro Crater — from USD 2,050 per person.",
           "og_image": "/images/gallery/ngorongoro-01.webp",
           "robots": "index,follow"
@@ -5901,7 +5901,7 @@
         "style": "wildlife"
       },
       "published": {
-        "title": "5 Days Mid-Range Safari: Serengeti & Ngorongoro Crater 2026–2027",
+        "title": "5-Day Mid-Range Safari: Serengeti & Ngorongoro Crater 2026–2027",
         "slug": "5-day-midrange-serengeti-ngorongoro-safari",
         "short_description": "A 5-day midrange safari through Serengeti National Park and Ngorongoro Crater — from USD 2,050 per person.",
         "description": "An authentic 5-day mid-range safari through Tanzania’s most iconic wildlife destinations: the endless Serengeti plains, famous for the Great Migration and big cats, and Ngorongoro Crater, a UNESCO World Heritage Site and one of Africa’s densest wildlife habitats. Comfortable 4×4 vehicles, an experienced Big Five guide, and carefully selected mid-range lodges and tented camps.",
@@ -6041,10 +6041,10 @@
         "faq": [],
         "map": null,
         "seo": {
-          "title": "5 Days Mid-Range Safari: Serengeti & Ngorongoro Crater 2026–2027 | Golden Memories Safaris",
+          "title": "5-Day Mid-Range Safari: Serengeti & Ngorongoro Crater 2026–2027 | Golden Memories Safaris",
           "description": "A 5-day midrange safari through Serengeti National Park and Ngorongoro Crater — from USD 2,050 per person.",
           "canonical": "https://www.gmsafaris.com/tours/5-day-midrange-serengeti-ngorongoro-safari/",
-          "og_title": "5 Days Mid-Range Safari: Serengeti & Ngorongoro Crater 2026–2027",
+          "og_title": "5-Day Mid-Range Safari: Serengeti & Ngorongoro Crater 2026–2027",
           "og_description": "A 5-day midrange safari through Serengeti National Park and Ngorongoro Crater — from USD 2,050 per person.",
           "og_image": "/images/gallery/ngorongoro-01.webp",
           "robots": "index,follow"
@@ -6132,7 +6132,7 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-21T20:24:48.301Z",
-      "updated_at": "2026-09-22T06:14:00.251Z",
+      "updated_at": "2026-09-22T21:46:36.843Z",
       "published_at": "2026-09-21T20:24:48.362Z"
     }
   ],
@@ -6304,6 +6304,26 @@
     }
   ],
   "auditLogs": [
+    {
+      "id": "845dcb9e-3ab6-4b8c-b15f-23c9c0b5cf03",
+      "actorId": "e055562b-435d-4c30-b9b8-7a71f17c56a8",
+      "actorEmail": "shayojohnraphael@gmail.com",
+      "action": "auth.login",
+      "resource": "user",
+      "resourceId": "e055562b-435d-4c30-b9b8-7a71f17c56a8",
+      "metadata": {},
+      "timestamp": "2026-09-22T21:46:44.473Z"
+    },
+    {
+      "id": "e99e3cd2-a4f5-47ad-8ec1-0a417511f642",
+      "actorId": "e055562b-435d-4c30-b9b8-7a71f17c56a8",
+      "actorEmail": "shayojohnraphael@gmail.com",
+      "action": "auth.login",
+      "resource": "user",
+      "resourceId": "e055562b-435d-4c30-b9b8-7a71f17c56a8",
+      "metadata": {},
+      "timestamp": "2026-09-22T20:23:55.835Z"
+    },
     {
       "id": "14497ba3-599e-41a6-bd1b-7fac4968d657",
       "actorId": "e055562b-435d-4c30-b9b8-7a71f17c56a8",
@@ -18369,7 +18389,7 @@
       "slug": "join-safari",
       "status": "PUBLISHED",
       "draft": {
-        "title": "Join Safari",
+        "title": "Group Safari",
         "slug": "join-safari",
         "kicker": "Open departures",
         "hero_image": "",
@@ -18379,7 +18399,7 @@
         "seo_description": ""
       },
       "published": {
-        "title": "Join Safari",
+        "title": "Group Safari",
         "slug": "join-safari",
         "kicker": "Open departures",
         "hero_image": "",
@@ -18467,7 +18487,11 @@
         "title": "Zanzibar Archipelago",
         "slug": "zanzibar",
         "region": "The Coast",
+        "kicker": "Spice islands & Indian Ocean",
+        "tagline": "Discover the Zanzibar Archipelago",
         "blurb": "Discover the Zanzibar Archipelago",
+        "location": "Indian Ocean, off the coast of Tanzania",
+        "cta": "Plan this safari",
         "image": "/images/gallery/zanzibar-05.webp",
         "gallery": [
           "/images/gallery/zanzibar-12.webp",
@@ -18475,7 +18499,39 @@
           "/images/gallery/zanzibar-07.webp"
         ],
         "paragraphs": "Beyond the famous main island lies the captivating Zanzibar Archipelago, a collection of islands scattered in the Indian Ocean off the coast of Tanzania. From the historical depths of Stone Town and the aromatic allure of spice plantations to the pristine beaches ideal for relaxation and vibrant coral reefs perfect for diving and snorkeling.\nThe heart and soul of Zanzibar, Stone Town is a maze of narrow streets, historic buildings, and bustling markets. A UNESCO World Heritage Site, it bears witness to the island’s rich trading history. The archipelago includes Unguja (the main island) and Pemba Island, known as the “Green Island” for its lush hills and clove production.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Beyond the famous main island lies the captivating Zanzibar Archipelago, a collection of islands scattered in the Indian Ocean off the coast of Tanzania. From the historical depths of Stone Town and the aromatic allure of spice plantations to the pristine beaches ideal for relaxation and vibrant coral reefs perfect for diving and snorkeling.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "The heart and soul of Zanzibar, Stone Town is a maze of narrow streets, historic buildings, and bustling markets. A UNESCO World Heritage Site, it bears witness to the island’s rich trading history. The archipelago includes Unguja (the main island) and Pemba Island, known as the “Green Island” for its lush hills and clove production.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "World-Class Beaches — Pristine white sands and turquoise waters awaiting you.\nRich History & Culture — Explore UNESCO World Heritage Stone Town.\nThe Spice Islands — Discover cloves, nutmeg, cinnamon and more on spice tours.\nDiving & Snorkeling — Vibrant coral reefs and marine life.",
+        "facts": "Islands | Unguja (Zanzibar), Pemba, plus smaller islets; Mafia is a separate archipelago south\nCapital | Zanzibar City (Stone Town)\nFrom Dar | ~20 min flight or ~2 hour ferry\nFrom Nyerere | ~45 min flight\nFrom Serengeti | ~1 hour flight\nBest Time | July–October; also December–February",
+        "seasons": "July–October — Prime dry weather, calm seas, and the best window to combine with Selous or Ruaha.\nDecember–February — Warm, generally good beach days. Whale sharks at Mafia October–March.\nApril–May (and November) — Long rains in April–May; short rains in November. We avoid these if sunshine is the point.",
+        "wildlife": "Reefs: tropical fish, turtles, dolphins; seasonal humpback whales. Mnemba and Chumbe for snorkel and dive days.\nJozani Forest: endemic Zanzibar red colobus, plus other forest primates.\nMafia Island (separate): whale sharks October–March. Pemba: some of the region’s strongest coral diving.\nPrison Island: Aldabra giant tortoises, 30 minutes by boat from Stone Town.",
+        "activities": "Beach time — Nungwi, Kendwa, Pongwe, Paje, Matemwe — chosen for tide, crowds and hotel style, not a single “best beach.”\nStone Town & spice tour — A walking day in the old city plus a plantation. Two nights in town is plenty for most people.\nSnorkel and dive — East and north reefs from Unguja; Pemba for serious diving; Mafia for whale sharks in season.\nJozani & dhow sunset — Red colobus in forest; traditional sail at the end of the day.",
+        "attractions": "Stone Town\nNungwi & Kendwa\nPongwe, Paje, Matemwe\nSpice plantations\nJozani Forest\nMnemba Atoll\nPemba Island\nMafia Island\nPrison Island",
+        "faqs": "How do I get there? | Fly into Zanzibar (ZNZ), or take the ferry from Dar es Salaam (about two hours). From safari, scheduled light aircraft from Nyerere (~45 minutes), Ruaha, or the Serengeti (~one hour).\nNorth or east coast? | North (Nungwi, Kendwa) if you want to swim regardless of tide. East if you prefer quieter boutique hotels and accept tidal flats. Tell us which matters more.\nHow many nights in Stone Town? | One or two. It is loud, atmospheric, and wonderful by day. Most guests then move to a beach hotel for sleep.\nSafari then beach, or beach then safari? | Safari first is the usual Golden Memories order so you land on the island tired in a good way. Fly-in from Zanzibar to the north is possible if the holiday starts on the coast.\nVisa? | Zanzibar is part of Tanzania. One Tanzania visa covers both. Check current entry rules before you fly.",
         "seo_title": "Zanzibar Archipelago",
         "seo_description": "Discover the Zanzibar Archipelago"
       },
@@ -18483,7 +18539,11 @@
         "title": "Zanzibar Archipelago",
         "slug": "zanzibar",
         "region": "The Coast",
+        "kicker": "Spice islands & Indian Ocean",
+        "tagline": "Discover the Zanzibar Archipelago",
         "blurb": "Discover the Zanzibar Archipelago",
+        "location": "Indian Ocean, off the coast of Tanzania",
+        "cta": "Plan this safari",
         "image": "/images/gallery/zanzibar-05.webp",
         "gallery": [
           "/images/gallery/zanzibar-12.webp",
@@ -18491,7 +18551,39 @@
           "/images/gallery/zanzibar-07.webp"
         ],
         "paragraphs": "Beyond the famous main island lies the captivating Zanzibar Archipelago, a collection of islands scattered in the Indian Ocean off the coast of Tanzania. From the historical depths of Stone Town and the aromatic allure of spice plantations to the pristine beaches ideal for relaxation and vibrant coral reefs perfect for diving and snorkeling.\nThe heart and soul of Zanzibar, Stone Town is a maze of narrow streets, historic buildings, and bustling markets. A UNESCO World Heritage Site, it bears witness to the island’s rich trading history. The archipelago includes Unguja (the main island) and Pemba Island, known as the “Green Island” for its lush hills and clove production.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Beyond the famous main island lies the captivating Zanzibar Archipelago, a collection of islands scattered in the Indian Ocean off the coast of Tanzania. From the historical depths of Stone Town and the aromatic allure of spice plantations to the pristine beaches ideal for relaxation and vibrant coral reefs perfect for diving and snorkeling.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "The heart and soul of Zanzibar, Stone Town is a maze of narrow streets, historic buildings, and bustling markets. A UNESCO World Heritage Site, it bears witness to the island’s rich trading history. The archipelago includes Unguja (the main island) and Pemba Island, known as the “Green Island” for its lush hills and clove production.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "World-Class Beaches — Pristine white sands and turquoise waters awaiting you.\nRich History & Culture — Explore UNESCO World Heritage Stone Town.\nThe Spice Islands — Discover cloves, nutmeg, cinnamon and more on spice tours.\nDiving & Snorkeling — Vibrant coral reefs and marine life.",
+        "facts": "Islands | Unguja (Zanzibar), Pemba, plus smaller islets; Mafia is a separate archipelago south\nCapital | Zanzibar City (Stone Town)\nFrom Dar | ~20 min flight or ~2 hour ferry\nFrom Nyerere | ~45 min flight\nFrom Serengeti | ~1 hour flight\nBest Time | July–October; also December–February",
+        "seasons": "July–October — Prime dry weather, calm seas, and the best window to combine with Selous or Ruaha.\nDecember–February — Warm, generally good beach days. Whale sharks at Mafia October–March.\nApril–May (and November) — Long rains in April–May; short rains in November. We avoid these if sunshine is the point.",
+        "wildlife": "Reefs: tropical fish, turtles, dolphins; seasonal humpback whales. Mnemba and Chumbe for snorkel and dive days.\nJozani Forest: endemic Zanzibar red colobus, plus other forest primates.\nMafia Island (separate): whale sharks October–March. Pemba: some of the region’s strongest coral diving.\nPrison Island: Aldabra giant tortoises, 30 minutes by boat from Stone Town.",
+        "activities": "Beach time — Nungwi, Kendwa, Pongwe, Paje, Matemwe — chosen for tide, crowds and hotel style, not a single “best beach.”\nStone Town & spice tour — A walking day in the old city plus a plantation. Two nights in town is plenty for most people.\nSnorkel and dive — East and north reefs from Unguja; Pemba for serious diving; Mafia for whale sharks in season.\nJozani & dhow sunset — Red colobus in forest; traditional sail at the end of the day.",
+        "attractions": "Stone Town\nNungwi & Kendwa\nPongwe, Paje, Matemwe\nSpice plantations\nJozani Forest\nMnemba Atoll\nPemba Island\nMafia Island\nPrison Island",
+        "faqs": "How do I get there? | Fly into Zanzibar (ZNZ), or take the ferry from Dar es Salaam (about two hours). From safari, scheduled light aircraft from Nyerere (~45 minutes), Ruaha, or the Serengeti (~one hour).\nNorth or east coast? | North (Nungwi, Kendwa) if you want to swim regardless of tide. East if you prefer quieter boutique hotels and accept tidal flats. Tell us which matters more.\nHow many nights in Stone Town? | One or two. It is loud, atmospheric, and wonderful by day. Most guests then move to a beach hotel for sleep.\nSafari then beach, or beach then safari? | Safari first is the usual Golden Memories order so you land on the island tired in a good way. Fly-in from Zanzibar to the north is possible if the holiday starts on the coast.\nVisa? | Zanzibar is part of Tanzania. One Tanzania visa covers both. Check current entry rules before you fly.",
         "seo_title": "Zanzibar Archipelago",
         "seo_description": "Discover the Zanzibar Archipelago"
       },
@@ -18510,10 +18602,51 @@
         "title": "Serengeti National Park",
         "slug": "serengeti",
         "region": "Northern Tanzania",
+        "kicker": "Africa’s most famous plains",
+        "tagline": "Discover the Endless Plains",
         "blurb": "Discover the Endless Plains",
+        "location": "Northern Tanzania, extending to the Kenya border",
+        "cta": "Plan this safari",
         "image": "/images/gallery/serengeti-01.webp",
+        "gallery": [
+          "/images/gallery/serengeti-02.webp",
+          "/images/gallery/serengeti-04.webp",
+          "/images/gallery/serengeti-08.webp"
+        ],
         "paragraphs": "The Serengeti National Park is a UNESCO World Heritage Site and one of the most iconic safari destinations on Earth. Its name, derived from the Maasai word “Siringet,” meaning “the place where the land runs on forever,” perfectly captures the essence of these vast, endless plains. The Serengeti is synonymous with the Great Migration, the largest overland wildlife migration on the planet, where over 1.5 million wildebeest, 200,000 zebras, and thousands of gazelles traverse the plains in search of fresh grazing.\nBeyond the migration, the Serengeti offers exceptional year-round wildlife viewing. The park is home to the Big Five (lion, leopard, elephant, rhino, buffalo) and an astonishing density of predators. The Seronera Valley, in the central Serengeti, is particularly famous for its high concentration of big cats. Whether you are witnessing a river crossing, watching a lioness stalk her prey, or simply taking in the vastness of the plains, the Serengeti is an experience that will stay with you forever.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "The Serengeti National Park is a UNESCO World Heritage Site and one of the most iconic safari destinations on Earth. Its name, derived from the Maasai word “Siringet,” meaning “the place where the land runs on forever,” perfectly captures the essence of these vast, endless plains. The Serengeti is synonymous with the Great Migration, the largest overland wildlife migration on the planet, where over 1.5 million wildebeest, 200,000 zebras, and thousands of gazelles traverse the plains in search of fresh grazing.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "Beyond the migration, the Serengeti offers exceptional year-round wildlife viewing. The park is home to the Big Five (lion, leopard, elephant, rhino, buffalo) and an astonishing density of predators. The Seronera Valley, in the central Serengeti, is particularly famous for its high concentration of big cats. Whether you are witnessing a river crossing, watching a lioness stalk her prey, or simply taking in the vastness of the plains, the Serengeti is an experience that will stay with you forever.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "The Great Migration — Witness over 1.5 million wildebeest and thousands of zebras on their annual journey.\nBig Five Destination — Home to lion, leopard, elephant, rhino, and buffalo.\nSuperb Wildlife Viewing — Exceptional year-round game viewing with high predator density.",
+        "facts": "Size | 14,763 sq km (5,700 sq mi)\nEstablished | 1951\nLocation | Northern Tanzania, contiguous with Kenya’s Masai Mara\nUNESCO Status | World Heritage Site\nRegions | Seronera, Western Corridor, North (Kogatende/Lamai), Southern plains / Ndutu\nBest Time | Year-round; camp location must match the month",
+        "seasons": "December–April · southern plains & Ndutu — Short-grass plains and calving (especially February). Superb predator action on newborn wildebeest. Mobile camps sit here for the season.\nMay–mid-July · Western Corridor & Grumeti — Herds push west and cross the Grumeti. Fewer vehicles than the Mara, still dramatic river action.\nJuly–October · north, Kogatende & Lamai — Mara River crossings, quieter roads than Kenya’s Masai Mara, and the finest walking inside the park. A long drive or a flight from Seronera.\nYear-round · Seronera — River valleys hold water and resident game when the migration is elsewhere. Busier hotels; we often base on the edge so you can dip in and out.",
+        "wildlife": "Great Migration: up to 2 million wildebeest, ~200,000 zebra, and ~350,000 gazelle (Thomson’s, Grant’s, impala).\nPredators: roughly 3–4,000 lion, plus leopard, cheetah, hyena, jackal, caracal, serval and bat-eared fox.\nPlains and woodland: buffalo, elephant, giraffe, topi, eland, hartebeest, crocodile, monitor lizard, hyrax, genet, porcupine, aardvark and aardwolf.\nPrimates: baboon, vervet and colobus. Birds: more than 500 species.",
+        "activities": "Daytime game drives — The core of a Serengeti safari. Night driving is not permitted inside the national park.\nHot-air balloon — Sunrise over the plains, then a bush breakfast — best booked with your camp nights so the launch site matches your sector.\nWalking (limited) — Allowed in parts of the far north and at a few southern camps; rules change, so we confirm before we book.\nHighlands & crater add-on — Maasai country and a Ngorongoro Crater day sit naturally on the drive or flight from Arusha.",
+        "attractions": "Great Migration\nSeronera Valley\nGrumeti River\nMara River crossings\nSouthern short-grass plains\nNdutu calving\nKopjes of the north",
+        "faqs": "When is the Great Migration in the Serengeti? | The herds are in the Serengeti all year. February is calving in the south (Ndutu). May–July they cross the Grumeti in the west. July–October they cross the Mara in the north. We place your nights in that sector, not “somewhere in the Serengeti.”\nSerengeti or Masai Mara? | They are the same ecosystem, split by the Kenya border. The wildebeest spend most of the year in Tanzania. July–October you can see river crossings from the Serengeti side, usually with fewer vehicles than the Mara.\nHow do I get there? | Fly from Arusha to Seronera, Kogatende or another seasonal airstrip (the practical choice if you are combining parks), or drive 5–6 hours from Arusha with your Golden Memories guide. International arrivals use Kilimanjaro Airport, about 45 minutes from Arusha.\nIs the Serengeti only about the migration? | No. Take the migration away and it is still one of Africa’s finest parks: resident lion, leopard, cheetah plains, and huge grazing herds. We still time camps to the herds if that is your priority.\nCan I do a night drive? | Not inside Serengeti National Park. Night drives are offered in adjoining private reserves (for example Grumeti and Loliondo) if we add those nights to the itinerary.",
         "seo_title": "Serengeti National Park",
         "seo_description": "Discover the Endless Plains"
       },
@@ -18521,10 +18654,51 @@
         "title": "Serengeti National Park",
         "slug": "serengeti",
         "region": "Northern Tanzania",
+        "kicker": "Africa’s most famous plains",
+        "tagline": "Discover the Endless Plains",
         "blurb": "Discover the Endless Plains",
+        "location": "Northern Tanzania, extending to the Kenya border",
+        "cta": "Plan this safari",
         "image": "/images/gallery/serengeti-01.webp",
+        "gallery": [
+          "/images/gallery/serengeti-02.webp",
+          "/images/gallery/serengeti-04.webp",
+          "/images/gallery/serengeti-08.webp"
+        ],
         "paragraphs": "The Serengeti National Park is a UNESCO World Heritage Site and one of the most iconic safari destinations on Earth. Its name, derived from the Maasai word “Siringet,” meaning “the place where the land runs on forever,” perfectly captures the essence of these vast, endless plains. The Serengeti is synonymous with the Great Migration, the largest overland wildlife migration on the planet, where over 1.5 million wildebeest, 200,000 zebras, and thousands of gazelles traverse the plains in search of fresh grazing.\nBeyond the migration, the Serengeti offers exceptional year-round wildlife viewing. The park is home to the Big Five (lion, leopard, elephant, rhino, buffalo) and an astonishing density of predators. The Seronera Valley, in the central Serengeti, is particularly famous for its high concentration of big cats. Whether you are witnessing a river crossing, watching a lioness stalk her prey, or simply taking in the vastness of the plains, the Serengeti is an experience that will stay with you forever.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "The Serengeti National Park is a UNESCO World Heritage Site and one of the most iconic safari destinations on Earth. Its name, derived from the Maasai word “Siringet,” meaning “the place where the land runs on forever,” perfectly captures the essence of these vast, endless plains. The Serengeti is synonymous with the Great Migration, the largest overland wildlife migration on the planet, where over 1.5 million wildebeest, 200,000 zebras, and thousands of gazelles traverse the plains in search of fresh grazing.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "Beyond the migration, the Serengeti offers exceptional year-round wildlife viewing. The park is home to the Big Five (lion, leopard, elephant, rhino, buffalo) and an astonishing density of predators. The Seronera Valley, in the central Serengeti, is particularly famous for its high concentration of big cats. Whether you are witnessing a river crossing, watching a lioness stalk her prey, or simply taking in the vastness of the plains, the Serengeti is an experience that will stay with you forever.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "The Great Migration — Witness over 1.5 million wildebeest and thousands of zebras on their annual journey.\nBig Five Destination — Home to lion, leopard, elephant, rhino, and buffalo.\nSuperb Wildlife Viewing — Exceptional year-round game viewing with high predator density.",
+        "facts": "Size | 14,763 sq km (5,700 sq mi)\nEstablished | 1951\nLocation | Northern Tanzania, contiguous with Kenya’s Masai Mara\nUNESCO Status | World Heritage Site\nRegions | Seronera, Western Corridor, North (Kogatende/Lamai), Southern plains / Ndutu\nBest Time | Year-round; camp location must match the month",
+        "seasons": "December–April · southern plains & Ndutu — Short-grass plains and calving (especially February). Superb predator action on newborn wildebeest. Mobile camps sit here for the season.\nMay–mid-July · Western Corridor & Grumeti — Herds push west and cross the Grumeti. Fewer vehicles than the Mara, still dramatic river action.\nJuly–October · north, Kogatende & Lamai — Mara River crossings, quieter roads than Kenya’s Masai Mara, and the finest walking inside the park. A long drive or a flight from Seronera.\nYear-round · Seronera — River valleys hold water and resident game when the migration is elsewhere. Busier hotels; we often base on the edge so you can dip in and out.",
+        "wildlife": "Great Migration: up to 2 million wildebeest, ~200,000 zebra, and ~350,000 gazelle (Thomson’s, Grant’s, impala).\nPredators: roughly 3–4,000 lion, plus leopard, cheetah, hyena, jackal, caracal, serval and bat-eared fox.\nPlains and woodland: buffalo, elephant, giraffe, topi, eland, hartebeest, crocodile, monitor lizard, hyrax, genet, porcupine, aardvark and aardwolf.\nPrimates: baboon, vervet and colobus. Birds: more than 500 species.",
+        "activities": "Daytime game drives — The core of a Serengeti safari. Night driving is not permitted inside the national park.\nHot-air balloon — Sunrise over the plains, then a bush breakfast — best booked with your camp nights so the launch site matches your sector.\nWalking (limited) — Allowed in parts of the far north and at a few southern camps; rules change, so we confirm before we book.\nHighlands & crater add-on — Maasai country and a Ngorongoro Crater day sit naturally on the drive or flight from Arusha.",
+        "attractions": "Great Migration\nSeronera Valley\nGrumeti River\nMara River crossings\nSouthern short-grass plains\nNdutu calving\nKopjes of the north",
+        "faqs": "When is the Great Migration in the Serengeti? | The herds are in the Serengeti all year. February is calving in the south (Ndutu). May–July they cross the Grumeti in the west. July–October they cross the Mara in the north. We place your nights in that sector, not “somewhere in the Serengeti.”\nSerengeti or Masai Mara? | They are the same ecosystem, split by the Kenya border. The wildebeest spend most of the year in Tanzania. July–October you can see river crossings from the Serengeti side, usually with fewer vehicles than the Mara.\nHow do I get there? | Fly from Arusha to Seronera, Kogatende or another seasonal airstrip (the practical choice if you are combining parks), or drive 5–6 hours from Arusha with your Golden Memories guide. International arrivals use Kilimanjaro Airport, about 45 minutes from Arusha.\nIs the Serengeti only about the migration? | No. Take the migration away and it is still one of Africa’s finest parks: resident lion, leopard, cheetah plains, and huge grazing herds. We still time camps to the herds if that is your priority.\nCan I do a night drive? | Not inside Serengeti National Park. Night drives are offered in adjoining private reserves (for example Grumeti and Loliondo) if we add those nights to the itinerary.",
         "seo_title": "Serengeti National Park",
         "seo_description": "Discover the Endless Plains"
       },
@@ -18543,10 +18717,51 @@
         "title": "Ngorongoro Conservation Area",
         "slug": "ngorongoro",
         "region": "Northern Tanzania",
+        "kicker": "World’s largest intact caldera",
+        "tagline": "The Ngorongoro Crater & Beyond",
         "blurb": "The Ngorongoro Crater & Beyond",
+        "location": "Ngorongoro District, Arusha Region, Tanzania",
+        "cta": "Plan this safari",
         "image": "/images/gallery/ngorongoro-01.webp",
+        "gallery": [
+          "/images/gallery/ngorongoro-02.webp",
+          "/images/gallery/ngorongoro-06.webp",
+          "/images/gallery/ngorongoro-04.webp"
+        ],
         "paragraphs": "The Ngorongoro Conservation Area is a UNESCO World Heritage Site and one of Africa’s most remarkable natural wonders. At its heart lies the Ngorongoro Crater, the world’s largest intact volcanic caldera, often referred to as “Africa’s Garden of Eden.” This natural amphitheater, spanning 260 square kilometers, is home to an estimated 25,000 large animals, creating one of the highest wildlife densities in Africa.\nBeyond the crater, the conservation area encompasses vast highland plains, forests, and lakes. It is also a unique multi-use area where Maasai pastoralists live alongside wildlife. The nearby Olduvai Gorge, often called the “Cradle of Mankind,” is one of the most important paleoanthropological sites in the world, where some of the earliest human remains have been discovered.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "The Ngorongoro Conservation Area is a UNESCO World Heritage Site and one of Africa’s most remarkable natural wonders. At its heart lies the Ngorongoro Crater, the world’s largest intact volcanic caldera, often referred to as “Africa’s Garden of Eden.” This natural amphitheater, spanning 260 square kilometers, is home to an estimated 25,000 large animals, creating one of the highest wildlife densities in Africa.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "Beyond the crater, the conservation area encompasses vast highland plains, forests, and lakes. It is also a unique multi-use area where Maasai pastoralists live alongside wildlife. The nearby Olduvai Gorge, often called the “Cradle of Mankind,” is one of the most important paleoanthropological sites in the world, where some of the earliest human remains have been discovered.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "The Ngorongoro Crater — The world’s largest intact volcanic caldera, teeming with wildlife.\nIncredible Wildlife Density — Home to approximately 25,000 large animals within the crater.\nBig Five Sightings — Excellent chance to see all Big Five, including the endangered black rhino.",
+        "facts": "Conservation area | 8,292 sq km\nCrater floor | ~260 sq km\nFormed | Caldera collapse ~3 million years ago\nUNESCO Status | World Heritage Site\nAccess | Drive from Arusha or fly to Lake Manyara airstrip\nBest Time | Year-round; two nights recommended",
+        "seasons": "Any month — Game stays on the floor year-round. Low season can mean fewer vehicles and a more pleasant crater day.\nAfter rains · Lake Magadi — Higher water often concentrates flamingos in the centre of the crater.\nDry months (June–October) — Clear skies, easier roads from Arusha, and the classic northern-circuit weather window.",
+        "wildlife": "Big Five: lion, leopard, elephant, endangered black rhino, Cape buffalo — Ngorongoro is Tanzania’s most consistent Big Five day.\nHerds: wildebeest, zebra, buffalo, Grant’s and Thomson’s gazelle, hippo, eland, waterbuck, warthog.\nPredators and smaller carnivores: spotted hyena, cheetah, jackal, serval, bat-eared fox.\nBirds: about 400 species, including flamingos on Lake Magadi, ostrich and crowned crane.",
+        "activities": "Crater-floor game drive — A half- or full-day descent. Picnic sites only for leaving the vehicle. We aim for the early gate to stay ahead of traffic.\nOlduvai Gorge — The “Cradle of Mankind” on the Serengeti road — a short museum and landscape stop when the itinerary allows.\nMaasai highlands — Village visits and walking in the conservation area, not on the crater floor.\nEmpakaai & Olmoti — Quieter volcanic craters and rim hikes for guests who want more than a single Ngorongoro day.",
+        "attractions": "Ngorongoro Crater\nLake Magadi\nOlduvai Gorge\nEmpakaai Crater\nOlmoti Crater\nKaratu highlands\nMaasai villages",
+        "faqs": "Can I stay on the crater floor? | No. Overnight stays are not allowed on the floor. Sleep on the rim for the view, or in Karatu for smaller lodges and extra activities — both work for an early descent.\nHow do I get there from Arusha? | Drive 3–4 hours with your Golden Memories vehicle (often the same guide from Kilimanjaro Airport). Fly-in camps use Lake Manyara airstrip. A night either side of the descent is essential if you are driving.\nWhen should I visit? | Any month. The crater is a unique micro-climate. We still prefer two nights so you are not sharing the floor with the late-morning rush.\nWill I see black rhino? | Ngorongoro is one of the best places in Tanzania to see black rhino. Sightings are never guaranteed, but the odds here are better than in the Serengeti.\nWhat can I do besides game drives? | Inside the crater, drives only. In the wider conservation area: walking, Olduvai, Empakaai, mountain biking from some highland lodges, and Maasai visits.",
         "seo_title": "Ngorongoro Conservation Area",
         "seo_description": "The Ngorongoro Crater & Beyond"
       },
@@ -18554,10 +18769,51 @@
         "title": "Ngorongoro Conservation Area",
         "slug": "ngorongoro",
         "region": "Northern Tanzania",
+        "kicker": "World’s largest intact caldera",
+        "tagline": "The Ngorongoro Crater & Beyond",
         "blurb": "The Ngorongoro Crater & Beyond",
+        "location": "Ngorongoro District, Arusha Region, Tanzania",
+        "cta": "Plan this safari",
         "image": "/images/gallery/ngorongoro-01.webp",
+        "gallery": [
+          "/images/gallery/ngorongoro-02.webp",
+          "/images/gallery/ngorongoro-06.webp",
+          "/images/gallery/ngorongoro-04.webp"
+        ],
         "paragraphs": "The Ngorongoro Conservation Area is a UNESCO World Heritage Site and one of Africa’s most remarkable natural wonders. At its heart lies the Ngorongoro Crater, the world’s largest intact volcanic caldera, often referred to as “Africa’s Garden of Eden.” This natural amphitheater, spanning 260 square kilometers, is home to an estimated 25,000 large animals, creating one of the highest wildlife densities in Africa.\nBeyond the crater, the conservation area encompasses vast highland plains, forests, and lakes. It is also a unique multi-use area where Maasai pastoralists live alongside wildlife. The nearby Olduvai Gorge, often called the “Cradle of Mankind,” is one of the most important paleoanthropological sites in the world, where some of the earliest human remains have been discovered.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "The Ngorongoro Conservation Area is a UNESCO World Heritage Site and one of Africa’s most remarkable natural wonders. At its heart lies the Ngorongoro Crater, the world’s largest intact volcanic caldera, often referred to as “Africa’s Garden of Eden.” This natural amphitheater, spanning 260 square kilometers, is home to an estimated 25,000 large animals, creating one of the highest wildlife densities in Africa.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "Beyond the crater, the conservation area encompasses vast highland plains, forests, and lakes. It is also a unique multi-use area where Maasai pastoralists live alongside wildlife. The nearby Olduvai Gorge, often called the “Cradle of Mankind,” is one of the most important paleoanthropological sites in the world, where some of the earliest human remains have been discovered.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "The Ngorongoro Crater — The world’s largest intact volcanic caldera, teeming with wildlife.\nIncredible Wildlife Density — Home to approximately 25,000 large animals within the crater.\nBig Five Sightings — Excellent chance to see all Big Five, including the endangered black rhino.",
+        "facts": "Conservation area | 8,292 sq km\nCrater floor | ~260 sq km\nFormed | Caldera collapse ~3 million years ago\nUNESCO Status | World Heritage Site\nAccess | Drive from Arusha or fly to Lake Manyara airstrip\nBest Time | Year-round; two nights recommended",
+        "seasons": "Any month — Game stays on the floor year-round. Low season can mean fewer vehicles and a more pleasant crater day.\nAfter rains · Lake Magadi — Higher water often concentrates flamingos in the centre of the crater.\nDry months (June–October) — Clear skies, easier roads from Arusha, and the classic northern-circuit weather window.",
+        "wildlife": "Big Five: lion, leopard, elephant, endangered black rhino, Cape buffalo — Ngorongoro is Tanzania’s most consistent Big Five day.\nHerds: wildebeest, zebra, buffalo, Grant’s and Thomson’s gazelle, hippo, eland, waterbuck, warthog.\nPredators and smaller carnivores: spotted hyena, cheetah, jackal, serval, bat-eared fox.\nBirds: about 400 species, including flamingos on Lake Magadi, ostrich and crowned crane.",
+        "activities": "Crater-floor game drive — A half- or full-day descent. Picnic sites only for leaving the vehicle. We aim for the early gate to stay ahead of traffic.\nOlduvai Gorge — The “Cradle of Mankind” on the Serengeti road — a short museum and landscape stop when the itinerary allows.\nMaasai highlands — Village visits and walking in the conservation area, not on the crater floor.\nEmpakaai & Olmoti — Quieter volcanic craters and rim hikes for guests who want more than a single Ngorongoro day.",
+        "attractions": "Ngorongoro Crater\nLake Magadi\nOlduvai Gorge\nEmpakaai Crater\nOlmoti Crater\nKaratu highlands\nMaasai villages",
+        "faqs": "Can I stay on the crater floor? | No. Overnight stays are not allowed on the floor. Sleep on the rim for the view, or in Karatu for smaller lodges and extra activities — both work for an early descent.\nHow do I get there from Arusha? | Drive 3–4 hours with your Golden Memories vehicle (often the same guide from Kilimanjaro Airport). Fly-in camps use Lake Manyara airstrip. A night either side of the descent is essential if you are driving.\nWhen should I visit? | Any month. The crater is a unique micro-climate. We still prefer two nights so you are not sharing the floor with the late-morning rush.\nWill I see black rhino? | Ngorongoro is one of the best places in Tanzania to see black rhino. Sightings are never guaranteed, but the odds here are better than in the Serengeti.\nWhat can I do besides game drives? | Inside the crater, drives only. In the wider conservation area: walking, Olduvai, Empakaai, mountain biking from some highland lodges, and Maasai visits.",
         "seo_title": "Ngorongoro Conservation Area",
         "seo_description": "The Ngorongoro Crater & Beyond"
       },
@@ -18576,10 +18832,51 @@
         "title": "Tarangire National Park",
         "slug": "tarangire",
         "region": "Northern Tanzania",
+        "kicker": "Quiet elephant country",
+        "tagline": "Tarangire: Elephants & Baobabs",
         "blurb": "Tarangire: Elephants & Baobabs",
+        "location": "Manyara Region, Northern Tanzania",
+        "cta": "Plan this safari",
         "image": "/images/gallery/tarangire-01.webp",
+        "gallery": [
+          "/images/gallery/tarangire-01.webp",
+          "/images/gallery/tarangire-02.webp",
+          "/images/gallery/tarangire-03.webp"
+        ],
         "paragraphs": "Tarangire National Park is a hidden gem in northern Tanzania, often described as the “Land of Giants” for its massive elephant herds and iconic baobab trees. Spanning 2,850 square kilometers, the park is named after the Tarangire River, which serves as the lifeline for wildlife during the dry season. During this time, the park hosts one of the highest concentrations of wildlife outside the Serengeti.\nThe park is particularly famous for its elephant population, with herds of up to 300 individuals. The ancient baobab trees, some over 1,000 years old, create a surreal and photogenic landscape. Tarangire is also a birdwatcher’s paradise, with over 550 species recorded, including the rare yellow-collared lovebird. With fewer crowds than the Serengeti, Tarangire offers a more intimate and exclusive safari experience.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Tarangire National Park is a hidden gem in northern Tanzania, often described as the “Land of Giants” for its massive elephant herds and iconic baobab trees. Spanning 2,850 square kilometers, the park is named after the Tarangire River, which serves as the lifeline for wildlife during the dry season. During this time, the park hosts one of the highest concentrations of wildlife outside the Serengeti.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "The park is particularly famous for its elephant population, with herds of up to 300 individuals. The ancient baobab trees, some over 1,000 years old, create a surreal and photogenic landscape. Tarangire is also a birdwatcher’s paradise, with over 550 species recorded, including the rare yellow-collared lovebird. With fewer crowds than the Serengeti, Tarangire offers a more intimate and exclusive safari experience.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Huge Elephant Herds — Home to some of the largest elephant herds in East Africa, with groups of up to 300.\nIconic Baobab Trees — Ancient baobab trees create a surreal and photogenic landscape.\nSuperb Bird Watching — Over 550 species, including the rare yellow-collared lovebird.\nLess Crowded — Offers a more intimate and exclusive safari experience.",
+        "facts": "Size | 2,850 sq km\nEstablished | 1970\nLocation | Manyara Region, ~2 hours from Arusha\nPeak elephants | Up to ~3,000 in the dry season\nBird species | 550+\nBest Time | June–October",
+        "seasons": "June–October (best game) — Dry-season river concentrations. This is when Tarangire earns its place on a northern itinerary.\nNovember–May — Game spreads onto the Maasai steppe. Quieter roads, still worth it if you want space rather than density. December–March can be tsetse-heavy.",
+        "wildlife": "Elephants: the main draw, with peak-season numbers around 3,000.\nDry-season herds: wildebeest, zebra, giraffe, buffalo, Thomson’s gazelle, greater and lesser kudu, eland.\nPredators: lion, leopard, cheetah. Rare: oryx, gerenuk, dwarf mongoose.\nBirds: one of Tanzania’s finest lists (550+ species), including yellow-collared lovebird.",
+        "activities": "River game drives — Morning, afternoon and full days along the Tarangire River and into the quieter south.\nWalking safaris — Guided walks from selected camps; stronger in the south.\nNight drives — Offered by some lodges inside the park (not all). We check TANAPA permissions when we book.\nBirding — A serious add-on for anyone who cares about East African specials, not just the Big Five.",
+        "attractions": "Tarangire River\nBaobab woodland\nSilale Swamp\nSouthern wilderness\nMaasai steppe (seasonal)",
+        "faqs": "When must I visit Tarangire? | June–October if you want the famous river herds. Other months are quieter and greener, with less concentrated game. We usually skip December–March here because of tsetse and because Serengeti calving is a better use of those dates.\nHow far from Arusha? | About two hours by road — an easy first or last park on a northern circuit.\nIs it less crowded than the Serengeti? | Yes. Many groups never leave the northern gate area. Stay deeper (or in the south) and you will see far fewer vehicles than on Seronera or the crater floor.\nNight drives? | Allowed in Tarangire, but only some lodges operate them. Camps outside the park generally cannot. Tell us if a night drive is a priority.",
         "seo_title": "Tarangire National Park",
         "seo_description": "Tarangire: Elephants & Baobabs"
       },
@@ -18587,10 +18884,51 @@
         "title": "Tarangire National Park",
         "slug": "tarangire",
         "region": "Northern Tanzania",
+        "kicker": "Quiet elephant country",
+        "tagline": "Tarangire: Elephants & Baobabs",
         "blurb": "Tarangire: Elephants & Baobabs",
+        "location": "Manyara Region, Northern Tanzania",
+        "cta": "Plan this safari",
         "image": "/images/gallery/tarangire-01.webp",
+        "gallery": [
+          "/images/gallery/tarangire-01.webp",
+          "/images/gallery/tarangire-02.webp",
+          "/images/gallery/tarangire-03.webp"
+        ],
         "paragraphs": "Tarangire National Park is a hidden gem in northern Tanzania, often described as the “Land of Giants” for its massive elephant herds and iconic baobab trees. Spanning 2,850 square kilometers, the park is named after the Tarangire River, which serves as the lifeline for wildlife during the dry season. During this time, the park hosts one of the highest concentrations of wildlife outside the Serengeti.\nThe park is particularly famous for its elephant population, with herds of up to 300 individuals. The ancient baobab trees, some over 1,000 years old, create a surreal and photogenic landscape. Tarangire is also a birdwatcher’s paradise, with over 550 species recorded, including the rare yellow-collared lovebird. With fewer crowds than the Serengeti, Tarangire offers a more intimate and exclusive safari experience.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Tarangire National Park is a hidden gem in northern Tanzania, often described as the “Land of Giants” for its massive elephant herds and iconic baobab trees. Spanning 2,850 square kilometers, the park is named after the Tarangire River, which serves as the lifeline for wildlife during the dry season. During this time, the park hosts one of the highest concentrations of wildlife outside the Serengeti.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "The park is particularly famous for its elephant population, with herds of up to 300 individuals. The ancient baobab trees, some over 1,000 years old, create a surreal and photogenic landscape. Tarangire is also a birdwatcher’s paradise, with over 550 species recorded, including the rare yellow-collared lovebird. With fewer crowds than the Serengeti, Tarangire offers a more intimate and exclusive safari experience.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Huge Elephant Herds — Home to some of the largest elephant herds in East Africa, with groups of up to 300.\nIconic Baobab Trees — Ancient baobab trees create a surreal and photogenic landscape.\nSuperb Bird Watching — Over 550 species, including the rare yellow-collared lovebird.\nLess Crowded — Offers a more intimate and exclusive safari experience.",
+        "facts": "Size | 2,850 sq km\nEstablished | 1970\nLocation | Manyara Region, ~2 hours from Arusha\nPeak elephants | Up to ~3,000 in the dry season\nBird species | 550+\nBest Time | June–October",
+        "seasons": "June–October (best game) — Dry-season river concentrations. This is when Tarangire earns its place on a northern itinerary.\nNovember–May — Game spreads onto the Maasai steppe. Quieter roads, still worth it if you want space rather than density. December–March can be tsetse-heavy.",
+        "wildlife": "Elephants: the main draw, with peak-season numbers around 3,000.\nDry-season herds: wildebeest, zebra, giraffe, buffalo, Thomson’s gazelle, greater and lesser kudu, eland.\nPredators: lion, leopard, cheetah. Rare: oryx, gerenuk, dwarf mongoose.\nBirds: one of Tanzania’s finest lists (550+ species), including yellow-collared lovebird.",
+        "activities": "River game drives — Morning, afternoon and full days along the Tarangire River and into the quieter south.\nWalking safaris — Guided walks from selected camps; stronger in the south.\nNight drives — Offered by some lodges inside the park (not all). We check TANAPA permissions when we book.\nBirding — A serious add-on for anyone who cares about East African specials, not just the Big Five.",
+        "attractions": "Tarangire River\nBaobab woodland\nSilale Swamp\nSouthern wilderness\nMaasai steppe (seasonal)",
+        "faqs": "When must I visit Tarangire? | June–October if you want the famous river herds. Other months are quieter and greener, with less concentrated game. We usually skip December–March here because of tsetse and because Serengeti calving is a better use of those dates.\nHow far from Arusha? | About two hours by road — an easy first or last park on a northern circuit.\nIs it less crowded than the Serengeti? | Yes. Many groups never leave the northern gate area. Stay deeper (or in the south) and you will see far fewer vehicles than on Seronera or the crater floor.\nNight drives? | Allowed in Tarangire, but only some lodges operate them. Camps outside the park generally cannot. Tell us if a night drive is a priority.",
         "seo_title": "Tarangire National Park",
         "seo_description": "Tarangire: Elephants & Baobabs"
       },
@@ -18609,10 +18947,51 @@
         "title": "Lake Manyara National Park",
         "slug": "lake-manyara",
         "region": "Northern Tanzania",
+        "kicker": "Rift escarpment & soda lake",
+        "tagline": "Lake Manyara: Lions in Trees & Pink Hues",
         "blurb": "Lake Manyara: Lions in Trees & Pink Hues",
+        "location": "Manyara Region, Northern Tanzania",
+        "cta": "Plan this safari",
         "image": "/images/gallery/ngorongoro-01.webp",
+        "gallery": [
+          "/images/gallery/ngorongoro-07.webp",
+          "/images/gallery/ngorongoro-04.webp",
+          "/images/gallery/tarangire-01.webp"
+        ],
         "paragraphs": "Nestled dramatically at the base of the Great Rift Valley escarpment, Lake Manyara National Park offers a compact yet incredibly diverse safari experience. Famous for its elusive tree-climbing lions and the vast flocks of flamingos that tinge the alkaline lake pink, Manyara provides a beautiful introduction or addition to a northern circuit safari.\nExplore the unique groundwater forest teeming with baboons and monkeys, drive along the scenic lakeshore watching hippos and water birds, and marvel at the stunning backdrop of the rift wall. Despite its smaller size, Manyara packs a punch with varied habitats and surprising wildlife encounters.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Nestled dramatically at the base of the Great Rift Valley escarpment, Lake Manyara National Park offers a compact yet incredibly diverse safari experience. Famous for its elusive tree-climbing lions and the vast flocks of flamingos that tinge the alkaline lake pink, Manyara provides a beautiful introduction or addition to a northern circuit safari.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "Explore the unique groundwater forest teeming with baboons and monkeys, drive along the scenic lakeshore watching hippos and water birds, and marvel at the stunning backdrop of the rift wall. Despite its smaller size, Manyara packs a punch with varied habitats and surprising wildlife encounters.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Tree-Climbing Lions — One of the best places in Tanzania to potentially spot lions resting in acacia trees.\nFlamingo Flocks — Witness thousands of pink flamingos wading in the alkaline lake.\nAbundant Birdlife — Over 400 species recorded, including waterfowl, raptors, and forest birds.\nGroundwater Forest — Explore a unique, lush forest environment fed by underground springs.",
+        "facts": "Size | 330 sq km (much of it lake)\nEstablished | 1960\nLocation | Base of the Rift escarpment, Manyara Region\nBest as | Half day or afternoon on a northern circuit\nPeak window | July–October (still useful year-round as a stop)\nAccess | Road from Arusha; airstrip for Ngorongoro fly-ins",
+        "seasons": "July–October — Official peak for the regional dry-season pattern. Vegetation is thinner; lions in trees are easier to pick out.\nYear-round as a stop — Game densities never match Tarangire or the crater. If you are driving past, Manyara is still worth a few hours in any month.",
+        "wildlife": "Tree-climbing lions — famous, unpredictable. Elephants and some of Africa’s largest baboon troops.\nLakeshore game: wildebeest, buffalo, hippo, flamingo, zebra, warthog, waterbuck, giraffe, dik-dik, impala.\nBirds: excellent raptor watching plus waterbirds; flamingo numbers swing wildly between lakes.",
+        "activities": "Daytime game drives — Forest, acacia and lakeshore in a few hours — the usual shape on a northern circuit.\nNight drives & short walks — Offered from some camps inside the park. Rim and Karatu lodges add hiking, cycling and village visits.\nTreetop walkway — A canopy walk through the groundwater forest — a different view from the vehicle circuit.\nBirding — Raptors and waterbirds; flamingos only when the lake happens to hold them.",
+        "attractions": "Lake Manyara\nRift Valley escarpment\nGroundwater forest\nTree-climbing lions\nTreetop walkway\nManyara airstrip (for Ngorongoro)",
+        "faqs": "Is Manyara worth a night? | Usually a half day or an afternoon on the way to Ngorongoro is enough. Game is not in the same league as Tarangire, the crater or the Serengeti. Stay longer only if you want rim walks, night drives, or a slow start before the highlands.\nWill I see flamingos? | Maybe. They move between East African soda lakes. You might see one bird or thousands. We do not build an itinerary around a pink shoreline.\nTree-climbing lions — guaranteed? | No. It is the park’s famous behaviour, not a daily certainty. Even without them, the forest-and-escarpment drive is worth the stop.\nHow far from Arusha? | About two hours by road, on the way to Karatu and Ngorongoro. Manyara airstrip is the usual flight in for crater lodges.",
         "seo_title": "Lake Manyara National Park",
         "seo_description": "Lake Manyara: Lions in Trees & Pink Hues"
       },
@@ -18620,10 +18999,51 @@
         "title": "Lake Manyara National Park",
         "slug": "lake-manyara",
         "region": "Northern Tanzania",
+        "kicker": "Rift escarpment & soda lake",
+        "tagline": "Lake Manyara: Lions in Trees & Pink Hues",
         "blurb": "Lake Manyara: Lions in Trees & Pink Hues",
+        "location": "Manyara Region, Northern Tanzania",
+        "cta": "Plan this safari",
         "image": "/images/gallery/ngorongoro-01.webp",
+        "gallery": [
+          "/images/gallery/ngorongoro-07.webp",
+          "/images/gallery/ngorongoro-04.webp",
+          "/images/gallery/tarangire-01.webp"
+        ],
         "paragraphs": "Nestled dramatically at the base of the Great Rift Valley escarpment, Lake Manyara National Park offers a compact yet incredibly diverse safari experience. Famous for its elusive tree-climbing lions and the vast flocks of flamingos that tinge the alkaline lake pink, Manyara provides a beautiful introduction or addition to a northern circuit safari.\nExplore the unique groundwater forest teeming with baboons and monkeys, drive along the scenic lakeshore watching hippos and water birds, and marvel at the stunning backdrop of the rift wall. Despite its smaller size, Manyara packs a punch with varied habitats and surprising wildlife encounters.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Nestled dramatically at the base of the Great Rift Valley escarpment, Lake Manyara National Park offers a compact yet incredibly diverse safari experience. Famous for its elusive tree-climbing lions and the vast flocks of flamingos that tinge the alkaline lake pink, Manyara provides a beautiful introduction or addition to a northern circuit safari.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "Explore the unique groundwater forest teeming with baboons and monkeys, drive along the scenic lakeshore watching hippos and water birds, and marvel at the stunning backdrop of the rift wall. Despite its smaller size, Manyara packs a punch with varied habitats and surprising wildlife encounters.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Tree-Climbing Lions — One of the best places in Tanzania to potentially spot lions resting in acacia trees.\nFlamingo Flocks — Witness thousands of pink flamingos wading in the alkaline lake.\nAbundant Birdlife — Over 400 species recorded, including waterfowl, raptors, and forest birds.\nGroundwater Forest — Explore a unique, lush forest environment fed by underground springs.",
+        "facts": "Size | 330 sq km (much of it lake)\nEstablished | 1960\nLocation | Base of the Rift escarpment, Manyara Region\nBest as | Half day or afternoon on a northern circuit\nPeak window | July–October (still useful year-round as a stop)\nAccess | Road from Arusha; airstrip for Ngorongoro fly-ins",
+        "seasons": "July–October — Official peak for the regional dry-season pattern. Vegetation is thinner; lions in trees are easier to pick out.\nYear-round as a stop — Game densities never match Tarangire or the crater. If you are driving past, Manyara is still worth a few hours in any month.",
+        "wildlife": "Tree-climbing lions — famous, unpredictable. Elephants and some of Africa’s largest baboon troops.\nLakeshore game: wildebeest, buffalo, hippo, flamingo, zebra, warthog, waterbuck, giraffe, dik-dik, impala.\nBirds: excellent raptor watching plus waterbirds; flamingo numbers swing wildly between lakes.",
+        "activities": "Daytime game drives — Forest, acacia and lakeshore in a few hours — the usual shape on a northern circuit.\nNight drives & short walks — Offered from some camps inside the park. Rim and Karatu lodges add hiking, cycling and village visits.\nTreetop walkway — A canopy walk through the groundwater forest — a different view from the vehicle circuit.\nBirding — Raptors and waterbirds; flamingos only when the lake happens to hold them.",
+        "attractions": "Lake Manyara\nRift Valley escarpment\nGroundwater forest\nTree-climbing lions\nTreetop walkway\nManyara airstrip (for Ngorongoro)",
+        "faqs": "Is Manyara worth a night? | Usually a half day or an afternoon on the way to Ngorongoro is enough. Game is not in the same league as Tarangire, the crater or the Serengeti. Stay longer only if you want rim walks, night drives, or a slow start before the highlands.\nWill I see flamingos? | Maybe. They move between East African soda lakes. You might see one bird or thousands. We do not build an itinerary around a pink shoreline.\nTree-climbing lions — guaranteed? | No. It is the park’s famous behaviour, not a daily certainty. Even without them, the forest-and-escarpment drive is worth the stop.\nHow far from Arusha? | About two hours by road, on the way to Karatu and Ngorongoro. Manyara airstrip is the usual flight in for crater lodges.",
         "seo_title": "Lake Manyara National Park",
         "seo_description": "Lake Manyara: Lions in Trees & Pink Hues"
       },
@@ -18642,10 +19062,51 @@
         "title": "Arusha National Park",
         "slug": "arusha-national-park",
         "region": "Northern Tanzania",
+        "kicker": "Meru, lakes and forest",
+        "tagline": "Explore Diverse Arusha National Park",
         "blurb": "Explore Diverse Arusha National Park",
+        "location": "Arusha Region, Northern Tanzania",
+        "cta": "Plan this safari",
         "image": "/images/gallery/culture-01.webp",
+        "gallery": [
+          "/images/gallery/kilimanjaro-03.webp",
+          "/images/gallery/culture-02.webp",
+          "/images/gallery/kilimanjaro-01.webp"
+        ],
         "paragraphs": "Arusha National Park, a hidden gem in northern Tanzania, offers a remarkable diversity of landscapes within a relatively small area. From the towering peak of Mount Meru to the tranquil Momella Lakes and the lush montane forests, this park is a microcosm of Tanzania’s natural beauty. Located just a short drive from Arusha town, it is the perfect destination for a day trip or a multi-day adventure.\nThe park is dominated by Mount Meru (4,566m), Tanzania’s second-highest mountain, which provides a stunning backdrop for game drives and walking safaris. The Momella Lakes, a series of seven alkaline lakes, are a haven for birdlife, including seasonal flamingos. The Ngurdoto Crater, often called “Little Ngorongoro,” offers a unique caldera experience. With its diverse habitats, Arusha National Park is a paradise for nature lovers, hikers, and photographers.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Arusha National Park, a hidden gem in northern Tanzania, offers a remarkable diversity of landscapes within a relatively small area. From the towering peak of Mount Meru to the tranquil Momella Lakes and the lush montane forests, this park is a microcosm of Tanzania’s natural beauty. Located just a short drive from Arusha town, it is the perfect destination for a day trip or a multi-day adventure.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "The park is dominated by Mount Meru (4,566m), Tanzania’s second-highest mountain, which provides a stunning backdrop for game drives and walking safaris. The Momella Lakes, a series of seven alkaline lakes, are a haven for birdlife, including seasonal flamingos. The Ngurdoto Crater, often called “Little Ngorongoro,” offers a unique caldera experience. With its diverse habitats, Arusha National Park is a paradise for nature lovers, hikers, and photographers.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Colobus Monkey Haven — Spot the striking black-and-white colobus monkeys leaping through the canopy.\nWalking Safaris — One of the few parks in Tanzania where guided walking safaris are permitted.\nMount Meru Backdrop — Tanzania’s second-highest peak provides a dramatic and scenic backdrop.\nMomella Lakes — Seven alkaline lakes offering stunning scenery and excellent birdwatching.",
+        "facts": "Size | 552 sq km\nEstablished | 1960\nHighest point | Mount Meru, 4,566 m\nFrom Arusha | About 45–60 minutes\nKnown for | Walking, canoeing, colobus, Meru\nBest Time | June–October for views and climbing",
+        "seasons": "June–October — Clearer views of Meru and Kilimanjaro; better trails for Meru climbs.\nNovember–May — Green forest, strong birding, seasonal flamingos on the lakes. Still an easy day from town.",
+        "wildlife": "Primates: black-and-white colobus, blue monkeys, olive baboons — the park’s real draw.\nPlains and forest: giraffe, buffalo, zebra, warthog, bushbuck, waterbuck, duiker. Leopard is present but rarely seen; this is not predator country.\nBirds: 400+ species, including seasonal flamingos on Momella, turacos, trogons and fish eagles.",
+        "activities": "Walking safari — Guided on foot through forest and lakeshore — one of the few northern parks that allow it.\nCanoeing Momella Lakes — A quiet afternoon with Meru on the skyline; useful if you have a late flight.\nGame drive — Ngurdoto Crater, forest and lakes in a compact loop.\nMount Meru climb — Multi-day trekking for experienced hikers; harder and less crowded than Kilimanjaro.",
+        "attractions": "Mount Meru\nMomella Lakes\nNgurdoto Crater\nMontane forest\nFig Tree Arch\nKilimanjaro views (clear days)",
+        "faqs": "Is this a substitute for Serengeti? | No. It lacks the predator densities of the circuit parks. Come for walking, canoeing, colobus and Meru — then drive or fly to Tarangire, Ngorongoro and Serengeti for classic game.\nHow far from Arusha? | About 45 minutes to an hour from town. International flights land at Kilimanjaro Airport, roughly the same drive in the other direction.\nCan I climb Meru instead of Kilimanjaro? | Yes, if you want a quieter, more technical mountain. Most first-time visitors still choose Kilimanjaro and use this park as a rest or walking day.\nWhen should I add it? | Arrival or departure days, after a Kilimanjaro trek, or when you specifically want to walk. We do not insert it in the middle of a tight Serengeti itinerary.",
         "seo_title": "Arusha National Park",
         "seo_description": "Explore Diverse Arusha National Park"
       },
@@ -18653,10 +19114,51 @@
         "title": "Arusha National Park",
         "slug": "arusha-national-park",
         "region": "Northern Tanzania",
+        "kicker": "Meru, lakes and forest",
+        "tagline": "Explore Diverse Arusha National Park",
         "blurb": "Explore Diverse Arusha National Park",
+        "location": "Arusha Region, Northern Tanzania",
+        "cta": "Plan this safari",
         "image": "/images/gallery/culture-01.webp",
+        "gallery": [
+          "/images/gallery/kilimanjaro-03.webp",
+          "/images/gallery/culture-02.webp",
+          "/images/gallery/kilimanjaro-01.webp"
+        ],
         "paragraphs": "Arusha National Park, a hidden gem in northern Tanzania, offers a remarkable diversity of landscapes within a relatively small area. From the towering peak of Mount Meru to the tranquil Momella Lakes and the lush montane forests, this park is a microcosm of Tanzania’s natural beauty. Located just a short drive from Arusha town, it is the perfect destination for a day trip or a multi-day adventure.\nThe park is dominated by Mount Meru (4,566m), Tanzania’s second-highest mountain, which provides a stunning backdrop for game drives and walking safaris. The Momella Lakes, a series of seven alkaline lakes, are a haven for birdlife, including seasonal flamingos. The Ngurdoto Crater, often called “Little Ngorongoro,” offers a unique caldera experience. With its diverse habitats, Arusha National Park is a paradise for nature lovers, hikers, and photographers.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Arusha National Park, a hidden gem in northern Tanzania, offers a remarkable diversity of landscapes within a relatively small area. From the towering peak of Mount Meru to the tranquil Momella Lakes and the lush montane forests, this park is a microcosm of Tanzania’s natural beauty. Located just a short drive from Arusha town, it is the perfect destination for a day trip or a multi-day adventure.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "The park is dominated by Mount Meru (4,566m), Tanzania’s second-highest mountain, which provides a stunning backdrop for game drives and walking safaris. The Momella Lakes, a series of seven alkaline lakes, are a haven for birdlife, including seasonal flamingos. The Ngurdoto Crater, often called “Little Ngorongoro,” offers a unique caldera experience. With its diverse habitats, Arusha National Park is a paradise for nature lovers, hikers, and photographers.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Colobus Monkey Haven — Spot the striking black-and-white colobus monkeys leaping through the canopy.\nWalking Safaris — One of the few parks in Tanzania where guided walking safaris are permitted.\nMount Meru Backdrop — Tanzania’s second-highest peak provides a dramatic and scenic backdrop.\nMomella Lakes — Seven alkaline lakes offering stunning scenery and excellent birdwatching.",
+        "facts": "Size | 552 sq km\nEstablished | 1960\nHighest point | Mount Meru, 4,566 m\nFrom Arusha | About 45–60 minutes\nKnown for | Walking, canoeing, colobus, Meru\nBest Time | June–October for views and climbing",
+        "seasons": "June–October — Clearer views of Meru and Kilimanjaro; better trails for Meru climbs.\nNovember–May — Green forest, strong birding, seasonal flamingos on the lakes. Still an easy day from town.",
+        "wildlife": "Primates: black-and-white colobus, blue monkeys, olive baboons — the park’s real draw.\nPlains and forest: giraffe, buffalo, zebra, warthog, bushbuck, waterbuck, duiker. Leopard is present but rarely seen; this is not predator country.\nBirds: 400+ species, including seasonal flamingos on Momella, turacos, trogons and fish eagles.",
+        "activities": "Walking safari — Guided on foot through forest and lakeshore — one of the few northern parks that allow it.\nCanoeing Momella Lakes — A quiet afternoon with Meru on the skyline; useful if you have a late flight.\nGame drive — Ngurdoto Crater, forest and lakes in a compact loop.\nMount Meru climb — Multi-day trekking for experienced hikers; harder and less crowded than Kilimanjaro.",
+        "attractions": "Mount Meru\nMomella Lakes\nNgurdoto Crater\nMontane forest\nFig Tree Arch\nKilimanjaro views (clear days)",
+        "faqs": "Is this a substitute for Serengeti? | No. It lacks the predator densities of the circuit parks. Come for walking, canoeing, colobus and Meru — then drive or fly to Tarangire, Ngorongoro and Serengeti for classic game.\nHow far from Arusha? | About 45 minutes to an hour from town. International flights land at Kilimanjaro Airport, roughly the same drive in the other direction.\nCan I climb Meru instead of Kilimanjaro? | Yes, if you want a quieter, more technical mountain. Most first-time visitors still choose Kilimanjaro and use this park as a rest or walking day.\nWhen should I add it? | Arrival or departure days, after a Kilimanjaro trek, or when you specifically want to walk. We do not insert it in the middle of a tight Serengeti itinerary.",
         "seo_title": "Arusha National Park",
         "seo_description": "Explore Diverse Arusha National Park"
       },
@@ -18675,10 +19177,51 @@
         "title": "Mount Kilimanjaro",
         "slug": "kilimanjaro",
         "region": "Northern Tanzania",
+        "kicker": "Roof of Africa",
+        "tagline": "The Ultimate Kilimanjaro Trek",
         "blurb": "The Ultimate Kilimanjaro Trek",
+        "location": "Kilimanjaro Region, on the Tanzania–Kenya border",
+        "cta": "Plan this safari",
         "image": "/images/gallery/kilimanjaro-01.webp",
+        "gallery": [
+          "/images/gallery/kilimanjaro-01.webp",
+          "/images/gallery/kilimanjaro-02.webp",
+          "/images/gallery/kilimanjaro-04.webp"
+        ],
         "paragraphs": "Embark on the adventure of a lifetime: climbing Mount Kilimanjaro. Standing at 5,895 meters (19,341 ft), it’s not just Africa’s highest peak but also the world’s tallest free-standing mountain, rising dramatically from the surrounding plains. Reaching the summit, Uhuru Peak, is a profound personal achievement accessible to determined hikers.\nThe journey takes you through breathtakingly diverse ecological zones, from tropical rainforest to alpine desert and finally to the arctic conditions of the summit’s glaciers. With Golden Memories Safaris, you’ll have experienced guides, a dedicated support crew, and a focus on safety and acclimatization, maximizing your chances of successfully standing on the Roof of Africa.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Embark on the adventure of a lifetime: climbing Mount Kilimanjaro. Standing at 5,895 meters (19,341 ft), it’s not just Africa’s highest peak but also the world’s tallest free-standing mountain, rising dramatically from the surrounding plains. Reaching the summit, Uhuru Peak, is a profound personal achievement accessible to determined hikers.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "The journey takes you through breathtakingly diverse ecological zones, from tropical rainforest to alpine desert and finally to the arctic conditions of the summit’s glaciers. With Golden Memories Safaris, you’ll have experienced guides, a dedicated support crew, and a focus on safety and acclimatization, maximizing your chances of successfully standing on the Roof of Africa.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Reach a “Seven Summit” — Join an elite group by conquering one of the world’s continental high points.\nStand on Africa’s Roof — Experience the sunrise from the highest point on the continent.\nAchievable Hiking Summit — No technical climbing gear or experience needed, just fitness and determination.\nJourney Through Ecosystems — Trek through 5 distinct climate zones in just a matter of days.",
+        "facts": "Height | 5,895 m / 19,340 ft (Uhuru Peak)\nType | Dormant free-standing volcano\nFirst ascent | 1889, Hans Meyer and Ludwig Purtscheller\nTypical duration | 6–8 nights (4 minimum; 9 on Northern Circuit)\nMain risk | Altitude sickness, not technical climbing\nBest Time | July–October; also December–February",
+        "seasons": "July–October — Peak climbing and peak safari weather. Best chance of a clear summit morning.\nDecember–February — A second good window. Warmer lower slopes; still serious at the crater.\nMarch–May (and November) — Long rains on the forest; snow and ice higher up. We usually wait this out.",
+        "wildlife": "Forest: colobus, blue monkeys, bushbuck, duiker, and dense birdlife in the wet montane zone.\nMoorland: giant lobelia and senecio rather than large mammals.\nHigh mountain: little wildlife — klipspringer, white-necked raven, augur buzzard, sunbirds, occasional bearded vulture.",
+        "activities": "Summit trek — Non-technical hiking. Altitude is the difficulty. We staff routes for safety, not speed.\nRoute planning — Machame, Lemosho, Shira, Rongai, Northern Circuit or Marangu — chosen for days, crowds and success rate, not fashion.\nAcclimatisation days — Extra nights are the cheapest way to raise the odds of Uhuru rather than Stella or Gillman’s only.\nSafari or coast after — Northern circuit parks or Zanzibar as recovery — most climbers do not fly home the day they descend.",
+        "attractions": "Uhuru Peak\nStella Point & Gillman’s Point\nKibo crater and ash pit\nShira Plateau\nFive ecological zones\nMachame, Lemosho, Rongai, Northern Circuit",
+        "faqs": "Do I need technical climbing experience? | No ropes or alpine gear. You do need cardiovascular fitness, stamina, and respect for altitude. Many operators require a medical check before you start.\nHow long should I take? | Four nights is the minimum and a poor idea for most people. Six to eight nights is the usual range. Nine on the Northern Circuit has the highest summit rate because almost everyone has time to acclimatise.\nWhich route? | Machame is popular and crowded. Lemosho (about eight days) balances scenery and success. Rongai is the strongest six-day north-side option. Marangu uses huts. We match the line to your dates, group size and how much solitude you want.\nWhen should I climb? | Avoid March–May. July–October is the clearest, and it lines up with northern safari season. December–February is the second window.\nCan I add a safari? | Yes — and you should. Kilimanjaro sits next to the same parks we run from Arusha. A crater or Serengeti week after the descent is the usual Golden Memories shape.",
         "seo_title": "Mount Kilimanjaro",
         "seo_description": "The Ultimate Kilimanjaro Trek"
       },
@@ -18686,10 +19229,51 @@
         "title": "Mount Kilimanjaro",
         "slug": "kilimanjaro",
         "region": "Northern Tanzania",
+        "kicker": "Roof of Africa",
+        "tagline": "The Ultimate Kilimanjaro Trek",
         "blurb": "The Ultimate Kilimanjaro Trek",
+        "location": "Kilimanjaro Region, on the Tanzania–Kenya border",
+        "cta": "Plan this safari",
         "image": "/images/gallery/kilimanjaro-01.webp",
+        "gallery": [
+          "/images/gallery/kilimanjaro-01.webp",
+          "/images/gallery/kilimanjaro-02.webp",
+          "/images/gallery/kilimanjaro-04.webp"
+        ],
         "paragraphs": "Embark on the adventure of a lifetime: climbing Mount Kilimanjaro. Standing at 5,895 meters (19,341 ft), it’s not just Africa’s highest peak but also the world’s tallest free-standing mountain, rising dramatically from the surrounding plains. Reaching the summit, Uhuru Peak, is a profound personal achievement accessible to determined hikers.\nThe journey takes you through breathtakingly diverse ecological zones, from tropical rainforest to alpine desert and finally to the arctic conditions of the summit’s glaciers. With Golden Memories Safaris, you’ll have experienced guides, a dedicated support crew, and a focus on safety and acclimatization, maximizing your chances of successfully standing on the Roof of Africa.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Embark on the adventure of a lifetime: climbing Mount Kilimanjaro. Standing at 5,895 meters (19,341 ft), it’s not just Africa’s highest peak but also the world’s tallest free-standing mountain, rising dramatically from the surrounding plains. Reaching the summit, Uhuru Peak, is a profound personal achievement accessible to determined hikers.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "The journey takes you through breathtakingly diverse ecological zones, from tropical rainforest to alpine desert and finally to the arctic conditions of the summit’s glaciers. With Golden Memories Safaris, you’ll have experienced guides, a dedicated support crew, and a focus on safety and acclimatization, maximizing your chances of successfully standing on the Roof of Africa.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Reach a “Seven Summit” — Join an elite group by conquering one of the world’s continental high points.\nStand on Africa’s Roof — Experience the sunrise from the highest point on the continent.\nAchievable Hiking Summit — No technical climbing gear or experience needed, just fitness and determination.\nJourney Through Ecosystems — Trek through 5 distinct climate zones in just a matter of days.",
+        "facts": "Height | 5,895 m / 19,340 ft (Uhuru Peak)\nType | Dormant free-standing volcano\nFirst ascent | 1889, Hans Meyer and Ludwig Purtscheller\nTypical duration | 6–8 nights (4 minimum; 9 on Northern Circuit)\nMain risk | Altitude sickness, not technical climbing\nBest Time | July–October; also December–February",
+        "seasons": "July–October — Peak climbing and peak safari weather. Best chance of a clear summit morning.\nDecember–February — A second good window. Warmer lower slopes; still serious at the crater.\nMarch–May (and November) — Long rains on the forest; snow and ice higher up. We usually wait this out.",
+        "wildlife": "Forest: colobus, blue monkeys, bushbuck, duiker, and dense birdlife in the wet montane zone.\nMoorland: giant lobelia and senecio rather than large mammals.\nHigh mountain: little wildlife — klipspringer, white-necked raven, augur buzzard, sunbirds, occasional bearded vulture.",
+        "activities": "Summit trek — Non-technical hiking. Altitude is the difficulty. We staff routes for safety, not speed.\nRoute planning — Machame, Lemosho, Shira, Rongai, Northern Circuit or Marangu — chosen for days, crowds and success rate, not fashion.\nAcclimatisation days — Extra nights are the cheapest way to raise the odds of Uhuru rather than Stella or Gillman’s only.\nSafari or coast after — Northern circuit parks or Zanzibar as recovery — most climbers do not fly home the day they descend.",
+        "attractions": "Uhuru Peak\nStella Point & Gillman’s Point\nKibo crater and ash pit\nShira Plateau\nFive ecological zones\nMachame, Lemosho, Rongai, Northern Circuit",
+        "faqs": "Do I need technical climbing experience? | No ropes or alpine gear. You do need cardiovascular fitness, stamina, and respect for altitude. Many operators require a medical check before you start.\nHow long should I take? | Four nights is the minimum and a poor idea for most people. Six to eight nights is the usual range. Nine on the Northern Circuit has the highest summit rate because almost everyone has time to acclimatise.\nWhich route? | Machame is popular and crowded. Lemosho (about eight days) balances scenery and success. Rongai is the strongest six-day north-side option. Marangu uses huts. We match the line to your dates, group size and how much solitude you want.\nWhen should I climb? | Avoid March–May. July–October is the clearest, and it lines up with northern safari season. December–February is the second window.\nCan I add a safari? | Yes — and you should. Kilimanjaro sits next to the same parks we run from Arusha. A crater or Serengeti week after the descent is the usual Golden Memories shape.",
         "seo_title": "Mount Kilimanjaro",
         "seo_description": "The Ultimate Kilimanjaro Trek"
       },
@@ -18708,10 +19292,51 @@
         "title": "Lake Eyasi",
         "slug": "lake-eyasi",
         "region": "Northern Tanzania",
+        "kicker": "Hadzabe country",
+        "tagline": "Lake Eyasi Cultural Adventure",
         "blurb": "Lake Eyasi Cultural Adventure",
+        "location": "Manyara Region, Northern Tanzania",
+        "cta": "Plan this safari",
         "image": "/images/gallery/culture-01.webp",
+        "gallery": [
+          "/images/gallery/culture-01.webp",
+          "/images/gallery/culture-02.webp",
+          "/images/gallery/ngorongoro-07.webp"
+        ],
         "paragraphs": "Lake Eyasi is a remote and seasonal shallow salt lake located south of the Serengeti and Ngorongoro Highlands. Unlike the wildlife-focused destinations of northern Tanzania, Lake Eyasi offers a unique cultural experience. It is home to the Hadzabe people, one of Africa’s last remaining hunter-gatherer tribes, and the Datoga people, traditional pastoralists and blacksmiths.\nA visit to Lake Eyasi is a journey into a way of life that has remained largely unchanged for thousands of years. You can join the Hadzabe on a hunting expedition, learn about Datoga blacksmithing and pottery, and experience traditional songs and dances. The lake itself, when it has water, attracts a variety of birdlife. Lake Eyasi is a must-visit for those seeking authentic cultural encounters and off-the-beaten-path adventures.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Lake Eyasi is a remote and seasonal shallow salt lake located south of the Serengeti and Ngorongoro Highlands. Unlike the wildlife-focused destinations of northern Tanzania, Lake Eyasi offers a unique cultural experience. It is home to the Hadzabe people, one of Africa’s last remaining hunter-gatherer tribes, and the Datoga people, traditional pastoralists and blacksmiths.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "A visit to Lake Eyasi is a journey into a way of life that has remained largely unchanged for thousands of years. You can join the Hadzabe on a hunting expedition, learn about Datoga blacksmithing and pottery, and experience traditional songs and dances. The lake itself, when it has water, attracts a variety of birdlife. Lake Eyasi is a must-visit for those seeking authentic cultural encounters and off-the-beaten-path adventures.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Hadzabe Tribe — Meet one of Africa’s last hunter-gatherer tribes and learn their ancient way of life.\nDatoga Tribe — Visit traditional pastoralists and blacksmiths, known for their metalworking skills.\nAuthentic Experiences — Join hunting expeditions, learn pottery, and experience traditional songs and dances.\nRemote Adventure — Experience one of Tanzania’s most remote and untouched regions.",
+        "facts": "Location | Rift Valley, south of Ngorongoro / Serengeti\nLake type | Seasonal shallow salt lake\nCommunities | Hadzabe (hunter-gatherers), Datoga (pastoralists)\nAccess | 4x4 from Karatu, 2–3 hours\nBest Time | June–October",
+        "seasons": "June–October — Best access and walking weather. The usual window if we add Eyasi to a northern circuit.\nNovember–May — Greener, muddier roads, fewer visitors. Possible if you accept slower travel.",
+        "wildlife": "Birds when the lake has water: flamingos, pelicans, storks and other waterbirds.\nOccasional zebra, giraffe and small antelope on the surrounding steppe — this is not a game park.\nLake Natron (further north) is the region’s great flamingo breeding site if birding is the priority.",
+        "activities": "Hadzabe walk — Early start with a local guide: tracking, bows, and honey collecting when the community is hunting that day.\nDatoga visit — Blacksmithing, livestock, and homestead time — slower than a park gate schedule.\nLakeshore — Birding when there is water; otherwise the empty Rift floor is the landscape.",
+        "attractions": "Hadzabe community\nDatoga homesteads\nLake Eyasi\nNgorongoro Highlands approach\nLake Natron (flamingo breeding, separate day)",
+        "faqs": "Is this a safari destination? | No. Come for people and landscape, not Big Five lists. Pair it with Ngorongoro and Serengeti if you also want game drives.\nHow do I get there? | 4x4 from Karatu or the crater highlands, typically two to three hours on a rough road. We do not send a minibus.\nCan I stay overnight? | Yes — simple camps and lodges near the lake. Many guests do a long day from Karatu instead.\nIs a hunt guaranteed? | No. You join what the Hadzabe are doing that morning. We do not stage a hunt for cameras.",
         "seo_title": "Lake Eyasi",
         "seo_description": "Lake Eyasi Cultural Adventure"
       },
@@ -18719,10 +19344,51 @@
         "title": "Lake Eyasi",
         "slug": "lake-eyasi",
         "region": "Northern Tanzania",
+        "kicker": "Hadzabe country",
+        "tagline": "Lake Eyasi Cultural Adventure",
         "blurb": "Lake Eyasi Cultural Adventure",
+        "location": "Manyara Region, Northern Tanzania",
+        "cta": "Plan this safari",
         "image": "/images/gallery/culture-01.webp",
+        "gallery": [
+          "/images/gallery/culture-01.webp",
+          "/images/gallery/culture-02.webp",
+          "/images/gallery/ngorongoro-07.webp"
+        ],
         "paragraphs": "Lake Eyasi is a remote and seasonal shallow salt lake located south of the Serengeti and Ngorongoro Highlands. Unlike the wildlife-focused destinations of northern Tanzania, Lake Eyasi offers a unique cultural experience. It is home to the Hadzabe people, one of Africa’s last remaining hunter-gatherer tribes, and the Datoga people, traditional pastoralists and blacksmiths.\nA visit to Lake Eyasi is a journey into a way of life that has remained largely unchanged for thousands of years. You can join the Hadzabe on a hunting expedition, learn about Datoga blacksmithing and pottery, and experience traditional songs and dances. The lake itself, when it has water, attracts a variety of birdlife. Lake Eyasi is a must-visit for those seeking authentic cultural encounters and off-the-beaten-path adventures.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Lake Eyasi is a remote and seasonal shallow salt lake located south of the Serengeti and Ngorongoro Highlands. Unlike the wildlife-focused destinations of northern Tanzania, Lake Eyasi offers a unique cultural experience. It is home to the Hadzabe people, one of Africa’s last remaining hunter-gatherer tribes, and the Datoga people, traditional pastoralists and blacksmiths.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "A visit to Lake Eyasi is a journey into a way of life that has remained largely unchanged for thousands of years. You can join the Hadzabe on a hunting expedition, learn about Datoga blacksmithing and pottery, and experience traditional songs and dances. The lake itself, when it has water, attracts a variety of birdlife. Lake Eyasi is a must-visit for those seeking authentic cultural encounters and off-the-beaten-path adventures.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Hadzabe Tribe — Meet one of Africa’s last hunter-gatherer tribes and learn their ancient way of life.\nDatoga Tribe — Visit traditional pastoralists and blacksmiths, known for their metalworking skills.\nAuthentic Experiences — Join hunting expeditions, learn pottery, and experience traditional songs and dances.\nRemote Adventure — Experience one of Tanzania’s most remote and untouched regions.",
+        "facts": "Location | Rift Valley, south of Ngorongoro / Serengeti\nLake type | Seasonal shallow salt lake\nCommunities | Hadzabe (hunter-gatherers), Datoga (pastoralists)\nAccess | 4x4 from Karatu, 2–3 hours\nBest Time | June–October",
+        "seasons": "June–October — Best access and walking weather. The usual window if we add Eyasi to a northern circuit.\nNovember–May — Greener, muddier roads, fewer visitors. Possible if you accept slower travel.",
+        "wildlife": "Birds when the lake has water: flamingos, pelicans, storks and other waterbirds.\nOccasional zebra, giraffe and small antelope on the surrounding steppe — this is not a game park.\nLake Natron (further north) is the region’s great flamingo breeding site if birding is the priority.",
+        "activities": "Hadzabe walk — Early start with a local guide: tracking, bows, and honey collecting when the community is hunting that day.\nDatoga visit — Blacksmithing, livestock, and homestead time — slower than a park gate schedule.\nLakeshore — Birding when there is water; otherwise the empty Rift floor is the landscape.",
+        "attractions": "Hadzabe community\nDatoga homesteads\nLake Eyasi\nNgorongoro Highlands approach\nLake Natron (flamingo breeding, separate day)",
+        "faqs": "Is this a safari destination? | No. Come for people and landscape, not Big Five lists. Pair it with Ngorongoro and Serengeti if you also want game drives.\nHow do I get there? | 4x4 from Karatu or the crater highlands, typically two to three hours on a rough road. We do not send a minibus.\nCan I stay overnight? | Yes — simple camps and lodges near the lake. Many guests do a long day from Karatu instead.\nIs a hunt guaranteed? | No. You join what the Hadzabe are doing that morning. We do not stage a hunt for cameras.",
         "seo_title": "Lake Eyasi",
         "seo_description": "Lake Eyasi Cultural Adventure"
       },
@@ -18741,10 +19407,51 @@
         "title": "Stone Town & spice tours",
         "slug": "stone-town",
         "region": "The Coast",
+        "kicker": "Sultans, doors and cloves",
+        "tagline": "Carved doors, waterfront lanes, and the spice trade",
         "blurb": "Carved doors, waterfront lanes, and the spice trade",
+        "location": "Zanzibar City, Unguja",
+        "cta": "Plan this safari",
         "image": "/images/gallery/zanzibar-01.webp",
+        "gallery": [
+          "/images/gallery/zanzibar-02.webp",
+          "/images/gallery/zanzibar-03.webp",
+          "/images/gallery/zanzibar-05.webp"
+        ],
         "paragraphs": "Stone Town is a maze of narrow streets, historic buildings, and bustling markets. A UNESCO World Heritage Site, it bears witness to the island’s rich trading history. A walking day here sits naturally after a northern safari, before you continue to the east or north coast beaches.\nA spice farm visit explains why the islands were once the heart of the spice trade — cloves, nutmeg, cinnamon, and vanilla, with tasting and stories from the plantation.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Stone Town is a maze of narrow streets, historic buildings, and bustling markets. A UNESCO World Heritage Site, it bears witness to the island’s rich trading history. A walking day here sits naturally after a northern safari, before you continue to the east or north coast beaches.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "A spice farm visit explains why the islands were once the heart of the spice trade — cloves, nutmeg, cinnamon, and vanilla, with tasting and stories from the plantation.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "UNESCO Stone Town — Carved doors, waterfront lanes, and a living Swahili city.\nSpice farm — A guided plantation visit that makes the spice islands tangible.\nFits a rest day — Useful as a stopover or a day between safari and beach.",
+        "facts": "Location | Zanzibar City, Unguja\nStatus | UNESCO World Heritage Site\nTypical stay | 1–2 nights\nBest with | Beach nights on Unguja, or a safari-and-coast itinerary",
+        "seasons": "July–October — Drier, cooler walking weather in the lanes.\nDecember–February — Hotter; still a good stopover between safari and beach.",
+        "wildlife": "Harbour birds along the waterfront.\nAldabra giant tortoises on Prison Island, a short boat from town.\nRed colobus in Jozani if you add the forest on the same day.",
+        "activities": "Stone Town walking tour — Lanes, palaces, markets, and the waterfront with a guide who can actually read the doors.\nSpice tour — Plantation tasting and lunch, usually half a day.\nPrison Island — Boat to the tortoise colony — the name is leftover; it was a yellow-fever isolation site.",
+        "attractions": "Stone Town\nSpice plantations\nForodhani waterfront\nPrison Island\nJozani Forest (add-on)",
+        "faqs": "Can it be a day tour only? | Yes. Morning in town, afternoon on a spice farm, then transfer to the beach. Overnight is better if your flight lands late.\nHow many nights? | One or two. After that, most people sleep better on the north or east coast.\nIs it after the safari? | Usually yes — a rest-and-history day on Unguja before beach nights, or the reverse if you fly into Zanzibar first.",
         "seo_title": "Stone Town & spice tours",
         "seo_description": "Carved doors, waterfront lanes, and the spice trade"
       },
@@ -18752,10 +19459,51 @@
         "title": "Stone Town & spice tours",
         "slug": "stone-town",
         "region": "The Coast",
+        "kicker": "Sultans, doors and cloves",
+        "tagline": "Carved doors, waterfront lanes, and the spice trade",
         "blurb": "Carved doors, waterfront lanes, and the spice trade",
+        "location": "Zanzibar City, Unguja",
+        "cta": "Plan this safari",
         "image": "/images/gallery/zanzibar-01.webp",
+        "gallery": [
+          "/images/gallery/zanzibar-02.webp",
+          "/images/gallery/zanzibar-03.webp",
+          "/images/gallery/zanzibar-05.webp"
+        ],
         "paragraphs": "Stone Town is a maze of narrow streets, historic buildings, and bustling markets. A UNESCO World Heritage Site, it bears witness to the island’s rich trading history. A walking day here sits naturally after a northern safari, before you continue to the east or north coast beaches.\nA spice farm visit explains why the islands were once the heart of the spice trade — cloves, nutmeg, cinnamon, and vanilla, with tasting and stories from the plantation.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Stone Town is a maze of narrow streets, historic buildings, and bustling markets. A UNESCO World Heritage Site, it bears witness to the island’s rich trading history. A walking day here sits naturally after a northern safari, before you continue to the east or north coast beaches.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "A spice farm visit explains why the islands were once the heart of the spice trade — cloves, nutmeg, cinnamon, and vanilla, with tasting and stories from the plantation.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "UNESCO Stone Town — Carved doors, waterfront lanes, and a living Swahili city.\nSpice farm — A guided plantation visit that makes the spice islands tangible.\nFits a rest day — Useful as a stopover or a day between safari and beach.",
+        "facts": "Location | Zanzibar City, Unguja\nStatus | UNESCO World Heritage Site\nTypical stay | 1–2 nights\nBest with | Beach nights on Unguja, or a safari-and-coast itinerary",
+        "seasons": "July–October — Drier, cooler walking weather in the lanes.\nDecember–February — Hotter; still a good stopover between safari and beach.",
+        "wildlife": "Harbour birds along the waterfront.\nAldabra giant tortoises on Prison Island, a short boat from town.\nRed colobus in Jozani if you add the forest on the same day.",
+        "activities": "Stone Town walking tour — Lanes, palaces, markets, and the waterfront with a guide who can actually read the doors.\nSpice tour — Plantation tasting and lunch, usually half a day.\nPrison Island — Boat to the tortoise colony — the name is leftover; it was a yellow-fever isolation site.",
+        "attractions": "Stone Town\nSpice plantations\nForodhani waterfront\nPrison Island\nJozani Forest (add-on)",
+        "faqs": "Can it be a day tour only? | Yes. Morning in town, afternoon on a spice farm, then transfer to the beach. Overnight is better if your flight lands late.\nHow many nights? | One or two. After that, most people sleep better on the north or east coast.\nIs it after the safari? | Usually yes — a rest-and-history day on Unguja before beach nights, or the reverse if you fly into Zanzibar first.",
         "seo_title": "Stone Town & spice tours",
         "seo_description": "Carved doors, waterfront lanes, and the spice trade"
       },
@@ -18774,10 +19522,51 @@
         "title": "Safari from Zanzibar",
         "slug": "safari-from-zanzibar",
         "region": "The Coast",
+        "kicker": "Beach first, then the parks",
+        "tagline": "Fly in for Tarangire and Ngorongoro, then return to the coast",
         "blurb": "Fly in for Tarangire and Ngorongoro, then return to the coast",
+        "location": "Reached from Zanzibar by scheduled light aircraft",
+        "cta": "Plan this safari",
         "image": "/images/gallery/zanzibar-01.webp",
+        "gallery": [
+          "/images/gallery/ngorongoro-04.webp",
+          "/images/gallery/tarangire-01.webp",
+          "/images/gallery/zanzibar-03.webp"
+        ],
         "paragraphs": "Fly from Zanzibar for Tarangire and Ngorongoro, then return to the coast — a compact wildlife add-on when beach days come first.\nGolden Memories Safaris arranges the flights, park days, and overnight lodge so the circuit stays short without losing the crater floor or the baobabs.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Fly from Zanzibar for Tarangire and Ngorongoro, then return to the coast — a compact wildlife add-on when beach days come first.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "Golden Memories Safaris arranges the flights, park days, and overnight lodge so the circuit stays short without losing the crater floor or the baobabs.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Flights from Zanzibar — Skip the long Arusha road when your holiday starts on the island.\nTarangire — Elephants and baobabs on day one.\nNgorongoro Crater — A crater-floor game drive before you fly back.",
+        "facts": "Start | Zanzibar (Unguja)\nNearest park flight | Nyerere ~45 minutes\nNorth option | Tarangire & Ngorongoro (typically 2 days); Serengeti ~1 hour\nBest overlap | July–October",
+        "seasons": "July–October — Best overlap: dry-season parks and reliable island weather.\nYear-round (with caveats) — Possible whenever flights run. April–May rains hit both beach and south; we plan around them.",
+        "wildlife": "Nyerere: lion, wild dog, hippo and crocodile on the Rufiji, plus woodland game.\nTarangire: dry-season elephant concentrations and baobab country.\nNgorongoro: crater-floor Big Five chance, including black rhino.",
+        "activities": "Fly-in Nyerere or Ruaha — The stronger wildlife add-on from the island if you can spare three or more park nights.\nTwo-day north circuit — Tarangire, overnight, crater, return to Unguja — short and specific.\nPrivate guiding — Vehicle and guide on the mainland; scheduled flights from Zanzibar.",
+        "attractions": "Nyerere (Selous)\nRuaha\nTarangire National Park\nNgorongoro Crater\nZanzibar flights",
+        "faqs": "Which park is easiest from Zanzibar? | Nyerere (Selous): about 45 minutes. It is also the better match for a short safari — boats, walking, open vehicles. The north is a longer, pricier hop.\nHow long is the listed two-day safari? | Tarangire, overnight, Ngorongoro, back to Zanzibar. Add Serengeti if you have more time.\nSafari first or beach first? | Safari first is calmer. Beach first works if that is how your flights fall; we just keep the park block in one piece.",
         "seo_title": "Safari from Zanzibar",
         "seo_description": "Fly in for Tarangire and Ngorongoro, then return to the coast"
       },
@@ -18785,10 +19574,51 @@
         "title": "Safari from Zanzibar",
         "slug": "safari-from-zanzibar",
         "region": "The Coast",
+        "kicker": "Beach first, then the parks",
+        "tagline": "Fly in for Tarangire and Ngorongoro, then return to the coast",
         "blurb": "Fly in for Tarangire and Ngorongoro, then return to the coast",
+        "location": "Reached from Zanzibar by scheduled light aircraft",
+        "cta": "Plan this safari",
         "image": "/images/gallery/zanzibar-01.webp",
+        "gallery": [
+          "/images/gallery/ngorongoro-04.webp",
+          "/images/gallery/tarangire-01.webp",
+          "/images/gallery/zanzibar-03.webp"
+        ],
         "paragraphs": "Fly from Zanzibar for Tarangire and Ngorongoro, then return to the coast — a compact wildlife add-on when beach days come first.\nGolden Memories Safaris arranges the flights, park days, and overnight lodge so the circuit stays short without losing the crater floor or the baobabs.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Fly from Zanzibar for Tarangire and Ngorongoro, then return to the coast — a compact wildlife add-on when beach days come first.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "Golden Memories Safaris arranges the flights, park days, and overnight lodge so the circuit stays short without losing the crater floor or the baobabs.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Flights from Zanzibar — Skip the long Arusha road when your holiday starts on the island.\nTarangire — Elephants and baobabs on day one.\nNgorongoro Crater — A crater-floor game drive before you fly back.",
+        "facts": "Start | Zanzibar (Unguja)\nNearest park flight | Nyerere ~45 minutes\nNorth option | Tarangire & Ngorongoro (typically 2 days); Serengeti ~1 hour\nBest overlap | July–October",
+        "seasons": "July–October — Best overlap: dry-season parks and reliable island weather.\nYear-round (with caveats) — Possible whenever flights run. April–May rains hit both beach and south; we plan around them.",
+        "wildlife": "Nyerere: lion, wild dog, hippo and crocodile on the Rufiji, plus woodland game.\nTarangire: dry-season elephant concentrations and baobab country.\nNgorongoro: crater-floor Big Five chance, including black rhino.",
+        "activities": "Fly-in Nyerere or Ruaha — The stronger wildlife add-on from the island if you can spare three or more park nights.\nTwo-day north circuit — Tarangire, overnight, crater, return to Unguja — short and specific.\nPrivate guiding — Vehicle and guide on the mainland; scheduled flights from Zanzibar.",
+        "attractions": "Nyerere (Selous)\nRuaha\nTarangire National Park\nNgorongoro Crater\nZanzibar flights",
+        "faqs": "Which park is easiest from Zanzibar? | Nyerere (Selous): about 45 minutes. It is also the better match for a short safari — boats, walking, open vehicles. The north is a longer, pricier hop.\nHow long is the listed two-day safari? | Tarangire, overnight, Ngorongoro, back to Zanzibar. Add Serengeti if you have more time.\nSafari first or beach first? | Safari first is calmer. Beach first works if that is how your flights fall; we just keep the park block in one piece.",
         "seo_title": "Safari from Zanzibar",
         "seo_description": "Fly in for Tarangire and Ngorongoro, then return to the coast"
       },
@@ -18807,10 +19637,51 @@
         "title": "Ruaha National Park",
         "slug": "ruaha",
         "region": "Southern Tanzania",
+        "kicker": "Tanzania’s largest park",
+        "tagline": "Tanzania’s largest national park",
         "blurb": "Tanzania’s largest national park",
+        "location": "Southern / central Tanzania, west of Nyerere",
+        "cta": "Plan this safari",
         "image": "/images/gallery/tarangire-01.webp",
+        "gallery": [
+          "/images/gallery/tarangire-11.webp",
+          "/images/gallery/serengeti-08.webp",
+          "/images/gallery/tarangire-13.webp"
+        ],
         "paragraphs": "Ruaha is Tanzania’s largest national park: baobab ridges, the Great Ruaha River, and outstanding predator country. It rewards travellers who want space, walking potential, and fewer vehicles on the road than the northern circuit.\nGolden Memories Safaris shapes southern itineraries around riverine game drives, fly-in or drive options, and enough nights to settle into the park rather than rush the transfer.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Ruaha is Tanzania’s largest national park: baobab ridges, the Great Ruaha River, and outstanding predator country. It rewards travellers who want space, walking potential, and fewer vehicles on the road than the northern circuit.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "Golden Memories Safaris shapes southern itineraries around riverine game drives, fly-in or drive options, and enough nights to settle into the park rather than rush the transfer.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Largest national park — Room to roam — baobab ridges and the Great Ruaha River.\nPredator country — Lion, leopard, and wild dog in wilder, quieter landscape.\nFewer vehicles — A southern circuit that feels less busy than Serengeti roads.",
+        "facts": "Status | Tanzania’s largest national park\nKnown for | Lions, wild dog, elephant, baobabs, Ruaha River\nBirds | 500+ species\nAccess | Fly from Dar, Nyerere or Serengeti\nBest Time | July–October (dry); Dec–Mar for birds",
+        "seasons": "Late dry (July–October, into November) — Best overall concentrations as rivers and pools shrink. The later you go, the tighter the game.\nDecember–March — World-class birding, green country, almost no other cars. Pockets of resident game remain.\nPeak rains — Some camps close. We usually wait unless you specifically want emptiness.",
+        "wildlife": "Predators: lion, leopard, cheetah, African wild dog, hyena — Ruaha’s headline.\nMegafauna: elephant and buffalo in large herds throughout the park.\nCrossover antelope: sable, roan, greater and lesser kudu, Grant’s gazelle, hartebeest, plus zebra, giraffe, impala, defassa waterbuck.\nBirds: 500+ species; December–March is the standout window.",
+        "activities": "Daytime game drives — Riverine circuits, Mwagusi sand rivers, baobab ridges. Night driving is not permitted.\nWalking (selected camps) — Not every lodge walks — elephant density is the reason. We book a walking camp if that is a priority.\nFly-camping — Rare; a night under the stars from camps that still run it.\nHot-air balloon — Offered in season for a river-and-baobab overview — book with the stay, not as an afterthought.",
+        "attractions": "Great Ruaha River\nMwagusi Sand River\nBaobab ridges and escarpment\nUsangu wetlands (seasonal)",
+        "faqs": "Ruaha or Nyerere? | Ruaha usually has the better game; Nyerere has boats, walking and an easier hop from Zanzibar. The strongest southern itinerary is both.\nHow do I get there? | Scheduled light aircraft from Dar es Salaam, Nyerere, or (less often) the Serengeti. Overland is a longer southern road trip, not a day transfer from Arusha.\nIs it right for a first safari? | Yes, if you want space and can fly. If the Great Migration or Ngorongoro Crater is the dream, start in the north and add Ruaha when you have extra nights.\nNight drives? | Not inside the national park. Walking depends on the camp.",
         "seo_title": "Ruaha National Park",
         "seo_description": "Tanzania’s largest national park"
       },
@@ -18818,10 +19689,51 @@
         "title": "Ruaha National Park",
         "slug": "ruaha",
         "region": "Southern Tanzania",
+        "kicker": "Tanzania’s largest park",
+        "tagline": "Tanzania’s largest national park",
         "blurb": "Tanzania’s largest national park",
+        "location": "Southern / central Tanzania, west of Nyerere",
+        "cta": "Plan this safari",
         "image": "/images/gallery/tarangire-01.webp",
+        "gallery": [
+          "/images/gallery/tarangire-11.webp",
+          "/images/gallery/serengeti-08.webp",
+          "/images/gallery/tarangire-13.webp"
+        ],
         "paragraphs": "Ruaha is Tanzania’s largest national park: baobab ridges, the Great Ruaha River, and outstanding predator country. It rewards travellers who want space, walking potential, and fewer vehicles on the road than the northern circuit.\nGolden Memories Safaris shapes southern itineraries around riverine game drives, fly-in or drive options, and enough nights to settle into the park rather than rush the transfer.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Ruaha is Tanzania’s largest national park: baobab ridges, the Great Ruaha River, and outstanding predator country. It rewards travellers who want space, walking potential, and fewer vehicles on the road than the northern circuit.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "Golden Memories Safaris shapes southern itineraries around riverine game drives, fly-in or drive options, and enough nights to settle into the park rather than rush the transfer.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Largest national park — Room to roam — baobab ridges and the Great Ruaha River.\nPredator country — Lion, leopard, and wild dog in wilder, quieter landscape.\nFewer vehicles — A southern circuit that feels less busy than Serengeti roads.",
+        "facts": "Status | Tanzania’s largest national park\nKnown for | Lions, wild dog, elephant, baobabs, Ruaha River\nBirds | 500+ species\nAccess | Fly from Dar, Nyerere or Serengeti\nBest Time | July–October (dry); Dec–Mar for birds",
+        "seasons": "Late dry (July–October, into November) — Best overall concentrations as rivers and pools shrink. The later you go, the tighter the game.\nDecember–March — World-class birding, green country, almost no other cars. Pockets of resident game remain.\nPeak rains — Some camps close. We usually wait unless you specifically want emptiness.",
+        "wildlife": "Predators: lion, leopard, cheetah, African wild dog, hyena — Ruaha’s headline.\nMegafauna: elephant and buffalo in large herds throughout the park.\nCrossover antelope: sable, roan, greater and lesser kudu, Grant’s gazelle, hartebeest, plus zebra, giraffe, impala, defassa waterbuck.\nBirds: 500+ species; December–March is the standout window.",
+        "activities": "Daytime game drives — Riverine circuits, Mwagusi sand rivers, baobab ridges. Night driving is not permitted.\nWalking (selected camps) — Not every lodge walks — elephant density is the reason. We book a walking camp if that is a priority.\nFly-camping — Rare; a night under the stars from camps that still run it.\nHot-air balloon — Offered in season for a river-and-baobab overview — book with the stay, not as an afterthought.",
+        "attractions": "Great Ruaha River\nMwagusi Sand River\nBaobab ridges and escarpment\nUsangu wetlands (seasonal)",
+        "faqs": "Ruaha or Nyerere? | Ruaha usually has the better game; Nyerere has boats, walking and an easier hop from Zanzibar. The strongest southern itinerary is both.\nHow do I get there? | Scheduled light aircraft from Dar es Salaam, Nyerere, or (less often) the Serengeti. Overland is a longer southern road trip, not a day transfer from Arusha.\nIs it right for a first safari? | Yes, if you want space and can fly. If the Great Migration or Ngorongoro Crater is the dream, start in the north and add Ruaha when you have extra nights.\nNight drives? | Not inside the national park. Walking depends on the camp.",
         "seo_title": "Ruaha National Park",
         "seo_description": "Tanzania’s largest national park"
       },
@@ -18840,10 +19752,51 @@
         "title": "Nyerere (Selous)",
         "slug": "nyerere",
         "region": "Southern Tanzania",
+        "kicker": "Africa’s largest game reserve, now a park",
+        "tagline": "The Rufiji and a wilder southern reserve",
         "blurb": "The Rufiji and a wilder southern reserve",
+        "location": "Southern Tanzania, Rufiji River system",
+        "cta": "Plan this safari",
         "image": "/images/gallery/tarangire-01.webp",
+        "gallery": [
+          "/images/gallery/tarangire-13.webp",
+          "/images/gallery/tarangire-11.webp",
+          "/images/gallery/culture-03.webp"
+        ],
         "paragraphs": "Nyerere National Park — still widely known as Selous — is boat-safari country on the Rufiji, with fly-camp energy and a wilder southern circuit than the north.\nHippo, crocodile, and kingfishers from the water, then woodland and lakes on game drives. It pairs naturally with Ruaha on an eight-day south itinerary.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Nyerere National Park — still widely known as Selous — is boat-safari country on the Rufiji, with fly-camp energy and a wilder southern circuit than the north.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "Hippo, crocodile, and kingfishers from the water, then woodland and lakes on game drives. It pairs naturally with Ruaha on an eight-day south itinerary.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Rufiji boat safari — A different pace from a 4x4 day — river, hippo, and birds.\nWilder roads — Fewer vehicles than the classic northern parks.\nPairs with Ruaha — Fly or drive between the two southern heavyweights.",
+        "facts": "Former name | Selous Game Reserve (now Nyerere National Park)\nKnown for | Rufiji boats, walking, fly-camp, wild dog\nBirds | 440+ species\nFrom Zanzibar | ~45 minutes by air\nBest Time | July–October",
+        "seasons": "July–October — Greatest overall concentrations; boat days are reliable. Later dry season is stronger still.\nJanuary–February — World-class birding; game more scattered — camp location matters more than in the dry.\nOther months — Resident game remains in river and lake systems. Some camps are seasonal.",
+        "wildlife": "Predators: lion, leopard, hyena, and over 50% of remaining African wild dog.\nRiver: hippo, crocodile, elephant, buffalo.\nWoodland and lakes: giraffe, eland, sable, kudu, wildebeest, zebra, impala, hartebeest, baboon, colobus, vervet.\nBirds: 440–450+ species; outstanding in the green months.",
+        "activities": "Boat safari — On the Rufiji and lakes — the signature Nyerere day.\nGame drives — Open-sided vehicles through lakes and woodland; a different feel from closed northern Cruisers.\nWalking — Guided walks from selected camps; among the strongest in Tanzania.\nFly-camping — Walking days and a night under the stars — adventurous, not for everyone.",
+        "attractions": "Rufiji River\nLakes and channels\nWalking trails\nFly-camp sites",
+        "faqs": "Is it still called Selous? | The park is officially Nyerere National Park. Travellers and older maps still say Selous. We use both so you can find it.\nBoat and drive in one stay? | Yes. A typical stay mixes Rufiji boat time with 4x4 circuits and, if you want it, a walk.\nNyerere or Ruaha? | Nyerere for boats, walking and an easy Zanzibar hop. Ruaha for denser predators and baobab hills. Both is the full southern story.\nHow do I get there? | Daily scheduled flights from Dar es Salaam and Zanzibar. That is why it works as a short safari, not only a two-week expedition.",
         "seo_title": "Nyerere (Selous)",
         "seo_description": "The Rufiji and a wilder southern reserve"
       },
@@ -18851,10 +19804,51 @@
         "title": "Nyerere (Selous)",
         "slug": "nyerere",
         "region": "Southern Tanzania",
+        "kicker": "Africa’s largest game reserve, now a park",
+        "tagline": "The Rufiji and a wilder southern reserve",
         "blurb": "The Rufiji and a wilder southern reserve",
+        "location": "Southern Tanzania, Rufiji River system",
+        "cta": "Plan this safari",
         "image": "/images/gallery/tarangire-01.webp",
+        "gallery": [
+          "/images/gallery/tarangire-13.webp",
+          "/images/gallery/tarangire-11.webp",
+          "/images/gallery/culture-03.webp"
+        ],
         "paragraphs": "Nyerere National Park — still widely known as Selous — is boat-safari country on the Rufiji, with fly-camp energy and a wilder southern circuit than the north.\nHippo, crocodile, and kingfishers from the water, then woodland and lakes on game drives. It pairs naturally with Ruaha on an eight-day south itinerary.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Nyerere National Park — still widely known as Selous — is boat-safari country on the Rufiji, with fly-camp energy and a wilder southern circuit than the north.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "Hippo, crocodile, and kingfishers from the water, then woodland and lakes on game drives. It pairs naturally with Ruaha on an eight-day south itinerary.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Rufiji boat safari — A different pace from a 4x4 day — river, hippo, and birds.\nWilder roads — Fewer vehicles than the classic northern parks.\nPairs with Ruaha — Fly or drive between the two southern heavyweights.",
+        "facts": "Former name | Selous Game Reserve (now Nyerere National Park)\nKnown for | Rufiji boats, walking, fly-camp, wild dog\nBirds | 440+ species\nFrom Zanzibar | ~45 minutes by air\nBest Time | July–October",
+        "seasons": "July–October — Greatest overall concentrations; boat days are reliable. Later dry season is stronger still.\nJanuary–February — World-class birding; game more scattered — camp location matters more than in the dry.\nOther months — Resident game remains in river and lake systems. Some camps are seasonal.",
+        "wildlife": "Predators: lion, leopard, hyena, and over 50% of remaining African wild dog.\nRiver: hippo, crocodile, elephant, buffalo.\nWoodland and lakes: giraffe, eland, sable, kudu, wildebeest, zebra, impala, hartebeest, baboon, colobus, vervet.\nBirds: 440–450+ species; outstanding in the green months.",
+        "activities": "Boat safari — On the Rufiji and lakes — the signature Nyerere day.\nGame drives — Open-sided vehicles through lakes and woodland; a different feel from closed northern Cruisers.\nWalking — Guided walks from selected camps; among the strongest in Tanzania.\nFly-camping — Walking days and a night under the stars — adventurous, not for everyone.",
+        "attractions": "Rufiji River\nLakes and channels\nWalking trails\nFly-camp sites",
+        "faqs": "Is it still called Selous? | The park is officially Nyerere National Park. Travellers and older maps still say Selous. We use both so you can find it.\nBoat and drive in one stay? | Yes. A typical stay mixes Rufiji boat time with 4x4 circuits and, if you want it, a walk.\nNyerere or Ruaha? | Nyerere for boats, walking and an easy Zanzibar hop. Ruaha for denser predators and baobab hills. Both is the full southern story.\nHow do I get there? | Daily scheduled flights from Dar es Salaam and Zanzibar. That is why it works as a short safari, not only a two-week expedition.",
         "seo_title": "Nyerere (Selous)",
         "seo_description": "The Rufiji and a wilder southern reserve"
       },
@@ -18873,10 +19867,51 @@
         "title": "Mikumi National Park",
         "slug": "mikumi",
         "region": "Southern Tanzania",
+        "kicker": "Mkata floodplain",
+        "tagline": "A practical fly-in day from the coast or Dar",
         "blurb": "A practical fly-in day from the coast or Dar",
+        "location": "Southern Tanzania, on the Dar es Salaam–Iringa road",
+        "cta": "Plan this safari",
         "image": "/images/gallery/tarangire-01.webp",
+        "gallery": [
+          "/images/gallery/culture-03.webp",
+          "/images/gallery/tarangire-11.webp",
+          "/images/gallery/tarangire-13.webp"
+        ],
         "paragraphs": "Mikumi is open grassland and a practical fly-in day trip from the coast or Dar es Salaam — a taste of the savannah when time is short.\nIt sits on the southern circuit as a first or last park: zebra, giraffe, and lion on the plains, without the logistics of a full Ruaha stay.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Mikumi is open grassland and a practical fly-in day trip from the coast or Dar es Salaam — a taste of the savannah when time is short.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "It sits on the southern circuit as a first or last park: zebra, giraffe, and lion on the plains, without the logistics of a full Ruaha stay.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Accessible savannah — Useful from Dar or as a fly-in from Zanzibar.\nOpen grassland — Classic plains game in a compact park.",
+        "facts": "Region | Southern Tanzania, west of Dar es Salaam\nLandscape | Mkata floodplain grassland\nBest as | Day trip or 1-night stay\nAccess | Road from Dar or fly-in from the coast\nBest Time | June–October",
+        "seasons": "June–October — Best visibility on the plains; animals nearer remaining water.\nGreen season — Lush and quieter; still workable as a day or an overnight from Dar.",
+        "wildlife": "Plains: zebra, wildebeest, giraffe, buffalo, elephant, lion.\nHippo pools and a strong bird list along water.\nNot a wild-dog or boat-safari park — that is Nyerere, further south.",
+        "activities": "Game drives — Half-day or full-day on the Mkata floodplain.\nFly-in or road day — From Dar or Zanzibar when you want wildlife without a long circuit.\nOvernight — Worth it for a dawn drive rather than a midday dash from the city.",
+        "attractions": "Mkata floodplain\nHippo pools\nDar–south highway access",
+        "faqs": "Is Mikumi a day trip? | Yes, from Dar es Salaam. An overnight is better if you want a dawn drive. From Zanzibar it is usually a fly-in rather than a same-day ferry-and-drive.\nHow does it compare to Serengeti? | Smaller, closer to the coast, and a practical add-on. It is not a Great Migration or crater-floor day.\nShould I skip it for Nyerere? | If you have three or more park nights, fly to Nyerere. Use Mikumi when time or budget keeps you near Dar.",
         "seo_title": "Mikumi National Park",
         "seo_description": "A practical fly-in day from the coast or Dar"
       },
@@ -18884,10 +19919,51 @@
         "title": "Mikumi National Park",
         "slug": "mikumi",
         "region": "Southern Tanzania",
+        "kicker": "Mkata floodplain",
+        "tagline": "A practical fly-in day from the coast or Dar",
         "blurb": "A practical fly-in day from the coast or Dar",
+        "location": "Southern Tanzania, on the Dar es Salaam–Iringa road",
+        "cta": "Plan this safari",
         "image": "/images/gallery/tarangire-01.webp",
+        "gallery": [
+          "/images/gallery/culture-03.webp",
+          "/images/gallery/tarangire-11.webp",
+          "/images/gallery/tarangire-13.webp"
+        ],
         "paragraphs": "Mikumi is open grassland and a practical fly-in day trip from the coast or Dar es Salaam — a taste of the savannah when time is short.\nIt sits on the southern circuit as a first or last park: zebra, giraffe, and lion on the plains, without the logistics of a full Ruaha stay.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Mikumi is open grassland and a practical fly-in day trip from the coast or Dar es Salaam — a taste of the savannah when time is short.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "It sits on the southern circuit as a first or last park: zebra, giraffe, and lion on the plains, without the logistics of a full Ruaha stay.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Accessible savannah — Useful from Dar or as a fly-in from Zanzibar.\nOpen grassland — Classic plains game in a compact park.",
+        "facts": "Region | Southern Tanzania, west of Dar es Salaam\nLandscape | Mkata floodplain grassland\nBest as | Day trip or 1-night stay\nAccess | Road from Dar or fly-in from the coast\nBest Time | June–October",
+        "seasons": "June–October — Best visibility on the plains; animals nearer remaining water.\nGreen season — Lush and quieter; still workable as a day or an overnight from Dar.",
+        "wildlife": "Plains: zebra, wildebeest, giraffe, buffalo, elephant, lion.\nHippo pools and a strong bird list along water.\nNot a wild-dog or boat-safari park — that is Nyerere, further south.",
+        "activities": "Game drives — Half-day or full-day on the Mkata floodplain.\nFly-in or road day — From Dar or Zanzibar when you want wildlife without a long circuit.\nOvernight — Worth it for a dawn drive rather than a midday dash from the city.",
+        "attractions": "Mkata floodplain\nHippo pools\nDar–south highway access",
+        "faqs": "Is Mikumi a day trip? | Yes, from Dar es Salaam. An overnight is better if you want a dawn drive. From Zanzibar it is usually a fly-in rather than a same-day ferry-and-drive.\nHow does it compare to Serengeti? | Smaller, closer to the coast, and a practical add-on. It is not a Great Migration or crater-floor day.\nShould I skip it for Nyerere? | If you have three or more park nights, fly to Nyerere. Use Mikumi when time or budget keeps you near Dar.",
         "seo_title": "Mikumi National Park",
         "seo_description": "A practical fly-in day from the coast or Dar"
       },
@@ -18906,10 +19982,51 @@
         "title": "Gombe Stream National Park",
         "slug": "gombe",
         "region": "Western Tanzania",
+        "kicker": "Jane Goodall’s forest",
+        "tagline": "Jane Goodall’s forest on Lake Tanganyika",
         "blurb": "Jane Goodall’s forest on Lake Tanganyika",
+        "location": "Western Tanzania, Lake Tanganyika",
+        "cta": "Plan this safari",
         "image": "/images/gallery/culture-01.webp",
+        "gallery": [
+          "/images/gallery/culture-07.webp",
+          "/images/gallery/serengeti-08.webp",
+          "/images/gallery/kilimanjaro-03.webp"
+        ],
         "paragraphs": "Gombe Stream National Park is Jane Goodall’s forest on Lake Tanganyika — compact, steep, and devoted to chimpanzee trekking.\nThis is not a classic game-drive park. You boat along the lake, then walk into forest with a guide. It belongs on longer Tanzania journeys that already include the north or south.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Gombe Stream National Park is Jane Goodall’s forest on Lake Tanganyika — compact, steep, and devoted to chimpanzee trekking.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "This is not a classic game-drive park. You boat along the lake, then walk into forest with a guide. It belongs on longer Tanzania journeys that already include the north or south.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Chimpanzee trekking — The reason to come west — habituated chimps in steep forest.\nLake Tanganyika — Forest and boat days rather than savannah 4x4 circuits.\nCompact park — Small, intense, and unlike the northern circuit.",
+        "facts": "Region | Western Tanzania, Lake Tanganyika\nKnown for | Jane Goodall chimpanzee research, forest trekking\nAccess | Fly to Kigoma, then boat\nBest Time | May–October",
+        "seasons": "May–October — Easier forest walking and more reliable tracking.\nRains — Possible, but steeper, muddier trails. We prefer the dry if your dates can move.",
+        "wildlife": "Chimpanzees — the focus of every visit.\nRed colobus, olive baboons, and a dense forest bird list.\nLake shore: the water is the highway, not a snorkel resort (Mahale is the beachier sibling).",
+        "activities": "Chimp trekking — Guided forest walks to habituated groups. Fitness matters; this is not a boardwalk.\nLake boat — Transfers and the only way in; the shoreline is the park’s other landscape.\nForest hiking — Shorter walks for birds and colobus when you are not on a chimp permit day.",
+        "attractions": "Chimpanzee trekking\nLake Tanganyika\nGombe forest trails\nKigoma gateway",
+        "faqs": "Is Gombe a game-drive park? | No. You trek on foot. Combine it with a northern or southern safari if you also want 4x4 wildlife.\nHow do I get there? | Typically fly to Kigoma, then boat to the park. Flights into the west are infrequent and costly; we build Gombe into a longer itinerary, not a weekend add-on from Arusha.\nGombe or Mahale? | Gombe is shorter and closer to Kigoma. Mahale is a fly-in lodge stay with clearer lake swimming and, usually, slightly easier late-season chimp walks. We choose by nights and budget.",
         "seo_title": "Gombe Stream National Park",
         "seo_description": "Jane Goodall’s forest on Lake Tanganyika"
       },
@@ -18917,10 +20034,51 @@
         "title": "Gombe Stream National Park",
         "slug": "gombe",
         "region": "Western Tanzania",
+        "kicker": "Jane Goodall’s forest",
+        "tagline": "Jane Goodall’s forest on Lake Tanganyika",
         "blurb": "Jane Goodall’s forest on Lake Tanganyika",
+        "location": "Western Tanzania, Lake Tanganyika",
+        "cta": "Plan this safari",
         "image": "/images/gallery/culture-01.webp",
+        "gallery": [
+          "/images/gallery/culture-07.webp",
+          "/images/gallery/serengeti-08.webp",
+          "/images/gallery/kilimanjaro-03.webp"
+        ],
         "paragraphs": "Gombe Stream National Park is Jane Goodall’s forest on Lake Tanganyika — compact, steep, and devoted to chimpanzee trekking.\nThis is not a classic game-drive park. You boat along the lake, then walk into forest with a guide. It belongs on longer Tanzania journeys that already include the north or south.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Gombe Stream National Park is Jane Goodall’s forest on Lake Tanganyika — compact, steep, and devoted to chimpanzee trekking.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "This is not a classic game-drive park. You boat along the lake, then walk into forest with a guide. It belongs on longer Tanzania journeys that already include the north or south.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Chimpanzee trekking — The reason to come west — habituated chimps in steep forest.\nLake Tanganyika — Forest and boat days rather than savannah 4x4 circuits.\nCompact park — Small, intense, and unlike the northern circuit.",
+        "facts": "Region | Western Tanzania, Lake Tanganyika\nKnown for | Jane Goodall chimpanzee research, forest trekking\nAccess | Fly to Kigoma, then boat\nBest Time | May–October",
+        "seasons": "May–October — Easier forest walking and more reliable tracking.\nRains — Possible, but steeper, muddier trails. We prefer the dry if your dates can move.",
+        "wildlife": "Chimpanzees — the focus of every visit.\nRed colobus, olive baboons, and a dense forest bird list.\nLake shore: the water is the highway, not a snorkel resort (Mahale is the beachier sibling).",
+        "activities": "Chimp trekking — Guided forest walks to habituated groups. Fitness matters; this is not a boardwalk.\nLake boat — Transfers and the only way in; the shoreline is the park’s other landscape.\nForest hiking — Shorter walks for birds and colobus when you are not on a chimp permit day.",
+        "attractions": "Chimpanzee trekking\nLake Tanganyika\nGombe forest trails\nKigoma gateway",
+        "faqs": "Is Gombe a game-drive park? | No. You trek on foot. Combine it with a northern or southern safari if you also want 4x4 wildlife.\nHow do I get there? | Typically fly to Kigoma, then boat to the park. Flights into the west are infrequent and costly; we build Gombe into a longer itinerary, not a weekend add-on from Arusha.\nGombe or Mahale? | Gombe is shorter and closer to Kigoma. Mahale is a fly-in lodge stay with clearer lake swimming and, usually, slightly easier late-season chimp walks. We choose by nights and budget.",
         "seo_title": "Gombe Stream National Park",
         "seo_description": "Jane Goodall’s forest on Lake Tanganyika"
       },
@@ -18939,10 +20097,51 @@
         "title": "Mahale Mountains",
         "slug": "mahale",
         "region": "Western Tanzania",
+        "kicker": "Lake beaches and chimps",
+        "tagline": "Lake beaches and a fly-in forest stay",
         "blurb": "Lake beaches and a fly-in forest stay",
+        "location": "Western Tanzania, Lake Tanganyika",
+        "cta": "Plan this safari",
         "image": "/images/gallery/culture-01.webp",
+        "gallery": [
+          "/images/gallery/serengeti-08.webp",
+          "/images/gallery/culture-07.webp",
+          "/images/gallery/zanzibar-03.webp"
+        ],
         "paragraphs": "Mahale is remoter chimpanzee habitat, lake beaches, and a fly-in stay that pairs with a longer Tanzania itinerary.\nUnlike Gombe’s compact trails, Mahale is a slower, lodge-based forest experience on Tanganyika — chimps inland, swimming and boat time on the lake.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Mahale is remoter chimpanzee habitat, lake beaches, and a fly-in stay that pairs with a longer Tanzania itinerary.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "Unlike Gombe’s compact trails, Mahale is a slower, lodge-based forest experience on Tanganyika — chimps inland, swimming and boat time on the lake.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Fly-in forest — A destination stay, not a day trip from Arusha.\nChimps and beach — Trekking inland, lake time in the afternoon.\nPairs with a longer trip — Add after the north or south when you have extra nights.",
+        "facts": "Region | Far western Tanzania, Lake Tanganyika\nFocus | Chimpanzees, lake, forest\nAccess | Fly-in; flights not daily\nTime with chimps | 1 hour (park rule)\nBest Time | July–October (easiest trekking)",
+        "seasons": "July–late October — Long dry season. Chimps lower on the mountain; walks are shorter. Best combined with Katavi.\nShoulder months — Chimps still viewable; expect longer, harder treks. Some camps are seasonal.",
+        "wildlife": "Chimpanzees — the reason to come; sightings are reliable, walk length is not.\nOther primates and excellent forest birding.\nHippo and crocodile close to camp water; leopard present but lucky.",
+        "activities": "Chimp trekking — Forest days from camp. Fitness required; duration depends on where the group is feeding.\nLake time — Kayak, snorkel, fish, or walk the shoreline.\nWaterfall and forest walks — Birds and smaller primates when you are not on a chimp permit.",
+        "attractions": "Mahale Mountains\nLake Tanganyika beaches\nChimpanzee habitat\nForest waterfalls",
+        "faqs": "Gombe or Mahale? | Gombe is shorter and accessed via Kigoma. Mahale is a fly-in stay with more lake time and, in late dry season, often easier chimp walks. Budget and nights decide it.\nCan it combine with Serengeti? | Yes, as a fly-in after the northern circuit — but westbound flights are not daily. We build dates around the aircraft, not the other way around.\nHow long with the chimps? | One hour once you find them, by park rule. The walk to get there can be an hour or most of the day.\nIs Katavi worth adding? | In the dry season, yes: inland floodplain with enormous buffalo and elephant herds, a different west from forest chimps.",
         "seo_title": "Mahale Mountains",
         "seo_description": "Lake beaches and a fly-in forest stay"
       },
@@ -18950,10 +20149,51 @@
         "title": "Mahale Mountains",
         "slug": "mahale",
         "region": "Western Tanzania",
+        "kicker": "Lake beaches and chimps",
+        "tagline": "Lake beaches and a fly-in forest stay",
         "blurb": "Lake beaches and a fly-in forest stay",
+        "location": "Western Tanzania, Lake Tanganyika",
+        "cta": "Plan this safari",
         "image": "/images/gallery/culture-01.webp",
+        "gallery": [
+          "/images/gallery/serengeti-08.webp",
+          "/images/gallery/culture-07.webp",
+          "/images/gallery/zanzibar-03.webp"
+        ],
         "paragraphs": "Mahale is remoter chimpanzee habitat, lake beaches, and a fly-in stay that pairs with a longer Tanzania itinerary.\nUnlike Gombe’s compact trails, Mahale is a slower, lodge-based forest experience on Tanganyika — chimps inland, swimming and boat time on the lake.",
+        "blocks": [
+          {
+            "id": "block_1",
+            "type": "paragraph",
+            "text": "Mahale is remoter chimpanzee habitat, lake beaches, and a fly-in stay that pairs with a longer Tanzania itinerary.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          },
+          {
+            "id": "block_2",
+            "type": "paragraph",
+            "text": "Unlike Gombe’s compact trails, Mahale is a slower, lodge-based forest experience on Tanganyika — chimps inland, swimming and boat time on the lake.",
+            "url": "",
+            "alt": "",
+            "caption": "",
+            "headers": [],
+            "rows": [],
+            "headersText": "",
+            "rowsText": ""
+          }
+        ],
         "highlights": "Fly-in forest — A destination stay, not a day trip from Arusha.\nChimps and beach — Trekking inland, lake time in the afternoon.\nPairs with a longer trip — Add after the north or south when you have extra nights.",
+        "facts": "Region | Far western Tanzania, Lake Tanganyika\nFocus | Chimpanzees, lake, forest\nAccess | Fly-in; flights not daily\nTime with chimps | 1 hour (park rule)\nBest Time | July–October (easiest trekking)",
+        "seasons": "July–late October — Long dry season. Chimps lower on the mountain; walks are shorter. Best combined with Katavi.\nShoulder months — Chimps still viewable; expect longer, harder treks. Some camps are seasonal.",
+        "wildlife": "Chimpanzees — the reason to come; sightings are reliable, walk length is not.\nOther primates and excellent forest birding.\nHippo and crocodile close to camp water; leopard present but lucky.",
+        "activities": "Chimp trekking — Forest days from camp. Fitness required; duration depends on where the group is feeding.\nLake time — Kayak, snorkel, fish, or walk the shoreline.\nWaterfall and forest walks — Birds and smaller primates when you are not on a chimp permit.",
+        "attractions": "Mahale Mountains\nLake Tanganyika beaches\nChimpanzee habitat\nForest waterfalls",
+        "faqs": "Gombe or Mahale? | Gombe is shorter and accessed via Kigoma. Mahale is a fly-in stay with more lake time and, in late dry season, often easier chimp walks. Budget and nights decide it.\nCan it combine with Serengeti? | Yes, as a fly-in after the northern circuit — but westbound flights are not daily. We build dates around the aircraft, not the other way around.\nHow long with the chimps? | One hour once you find them, by park rule. The walk to get there can be an hour or most of the day.\nIs Katavi worth adding? | In the dry season, yes: inland floodplain with enormous buffalo and elephant herds, a different west from forest chimps.",
         "seo_title": "Mahale Mountains",
         "seo_description": "Lake beaches and a fly-in forest stay"
       },
@@ -39291,8 +40531,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-22T06:14:01.107Z",
-      "published_at": "2026-09-22T06:14:01.107Z"
+      "updated_at": "2026-09-22T21:46:44.831Z",
+      "published_at": "2026-09-22T21:46:44.831Z"
     },
     {
       "id": "bee8467c-e54c-451a-bdaa-5f8ef1cf56fc",
@@ -39320,8 +40560,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-22T06:14:01.107Z",
-      "published_at": "2026-09-22T06:14:01.107Z"
+      "updated_at": "2026-09-22T21:46:44.831Z",
+      "published_at": "2026-09-22T21:46:44.831Z"
     },
     {
       "id": "2e22e2e4-4191-4ad0-92c0-904a56db4ce8",
@@ -39349,8 +40589,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-22T06:14:01.107Z",
-      "published_at": "2026-09-22T06:14:01.107Z"
+      "updated_at": "2026-09-22T21:46:44.831Z",
+      "published_at": "2026-09-22T21:46:44.831Z"
     },
     {
       "id": "21a560cb-c43b-4410-901a-430b46b14748",
@@ -39378,8 +40618,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-22T06:14:01.107Z",
-      "published_at": "2026-09-22T06:14:01.107Z"
+      "updated_at": "2026-09-22T21:46:44.831Z",
+      "published_at": "2026-09-22T21:46:44.831Z"
     },
     {
       "id": "43a62514-cb84-4e36-963f-f4df41c12af3",
@@ -39407,8 +40647,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-22T06:14:01.107Z",
-      "published_at": "2026-09-22T06:14:01.107Z"
+      "updated_at": "2026-09-22T21:46:44.831Z",
+      "published_at": "2026-09-22T21:46:44.831Z"
     },
     {
       "id": "bd7ea83b-0288-4dda-bd17-8b9bab3a1ec1",
@@ -39436,8 +40676,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-22T06:14:01.107Z",
-      "published_at": "2026-09-22T06:14:01.107Z"
+      "updated_at": "2026-09-22T21:46:44.831Z",
+      "published_at": "2026-09-22T21:46:44.831Z"
     },
     {
       "id": "0ae28438-449a-4367-92ac-c87c80ba28b2",
@@ -39465,8 +40705,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-22T06:14:01.107Z",
-      "published_at": "2026-09-22T06:14:01.107Z"
+      "updated_at": "2026-09-22T21:46:44.831Z",
+      "published_at": "2026-09-22T21:46:44.831Z"
     },
     {
       "id": "c0edb116-17d6-41c3-a96d-12c2672e2d9b",
@@ -39494,8 +40734,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-22T06:14:01.107Z",
-      "published_at": "2026-09-22T06:14:01.107Z"
+      "updated_at": "2026-09-22T21:46:44.831Z",
+      "published_at": "2026-09-22T21:46:44.831Z"
     },
     {
       "id": "58b6891e-a6ca-4214-8a48-910a5b348e9e",
@@ -39523,8 +40763,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-22T06:14:01.107Z",
-      "published_at": "2026-09-22T06:14:01.107Z"
+      "updated_at": "2026-09-22T21:46:44.831Z",
+      "published_at": "2026-09-22T21:46:44.831Z"
     },
     {
       "id": "5208b103-3075-4a38-af42-48b9b18f18ba",
@@ -39552,8 +40792,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-22T06:14:01.107Z",
-      "published_at": "2026-09-22T06:14:01.107Z"
+      "updated_at": "2026-09-22T21:46:44.831Z",
+      "published_at": "2026-09-22T21:46:44.831Z"
     },
     {
       "id": "a2c788ff-d7df-4df4-b176-27726033179d",
@@ -39581,8 +40821,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-22T06:14:01.107Z",
-      "published_at": "2026-09-22T06:14:01.107Z"
+      "updated_at": "2026-09-22T21:46:44.831Z",
+      "published_at": "2026-09-22T21:46:44.831Z"
     },
     {
       "id": "bdf089c5-71e3-4dd8-9bc6-335dc193c76e",
@@ -39610,8 +40850,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-13T11:45:04.619Z",
-      "updated_at": "2026-09-22T06:14:01.107Z",
-      "published_at": "2026-09-22T06:14:01.107Z"
+      "updated_at": "2026-09-22T21:46:44.831Z",
+      "published_at": "2026-09-22T21:46:44.831Z"
     },
     {
       "id": "1adbb9f0-7b65-422b-a555-6a9533f91206",
@@ -39639,8 +40879,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-13T11:45:04.619Z",
-      "updated_at": "2026-09-22T06:14:01.107Z",
-      "published_at": "2026-09-22T06:14:01.107Z"
+      "updated_at": "2026-09-22T21:46:44.831Z",
+      "published_at": "2026-09-22T21:46:44.831Z"
     },
     {
       "id": "c15c34e1-5e6c-4c53-82f2-5516d89df790",
@@ -39797,7 +41037,7 @@
       "slug": "3-days-affordable-joining-safari",
       "status": "PUBLISHED",
       "draft": {
-        "title": "3 Days Affordable Joining Safari",
+        "title": "3-Day Affordable Joining Safari",
         "dates": "Open 2026–2027",
         "start": "",
         "end": "",
@@ -39807,10 +41047,12 @@
         "highlights": "Three Northern Circuit parks\nShared 4x4 and professional guide\nTwo nights lodge accommodation\nPark and crater fees included",
         "image": "/images/gallery/ngorongoro-01.webp",
         "slug": "3-days-affordable-joining-safari",
-        "price_from": 800
+        "price_from": 800,
+        "short_description": "",
+        "description": ""
       },
       "published": {
-        "title": "3 Days Affordable Joining Safari",
+        "title": "3-Day Affordable Joining Safari",
         "dates": "Open 2026–2027",
         "start": "",
         "end": "",
@@ -39820,7 +41062,9 @@
         "highlights": "Three Northern Circuit parks\nShared 4x4 and professional guide\nTwo nights lodge accommodation\nPark and crater fees included",
         "image": "/images/gallery/ngorongoro-01.webp",
         "slug": "3-days-affordable-joining-safari",
-        "price_from": 800
+        "price_from": 800,
+        "short_description": "",
+        "description": ""
       },
       "created_by": "seed",
       "updated_by": "seed",
@@ -39834,7 +41078,7 @@
       "slug": "4-days-shared-safari-tanzania",
       "status": "PUBLISHED",
       "draft": {
-        "title": "4 Days Shared Safari Tanzania",
+        "title": "4-Day Shared Safari Tanzania",
         "dates": "Open 2026–2027",
         "start": "",
         "end": "",
@@ -39844,10 +41088,12 @@
         "highlights": "Two nights in the Serengeti\nTarangire and Ngorongoro Crater\nShared 4x4 and professional guide\nPark and crater fees included",
         "image": "/images/gallery/serengeti-01.webp",
         "slug": "4-days-shared-safari-tanzania",
-        "price_from": 1000
+        "price_from": 1000,
+        "short_description": "",
+        "description": ""
       },
       "published": {
-        "title": "4 Days Shared Safari Tanzania",
+        "title": "4-Day Shared Safari Tanzania",
         "dates": "Open 2026–2027",
         "start": "",
         "end": "",
@@ -39857,7 +41103,9 @@
         "highlights": "Two nights in the Serengeti\nTarangire and Ngorongoro Crater\nShared 4x4 and professional guide\nPark and crater fees included",
         "image": "/images/gallery/serengeti-01.webp",
         "slug": "4-days-shared-safari-tanzania",
-        "price_from": 1000
+        "price_from": 1000,
+        "short_description": "",
+        "description": ""
       },
       "created_by": "seed",
       "updated_by": "seed",
@@ -39871,7 +41119,7 @@
       "slug": "5-day-shared-group-camping-safari",
       "status": "PUBLISHED",
       "draft": {
-        "title": "5 Day Shared Group Camping Safari",
+        "title": "5-Day Shared Group Camping Safari",
         "dates": "Open 2026–2027",
         "start": "",
         "end": "",
@@ -39881,10 +41129,12 @@
         "highlights": "Two nights camping in the Serengeti\nNgorongoro crater-rim night\nShared 4x4 and professional guide\nPark and crater fees included",
         "image": "/images/gallery/serengeti-02.webp",
         "slug": "5-day-shared-group-camping-safari",
-        "price_from": 1250
+        "price_from": 1250,
+        "short_description": "",
+        "description": ""
       },
       "published": {
-        "title": "5 Day Shared Group Camping Safari",
+        "title": "5-Day Shared Group Camping Safari",
         "dates": "Open 2026–2027",
         "start": "",
         "end": "",
@@ -39894,7 +41144,9 @@
         "highlights": "Two nights camping in the Serengeti\nNgorongoro crater-rim night\nShared 4x4 and professional guide\nPark and crater fees included",
         "image": "/images/gallery/serengeti-02.webp",
         "slug": "5-day-shared-group-camping-safari",
-        "price_from": 1250
+        "price_from": 1250,
+        "short_description": "",
+        "description": ""
       },
       "created_by": "seed",
       "updated_by": "seed",
@@ -39908,7 +41160,7 @@
       "slug": "3-day-serengeti-ngorongoro-joining-safari",
       "status": "PUBLISHED",
       "draft": {
-        "title": "3 Day Serengeti & Ngorongoro Joining Safari",
+        "title": "3-Day Serengeti & Ngorongoro Joining Safari",
         "dates": "Open 2026–2027",
         "start": "",
         "end": "",
@@ -39918,10 +41170,12 @@
         "highlights": "Two nights in the Serengeti\nNgorongoro Crater game drive\nShared 4x4 and professional guide\nPark and crater fees included",
         "image": "/images/gallery/serengeti-03.webp",
         "slug": "3-day-serengeti-ngorongoro-joining-safari",
-        "price_from": 750
+        "price_from": 750,
+        "short_description": "",
+        "description": ""
       },
       "published": {
-        "title": "3 Day Serengeti & Ngorongoro Joining Safari",
+        "title": "3-Day Serengeti & Ngorongoro Joining Safari",
         "dates": "Open 2026–2027",
         "start": "",
         "end": "",
@@ -39931,7 +41185,9 @@
         "highlights": "Two nights in the Serengeti\nNgorongoro Crater game drive\nShared 4x4 and professional guide\nPark and crater fees included",
         "image": "/images/gallery/serengeti-03.webp",
         "slug": "3-day-serengeti-ngorongoro-joining-safari",
-        "price_from": 750
+        "price_from": 750,
+        "short_description": "",
+        "description": ""
       },
       "created_by": "seed",
       "updated_by": "seed",
@@ -39945,7 +41201,7 @@
       "slug": "2-day-tarangire-ngorongoro-joining-safari",
       "status": "PUBLISHED",
       "draft": {
-        "title": "2 Day Tarangire & Ngorongoro Joining Safari",
+        "title": "2-Day Tarangire & Ngorongoro Joining Safari",
         "dates": "Open 2026–2027",
         "start": "",
         "end": "",
@@ -39955,10 +41211,12 @@
         "highlights": "Tarangire and Ngorongoro in two days\nOne night lodge accommodation\nShared 4x4 and professional guide\nPark and crater fees included",
         "image": "/images/gallery/tarangire-01.webp",
         "slug": "2-day-tarangire-ngorongoro-joining-safari",
-        "price_from": 500
+        "price_from": 500,
+        "short_description": "",
+        "description": ""
       },
       "published": {
-        "title": "2 Day Tarangire & Ngorongoro Joining Safari",
+        "title": "2-Day Tarangire & Ngorongoro Joining Safari",
         "dates": "Open 2026–2027",
         "start": "",
         "end": "",
@@ -39968,7 +41226,9 @@
         "highlights": "Tarangire and Ngorongoro in two days\nOne night lodge accommodation\nShared 4x4 and professional guide\nPark and crater fees included",
         "image": "/images/gallery/tarangire-01.webp",
         "slug": "2-day-tarangire-ngorongoro-joining-safari",
-        "price_from": 500
+        "price_from": 500,
+        "short_description": "",
+        "description": ""
       },
       "created_by": "seed",
       "updated_by": "seed",
@@ -39992,7 +41252,9 @@
         "highlights": "Ngorongoro Crater game drive\nShared 4x4 and professional guide\nPicnic lunch included\nSame-day return to Arusha",
         "image": "/images/gallery/ngorongoro-02.webp",
         "slug": "ngorongoro-day-trip-joining-safari",
-        "price_from": 250
+        "price_from": 250,
+        "short_description": "",
+        "description": ""
       },
       "published": {
         "title": "Ngorongoro Day Trip Joining Safari",
@@ -40005,7 +41267,9 @@
         "highlights": "Ngorongoro Crater game drive\nShared 4x4 and professional guide\nPicnic lunch included\nSame-day return to Arusha",
         "image": "/images/gallery/ngorongoro-02.webp",
         "slug": "ngorongoro-day-trip-joining-safari",
-        "price_from": 250
+        "price_from": 250,
+        "short_description": "",
+        "description": ""
       },
       "created_by": "seed",
       "updated_by": "seed",
@@ -40019,7 +41283,7 @@
       "slug": "ndutu-calving-2027",
       "status": "PUBLISHED",
       "draft": {
-        "title": "6 Days Great Wildebeest Calving Experience (Joining Safari)",
+        "title": "6-Day Great Wildebeest Calving Experience (Joining Safari)",
         "dates": "February 15–20, 2027",
         "start": "2027-02-15",
         "end": "2027-02-20",
@@ -40028,10 +41292,12 @@
         "overview": "Experience one of Africa’s most spectacular wildlife events as thousands of wildebeest give birth across the Ndutu plains. Witness breathtaking predator action, endless wildlife, and unforgettable landscapes.",
         "highlights": "Great Wildebeest Calving Season\nNgorongoro Crater Game Drive\nFull Days Exploring Ndutu\nBig Cats & Predator Action\nExpert Safari Guide\nComfortable Lodge & Tented Camp Accommodation",
         "image": "/images/gallery/serengeti-01.webp",
-        "slug": "ndutu-calving-2027"
+        "slug": "ndutu-calving-2027",
+        "short_description": "",
+        "description": ""
       },
       "published": {
-        "title": "6 Days Great Wildebeest Calving Experience (Joining Safari)",
+        "title": "6-Day Great Wildebeest Calving Experience (Joining Safari)",
         "dates": "February 15–20, 2027",
         "start": "2027-02-15",
         "end": "2027-02-20",
@@ -40040,7 +41306,9 @@
         "overview": "Experience one of Africa’s most spectacular wildlife events as thousands of wildebeest give birth across the Ndutu plains. Witness breathtaking predator action, endless wildlife, and unforgettable landscapes.",
         "highlights": "Great Wildebeest Calving Season\nNgorongoro Crater Game Drive\nFull Days Exploring Ndutu\nBig Cats & Predator Action\nExpert Safari Guide\nComfortable Lodge & Tented Camp Accommodation",
         "image": "/images/gallery/serengeti-01.webp",
-        "slug": "ndutu-calving-2027"
+        "slug": "ndutu-calving-2027",
+        "short_description": "",
+        "description": ""
       },
       "created_by": "seed",
       "updated_by": "seed",
@@ -40058,13 +41326,13 @@
       "draft": {
         "title": "Primary",
         "location": "primary",
-        "items": "Home | /\nDestinations | /destinations/\nSafaris | /tours/\nJoin Safari | /join-safari/\nKilimanjaro | /kilimanjaro/\nContact Us | /contact/",
+        "items": "Home | /\nDestinations | /destinations/\nSafaris | /tours/\nGroup Safari | /join-safari/\nKilimanjaro | /kilimanjaro/\nContact Us | /contact/",
         "slug": "primary"
       },
       "published": {
         "title": "Primary",
         "location": "primary",
-        "items": "Home | /\nDestinations | /destinations/\nSafaris | /tours/\nJoin Safari | /join-safari/\nKilimanjaro | /kilimanjaro/\nContact Us | /contact/",
+        "items": "Home | /\nDestinations | /destinations/\nSafaris | /tours/\nGroup Safari | /join-safari/\nKilimanjaro | /kilimanjaro/\nContact Us | /contact/",
         "slug": "primary"
       },
       "created_by": "seed",

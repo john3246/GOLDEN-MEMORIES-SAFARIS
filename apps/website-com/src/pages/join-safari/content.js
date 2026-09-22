@@ -15,7 +15,7 @@ export const joiningSafaris = [
   {
     id: 'ndutu-calving-2027',
     slug: '6-days-great-wildebeest-calving-experience',
-    title: '6 Days Great Wildebeest Calving Experience (Joining Safari)',
+    title: '6-Day Great Wildebeest Calving Experience (Joining Safari)',
     datesLabel: 'February 15–20, 2027',
     start: '2027-02-15',
     end: '2027-02-20',

@@ -1,6 +1,7 @@
 export { escapeHtml, escapeAttr, paragraphs } from './escape.js';
 export {
   emptySafariDocument,
+  safariPackageTitle,
   normalizeSections,
   enabledSections,
   normalizeItineraryDay,
@@ -18,6 +19,15 @@ export {
   enabledBlogSections,
 } from './blog-model.js';
 export { renderBlogPage } from './blog-page.js';
+export {
+  emptyDestinationDocument,
+  normalizeDestinationDocument,
+  destinationForWebsite,
+  parseTitledLines,
+  parseFactLines,
+  parseFaqLines,
+} from './destination-model.js';
+export { renderDestinationBlocks } from './destination-blocks.js';
 export { SAFARI_DAY_IMAGES, resolveDayImage } from './day-image.js';
 export { galleryKindForText, galleryKindForDay, galleryKindForCover, GALLERY_POOLS, isLocalGalleryUrl } from './gallery-kind.js';
 export { formatMoney, safariPrice } from './price.js';

@@ -922,7 +922,7 @@ const midrangeMigrationFive = {
 
 const familySix = {
   slug: '6-day-family-tour-tanzania',
-  title: '6 Days Family Tour Tanzania 2026–2027',
+  title: '6-Day Family Tour Tanzania 2026–2027',
   duration: 6,
   duration_label: '6 Days / 5 Nights',
   destination: 'Arusha · Lake Manyara · Serengeti · Ngorongoro',
@@ -1035,7 +1035,7 @@ const familySix = {
 
 const midrangeBalloonThree = {
   slug: '3-day-serengeti-hot-air-balloon-safari',
-  title: '3 Day Serengeti Hot Air Balloon Safari 2026–2027',
+  title: '3-Day Serengeti Hot Air Balloon Safari 2026–2027',
   duration: 3,
   duration_label: '3 Days / 2 Nights',
   destination: 'Central Serengeti',
@@ -1116,7 +1116,7 @@ const midrangeBalloonThree = {
 
 const honeymoonSeven = {
   slug: '7-day-ndutu-zanzibar-honeymoon-safari',
-  title: '7 Days Ndutu & Zanzibar Honeymoon Safari 2026–2027',
+  title: '7-Day Ndutu & Zanzibar Honeymoon Safari 2026–2027',
   duration: 7,
   duration_label: '7 Days / 6 Nights',
   destination: 'Arusha · Tarangire · Ndutu · Ngorongoro · Zanzibar',
@@ -1234,7 +1234,7 @@ const honeymoonSeven = {
 
 const midrangeFive = {
   slug: '5-day-midrange-serengeti-ngorongoro-safari',
-  title: '5 Days Mid-Range Safari: Serengeti & Ngorongoro Crater 2026–2027',
+  title: '5-Day Mid-Range Safari: Serengeti & Ngorongoro Crater 2026–2027',
   duration: 5,
   duration_label: '5 Days / 4 Nights',
   destination: 'Serengeti · Ngorongoro',

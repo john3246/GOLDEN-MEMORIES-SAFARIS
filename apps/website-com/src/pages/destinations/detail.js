@@ -1,4 +1,5 @@
 import { safariCard } from '../../components/cards/safari-card.js';
+import { renderDestinationBlocks } from '@gm-safaris/safari-ui';
 import { getDestinationBySlug, relatedDestinations, toursForDestination } from './catalog.js';
 import { destinationHref } from './paths.js';
 import { withoutCover, uniqueCoverFor } from '../../media/gallery.js';
@@ -150,7 +151,11 @@ export function renderDestinationDetail(slug) {
           <div class="reveal bg-white p-6 sm:p-10">
             <p class="section-kicker">About this destination</p>
             <h2 id="dest-about-title" class="section-title">About ${place.name}</h2>
-            ${place.paragraphs.map((p) => `<p class="mt-5 font-body text-base leading-relaxed text-ink/75">${p}</p>`).join('')}
+            ${
+              place.blocks?.length
+                ? renderDestinationBlocks(place.blocks)
+                : (place.paragraphs || []).map((p) => `<p class="mt-5 font-body text-base leading-relaxed text-ink/75">${p}</p>`).join('')
+            }
           </div>
           <aside class="reveal safari-aside">
             <p class="section-kicker">Quick facts</p>

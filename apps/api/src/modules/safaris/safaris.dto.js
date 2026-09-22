@@ -1,5 +1,5 @@
 import { SafariStatus } from '@gm-safaris/shared-types';
-import { hasSafariPrice, normalizeItinerary } from '@gm-safaris/safari-ui';
+import { hasSafariPrice, normalizeItinerary, safariPackageTitle } from '@gm-safaris/safari-ui';
 
 function publicItinerary(doc, draft) {
   const published = normalizeItinerary(doc?.itinerary);
@@ -27,9 +27,9 @@ export function toPublicSafari(record) {
   return {
     id: record.id,
     slug: doc.slug || record.slug,
-    title: doc.title,
-    short_description: doc.short_description,
-    description: doc.description,
+    title: safariPackageTitle(doc.title),
+    short_description: safariPackageTitle(doc.short_description),
+    description: safariPackageTitle(doc.description),
     featured: Boolean(doc.featured),
     display_order: doc.display_order ?? record.display_order ?? 0,
     duration: doc.duration,
@@ -115,7 +115,7 @@ export function toAdminListItem(record) {
   return {
     id: record.id,
     slug: record.slug,
-    title: doc.title || 'Untitled safari',
+    title: safariPackageTitle(doc.title || 'Untitled safari'),
     status: record.status,
     featured: Boolean(doc.featured),
     display_order: doc.display_order ?? 0,

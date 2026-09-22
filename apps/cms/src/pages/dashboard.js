@@ -31,7 +31,7 @@ const TYPE_LABELS = {
   testimonials: 'Reviews',
   faqs: 'FAQs',
   lodges: 'Accommodations',
-  departures: 'Join safari',
+  departures: 'Group Safari',
   menus: 'Menus',
 };
 

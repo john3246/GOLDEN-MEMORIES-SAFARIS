@@ -11,7 +11,7 @@ import { reviewList } from '../../pages/reviews/content.js';
 import { safariFaqs } from '../../pages/tours/content.js';
 import { kiliFaqs } from '../../pages/kilimanjaro/content.js';
 import { assignUniqueCovers, uniqueCoverFor } from '../../media/gallery.js';
-import { fetchPublicSettings, fetchPublishedContent } from '../api/cms.js';
+import { destinationForWebsite, safariPackageTitle } from '@gm-safaris/safari-ui';
 
 assignUniqueCovers(featuredTours);
 
@@ -32,11 +32,11 @@ function lines(value) {
 function parseMenuItems(text) {
   return lines(text).map((line) => {
     const [label, href] = line.split('|').map((part) => part.trim());
-    return { label: label || 'Link', href: href || '/' };
+    return { label: (label || 'Link').replace(/\bJoin Safari\b/g, 'Group Safari'), href: href || '/' };
   });
 }
 
-function timedFetch(ms = 800) {
+function timedFetch(ms = 2500) {
   const ctrl = new AbortController();
   const timer = window.setTimeout(() => ctrl.abort(), ms);
   return { signal: ctrl.signal, done: () => window.clearTimeout(timer) };
@@ -97,32 +97,7 @@ function galleryUrls(value) {
 }
 
 function mapDestination(item, existing = {}) {
-  const highlights = lines(item.highlights).map((line) => {
-    const [title, ...rest] = line.split(/[—:-]/);
-    return { title: (title || line).trim(), body: rest.join(' ').trim() || line };
-  });
-  const gallery = galleryUrls(item.gallery);
-  return {
-    ...existing,
-    slug: item.slug || existing.slug,
-    name: item.title || existing.name,
-    kicker: item.region || existing.kicker || 'Tanzania',
-    tagline: item.blurb || existing.tagline || '',
-    region: item.region || existing.region || '',
-    cta: existing.cta || 'Plan this safari',
-    image: item.image || existing.image || '',
-    gallery: gallery.length ? gallery : existing.gallery || (item.image ? [item.image] : []),
-    match: existing.match || [item.slug],
-    paragraphs: lines(item.paragraphs).length ? lines(item.paragraphs) : existing.paragraphs || [],
-    highlights: highlights.length ? highlights : existing.highlights || [],
-    seasons: existing.seasons || [],
-    wildlife: existing.wildlife || [],
-    activities: existing.activities || [],
-    attractions: existing.attractions || [],
-    faqs: existing.faqs || [],
-    facts: existing.facts || [],
-    location: item.region || existing.location || '',
-  };
+  return destinationForWebsite(item, existing);
 }
 
 function applyFaqs(items) {
@@ -142,7 +117,7 @@ function applyFaqs(items) {
 function mapDeparture(item) {
   return {
     id: item.slug || item.id,
-    title: item.title,
+    title: safariPackageTitle(item.title),
     datesLabel: item.dates || '',
     start: item.start || '',
     end: item.end || '',
@@ -172,16 +147,16 @@ export function seoForPath(pathname) {
  * Local copy remains the fallback if the API is down or empty.
  */
 export async function hydrateFromCms() {
-  const wait = timedFetch(900);
+  const wait = timedFetch(8000);
   try {
     const [settings, menus, reviews, cmsLodges, posts, destinations, departures, pages, faqs] =
       await Promise.all([
         fetchPublicSettings(wait.signal).catch(() => null),
-        fetchPublishedContent('menus', wait.signal).catch(() => []),
+        fetchPublishedContent('menus').catch(() => []),
         fetchPublishedContent('testimonials', wait.signal).catch(() => []),
         fetchPublishedContent('lodges', wait.signal).catch(() => []),
         fetchPublishedContent('posts', wait.signal).catch(() => []),
-        fetchPublishedContent('destinations', wait.signal).catch(() => []),
+        fetchPublishedContent('destinations').catch(() => []),
         fetchPublishedContent('departures', wait.signal).catch(() => []),
         fetchPublishedContent('pages', wait.signal).catch(() => []),
         fetchPublishedContent('faqs', wait.signal).catch(() => []),
@@ -239,7 +214,12 @@ export async function hydrateFromCms() {
       for (const item of destinations) {
         if (item.image) cmsDestinationImages.set(item.slug, item.image);
         const existingIndex = destinationPlaces.findIndex((place) => place.slug === item.slug);
-        const mapped = mapDestination(item, existingIndex >= 0 ? destinationPlaces[existingIndex] : {});
+        let mapped;
+        try {
+          mapped = mapDestination(item, existingIndex >= 0 ? destinationPlaces[existingIndex] : {});
+        } catch {
+          continue;
+        }
         if (existingIndex >= 0) destinationPlaces.splice(existingIndex, 1, mapped);
         else destinationPlaces.push(mapped);
 
@@ -247,7 +227,7 @@ export async function hydrateFromCms() {
           const park = region.parks?.find((entry) => entry.slug === item.slug);
           if (park) {
             park.name = item.title || park.name;
-            park.blurb = item.blurb || park.blurb;
+            park.blurb = item.blurb || item.tagline || park.blurb;
             park.image = item.image || park.image;
           }
         }

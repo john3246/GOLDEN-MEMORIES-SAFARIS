@@ -120,8 +120,8 @@ async function mount() {
     const { renderJoinSafari, initJoinSafari } = await import('./pages/join-safari/join.js');
     page = renderJoinSafari();
     setMeta(
-      'Join a Group Safari | 6 Days Wildebeest Calving | Golden Memories Safaris',
-      'Join the 6 Days Great Wildebeest Calving Experience, 15–20 February 2027. Ndutu plains, Ngorongoro Crater, and Ang’ata Migration Camp — spaces limited.'
+      'Group Safari | 6-Day Wildebeest Calving | Golden Memories Safaris',
+      'Join the 6-Day Great Wildebeest Calving Experience, 15–20 February 2027. Ndutu plains, Ngorongoro Crater, and Ang’ata Migration Camp — spaces limited.'
     );
     afterPaint = async () => initJoinSafari();
   } else if (isKilimanjaroPage()) {

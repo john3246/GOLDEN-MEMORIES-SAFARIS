@@ -27,7 +27,7 @@ export function renderFooter() {
             <li><a class="hover:text-gold" href="/tours/">Safaris</a></li>
             <li><a class="hover:text-gold" href="/destinations/">Destinations</a></li>
             <li><a class="hover:text-gold" href="/accommodations/">Accommodations</a></li>
-            <li><a class="hover:text-gold" href="/join-safari/">Join Safari</a></li>
+            <li><a class="hover:text-gold" href="/join-safari/">Group Safari</a></li>
             <li><a class="hover:text-gold" href="/kilimanjaro/">Kilimanjaro</a></li>
             <li><a class="hover:text-gold" href="/blog/">Blog</a></li>
             <li><a class="hover:text-gold" href="/reviews/">Reviews</a></li>

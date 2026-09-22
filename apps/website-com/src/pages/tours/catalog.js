@@ -1,5 +1,6 @@
 import { uniqueCoverFor } from '../../media/gallery.js';
 import { PDF_PACKAGES, toWebsiteTrip } from '../../../../api/src/modules/safaris/pdf-packages.js';
+import { safariPackageTitle } from '@gm-safaris/safari-ui';
 import { dayTrips, kilimanjaro, zanzibar } from '../home/content.js';
 import { openJoiningPackages } from '../join-safari/packages.js';
 import { safariPackages } from './content.js';
@@ -297,6 +298,7 @@ function withDefaults(tour) {
   return {
     ...tour,
     slug,
+    title: safariPackageTitle(tour.title),
     overview: extra.overview || tour.overview || `${tour.title} with Golden Memories Safaris — a private itinerary from Arusha, shaped around ${tour.places || 'Tanzania’s parks'}.`,
     highlights: extra.highlights || tour.highlights || [tour.places, tour.duration, tour.activity].filter(Boolean),
     itinerary: extra.itinerary || tour.itinerary || daysFromJoin(tour) || [{ day: 'Itinerary', title: tour.title, body: 'Share your dates and we will send a day-by-day plan for this package.' }],

@@ -48,10 +48,10 @@ export function renderJoinDetail(slug) {
     return `
       <main id="main" class="bg-mist py-12">
         <div class="container-site max-w-2xl text-center">
-          <p class="section-kicker">Join Safari</p>
+          <p class="section-kicker">Group Safari</p>
           <h1 class="section-title">Package not found</h1>
-          <p class="mt-4 text-ink/70">That joining safari is no longer listed. Browse current group departures instead.</p>
-          <a class="btn-navy mt-8 !rounded-none" href="/join-safari/">View joining safaris</a>
+          <p class="mt-4 text-ink/70">That group safari is no longer listed. Browse current group departures instead.</p>
+          <a class="btn-navy mt-8 !rounded-none" href="/join-safari/">View group safaris</a>
         </div>
       </main>
     `;
@@ -114,7 +114,7 @@ export function renderJoinDetail(slug) {
         <div class="container-site font-body text-sm text-black/60">
           <a class="hover:text-gold-deep" href="/">Home</a>
           <span aria-hidden="true"> › </span>
-          <a class="hover:text-gold-deep" href="/join-safari/">Join Safari</a>
+          <a class="hover:text-gold-deep" href="/join-safari/">Group Safari</a>
           <span aria-hidden="true"> › </span>
           <span class="text-black">${pkg.title}</span>
         </div>

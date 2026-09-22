@@ -12,6 +12,7 @@ import { renderAudit, initAudit } from './pages/audit.js';
 import { renderContentList, initContentList } from './pages/content-list.js';
 import { renderContentEditor, initContentEditor } from './pages/content-editor.js';
 import { renderBlogEditor, initBlogEditor } from './pages/blog-editor.js';
+import { renderDestinationEditor, initDestinationEditor } from './pages/destination-editor.js';
 import { renderSettings, initSettings } from './pages/settings.js';
 import { renderOperations, initOperations, renderBookingDetail, initBookingDetail } from './pages/operations.js';
 import { renderUsers, initUsers } from './pages/users.js';
@@ -43,6 +44,7 @@ function route() {
   if (hash === '/safaris') return { name: 'list' };
   if (contentEdit) {
     if (contentEdit[1] === 'posts') return { name: 'blog-editor', id: contentEdit[2] };
+    if (contentEdit[1] === 'destinations') return { name: 'destination-editor', id: contentEdit[2] };
     return { name: 'content-editor', type: contentEdit[1], id: contentEdit[2] };
   }
   if (contentList) return { name: 'content-list', type: contentList[1] };
@@ -151,6 +153,12 @@ async function mount() {
     app.innerHTML = renderBlogEditor(user, current.id);
     readyChrome();
     await initBlogEditor(current.id);
+    return;
+  }
+  if (current.name === 'destination-editor') {
+    app.innerHTML = renderDestinationEditor(user, current.id);
+    readyChrome();
+    await initDestinationEditor(current.id);
     return;
   }
   if (current.name === 'content-list' && CONTENT_KEYS.includes(current.type)) {

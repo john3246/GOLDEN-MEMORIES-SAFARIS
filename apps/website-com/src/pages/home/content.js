@@ -53,7 +53,7 @@ export const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'Destinations', href: '/destinations/' },
   { label: 'Safaris', href: '/tours/' },
-  { label: 'Join Safari', href: '/join-safari/' },
+  { label: 'Group Safari', href: '/join-safari/' },
   { label: 'Kilimanjaro', href: '/kilimanjaro/' },
   { label: 'Excursions', href: '/tours/#excursions' },
   { label: 'Contact Us', href: '/contact/' },
@@ -140,7 +140,7 @@ export const kilimanjaro = kilimanjaroTreks;
 export const zanzibar = [
   {
     slug: '5-days-zanzibar-beach-holiday',
-    title: '5 Days Zanzibar Beach Holiday',
+    title: '5-Day Zanzibar Beach Holiday',
     duration: '5 Days',
     activity: 'Beach vacation',
     places: 'Zanzibar',
@@ -156,7 +156,7 @@ export const zanzibar = [
   },
   {
     slug: '2-days-safari-from-zanzibar',
-    title: '2 Days Safari From Zanzibar',
+    title: '2-Day Safari From Zanzibar',
     duration: '2 Days',
     activity: 'Wildlife Safari',
     places: 'Tarangire · Ngorongoro',

@@ -91,7 +91,7 @@ describe('safari-ui', () => {
       title: '4-Day Affordable Private Tanzania Safari – Tarangire, Serengeti & Ngorongoro Crater Adventure',
     })).toBe('tarangire');
     expect(galleryKindForCover({
-      title: '4 Days Shared Safari Tanzania',
+      title: '4-Day Shared Safari Tanzania',
       itinerary: [
         { title: 'Tarangire National Park' },
         { title: 'Serengeti National Park' },
@@ -105,7 +105,7 @@ describe('safari-ui', () => {
 
     const tarangire = resolveDayImage(
       { title: 'Tarangire National Park', description: 'Elephants among baobabs.' },
-      { slug: '3-days-affordable-joining-safari', title: '3 Days Affordable Joining Safari' },
+      { slug: '3-days-affordable-joining-safari', title: '3-Day Affordable Joining Safari' },
       0
     );
     const serengeti = resolveDayImage(
@@ -115,12 +115,34 @@ describe('safari-ui', () => {
     );
     const otherTarangire = resolveDayImage(
       { title: 'Tarangire National Park', description: 'Elephants among baobabs.' },
-      { slug: '2-days-tarangire-ngorongoro-safari', title: '2 Days Tarangire & Ngorongoro Safari' },
+      { slug: '2-days-tarangire-ngorongoro-safari', title: '2-Day Tarangire & Ngorongoro Safari' },
       0
     );
     expect(tarangire).toMatch(/\/images\/gallery\/tarangire-\d+\.webp$/);
     expect(serengeti).toMatch(/\/images\/gallery\/serengeti-\d+\.webp$/);
     expect(otherTarangire).toMatch(/\/images\/gallery\/tarangire-\d+\.webp$/);
     expect(tarangire).not.toBe(otherTarangire);
+  });
+
+  it('names safari packages with Day, not Days', async () => {
+    const { safariPackageTitle } = await import('@gm-safaris/safari-ui');
+    expect(safariPackageTitle('4 Days Mt Meru Trekking Via Momella Gate')).toBe('4-Day Mt Meru Trekking Via Momella Gate');
+    expect(safariPackageTitle('6 Day Family Tour Tanzania')).toBe('6-Day Family Tour Tanzania');
+    expect(safariPackageTitle('8-Day Luxury Tanzania Safari')).toBe('8-Day Luxury Tanzania Safari');
+  });
+
+  it('renders destination paragraphs, tables and images', async () => {
+    const { renderDestinationBlocks } = await import('@gm-safaris/safari-ui');
+    const html = renderDestinationBlocks([
+      { type: 'heading', text: 'When to go' },
+      { type: 'paragraph', text: 'The herds stay in the Serengeti all year.' },
+      { type: 'image', url: '/images/gallery/serengeti-01.webp', alt: 'Serengeti plains' },
+      { type: 'table', headers: ['Month', 'Focus'], rows: [['February', 'Calving'], ['July', 'River crossings']] },
+    ]);
+    expect(html).toContain('When to go');
+    expect(html).toContain('The herds stay in the Serengeti all year.');
+    expect(html).toContain('/images/gallery/serengeti-01.webp');
+    expect(html).toContain('<th>Month</th>');
+    expect(html).toContain('<td>Calving</td>');
   });
 });

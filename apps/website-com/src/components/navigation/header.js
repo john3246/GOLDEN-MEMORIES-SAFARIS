@@ -253,7 +253,7 @@ export function renderHeader() {
   const joinMega = `
       <div class="nav-mega" data-nav-mega>
         <button type="button" class="nav-link nav-mega-btn" data-nav-mega-toggle aria-expanded="false" aria-haspopup="true" ${joinCurrent ? 'aria-current="page"' : ''}>
-          Join Safari
+          Group Safari
           <span class="nav-more-chevron">${ICONS.chevron}</span>
         </button>
         <div class="nav-mega-panel" data-nav-mega-panel>
@@ -261,7 +261,7 @@ export function renderHeader() {
             <div class="nav-mega-intro">
               <p class="nav-mega-kicker">Joining group safari</p>
               <p>Share a vehicle on published 2026–2027 departures across Tarangire, Serengeti, and Ngorongoro.</p>
-              <a class="nav-mega-all" href="/join-safari/">Browse all joining safaris <span aria-hidden="true">→</span></a>
+              <a class="nav-mega-all" href="/join-safari/">Browse all group safaris <span aria-hidden="true">→</span></a>
             </div>
             <div>
               <p class="nav-mega-kicker">Open packages</p>
@@ -349,8 +349,8 @@ export function renderHeader() {
     `;
   const mobileJoin = `
       <div class="mobile-nav-group">
-        <p class="mobile-nav-link" aria-hidden="true">Join Safari</p>
-        <a class="mobile-nav-sub" href="/join-safari/">All joining group safaris</a>
+        <p class="mobile-nav-link" aria-hidden="true">Group Safari</p>
+        <a class="mobile-nav-sub" href="/join-safari/">All group safaris</a>
         ${openJoiningPackages.map((item) => `<a class="mobile-nav-sub" href="${joinHref(item)}">${item.title}</a>`).join('')}
       </div>
     `;

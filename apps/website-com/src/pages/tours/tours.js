@@ -1,5 +1,6 @@
 import { tourCard } from '../../components/cards/tour-card.js';
 import { uniqueCoverFor } from '../../media/gallery.js';
+import { safariPackageTitle } from '@gm-safaris/safari-ui';
 import { testimonials as homeQuotes } from '../home/content.js';
 import { allTours } from './catalog.js';
 import { gmsTrips, styleBySlug } from './gms-trips.js';
@@ -36,7 +37,7 @@ export function renderTours(cmsPackages) {
       const gms = gmsTrips.find((trip) => trip.slug === item.slug);
       bySlug.set(item.slug, {
         slug: item.slug,
-        title: item.title,
+        title: safariPackageTitle(item.title),
         duration: item.duration_label || item.duration || gms?.duration || '',
         places: item.destination || gms?.places || '',
         image: uniqueCoverFor(gms || item),

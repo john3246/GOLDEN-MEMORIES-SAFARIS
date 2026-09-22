@@ -73,6 +73,7 @@ export const contentService = {
     const record = await contentRepository.findById(type, id);
     if (!record) throw notFound('Content not found');
     if (type === 'posts') record.draft = emptyDraft('posts', record.draft || {});
+    if (type === 'destinations') record.draft = emptyDraft('destinations', record.draft || {});
     return toAdmin(record);
   },
 

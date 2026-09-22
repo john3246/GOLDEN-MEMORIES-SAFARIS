@@ -46,7 +46,7 @@ const PAGES = [
   { title: 'Accommodations', slug: 'accommodations', kicker: 'Where you stay', excerpt: 'Lodges and camps we book across Tanzania.' },
   { title: 'Reviews', slug: 'reviews', kicker: 'Guest stories', excerpt: 'Rated 5/5 by served clients.' },
   { title: 'Kilimanjaro', slug: 'kilimanjaro', kicker: 'Mountain climbing', excerpt: 'Guided routes from Arusha and Moshi.' },
-  { title: 'Join Safari', slug: 'join-safari', kicker: 'Open departures', excerpt: 'Small-group dates you can join.' },
+  { title: 'Group Safari', slug: 'join-safari', kicker: 'Open departures', excerpt: 'Small-group dates you can join.' },
   { title: 'Destinations', slug: 'destinations', kicker: 'Tanzania parks', excerpt: 'Northern Circuit, coast, south, and west.' },
   { title: 'Blog', slug: 'blog', kicker: 'Travel notes', excerpt: 'Practical Tanzania travel articles.' },
 ];
@@ -83,7 +83,7 @@ export async function seedSiteContent() {
           {
             title: 'Primary',
             location: 'primary',
-            items: 'Home | /\nDestinations | /destinations/\nSafaris | /tours/\nJoin Safari | /join-safari/\nKilimanjaro | /kilimanjaro/\nContact Us | /contact/',
+            items: 'Home | /\nDestinations | /destinations/\nSafaris | /tours/\nGroup Safari | /join-safari/\nKilimanjaro | /kilimanjaro/\nContact Us | /contact/',
           },
           at
         ),

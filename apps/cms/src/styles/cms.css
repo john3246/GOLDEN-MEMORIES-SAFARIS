@@ -2166,3 +2166,52 @@ a {
   display: block;
   color: var(--cms-muted);
 }
+
+.dest-cms-preview-page {
+  padding: 1.25rem 1.4rem 2rem;
+  color: #1a1a1a;
+}
+
+.dest-cms-preview-page img {
+  display: block;
+  width: 100%;
+  max-height: 18rem;
+  margin: 1rem 0 0;
+  object-fit: cover;
+}
+
+.dest-cms-body .dest-block-heading {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.35rem;
+}
+
+.dest-cms-body .dest-block-figure,
+.dest-cms-body .dest-block-table {
+  margin: 1.15rem 0 0;
+}
+
+.dest-cms-body .dest-block-figure img {
+  max-height: 14rem;
+}
+
+.dest-table-wrap {
+  overflow-x: auto;
+  border: 1px solid rgb(0 0 0 / 0.1);
+}
+
+.dest-block-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.dest-block-table th,
+.dest-block-table td {
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid rgb(0 0 0 / 0.08);
+}
+
+.dest-block-table th {
+  background: #f4f1ea;
+}

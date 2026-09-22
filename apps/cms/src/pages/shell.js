@@ -38,7 +38,7 @@ export function shell(user, current, inner) {
             ${item('#/media', 'Media', current, 'media')}
             ${item('#/testimonials', 'Reviews', current, 'testimonials')}
             ${item('#/faqs', 'FAQs', current, 'faqs')}
-            ${item('#/departures', 'Join safari', current, 'departures')}
+            ${item('#/departures', 'Group Safari', current, 'departures')}
             ${item('#/menus', 'Menus', current, 'menus')}
           `
           )}

@@ -280,6 +280,8 @@ export const DEFAULT_BLOG_SECTIONS = Object.freeze(
 
 export const BLOG_BLOCK_TYPES = Object.freeze(['heading', 'paragraph', 'image', 'quote']);
 
+export const DESTINATION_BLOCK_TYPES = Object.freeze(['heading', 'paragraph', 'image', 'table']);
+
 export const ApiVersion = Object.freeze({
   V1: 'v1',
 });

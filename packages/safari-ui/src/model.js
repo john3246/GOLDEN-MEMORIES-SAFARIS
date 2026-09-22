@@ -1,11 +1,18 @@
 import { DEFAULT_SAFARI_SECTIONS, SAFARI_SECTION_TYPES } from '@gm-safaris/shared-types';
 
+/** Safari package names use "4-Day", not "4 Days". Duration labels stay as "4 Days / 3 Nights". */
+export function safariPackageTitle(value) {
+  return String(value || '')
+    .replace(/\b(\d+)\s+Days\b/g, '$1-Day')
+    .replace(/\b(\d+)\s+Day\b/g, '$1-Day');
+}
+
 /**
  * Empty draft document used by create + duplicate.
  * @param {Partial<Record<string, unknown>>} [overrides]
  */
 export function emptySafariDocument(overrides = {}) {
-  return {
+  const doc = {
     title: '',
     slug: '',
     short_description: '',
@@ -45,6 +52,19 @@ export function emptySafariDocument(overrides = {}) {
     sections: DEFAULT_SAFARI_SECTIONS.map((s) => ({ ...s })),
     ...overrides,
   };
+  doc.title = safariPackageTitle(doc.title);
+  if (doc.short_description) doc.short_description = safariPackageTitle(doc.short_description);
+  if (doc.description) doc.description = safariPackageTitle(doc.description);
+  if (doc.seo && typeof doc.seo === 'object') {
+    if (doc.seo.title) doc.seo.title = safariPackageTitle(doc.seo.title);
+    if (doc.seo.description) doc.seo.description = safariPackageTitle(doc.seo.description);
+    if (doc.seo.og_title) doc.seo.og_title = safariPackageTitle(doc.seo.og_title);
+    if (doc.seo.og_description) doc.seo.og_description = safariPackageTitle(doc.seo.og_description);
+  }
+  if (doc.hero_image?.alt) {
+    doc.hero_image = { ...doc.hero_image, alt: safariPackageTitle(doc.hero_image.alt) };
+  }
+  return doc;
 }
 
 /**
@@ -141,7 +161,7 @@ export function toSafariCardData(doc) {
   const hero = doc?.hero_image && typeof doc.hero_image === 'object' ? doc.hero_image : null;
   return {
     slug: doc.slug,
-    title: doc.title || 'Untitled safari',
+    title: safariPackageTitle(doc.title || 'Untitled safari'),
     duration: doc.duration_label || (doc.duration ? `${doc.duration} Days` : ''),
     places: doc.destination || '',
     image: hero?.url || '',

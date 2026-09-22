@@ -64,21 +64,36 @@ async function readUnlocked() {
   return cache;
 }
 
+async function sleep(ms) {
+  await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function replaceFile(tmp, dest) {
+  for (let attempt = 0; attempt < 8; attempt += 1) {
+    try {
+      await fs.rename(tmp, dest);
+      return;
+    } catch (err) {
+      const retry = err && ['EPERM', 'EEXIST', 'EACCES', 'EBUSY', 'UNKNOWN'].includes(err.code);
+      if (!retry) throw err;
+      try {
+        await fs.copyFile(tmp, dest);
+        await fs.unlink(tmp).catch(() => {});
+        return;
+      } catch (copyErr) {
+        if (attempt === 7) throw copyErr;
+        await sleep(80 * (attempt + 1));
+      }
+    }
+  }
+}
+
 async function writeUnlocked(next) {
   await ensureDir();
   const dest = filePath();
   const tmp = `${dest}.${process.pid}.tmp`;
   await fs.writeFile(tmp, JSON.stringify(next, null, 2), 'utf8');
-  try {
-    await fs.rename(tmp, dest);
-  } catch (err) {
-    if (err && (err.code === 'EPERM' || err.code === 'EEXIST' || err.code === 'EACCES')) {
-      await fs.copyFile(tmp, dest);
-      await fs.unlink(tmp).catch(() => {});
-    } else {
-      throw err;
-    }
-  }
+  await replaceFile(tmp, dest);
   cache = next;
   try {
     cacheMtime = (await fs.stat(dest)).mtimeMs;

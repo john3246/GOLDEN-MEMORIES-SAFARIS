@@ -2,6 +2,7 @@ import { SafariStatus } from '@gm-safaris/shared-types';
 import { updateStore } from '../../cms-store/index.js';
 import { createId, slugify } from '@gm-safaris/shared-utils';
 import { emptyDraft } from './types.js';
+import { destinationDraftFromPlace } from './catalog.upgrade.js';
 
 function publishedRecord(type, draft, at) {
   const slug = slugify(draft.slug || draft.title);
@@ -134,17 +135,7 @@ export async function seedWebsiteCatalog() {
       catalog.destinations.map((place) =>
         publishedRecord(
           'destinations',
-          {
-            title: place.name,
-            slug: place.slug,
-            region: place.region || '',
-            blurb: place.tagline || place.blurb || '',
-            image: place.image || '',
-            paragraphs: lines(place.paragraphs),
-            highlights: lines(place.highlights),
-            seo_title: place.name,
-            seo_description: place.tagline || '',
-          },
+          destinationDraftFromPlace(place),
           at
         )
       )
