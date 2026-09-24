@@ -56,7 +56,7 @@ function renderGrid(items) {
       (item) => `
         <figure class="cms-media-card">
           <button class="cms-media-thumb" type="button" data-media-open="${encodeURIComponent(item.url)}" aria-label="Open ${item.alt || item.filename || 'image'}">
-            <img src="${item.url}" alt="${item.alt || ''}" loading="lazy" decoding="async" />
+            <img src="${item.url}" alt="${item.alt || ''}" loading="lazy" decoding="async" draggable="false" />
           </button>
           <figcaption>
             <strong>${item.alt || item.filename}</strong>
@@ -86,6 +86,9 @@ export async function initMedia() {
       .join('');
     count.textContent = group ? `${group.count} files in ${group.label.toLowerCase()}` : '';
     grid.innerHTML = renderGrid(items);
+    grid.querySelectorAll('img').forEach((img) => {
+      img.addEventListener('error', () => img.classList.add('is-broken'));
+    });
   }
 
   async function refresh() {

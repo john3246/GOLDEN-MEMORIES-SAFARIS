@@ -37,7 +37,7 @@ export const media = GM;
 export const site = {
   name: 'Golden Memories Safaris',
   shortName: 'GM Safaris',
-    tagline: 'Every safari with Sparkle of Gold',
+    tagline: 'Every Safari With A sparkle of Golden Memories.',
   phone: '+255 786 383 273',
   phoneAlt: '+255 754 750 070',
   email: 'info@gmsafaris.co.tz',
@@ -87,13 +87,6 @@ export const destinations = [
     trips: 3,
     blurb: 'Wild Ruaha, Selous/Nyerere, and quieter game country.',
     image: GM.southern,
-  },
-  {
-    name: 'Western Tanzania',
-    slug: 'western-tanzania',
-    trips: 2,
-    blurb: 'Chimpanzee tracking in Mahale and Gombe.',
-    image: GM.western,
   },
 ];
 

@@ -192,7 +192,7 @@ export function renderHeader() {
           <div class="container-site nav-mega-grid">
             <div class="nav-mega-intro">
               <p class="nav-mega-kicker">Tanzania parks</p>
-              <p>Northern Circuit classics, quieter southern parks, chimpanzee country, and the Zanzibar coast.</p>
+              <p>Northern Circuit classics, quieter southern parks, and the Zanzibar coast.</p>
               <a class="nav-mega-all" href="/destinations/">Browse all destinations <span aria-hidden="true">→</span></a>
             </div>
             <div>

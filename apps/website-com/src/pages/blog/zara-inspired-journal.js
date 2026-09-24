@@ -639,7 +639,7 @@ export const zaraInspiredJournalArticles = [
     topic: 'safari',
     date: '6 September 2026',
     title: 'Tanzania’s safari parks, mapped from Arusha',
-    excerpt: 'A working order of the northern circuit, then the south and west if you have the days.',
+    excerpt: 'A working order of the northern circuit, then the south if you have the days.',
     image: GM.safariPackages,
     sections: [
       {
@@ -649,10 +649,6 @@ export const zaraInspiredJournalArticles = [
       {
         heading: 'The south',
         text: 'Nyerere for rivers and wild dog. Ruaha for lion and baobab wilderness. These usually mean flying from Dar or a longer plan. They reward guests who have already seen the crater or who want fewer vehicles.',
-      },
-      {
-        heading: 'The west',
-        text: 'Mahale and Gombe for chimpanzees on Lake Tanganyika. Not a game-drive add-on. We only quote them when you have asked for forest and boats.',
       },
       {
         heading: 'Start with nights, not names',
@@ -704,7 +700,7 @@ export const zaraInspiredJournalArticles = [
       },
       {
         heading: 'Ask us to cut',
-        text: 'Mafia, Pemba, Mahale, and Lake Eyasi are real places. They are not automatic. Tell us what you want to feel when you go home, and we will pick three names, not twelve.',
+        text: 'Mafia, Pemba, and Lake Eyasi are real places. They are not automatic. Tell us what you want to feel when you go home, and we will pick three names, not twelve.',
       },
     ],
   }),

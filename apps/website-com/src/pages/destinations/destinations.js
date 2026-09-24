@@ -13,7 +13,6 @@ function regionTours(regionId) {
     'northern-tanzania': ['northern', 'ngorongoro', 'tarangire', 'serengeti', 'arusha', 'manyara'],
     'the-coast': ['zanzibar', 'coast'],
     'southern-tanzania': ['ruaha', 'selous', 'nyerere', 'mikumi'],
-    'western-tanzania': ['gombe', 'mahale', 'western'],
   };
   const keys = map[regionId] || [];
   return allTours().filter((tour) => {

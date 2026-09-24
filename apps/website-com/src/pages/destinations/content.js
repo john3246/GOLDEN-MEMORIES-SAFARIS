@@ -17,7 +17,7 @@ export const destinationsIntro = {
   paragraphs: [
     'Tanzania is home to some of Africa’s most iconic landscapes: the Serengeti plains, the Ngorongoro Crater, Kilimanjaro, and the beaches of Zanzibar. Each destination offers a distinct pace, wildlife, and way of travelling.',
     'Golden Memories Safaris plans private itineraries from Arusha so parks sit in a sensible order — enough nights in the right places, without rushing the game drives or the last transfer.',
-    'Browse the regions below, then tell us your dates. We will match the circuit to the season, from migration months in the north to quieter days in the south and west.',
+    'Browse the regions below, then tell us your dates. We will match the circuit to the season, from migration months in the north to quieter days in the south.',
   ],
 };
 
@@ -28,7 +28,7 @@ export const whyTanzania = [
   },
   {
     title: 'Wildlife with room to breathe',
-    body: 'The Serengeti holds the Great Migration. Ngorongoro concentrates game in a volcanic caldera. Tarangire is elephant country. The south and west are quieter, and often wilder.',
+    body: 'The Serengeti holds the Great Migration. Ngorongoro concentrates game in a volcanic caldera. Tarangire is elephant country. The south is quieter, and often wilder.',
   },
   {
     title: 'Culture beside the parks',
@@ -139,27 +139,6 @@ export const destinationRegions = [
         name: 'Mikumi National Park',
         blurb: 'Mkata floodplain on the Dar road — a pocket grassland day, not a week-long Serengeti.',
         image: GM.dayTrip,
-      },
-    ],
-  },
-  {
-    ...regions[3],
-    id: 'western-tanzania',
-    kicker: 'Chimpanzee country',
-    summary:
-      'Infrequent, expensive flights and no classic game-drive loop: chimpanzee forest on Lake Tanganyika. Gombe is steep and compact; Mahale is a fly-in beach-and-chimp stay, best in July–October.',
-    parks: [
-      {
-        slug: 'gombe',
-        name: 'Gombe Stream National Park',
-        blurb: 'Jane Goodall’s forest — boat from Kigoma, then walk. Tanzania’s smallest park, not a 4x4 safari.',
-        image: GM.western,
-      },
-      {
-        slug: 'mahale',
-        name: 'Mahale Mountains',
-        blurb: 'Finest chimp viewing in the country plus gin-clear lake days. Walks get easier August–October.',
-        image: GM.savanna,
       },
     ],
   },

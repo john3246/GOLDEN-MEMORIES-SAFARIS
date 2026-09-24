@@ -123,6 +123,10 @@ export async function upgradeCatalogCopy() {
       if (record.draft?.items) record.draft.items = groupNav(record.draft.items);
       if (record.published?.items) record.published.items = groupNav(record.published.items);
     }
+    store.destinations = (store.destinations || []).filter(
+      (record) => !['gombe', 'mahale'].includes(record.slug)
+    );
+    store.posts = (store.posts || []).filter((record) => record.slug !== 'western-tanzania-chimps');
     for (const record of store.destinations || []) {
       const place = bySlug.get(record.slug);
       const catalogDraft = place ? destinationDraftFromPlace(place) : null;

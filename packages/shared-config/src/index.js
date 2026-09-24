@@ -185,8 +185,11 @@ export function loadConfig(env = process.env) {
       host: env.SMTP_HOST || '',
       port: envInt(env, 'SMTP_PORT', 587),
       user: env.SMTP_USER || '',
-      pass: env.SMTP_PASS || '',
+      pass: String(env.SMTP_PASS || '').replace(/\s+/g, ''),
       secure: envBool(env, 'SMTP_SECURE', false),
+      requireTls: envBool(env, 'SMTP_REQUIRE_TLS', true),
+      fromName: env.SMTP_FROM_NAME || 'Golden Memories Safaris',
+      fromEmail: env.SMTP_FROM_EMAIL || env.SMTP_USER || '',
     }),
   });
 }

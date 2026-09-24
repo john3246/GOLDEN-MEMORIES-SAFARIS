@@ -837,7 +837,7 @@ const store = JSON.parse(fs.readFileSync(storePath, 'utf8'));
 const at = new Date().toISOString();
 if (!store.settings) store.settings = {};
 if (!store.settings.site) store.settings.site = {};
-store.settings.site.tagline = 'Every safari with Sparkle of Gold';
+store.settings.site.tagline = 'Every Safari With A sparkle of Golden Memories.';
 
 const keep = new Set((only.length ? catalog : imported).map((item) => item.slug || slugify(item.name)));
 const existing = store.lodges || [];

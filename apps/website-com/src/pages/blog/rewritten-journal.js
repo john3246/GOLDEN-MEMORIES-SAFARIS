@@ -57,7 +57,6 @@ export const rewrittenJournalArticles = [
     paragraphs: [
       'The north is what most first-timers picture: Tarangire baobabs, the Ngorongoro crater, and Serengeti grassland, with Kilimanjaro Airport and our Arusha office close by. Roads, airstrips, and lodges are denser. In peak months you will share some sightings.',
       'The south is bigger country and fewer vehicles. Nyerere has rivers, boats, and wild dog. Ruaha is dry woodland, lion, and elephant, with camps that can feel like the only tent for miles. Logistics usually run through Dar es Salaam rather than Arusha.',
-      'Western parks — Mahale and Gombe — are a third story: chimpanzee tracking, lake boats, and more flying. We add them when guests have extra nights and a clear wish to walk in forest, not only sit in a 4x4.',
       'Choose north if time is tight and the classic names matter. Choose south if you want hush more than a crater postcard. Plenty of trips do a short north, then fly south or to the coast. We price the flying honestly before you decide.',
     ],
   },
@@ -155,7 +154,6 @@ export const rewrittenJournalArticles = [
     paragraphs: [
       'Guests come for lion and elephant. We also point out what is Tanzanian in a quieter way: Masai giraffe on the northern circuit, the red colobus of Zanzibar’s Jozani forest, and the Udzungwa and Usambara mountains, which hold birds and primates you will not see on a Serengeti game drive.',
       'The crater’s black rhino are not endemic, but they are scarce, and this is one of the better places in East Africa to look. Wild dog in Nyerere and Ruaha are another reason to leave the north if you have the time.',
-      'Lake Tanganyika’s chimpanzees at Mahale and Gombe are a western chapter: forest walks, not plains. We only add them when guests want that work and those flights.',
       'Ask if you care about a particular animal. We will match park and season instead of padding a list of Latin names.',
     ],
   },
@@ -244,20 +242,6 @@ export const rewrittenJournalArticles = [
     ],
   },
   {
-    slug: 'western-tanzania-chimps',
-    topic: 'safari',
-    date: '29 August 2026',
-    title: 'Western Tanzania: chimpanzees, the lake, and the extra flights',
-    excerpt: 'Mahale and Gombe are not a bolt-on afternoon. They are a trip with their own rhythm.',
-    image: GM.western,
-    paragraphs: [
-      'Mahale Mountains and Gombe Stream sit on Lake Tanganyika. You track chimpanzees on foot, often steep and humid, then recover on the beach or a boat. It is forest safari, not grassland.',
-      'Getting there means flying, usually via Arusha or Dar, and accepting that weather can move a light aircraft. We do not squeeze chimps into the last two days of a northern circuit.',
-      'Permits, group size, and fitness matter. We will ask about knees and heat before we book. If walking is a problem, stay in the north.',
-      'Guests who love it often skip a second Serengeti camp to pay for these nights. That is a fair trade if primates are the story you came to tell.',
-    ],
-  },
-  {
     slug: 'nyerere-and-ruaha',
     topic: 'safari',
     date: '28 August 2026',
@@ -337,7 +321,7 @@ export const rewrittenJournalArticles = [
     paragraphs: [
       'Arusha is where we live and where most northern trips begin. After Kilimanjaro Airport you want a shower and a bed more than a city tour. We still like a slow morning: coffee, a craft market if you have energy, or Arusha National Park if you landed early and cannot sit still.',
       'Mount Meru hangs over town. On a clear day it reminds you the “safari” has already started. Njiro, where our office sits, is residential and practical — good for last-minute kit, not for nightlife.',
-      'We can arrange a cultural or coffee stop on the way toward Moshi or the western parks. We will not fill a rest day with five attractions because a blog said you must.',
+      'We can arrange a cultural or coffee stop on the way toward Moshi or the northern parks. We will not fill a rest day with five attractions because a blog said you must.',
       'If you have a spare afternoon on the way home, say so. Otherwise we protect sleep. The crater will still be there at dawn.',
     ],
   },

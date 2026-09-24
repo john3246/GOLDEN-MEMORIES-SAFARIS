@@ -110,7 +110,7 @@ async function mount() {
     page = renderDestinations();
     setMeta(
       'Tanzania Safari Destinations | Golden Memories Safaris',
-      'Explore Tanzania safari destinations with Golden Memories Safaris — Serengeti, Ngorongoro, Tarangire, Kilimanjaro, Zanzibar, and the southern and western parks.'
+      'Explore Tanzania safari destinations with Golden Memories Safaris — Serengeti, Ngorongoro, Tarangire, Kilimanjaro, Zanzibar, and the southern parks.'
     );
   } else if (joinSlug) {
     const { renderJoinDetail, applyJoinMeta } = await import('./pages/join-safari/detail.js');

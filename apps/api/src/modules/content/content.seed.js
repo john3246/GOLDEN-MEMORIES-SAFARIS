@@ -8,7 +8,7 @@ const DEFAULT_SETTINGS = {
   site: {
     name: 'Golden Memories Safaris',
     shortName: 'GM Safaris',
-    tagline: 'Every safari with Sparkle of Gold',
+    tagline: 'Every Safari With A sparkle of Golden Memories.',
     phone: '+255 786 383 273',
     phoneAlt: '+255 754 750 070',
     email: 'info@gmsafaris.co.tz',

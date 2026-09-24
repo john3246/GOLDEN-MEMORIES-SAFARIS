@@ -5,7 +5,7 @@
       "email": "info@gms.co.tz",
       "name": "Safari Admin",
       "role": "Admin",
-      "passwordHash": "$2b$12$4WHGTHRHO2WqeD4I2qzJxOSWMaxD3dcqsLY4DQR3bEB/MoW0f.ol.",
+      "passwordHash": "$2b$12$5c9OlUBTfrKQ5qKy/tACG.3JcHl.LgLxYf7pRMUJqOlpRiw5nZMW6",
       "createdAt": "2026-09-11T16:16:26.219Z",
       "passwordResetTokenHash": "12f419849014defc4249f4fcb1c941a1631ce8a905477b388862d06a9539dffc",
       "passwordResetExpires": "2026-09-20T22:43:21.304Z",
@@ -807,7 +807,7 @@
       },
       "published_at": "2026-09-21T20:25:06.245Z",
       "created_at": "2026-09-13T00:54:35.151Z",
-      "updated_at": "2026-09-24T07:38:54.503Z",
+      "updated_at": "2026-09-24T09:45:21.812Z",
       "created_by": "seed",
       "updated_by": "seed"
     },
@@ -1213,7 +1213,7 @@
       },
       "published_at": "2026-09-21T20:25:06.245Z",
       "created_at": "2026-09-13T00:54:35.151Z",
-      "updated_at": "2026-09-24T07:38:54.503Z",
+      "updated_at": "2026-09-24T09:45:21.812Z",
       "created_by": "seed",
       "updated_by": "seed"
     },
@@ -1789,7 +1789,7 @@
       },
       "published_at": "2026-09-21T20:25:06.245Z",
       "created_at": "2026-09-13T00:54:35.151Z",
-      "updated_at": "2026-09-24T07:38:54.503Z",
+      "updated_at": "2026-09-24T09:45:21.812Z",
       "created_by": "seed",
       "updated_by": "seed"
     },
@@ -2241,7 +2241,7 @@
       },
       "published_at": "2026-09-21T20:25:06.245Z",
       "created_at": "2026-09-13T00:54:35.151Z",
-      "updated_at": "2026-09-24T07:38:54.503Z",
+      "updated_at": "2026-09-24T09:45:21.812Z",
       "created_by": "seed",
       "updated_by": "seed"
     },
@@ -2693,7 +2693,7 @@
       },
       "published_at": "2026-09-21T20:25:06.245Z",
       "created_at": "2026-09-13T00:54:35.151Z",
-      "updated_at": "2026-09-24T07:38:54.503Z",
+      "updated_at": "2026-09-24T09:45:21.812Z",
       "created_by": "seed",
       "updated_by": "seed"
     },
@@ -3170,7 +3170,7 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-21T20:24:46.913Z",
-      "updated_at": "2026-09-24T07:38:54.503Z",
+      "updated_at": "2026-09-24T09:45:21.812Z",
       "published_at": "2026-09-21T20:24:46.978Z"
     },
     {
@@ -3710,7 +3710,7 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-21T20:24:47.045Z",
-      "updated_at": "2026-09-24T07:38:54.503Z",
+      "updated_at": "2026-09-24T09:45:21.812Z",
       "published_at": "2026-09-21T20:24:47.100Z"
     },
     {
@@ -4212,7 +4212,7 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-21T20:24:47.249Z",
-      "updated_at": "2026-09-24T07:38:54.503Z",
+      "updated_at": "2026-09-24T09:45:21.812Z",
       "published_at": "2026-09-21T20:24:47.304Z"
     },
     {
@@ -4660,7 +4660,7 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-21T20:24:47.376Z",
-      "updated_at": "2026-09-24T07:38:54.503Z",
+      "updated_at": "2026-09-24T09:45:21.812Z",
       "published_at": "2026-09-21T20:24:47.429Z"
     },
     {
@@ -5130,7 +5130,7 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-21T20:24:47.504Z",
-      "updated_at": "2026-09-24T07:38:54.503Z",
+      "updated_at": "2026-09-24T09:45:21.812Z",
       "published_at": "2026-09-21T20:24:47.645Z"
     },
     {
@@ -5664,7 +5664,7 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-21T20:24:48.186Z",
-      "updated_at": "2026-09-24T07:38:54.503Z",
+      "updated_at": "2026-09-24T09:45:21.812Z",
       "published_at": "2026-09-21T20:24:48.243Z"
     },
     {
@@ -6132,7 +6132,7 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-21T20:24:48.301Z",
-      "updated_at": "2026-09-24T07:38:54.503Z",
+      "updated_at": "2026-09-24T09:45:21.812Z",
       "published_at": "2026-09-21T20:24:48.362Z"
     }
   ],
@@ -6304,6 +6304,86 @@
     }
   ],
   "auditLogs": [
+    {
+      "id": "98448d02-5b2d-4f8c-a74a-bc2cd39dbb65",
+      "actorId": "36a2fd16-5186-48e3-b473-48c953b2582f",
+      "actorEmail": "info@gms.co.tz",
+      "action": "content.publish",
+      "resource": "destinations",
+      "resourceId": "198612d9-c9a3-4374-9724-bd6eff6ae5cd",
+      "metadata": {},
+      "timestamp": "2026-09-24T09:45:40.167Z"
+    },
+    {
+      "id": "73bf20d2-689f-4946-93ec-1244261a8ea0",
+      "actorId": "36a2fd16-5186-48e3-b473-48c953b2582f",
+      "actorEmail": "info@gms.co.tz",
+      "action": "content.update",
+      "resource": "destinations",
+      "resourceId": "198612d9-c9a3-4374-9724-bd6eff6ae5cd",
+      "metadata": {},
+      "timestamp": "2026-09-24T09:45:40.102Z"
+    },
+    {
+      "id": "5d242d82-e8dd-488d-9e32-ea42fc5fa150",
+      "actorId": "36a2fd16-5186-48e3-b473-48c953b2582f",
+      "actorEmail": "info@gms.co.tz",
+      "action": "content.publish",
+      "resource": "destinations",
+      "resourceId": "9ccce5c2-1bf3-4392-b4f2-bdeeda72836b",
+      "metadata": {},
+      "timestamp": "2026-09-24T09:45:15.884Z"
+    },
+    {
+      "id": "d45667eb-86f3-456e-b753-3eef87afc4a3",
+      "actorId": "36a2fd16-5186-48e3-b473-48c953b2582f",
+      "actorEmail": "info@gms.co.tz",
+      "action": "content.update",
+      "resource": "destinations",
+      "resourceId": "9ccce5c2-1bf3-4392-b4f2-bdeeda72836b",
+      "metadata": {},
+      "timestamp": "2026-09-24T09:45:15.762Z"
+    },
+    {
+      "id": "d14fb0f2-4440-432d-aded-1a52b4042dd6",
+      "actorId": "36a2fd16-5186-48e3-b473-48c953b2582f",
+      "actorEmail": "info@gms.co.tz",
+      "action": "auth.login",
+      "resource": "user",
+      "resourceId": "36a2fd16-5186-48e3-b473-48c953b2582f",
+      "metadata": {},
+      "timestamp": "2026-09-24T09:24:13.307Z"
+    },
+    {
+      "id": "fd779f60-f73c-4e71-90a0-4bd38084c3a0",
+      "actorId": "36a2fd16-5186-48e3-b473-48c953b2582f",
+      "actorEmail": "info@gms.co.tz",
+      "action": "auth.login",
+      "resource": "user",
+      "resourceId": "36a2fd16-5186-48e3-b473-48c953b2582f",
+      "metadata": {},
+      "timestamp": "2026-09-24T09:15:44.044Z"
+    },
+    {
+      "id": "abc2be46-491a-4b72-b534-7496286dc71b",
+      "actorId": "36a2fd16-5186-48e3-b473-48c953b2582f",
+      "actorEmail": "info@gms.co.tz",
+      "action": "auth.login",
+      "resource": "user",
+      "resourceId": "36a2fd16-5186-48e3-b473-48c953b2582f",
+      "metadata": {},
+      "timestamp": "2026-09-24T09:15:27.960Z"
+    },
+    {
+      "id": "5a5c6f36-8d55-4b20-ba82-298fb1eba7d8",
+      "actorId": "36a2fd16-5186-48e3-b473-48c953b2582f",
+      "actorEmail": "info@gms.co.tz",
+      "action": "auth.login",
+      "resource": "user",
+      "resourceId": "36a2fd16-5186-48e3-b473-48c953b2582f",
+      "metadata": {},
+      "timestamp": "2026-09-24T08:52:13.472Z"
+    },
     {
       "id": "74efa9f8-5215-45f2-8ade-64a5fe3db474",
       "actorId": "e055562b-435d-4c30-b9b8-7a71f17c56a8",
@@ -18580,7 +18660,7 @@
         "blurb": "Discover the Endless Plains",
         "location": "Northern Tanzania, extending to the Kenya border",
         "cta": "Plan this safari",
-        "image": "/images/gallery/serengeti-01.webp",
+        "image": "/images/gallery/serengeti-03.webp",
         "gallery": [
           "/images/gallery/serengeti-02.webp",
           "/images/gallery/serengeti-04.webp",
@@ -18632,7 +18712,7 @@
         "blurb": "Discover the Endless Plains",
         "location": "Northern Tanzania, extending to the Kenya border",
         "cta": "Plan this safari",
-        "image": "/images/gallery/serengeti-01.webp",
+        "image": "/images/gallery/serengeti-03.webp",
         "gallery": [
           "/images/gallery/serengeti-02.webp",
           "/images/gallery/serengeti-04.webp",
@@ -18676,10 +18756,10 @@
         "seo_description": "Discover the Endless Plains"
       },
       "created_by": "seed",
-      "updated_by": "e055562b-435d-4c30-b9b8-7a71f17c56a8",
+      "updated_by": "36a2fd16-5186-48e3-b473-48c953b2582f",
       "created_at": "2026-09-13T11:45:04.619Z",
-      "updated_at": "2026-09-23T21:31:15.878Z",
-      "published_at": "2026-09-23T21:31:15.878Z"
+      "updated_at": "2026-09-24T09:45:40.141Z",
+      "published_at": "2026-09-24T09:45:40.141Z"
     },
     {
       "id": "7726ae67-2458-4d0c-8dbe-d0796039498a",
@@ -18810,7 +18890,7 @@
         "blurb": "The Ngorongoro Crater & Beyond",
         "location": "Ngorongoro District, Arusha Region, Tanzania",
         "cta": "Plan this safari",
-        "image": "/images/gallery/ngorongoro-01.webp",
+        "image": "/images/gallery/ngorongoro-03.webp",
         "gallery": [
           "/images/gallery/ngorongoro-02.webp",
           "/images/gallery/ngorongoro-06.webp",
@@ -18862,7 +18942,7 @@
         "blurb": "The Ngorongoro Crater & Beyond",
         "location": "Ngorongoro District, Arusha Region, Tanzania",
         "cta": "Plan this safari",
-        "image": "/images/gallery/ngorongoro-01.webp",
+        "image": "/images/gallery/ngorongoro-03.webp",
         "gallery": [
           "/images/gallery/ngorongoro-02.webp",
           "/images/gallery/ngorongoro-06.webp",
@@ -18906,10 +18986,10 @@
         "seo_description": "The Ngorongoro Crater & Beyond"
       },
       "created_by": "seed",
-      "updated_by": "seed",
+      "updated_by": "36a2fd16-5186-48e3-b473-48c953b2582f",
       "created_at": "2026-09-13T11:45:04.619Z",
-      "updated_at": "2026-09-13T11:45:04.619Z",
-      "published_at": "2026-09-13T11:45:04.619Z"
+      "updated_at": "2026-09-24T09:45:15.829Z",
+      "published_at": "2026-09-24T09:45:15.829Z"
     },
     {
       "id": "8c8f347c-9a67-4ba2-9947-216776abb089",
@@ -20060,236 +20140,6 @@
       "created_at": "2026-09-13T11:45:04.619Z",
       "updated_at": "2026-09-13T11:45:04.619Z",
       "published_at": "2026-09-13T11:45:04.619Z"
-    },
-    {
-      "id": "44f97442-f541-4ccd-8cad-0c16ee913f31",
-      "type": "destinations",
-      "slug": "gombe",
-      "status": "PUBLISHED",
-      "draft": {
-        "title": "Gombe Stream National Park",
-        "slug": "gombe",
-        "region": "Western Tanzania",
-        "kicker": "Jane Goodall’s forest",
-        "tagline": "Jane Goodall’s forest on Lake Tanganyika",
-        "blurb": "Jane Goodall’s forest on Lake Tanganyika",
-        "location": "Western Tanzania, Lake Tanganyika",
-        "cta": "Plan this safari",
-        "image": "/images/gallery/culture-01.webp",
-        "gallery": [
-          "/images/gallery/culture-07.webp",
-          "/images/gallery/serengeti-08.webp",
-          "/images/gallery/kilimanjaro-03.webp"
-        ],
-        "paragraphs": "Gombe Stream National Park is Jane Goodall’s forest on Lake Tanganyika — compact, steep, and devoted to chimpanzee trekking.\nThis is not a classic game-drive park. You boat along the lake, then walk into forest with a guide. It belongs on longer Tanzania journeys that already include the north or south.",
-        "blocks": [
-          {
-            "id": "block_1",
-            "type": "paragraph",
-            "text": "Gombe Stream National Park is Jane Goodall’s forest on Lake Tanganyika — compact, steep, and devoted to chimpanzee trekking.",
-            "url": "",
-            "alt": "",
-            "caption": "",
-            "headers": [],
-            "rows": [],
-            "headersText": "",
-            "rowsText": ""
-          },
-          {
-            "id": "block_2",
-            "type": "paragraph",
-            "text": "This is not a classic game-drive park. You boat along the lake, then walk into forest with a guide. It belongs on longer Tanzania journeys that already include the north or south.",
-            "url": "",
-            "alt": "",
-            "caption": "",
-            "headers": [],
-            "rows": [],
-            "headersText": "",
-            "rowsText": ""
-          }
-        ],
-        "highlights": "Chimpanzee trekking — The reason to come west — habituated chimps in steep forest.\nLake Tanganyika — Forest and boat days rather than savannah 4x4 circuits.\nCompact park — Small, intense, and unlike the northern circuit.",
-        "facts": "Region | Western Tanzania, Lake Tanganyika\nKnown for | Jane Goodall chimpanzee research, forest trekking\nAccess | Fly to Kigoma, then boat\nBest Time | May–October",
-        "seasons": "May–October — Easier forest walking and more reliable tracking.\nRains — Possible, but steeper, muddier trails. We prefer the dry if your dates can move.",
-        "wildlife": "Chimpanzees — the focus of every visit.\nRed colobus, olive baboons, and a dense forest bird list.\nLake shore: the water is the highway, not a snorkel resort (Mahale is the beachier sibling).",
-        "activities": "Chimp trekking — Guided forest walks to habituated groups. Fitness matters; this is not a boardwalk.\nLake boat — Transfers and the only way in; the shoreline is the park’s other landscape.\nForest hiking — Shorter walks for birds and colobus when you are not on a chimp permit day.",
-        "attractions": "Chimpanzee trekking\nLake Tanganyika\nGombe forest trails\nKigoma gateway",
-        "faqs": "Is Gombe a game-drive park? | No. You trek on foot. Combine it with a northern or southern safari if you also want 4x4 wildlife.\nHow do I get there? | Typically fly to Kigoma, then boat to the park. Flights into the west are infrequent and costly; we build Gombe into a longer itinerary, not a weekend add-on from Arusha.\nGombe or Mahale? | Gombe is shorter and closer to Kigoma. Mahale is a fly-in lodge stay with clearer lake swimming and, usually, slightly easier late-season chimp walks. We choose by nights and budget.",
-        "seo_title": "Gombe Stream National Park",
-        "seo_description": "Jane Goodall’s forest on Lake Tanganyika"
-      },
-      "published": {
-        "title": "Gombe Stream National Park",
-        "slug": "gombe",
-        "region": "Western Tanzania",
-        "kicker": "Jane Goodall’s forest",
-        "tagline": "Jane Goodall’s forest on Lake Tanganyika",
-        "blurb": "Jane Goodall’s forest on Lake Tanganyika",
-        "location": "Western Tanzania, Lake Tanganyika",
-        "cta": "Plan this safari",
-        "image": "/images/gallery/culture-01.webp",
-        "gallery": [
-          "/images/gallery/culture-07.webp",
-          "/images/gallery/serengeti-08.webp",
-          "/images/gallery/kilimanjaro-03.webp"
-        ],
-        "paragraphs": "Gombe Stream National Park is Jane Goodall’s forest on Lake Tanganyika — compact, steep, and devoted to chimpanzee trekking.\nThis is not a classic game-drive park. You boat along the lake, then walk into forest with a guide. It belongs on longer Tanzania journeys that already include the north or south.",
-        "blocks": [
-          {
-            "id": "block_1",
-            "type": "paragraph",
-            "text": "Gombe Stream National Park is Jane Goodall’s forest on Lake Tanganyika — compact, steep, and devoted to chimpanzee trekking.",
-            "url": "",
-            "alt": "",
-            "caption": "",
-            "headers": [],
-            "rows": [],
-            "headersText": "",
-            "rowsText": ""
-          },
-          {
-            "id": "block_2",
-            "type": "paragraph",
-            "text": "This is not a classic game-drive park. You boat along the lake, then walk into forest with a guide. It belongs on longer Tanzania journeys that already include the north or south.",
-            "url": "",
-            "alt": "",
-            "caption": "",
-            "headers": [],
-            "rows": [],
-            "headersText": "",
-            "rowsText": ""
-          }
-        ],
-        "highlights": "Chimpanzee trekking — The reason to come west — habituated chimps in steep forest.\nLake Tanganyika — Forest and boat days rather than savannah 4x4 circuits.\nCompact park — Small, intense, and unlike the northern circuit.",
-        "facts": "Region | Western Tanzania, Lake Tanganyika\nKnown for | Jane Goodall chimpanzee research, forest trekking\nAccess | Fly to Kigoma, then boat\nBest Time | May–October",
-        "seasons": "May–October — Easier forest walking and more reliable tracking.\nRains — Possible, but steeper, muddier trails. We prefer the dry if your dates can move.",
-        "wildlife": "Chimpanzees — the focus of every visit.\nRed colobus, olive baboons, and a dense forest bird list.\nLake shore: the water is the highway, not a snorkel resort (Mahale is the beachier sibling).",
-        "activities": "Chimp trekking — Guided forest walks to habituated groups. Fitness matters; this is not a boardwalk.\nLake boat — Transfers and the only way in; the shoreline is the park’s other landscape.\nForest hiking — Shorter walks for birds and colobus when you are not on a chimp permit day.",
-        "attractions": "Chimpanzee trekking\nLake Tanganyika\nGombe forest trails\nKigoma gateway",
-        "faqs": "Is Gombe a game-drive park? | No. You trek on foot. Combine it with a northern or southern safari if you also want 4x4 wildlife.\nHow do I get there? | Typically fly to Kigoma, then boat to the park. Flights into the west are infrequent and costly; we build Gombe into a longer itinerary, not a weekend add-on from Arusha.\nGombe or Mahale? | Gombe is shorter and closer to Kigoma. Mahale is a fly-in lodge stay with clearer lake swimming and, usually, slightly easier late-season chimp walks. We choose by nights and budget.",
-        "seo_title": "Gombe Stream National Park",
-        "seo_description": "Jane Goodall’s forest on Lake Tanganyika"
-      },
-      "created_by": "seed",
-      "updated_by": "seed",
-      "created_at": "2026-09-13T11:45:04.619Z",
-      "updated_at": "2026-09-13T11:45:04.619Z",
-      "published_at": "2026-09-13T11:45:04.619Z"
-    },
-    {
-      "id": "f901e181-7664-40ef-abd8-e9cedb963026",
-      "type": "destinations",
-      "slug": "mahale",
-      "status": "PUBLISHED",
-      "draft": {
-        "title": "Mahale Mountains",
-        "slug": "mahale",
-        "region": "Western Tanzania",
-        "kicker": "Lake beaches and chimps",
-        "tagline": "Lake beaches and a fly-in forest stay",
-        "blurb": "Lake beaches and a fly-in forest stay",
-        "location": "Western Tanzania, Lake Tanganyika",
-        "cta": "Plan this safari",
-        "image": "/images/gallery/culture-01.webp",
-        "gallery": [
-          "/images/gallery/serengeti-08.webp",
-          "/images/gallery/culture-07.webp",
-          "/images/gallery/zanzibar-03.webp"
-        ],
-        "paragraphs": "Mahale is remoter chimpanzee habitat, lake beaches, and a fly-in stay that pairs with a longer Tanzania itinerary.\nUnlike Gombe’s compact trails, Mahale is a slower, lodge-based forest experience on Tanganyika — chimps inland, swimming and boat time on the lake.",
-        "blocks": [
-          {
-            "id": "block_1",
-            "type": "paragraph",
-            "text": "Mahale is remoter chimpanzee habitat, lake beaches, and a fly-in stay that pairs with a longer Tanzania itinerary.",
-            "url": "",
-            "alt": "",
-            "caption": "",
-            "headers": [],
-            "rows": [],
-            "headersText": "",
-            "rowsText": ""
-          },
-          {
-            "id": "block_2",
-            "type": "paragraph",
-            "text": "Unlike Gombe’s compact trails, Mahale is a slower, lodge-based forest experience on Tanganyika — chimps inland, swimming and boat time on the lake.",
-            "url": "",
-            "alt": "",
-            "caption": "",
-            "headers": [],
-            "rows": [],
-            "headersText": "",
-            "rowsText": ""
-          }
-        ],
-        "highlights": "Fly-in forest — A destination stay, not a day trip from Arusha.\nChimps and beach — Trekking inland, lake time in the afternoon.\nPairs with a longer trip — Add after the north or south when you have extra nights.",
-        "facts": "Region | Far western Tanzania, Lake Tanganyika\nFocus | Chimpanzees, lake, forest\nAccess | Fly-in; flights not daily\nTime with chimps | 1 hour (park rule)\nBest Time | July–October (easiest trekking)",
-        "seasons": "July–late October — Long dry season. Chimps lower on the mountain; walks are shorter. Best combined with Katavi.\nShoulder months — Chimps still viewable; expect longer, harder treks. Some camps are seasonal.",
-        "wildlife": "Chimpanzees — the reason to come; sightings are reliable, walk length is not.\nOther primates and excellent forest birding.\nHippo and crocodile close to camp water; leopard present but lucky.",
-        "activities": "Chimp trekking — Forest days from camp. Fitness required; duration depends on where the group is feeding.\nLake time — Kayak, snorkel, fish, or walk the shoreline.\nWaterfall and forest walks — Birds and smaller primates when you are not on a chimp permit.",
-        "attractions": "Mahale Mountains\nLake Tanganyika beaches\nChimpanzee habitat\nForest waterfalls",
-        "faqs": "Gombe or Mahale? | Gombe is shorter and accessed via Kigoma. Mahale is a fly-in stay with more lake time and, in late dry season, often easier chimp walks. Budget and nights decide it.\nCan it combine with Serengeti? | Yes, as a fly-in after the northern circuit — but westbound flights are not daily. We build dates around the aircraft, not the other way around.\nHow long with the chimps? | One hour once you find them, by park rule. The walk to get there can be an hour or most of the day.\nIs Katavi worth adding? | In the dry season, yes: inland floodplain with enormous buffalo and elephant herds, a different west from forest chimps.",
-        "seo_title": "Mahale Mountains",
-        "seo_description": "Lake beaches and a fly-in forest stay"
-      },
-      "published": {
-        "title": "Mahale Mountains",
-        "slug": "mahale",
-        "region": "Western Tanzania",
-        "kicker": "Lake beaches and chimps",
-        "tagline": "Lake beaches and a fly-in forest stay",
-        "blurb": "Lake beaches and a fly-in forest stay",
-        "location": "Western Tanzania, Lake Tanganyika",
-        "cta": "Plan this safari",
-        "image": "/images/gallery/culture-01.webp",
-        "gallery": [
-          "/images/gallery/serengeti-08.webp",
-          "/images/gallery/culture-07.webp",
-          "/images/gallery/zanzibar-03.webp"
-        ],
-        "paragraphs": "Mahale is remoter chimpanzee habitat, lake beaches, and a fly-in stay that pairs with a longer Tanzania itinerary.\nUnlike Gombe’s compact trails, Mahale is a slower, lodge-based forest experience on Tanganyika — chimps inland, swimming and boat time on the lake.",
-        "blocks": [
-          {
-            "id": "block_1",
-            "type": "paragraph",
-            "text": "Mahale is remoter chimpanzee habitat, lake beaches, and a fly-in stay that pairs with a longer Tanzania itinerary.",
-            "url": "",
-            "alt": "",
-            "caption": "",
-            "headers": [],
-            "rows": [],
-            "headersText": "",
-            "rowsText": ""
-          },
-          {
-            "id": "block_2",
-            "type": "paragraph",
-            "text": "Unlike Gombe’s compact trails, Mahale is a slower, lodge-based forest experience on Tanganyika — chimps inland, swimming and boat time on the lake.",
-            "url": "",
-            "alt": "",
-            "caption": "",
-            "headers": [],
-            "rows": [],
-            "headersText": "",
-            "rowsText": ""
-          }
-        ],
-        "highlights": "Fly-in forest — A destination stay, not a day trip from Arusha.\nChimps and beach — Trekking inland, lake time in the afternoon.\nPairs with a longer trip — Add after the north or south when you have extra nights.",
-        "facts": "Region | Far western Tanzania, Lake Tanganyika\nFocus | Chimpanzees, lake, forest\nAccess | Fly-in; flights not daily\nTime with chimps | 1 hour (park rule)\nBest Time | July–October (easiest trekking)",
-        "seasons": "July–late October — Long dry season. Chimps lower on the mountain; walks are shorter. Best combined with Katavi.\nShoulder months — Chimps still viewable; expect longer, harder treks. Some camps are seasonal.",
-        "wildlife": "Chimpanzees — the reason to come; sightings are reliable, walk length is not.\nOther primates and excellent forest birding.\nHippo and crocodile close to camp water; leopard present but lucky.",
-        "activities": "Chimp trekking — Forest days from camp. Fitness required; duration depends on where the group is feeding.\nLake time — Kayak, snorkel, fish, or walk the shoreline.\nWaterfall and forest walks — Birds and smaller primates when you are not on a chimp permit.",
-        "attractions": "Mahale Mountains\nLake Tanganyika beaches\nChimpanzee habitat\nForest waterfalls",
-        "faqs": "Gombe or Mahale? | Gombe is shorter and accessed via Kigoma. Mahale is a fly-in stay with more lake time and, in late dry season, often easier chimp walks. Budget and nights decide it.\nCan it combine with Serengeti? | Yes, as a fly-in after the northern circuit — but westbound flights are not daily. We build dates around the aircraft, not the other way around.\nHow long with the chimps? | One hour once you find them, by park rule. The walk to get there can be an hour or most of the day.\nIs Katavi worth adding? | In the dry season, yes: inland floodplain with enormous buffalo and elephant herds, a different west from forest chimps.",
-        "seo_title": "Mahale Mountains",
-        "seo_description": "Lake beaches and a fly-in forest stay"
-      },
-      "created_by": "seed",
-      "updated_by": "seed",
-      "created_at": "2026-09-13T11:45:04.619Z",
-      "updated_at": "2026-09-13T11:45:04.619Z",
-      "published_at": "2026-09-13T11:45:04.619Z"
     }
   ],
   "posts": [
@@ -21038,7 +20888,6 @@
         "paragraphs": [
           "The north is what most first-timers picture: Tarangire baobabs, the Ngorongoro crater, and Serengeti grassland, with Kilimanjaro Airport and our Arusha office close by. Roads, airstrips, and lodges are denser. In peak months you will share some sightings.",
           "The south is bigger country and fewer vehicles. Nyerere has rivers, boats, and wild dog. Ruaha is dry woodland, lion, and elephant, with camps that can feel like the only tent for miles. Logistics usually run through Dar es Salaam rather than Arusha.",
-          "Western parks — Mahale and Gombe — are a third story: chimpanzee tracking, lake boats, and more flying. We add them when guests have extra nights and a clear wish to walk in forest, not only sit in a 4x4.",
           "Choose north if time is tight and the classic names matter. Choose south if you want hush more than a crater postcard. Plenty of trips do a short north, then fly south or to the coast. We price the flying honestly before you decide."
         ],
         "blocks": [
@@ -21093,7 +20942,7 @@
           {
             "id": "block_3",
             "type": "paragraph",
-            "text": "Western parks — Mahale and Gombe — are a third story: chimpanzee tracking, lake boats, and more flying. We add them when guests have extra nights and a clear wish to walk in forest, not only sit in a 4x4.",
+            "text": "",
             "url": "",
             "alt": "",
             "caption": "",
@@ -21217,7 +21066,7 @@
           "canonical": "",
           "og_image": "/images/gallery/tarangire-11.webp"
         },
-        "read_time": 2
+        "read_time": 1
       },
       "published": {
         "id": "",
@@ -21242,7 +21091,6 @@
         "paragraphs": [
           "The north is what most first-timers picture: Tarangire baobabs, the Ngorongoro crater, and Serengeti grassland, with Kilimanjaro Airport and our Arusha office close by. Roads, airstrips, and lodges are denser. In peak months you will share some sightings.",
           "The south is bigger country and fewer vehicles. Nyerere has rivers, boats, and wild dog. Ruaha is dry woodland, lion, and elephant, with camps that can feel like the only tent for miles. Logistics usually run through Dar es Salaam rather than Arusha.",
-          "Western parks — Mahale and Gombe — are a third story: chimpanzee tracking, lake boats, and more flying. We add them when guests have extra nights and a clear wish to walk in forest, not only sit in a 4x4.",
           "Choose north if time is tight and the classic names matter. Choose south if you want hush more than a crater postcard. Plenty of trips do a short north, then fly south or to the coast. We price the flying honestly before you decide."
         ],
         "blocks": [
@@ -21297,7 +21145,7 @@
           {
             "id": "block_3",
             "type": "paragraph",
-            "text": "Western parks — Mahale and Gombe — are a third story: chimpanzee tracking, lake boats, and more flying. We add them when guests have extra nights and a clear wish to walk in forest, not only sit in a 4x4.",
+            "text": "",
             "url": "",
             "alt": "",
             "caption": "",
@@ -21421,7 +21269,7 @@
           "canonical": "",
           "og_image": "/images/gallery/tarangire-11.webp"
         },
-        "read_time": 2
+        "read_time": 1
       },
       "created_by": "seed",
       "updated_by": "36a2fd16-5186-48e3-b473-48c953b2582f",
@@ -33907,7 +33755,7 @@
         "topic": "safari",
         "category": "safari",
         "kicker": "",
-        "excerpt": "A working order of the northern circuit, then the south and west if you have the days.",
+        "excerpt": "A working order of the northern circuit, then the south if you have the days.",
         "date": "6 September 2026",
         "author": "Golden Memories Safaris",
         "author_role": "",
@@ -33926,7 +33774,6 @@
           "The south",
           "Nyerere for rivers and wild dog. Ruaha for lion and baobab wilderness. These usually mean flying from Dar or a longer plan. They reward guests who have already seen the crater or who want fewer vehicles.",
           "The west",
-          "Mahale and Gombe for chimpanzees on Lake Tanganyika. Not a game-drive add-on. We only quote them when you have asked for forest and boats.",
           "Start with nights, not names",
           "Four days cannot hold every park on this page. Tell us the month and we will cut the list until the trip breathes."
         ],
@@ -34054,7 +33901,7 @@
           {
             "id": "p_3",
             "type": "paragraph",
-            "text": "Mahale and Gombe for chimpanzees on Lake Tanganyika. Not a game-drive add-on. We only quote them when you have asked for forest and boats.",
+            "text": "",
             "url": "",
             "alt": "",
             "caption": "",
@@ -34161,13 +34008,13 @@
         "cta_label": "Plan this trip",
         "cta_href": "/contact/",
         "seo_title": "Tanzania’s safari parks, mapped from Arusha",
-        "seo_description": "A working order of the northern circuit, then the south and west if you have the days.",
+        "seo_description": "A working order of the northern circuit, then the south if you have the days.",
         "seo_keywords": "",
         "canonical_url": "",
         "og_image": "/images/gallery/serengeti-03.webp",
         "seo": {
           "title": "Tanzania’s safari parks, mapped from Arusha",
-          "description": "A working order of the northern circuit, then the south and west if you have the days.",
+          "description": "A working order of the northern circuit, then the south if you have the days.",
           "keywords": "",
           "canonical": "",
           "og_image": "/images/gallery/serengeti-03.webp"
@@ -34181,7 +34028,7 @@
         "topic": "safari",
         "category": "safari",
         "kicker": "",
-        "excerpt": "A working order of the northern circuit, then the south and west if you have the days.",
+        "excerpt": "A working order of the northern circuit, then the south if you have the days.",
         "date": "6 September 2026",
         "author": "Golden Memories Safaris",
         "author_role": "",
@@ -34200,7 +34047,6 @@
           "The south",
           "Nyerere for rivers and wild dog. Ruaha for lion and baobab wilderness. These usually mean flying from Dar or a longer plan. They reward guests who have already seen the crater or who want fewer vehicles.",
           "The west",
-          "Mahale and Gombe for chimpanzees on Lake Tanganyika. Not a game-drive add-on. We only quote them when you have asked for forest and boats.",
           "Start with nights, not names",
           "Four days cannot hold every park on this page. Tell us the month and we will cut the list until the trip breathes."
         ],
@@ -34328,7 +34174,7 @@
           {
             "id": "p_3",
             "type": "paragraph",
-            "text": "Mahale and Gombe for chimpanzees on Lake Tanganyika. Not a game-drive add-on. We only quote them when you have asked for forest and boats.",
+            "text": "",
             "url": "",
             "alt": "",
             "caption": "",
@@ -34435,13 +34281,13 @@
         "cta_label": "Plan this trip",
         "cta_href": "/contact/",
         "seo_title": "Tanzania’s safari parks, mapped from Arusha",
-        "seo_description": "A working order of the northern circuit, then the south and west if you have the days.",
+        "seo_description": "A working order of the northern circuit, then the south if you have the days.",
         "seo_keywords": "",
         "canonical_url": "",
         "og_image": "/images/gallery/serengeti-03.webp",
         "seo": {
           "title": "Tanzania’s safari parks, mapped from Arusha",
-          "description": "A working order of the northern circuit, then the south and west if you have the days.",
+          "description": "A working order of the northern circuit, then the south if you have the days.",
           "keywords": "",
           "canonical": "",
           "og_image": "/images/gallery/serengeti-03.webp"
@@ -34946,7 +34792,7 @@
           "If the mountain is the point",
           "Moshi or Arusha, a proper climb, a rest night, then either crater country or the coast. Do not land and walk the same day.",
           "Ask us to cut",
-          "Mafia, Pemba, Mahale, and Lake Eyasi are real places. They are not automatic. Tell us what you want to feel when you go home, and we will pick three names, not twelve."
+          "Mafia, Pemba, and Lake Eyasi are real places. They are not automatic. Tell us what you want to feel when you go home, and we will pick three names, not twelve."
         ],
         "blocks": [
           {
@@ -35120,7 +34966,7 @@
           {
             "id": "p_4",
             "type": "paragraph",
-            "text": "Mafia, Pemba, Mahale, and Lake Eyasi are real places. They are not automatic. Tell us what you want to feel when you go home, and we will pick three names, not twelve.",
+            "text": "Mafia, Pemba, and Lake Eyasi are real places. They are not automatic. Tell us what you want to feel when you go home, and we will pick three names, not twelve.",
             "url": "",
             "alt": "",
             "caption": "",
@@ -35220,7 +35066,7 @@
           "If the mountain is the point",
           "Moshi or Arusha, a proper climb, a rest night, then either crater country or the coast. Do not land and walk the same day.",
           "Ask us to cut",
-          "Mafia, Pemba, Mahale, and Lake Eyasi are real places. They are not automatic. Tell us what you want to feel when you go home, and we will pick three names, not twelve."
+          "Mafia, Pemba, and Lake Eyasi are real places. They are not automatic. Tell us what you want to feel when you go home, and we will pick three names, not twelve."
         ],
         "blocks": [
           {
@@ -35394,7 +35240,7 @@
           {
             "id": "p_4",
             "type": "paragraph",
-            "text": "Mafia, Pemba, Mahale, and Lake Eyasi are real places. They are not automatic. Tell us what you want to feel when you go home, and we will pick three names, not twelve.",
+            "text": "Mafia, Pemba, and Lake Eyasi are real places. They are not automatic. Tell us what you want to feel when you go home, and we will pick three names, not twelve.",
             "url": "",
             "alt": "",
             "caption": "",
@@ -43421,7 +43267,6 @@
         "paragraphs": [
           "Guests come for lion and elephant. We also point out what is Tanzanian in a quieter way: Masai giraffe on the northern circuit, the red colobus of Zanzibar’s Jozani forest, and the Udzungwa and Usambara mountains, which hold birds and primates you will not see on a Serengeti game drive.",
           "The crater’s black rhino are not endemic, but they are scarce, and this is one of the better places in East Africa to look. Wild dog in Nyerere and Ruaha are another reason to leave the north if you have the time.",
-          "Lake Tanganyika’s chimpanzees at Mahale and Gombe are a western chapter: forest walks, not plains. We only add them when guests want that work and those flights.",
           "Ask if you care about a particular animal. We will match park and season instead of padding a list of Latin names."
         ],
         "blocks": [
@@ -43476,7 +43321,7 @@
           {
             "id": "block_3",
             "type": "paragraph",
-            "text": "Lake Tanganyika’s chimpanzees at Mahale and Gombe are a western chapter: forest walks, not plains. We only add them when guests want that work and those flights.",
+            "text": "",
             "url": "",
             "alt": "",
             "caption": "",
@@ -43570,7 +43415,7 @@
           "canonical": "",
           "og_image": "/images/gallery/tarangire-01.webp"
         },
-        "read_time": 2
+        "read_time": 1
       },
       "published": {
         "id": "",
@@ -43595,7 +43440,6 @@
         "paragraphs": [
           "Guests come for lion and elephant. We also point out what is Tanzanian in a quieter way: Masai giraffe on the northern circuit, the red colobus of Zanzibar’s Jozani forest, and the Udzungwa and Usambara mountains, which hold birds and primates you will not see on a Serengeti game drive.",
           "The crater’s black rhino are not endemic, but they are scarce, and this is one of the better places in East Africa to look. Wild dog in Nyerere and Ruaha are another reason to leave the north if you have the time.",
-          "Lake Tanganyika’s chimpanzees at Mahale and Gombe are a western chapter: forest walks, not plains. We only add them when guests want that work and those flights.",
           "Ask if you care about a particular animal. We will match park and season instead of padding a list of Latin names."
         ],
         "blocks": [
@@ -43650,7 +43494,7 @@
           {
             "id": "block_3",
             "type": "paragraph",
-            "text": "Lake Tanganyika’s chimpanzees at Mahale and Gombe are a western chapter: forest walks, not plains. We only add them when guests want that work and those flights.",
+            "text": "",
             "url": "",
             "alt": "",
             "caption": "",
@@ -43744,7 +43588,7 @@
           "canonical": "",
           "og_image": "/images/gallery/tarangire-01.webp"
         },
-        "read_time": 2
+        "read_time": 1
       },
       "created_by": "seed",
       "updated_by": "seed",
@@ -45907,365 +45751,6 @@
       "published_at": "2026-09-18T15:02:42.408Z"
     },
     {
-      "id": "10755c02-4eec-463a-a3d0-8782e73420b1",
-      "type": "posts",
-      "slug": "western-tanzania-chimps",
-      "status": "PUBLISHED",
-      "draft": {
-        "id": "",
-        "title": "Western Tanzania: chimpanzees, the lake, and the extra flights",
-        "slug": "western-tanzania-chimps",
-        "topic": "safari",
-        "category": "safari",
-        "kicker": "",
-        "excerpt": "Mahale and Gombe are not a bolt-on afternoon. They are a trip with their own rhythm.",
-        "date": "29 August 2026",
-        "author": "Golden Memories Safaris",
-        "author_role": "",
-        "author_bio": "",
-        "author_image": "",
-        "featured": false,
-        "hero_image": {
-          "url": "/images/gallery/culture-07.webp",
-          "alt": "Western Tanzania: chimpanzees, the lake, and the extra flights"
-        },
-        "image": "/images/gallery/culture-07.webp",
-        "gallery": [],
-        "paragraphs": [
-          "Mahale Mountains and Gombe Stream sit on Lake Tanganyika. You track chimpanzees on foot, often steep and humid, then recover on the beach or a boat. It is forest safari, not grassland.",
-          "Getting there means flying, usually via Arusha or Dar, and accepting that weather can move a light aircraft. We do not squeeze chimps into the last two days of a northern circuit.",
-          "Permits, group size, and fitness matter. We will ask about knees and heat before we book. If walking is a problem, stay in the north.",
-          "Guests who love it often skip a second Serengeti camp to pay for these nights. That is a fair trade if primates are the story you came to tell."
-        ],
-        "blocks": [
-          {
-            "id": "block_1",
-            "type": "paragraph",
-            "text": "Mahale Mountains and Gombe Stream sit on Lake Tanganyika. You track chimpanzees on foot, often steep and humid, then recover on the beach or a boat. It is forest safari, not grassland.",
-            "url": "",
-            "alt": "",
-            "caption": "",
-            "title": "",
-            "level": 2,
-            "layout": "full",
-            "items": [],
-            "list_style": "ul",
-            "variant": "gold",
-            "href": "",
-            "target": "_self",
-            "callout_type": "tip",
-            "gallery_mode": "grid",
-            "images": [],
-            "location": "",
-            "days": "",
-            "embed_url": "",
-            "tour_slugs": [],
-            "lodge_ids": []
-          },
-          {
-            "id": "block_2",
-            "type": "paragraph",
-            "text": "Getting there means flying, usually via Arusha or Dar, and accepting that weather can move a light aircraft. We do not squeeze chimps into the last two days of a northern circuit.",
-            "url": "",
-            "alt": "",
-            "caption": "",
-            "title": "",
-            "level": 2,
-            "layout": "full",
-            "items": [],
-            "list_style": "ul",
-            "variant": "gold",
-            "href": "",
-            "target": "_self",
-            "callout_type": "tip",
-            "gallery_mode": "grid",
-            "images": [],
-            "location": "",
-            "days": "",
-            "embed_url": "",
-            "tour_slugs": [],
-            "lodge_ids": []
-          },
-          {
-            "id": "block_3",
-            "type": "paragraph",
-            "text": "Permits, group size, and fitness matter. We will ask about knees and heat before we book. If walking is a problem, stay in the north.",
-            "url": "",
-            "alt": "",
-            "caption": "",
-            "title": "",
-            "level": 2,
-            "layout": "full",
-            "items": [],
-            "list_style": "ul",
-            "variant": "gold",
-            "href": "",
-            "target": "_self",
-            "callout_type": "tip",
-            "gallery_mode": "grid",
-            "images": [],
-            "location": "",
-            "days": "",
-            "embed_url": "",
-            "tour_slugs": [],
-            "lodge_ids": []
-          },
-          {
-            "id": "block_4",
-            "type": "paragraph",
-            "text": "Guests who love it often skip a second Serengeti camp to pay for these nights. That is a fair trade if primates are the story you came to tell.",
-            "url": "",
-            "alt": "",
-            "caption": "",
-            "title": "",
-            "level": 2,
-            "layout": "full",
-            "items": [],
-            "list_style": "ul",
-            "variant": "gold",
-            "href": "",
-            "target": "_self",
-            "callout_type": "tip",
-            "gallery_mode": "grid",
-            "images": [],
-            "location": "",
-            "days": "",
-            "embed_url": "",
-            "tour_slugs": [],
-            "lodge_ids": []
-          }
-        ],
-        "sections": [
-          {
-            "type": "hero",
-            "enabled": true,
-            "order": 0
-          },
-          {
-            "type": "intro",
-            "enabled": true,
-            "order": 1
-          },
-          {
-            "type": "body",
-            "enabled": true,
-            "order": 2
-          },
-          {
-            "type": "gallery",
-            "enabled": true,
-            "order": 3
-          },
-          {
-            "type": "related",
-            "enabled": true,
-            "order": 4
-          },
-          {
-            "type": "booking_cta",
-            "enabled": true,
-            "order": 5
-          }
-        ],
-        "featured_tour_slugs": [],
-        "featured_lodge_ids": [],
-        "cta_label": "Plan this trip",
-        "cta_href": "/contact/",
-        "seo_title": "Western Tanzania: chimpanzees, the lake, and the extra flights",
-        "seo_description": "Mahale and Gombe are not a bolt-on afternoon. They are a trip with their own rhythm.",
-        "seo_keywords": "",
-        "canonical_url": "",
-        "og_image": "/images/gallery/culture-07.webp",
-        "seo": {
-          "title": "Western Tanzania: chimpanzees, the lake, and the extra flights",
-          "description": "Mahale and Gombe are not a bolt-on afternoon. They are a trip with their own rhythm.",
-          "keywords": "",
-          "canonical": "",
-          "og_image": "/images/gallery/culture-07.webp"
-        },
-        "read_time": 1
-      },
-      "published": {
-        "id": "",
-        "title": "Western Tanzania: chimpanzees, the lake, and the extra flights",
-        "slug": "western-tanzania-chimps",
-        "topic": "safari",
-        "category": "safari",
-        "kicker": "",
-        "excerpt": "Mahale and Gombe are not a bolt-on afternoon. They are a trip with their own rhythm.",
-        "date": "29 August 2026",
-        "author": "Golden Memories Safaris",
-        "author_role": "",
-        "author_bio": "",
-        "author_image": "",
-        "featured": false,
-        "hero_image": {
-          "url": "/images/gallery/culture-07.webp",
-          "alt": "Western Tanzania: chimpanzees, the lake, and the extra flights"
-        },
-        "image": "/images/gallery/culture-07.webp",
-        "gallery": [],
-        "paragraphs": [
-          "Mahale Mountains and Gombe Stream sit on Lake Tanganyika. You track chimpanzees on foot, often steep and humid, then recover on the beach or a boat. It is forest safari, not grassland.",
-          "Getting there means flying, usually via Arusha or Dar, and accepting that weather can move a light aircraft. We do not squeeze chimps into the last two days of a northern circuit.",
-          "Permits, group size, and fitness matter. We will ask about knees and heat before we book. If walking is a problem, stay in the north.",
-          "Guests who love it often skip a second Serengeti camp to pay for these nights. That is a fair trade if primates are the story you came to tell."
-        ],
-        "blocks": [
-          {
-            "id": "block_1",
-            "type": "paragraph",
-            "text": "Mahale Mountains and Gombe Stream sit on Lake Tanganyika. You track chimpanzees on foot, often steep and humid, then recover on the beach or a boat. It is forest safari, not grassland.",
-            "url": "",
-            "alt": "",
-            "caption": "",
-            "title": "",
-            "level": 2,
-            "layout": "full",
-            "items": [],
-            "list_style": "ul",
-            "variant": "gold",
-            "href": "",
-            "target": "_self",
-            "callout_type": "tip",
-            "gallery_mode": "grid",
-            "images": [],
-            "location": "",
-            "days": "",
-            "embed_url": "",
-            "tour_slugs": [],
-            "lodge_ids": []
-          },
-          {
-            "id": "block_2",
-            "type": "paragraph",
-            "text": "Getting there means flying, usually via Arusha or Dar, and accepting that weather can move a light aircraft. We do not squeeze chimps into the last two days of a northern circuit.",
-            "url": "",
-            "alt": "",
-            "caption": "",
-            "title": "",
-            "level": 2,
-            "layout": "full",
-            "items": [],
-            "list_style": "ul",
-            "variant": "gold",
-            "href": "",
-            "target": "_self",
-            "callout_type": "tip",
-            "gallery_mode": "grid",
-            "images": [],
-            "location": "",
-            "days": "",
-            "embed_url": "",
-            "tour_slugs": [],
-            "lodge_ids": []
-          },
-          {
-            "id": "block_3",
-            "type": "paragraph",
-            "text": "Permits, group size, and fitness matter. We will ask about knees and heat before we book. If walking is a problem, stay in the north.",
-            "url": "",
-            "alt": "",
-            "caption": "",
-            "title": "",
-            "level": 2,
-            "layout": "full",
-            "items": [],
-            "list_style": "ul",
-            "variant": "gold",
-            "href": "",
-            "target": "_self",
-            "callout_type": "tip",
-            "gallery_mode": "grid",
-            "images": [],
-            "location": "",
-            "days": "",
-            "embed_url": "",
-            "tour_slugs": [],
-            "lodge_ids": []
-          },
-          {
-            "id": "block_4",
-            "type": "paragraph",
-            "text": "Guests who love it often skip a second Serengeti camp to pay for these nights. That is a fair trade if primates are the story you came to tell.",
-            "url": "",
-            "alt": "",
-            "caption": "",
-            "title": "",
-            "level": 2,
-            "layout": "full",
-            "items": [],
-            "list_style": "ul",
-            "variant": "gold",
-            "href": "",
-            "target": "_self",
-            "callout_type": "tip",
-            "gallery_mode": "grid",
-            "images": [],
-            "location": "",
-            "days": "",
-            "embed_url": "",
-            "tour_slugs": [],
-            "lodge_ids": []
-          }
-        ],
-        "sections": [
-          {
-            "type": "hero",
-            "enabled": true,
-            "order": 0
-          },
-          {
-            "type": "intro",
-            "enabled": true,
-            "order": 1
-          },
-          {
-            "type": "body",
-            "enabled": true,
-            "order": 2
-          },
-          {
-            "type": "gallery",
-            "enabled": true,
-            "order": 3
-          },
-          {
-            "type": "related",
-            "enabled": true,
-            "order": 4
-          },
-          {
-            "type": "booking_cta",
-            "enabled": true,
-            "order": 5
-          }
-        ],
-        "featured_tour_slugs": [],
-        "featured_lodge_ids": [],
-        "cta_label": "Plan this trip",
-        "cta_href": "/contact/",
-        "seo_title": "Western Tanzania: chimpanzees, the lake, and the extra flights",
-        "seo_description": "Mahale and Gombe are not a bolt-on afternoon. They are a trip with their own rhythm.",
-        "seo_keywords": "",
-        "canonical_url": "",
-        "og_image": "/images/gallery/culture-07.webp",
-        "seo": {
-          "title": "Western Tanzania: chimpanzees, the lake, and the extra flights",
-          "description": "Mahale and Gombe are not a bolt-on afternoon. They are a trip with their own rhythm.",
-          "keywords": "",
-          "canonical": "",
-          "og_image": "/images/gallery/culture-07.webp"
-        },
-        "read_time": 1
-      },
-      "created_by": "seed",
-      "updated_by": "seed",
-      "created_at": "2026-09-18T15:02:42.408Z",
-      "updated_at": "2026-09-18T15:02:42.408Z",
-      "published_at": "2026-09-18T15:02:42.408Z"
-    },
-    {
       "id": "2daba447-e2f0-4854-9004-418c825509bb",
       "type": "posts",
       "slug": "nyerere-and-ruaha",
@@ -48088,7 +47573,7 @@
         "paragraphs": [
           "Arusha is where we live and where most northern trips begin. After Kilimanjaro Airport you want a shower and a bed more than a city tour. We still like a slow morning: coffee, a craft market if you have energy, or Arusha National Park if you landed early and cannot sit still.",
           "Mount Meru hangs over town. On a clear day it reminds you the “safari” has already started. Njiro, where our office sits, is residential and practical — good for last-minute kit, not for nightlife.",
-          "We can arrange a cultural or coffee stop on the way toward Moshi or the western parks. We will not fill a rest day with five attractions because a blog said you must.",
+          "We can arrange a cultural or coffee stop on the way toward Moshi or the northern parks. We will not fill a rest day with five attractions because a blog said you must.",
           "If you have a spare afternoon on the way home, say so. Otherwise we protect sleep. The crater will still be there at dawn."
         ],
         "blocks": [
@@ -48143,7 +47628,7 @@
           {
             "id": "block_3",
             "type": "paragraph",
-            "text": "We can arrange a cultural or coffee stop on the way toward Moshi or the western parks. We will not fill a rest day with five attractions because a blog said you must.",
+            "text": "We can arrange a cultural or coffee stop on the way toward Moshi or the northern parks. We will not fill a rest day with five attractions because a blog said you must.",
             "url": "",
             "alt": "",
             "caption": "",
@@ -48262,7 +47747,7 @@
         "paragraphs": [
           "Arusha is where we live and where most northern trips begin. After Kilimanjaro Airport you want a shower and a bed more than a city tour. We still like a slow morning: coffee, a craft market if you have energy, or Arusha National Park if you landed early and cannot sit still.",
           "Mount Meru hangs over town. On a clear day it reminds you the “safari” has already started. Njiro, where our office sits, is residential and practical — good for last-minute kit, not for nightlife.",
-          "We can arrange a cultural or coffee stop on the way toward Moshi or the western parks. We will not fill a rest day with five attractions because a blog said you must.",
+          "We can arrange a cultural or coffee stop on the way toward Moshi or the northern parks. We will not fill a rest day with five attractions because a blog said you must.",
           "If you have a spare afternoon on the way home, say so. Otherwise we protect sleep. The crater will still be there at dawn."
         ],
         "blocks": [
@@ -48317,7 +47802,7 @@
           {
             "id": "block_3",
             "type": "paragraph",
-            "text": "We can arrange a cultural or coffee stop on the way toward Moshi or the western parks. We will not fill a rest day with five attractions because a blog said you must.",
+            "text": "We can arrange a cultural or coffee stop on the way toward Moshi or the northern parks. We will not fill a rest day with five attractions because a blog said you must.",
             "url": "",
             "alt": "",
             "caption": "",
@@ -59003,13 +58488,13 @@
       "draft": {
         "title": "What are the top safari destinations in Tanzania?",
         "group": "safaris",
-        "answer": "Most first-time visitors combine Tarangire, Serengeti, and Ngorongoro. The south (Ruaha and Nyerere/Selous) is quieter and wilder. Western parks such as Mahale are for chimpanzee tracking and longer journeys.",
+        "answer": "Most first-time visitors combine Tarangire, Serengeti, and Ngorongoro. The south (Ruaha and Nyerere/Selous) is quieter and wilder.",
         "slug": "what-are-the-top-safari-destinations-in-tanzania"
       },
       "published": {
         "title": "What are the top safari destinations in Tanzania?",
         "group": "safaris",
-        "answer": "Most first-time visitors combine Tarangire, Serengeti, and Ngorongoro. The south (Ruaha and Nyerere/Selous) is quieter and wilder. Western parks such as Mahale are for chimpanzee tracking and longer journeys.",
+        "answer": "Most first-time visitors combine Tarangire, Serengeti, and Ngorongoro. The south (Ruaha and Nyerere/Selous) is quieter and wilder.",
         "slug": "what-are-the-top-safari-destinations-in-tanzania"
       },
       "created_by": "seed",
@@ -59401,8 +58886,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "bee8467c-e54c-451a-bdaa-5f8ef1cf56fc",
@@ -59440,8 +58925,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "2e22e2e4-4191-4ad0-92c0-904a56db4ce8",
@@ -59479,8 +58964,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "266b54cd-ae67-4248-bf5b-08106b003e40",
@@ -59518,8 +59003,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "c0edb116-17d6-41c3-a96d-12c2672e2d9b",
@@ -59557,8 +59042,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "e689d11b-f911-4d85-a478-abfdf18eae9a",
@@ -59596,8 +59081,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "dd8ab1a2-4983-45b4-aa93-2a943b70069d",
@@ -59635,8 +59120,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "dd138665-95d8-4629-b1f0-96377d086d20",
@@ -59674,8 +59159,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "bd7ea83b-0288-4dda-bd17-8b9bab3a1ec1",
@@ -59713,8 +59198,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "aef4faaf-41c0-413a-8e13-7b9675f9513a",
@@ -59752,8 +59237,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "58b6891e-a6ca-4214-8a48-910a5b348e9e",
@@ -59791,8 +59276,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "21a560cb-c43b-4410-901a-430b46b14748",
@@ -59830,8 +59315,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "f8e2c21c-3b0f-4bc9-b5bc-7e7f302854a0",
@@ -59869,8 +59354,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-20T22:08:46.047Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "fd8a3f9a-7f84-44b5-8239-63fc838ee4d4",
@@ -59908,8 +59393,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "108f691c-3cc4-42fe-87a2-98dcc7715cf3",
@@ -59947,8 +59432,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "ba71c02a-32bd-4cce-b41d-662ab9521ddd",
@@ -59986,8 +59471,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "7b6f7484-db7d-4936-a7c0-25e87bfde059",
@@ -60025,8 +59510,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "9e738d1f-aec8-4077-89a4-ebbe2f259ff7",
@@ -60064,8 +59549,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "ca845f62-b15a-4c38-805d-1f170eaf3ae4",
@@ -60103,8 +59588,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "51ba3651-3a42-47e2-a93b-698ffb45260b",
@@ -60142,8 +59627,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "b5f6c281-e80c-402c-a2c2-42635ba94e51",
@@ -60181,8 +59666,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "ad099cab-7f77-490a-87b5-351a98286799",
@@ -60220,8 +59705,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "9a06d5e4-5dab-4e84-bdac-73a089f40544",
@@ -60259,8 +59744,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "f8eaf899-e64b-406f-af94-e76ae7f90514",
@@ -60298,8 +59783,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "6e7cd742-9a21-42ca-86b3-6aebe6395df1",
@@ -60337,8 +59822,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-13T11:45:04.619Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "0b59bee2-2655-4d0a-ba17-8b7e0bf6338c",
@@ -60376,8 +59861,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "b6c536d3-4e8e-49d4-a4f4-7a0337774c4a",
@@ -60415,8 +59900,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "34d56712-8a0c-4065-ad0e-577cfbf5657d",
@@ -60454,8 +59939,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "f47775bc-5924-4d56-bc50-ce32f38b8779",
@@ -60493,8 +59978,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "5d5e8f1f-b643-46b8-bee0-c2bd0133aa92",
@@ -60532,8 +60017,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "4df0c9c5-ae6d-4285-a753-d0a9196553c9",
@@ -60571,8 +60056,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "48180775-bcaa-463e-93e8-0c1ce8e47f68",
@@ -60610,8 +60095,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "fc55e4ff-b2d8-4f7a-bb10-73e678643821",
@@ -60647,8 +60132,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "e704a7d2-f0d5-44dc-bbe1-b7f338d5f383",
@@ -60686,8 +60171,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "6f1736b4-a418-43d0-bcb4-c8f35ecd475e",
@@ -60725,8 +60210,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "46b59f9b-cd61-453d-b80b-ec8cbab2b987",
@@ -60758,8 +60243,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "f14bd82e-1eb6-49fb-8db8-6571344ee502",
@@ -60795,8 +60280,8 @@
       "created_by": "seed",
       "updated_by": "seed",
       "created_at": "2026-09-23T20:20:39.163Z",
-      "updated_at": "2026-09-24T07:38:56.503Z",
-      "published_at": "2026-09-24T07:38:56.503Z"
+      "updated_at": "2026-09-24T09:45:22.879Z",
+      "published_at": "2026-09-24T09:45:22.879Z"
     },
     {
       "id": "266b54cd-ae67-4248-bf5b-08106b003e40",
@@ -61288,7 +60773,7 @@
     "site": {
       "name": "Golden Memories Safaris",
       "shortName": "GM Safaris",
-      "tagline": "Every safari with Sparkle of Gold",
+      "tagline": "Every Safari With A sparkle of Golden Memories.",
       "phone": "+255 786 383 273",
       "phoneAlt": "+255 754 750 070",
       "email": "info@gmsafaris.co.tz",

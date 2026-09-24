@@ -1,12 +1,26 @@
 import { readStore, updateStore } from '../../cms-store/index.js';
 import { DEFAULT_SETTINGS } from '../content/content.seed.js';
+import { smtpConfig } from './mailer.js';
+import { clearSmtpSecret, normalizeSmtpPass, writeSmtpSecret } from './smtp-secrets.js';
 
-function publicSettings(settings) {
+const MASK = '••••••••';
+
+function publicEmail(stored, live) {
+  const email = { ...(stored || {}) };
+  delete email.smtpPass;
+  email.smtpHost = live.smtpHost || email.smtpHost || '';
+  email.smtpPort = live.smtpPort || email.smtpPort || '587';
+  email.smtpUser = live.smtpUser || email.smtpUser || '';
+  email.smtpPass = live.configured ? MASK : '';
+  email.smtpSecure = Boolean(live.smtpSecure);
+  email.configured = Boolean(live.configured);
+  email.envLocked = Boolean(live.envLocked);
+  return email;
+}
+
+function publicSettings(settings, live) {
   const next = JSON.parse(JSON.stringify(settings || DEFAULT_SETTINGS));
-  if (next.email) {
-    next.email.smtpPass = next.email.smtpPass ? '••••••••' : '';
-    next.email.configured = Boolean(settings?.email?.smtpHost && settings?.email?.smtpUser);
-  }
+  next.email = publicEmail(next.email, live);
   return next;
 }
 
@@ -23,15 +37,36 @@ export const settingsService = {
 
   async getAdmin() {
     const store = await readStore();
-    return publicSettings(store.settings || DEFAULT_SETTINGS);
+    const live = await smtpConfig();
+    return publicSettings(store.settings || DEFAULT_SETTINGS, live);
   },
 
   async save(body, actor) {
-    return updateStore((store) => {
+    const incomingPass = normalizeSmtpPass(body?.email?.smtpPass);
+    const liveBefore = await smtpConfig();
+    if (incomingPass && incomingPass !== MASK && !liveBefore.envLocked) {
+      await writeSmtpSecret(incomingPass);
+    }
+    if (
+      body?.email &&
+      Object.prototype.hasOwnProperty.call(body.email, 'smtpPass') &&
+      !incomingPass &&
+      !liveBefore.envLocked
+    ) {
+      await clearSmtpSecret();
+    }
+
+    const saved = await updateStore((store) => {
       const current = store.settings || { ...DEFAULT_SETTINGS };
       const email = { ...(current.email || {}), ...(body.email || {}) };
-      if (email.smtpPass === '••••••••' || email.smtpPass === '') {
-        email.smtpPass = current.email?.smtpPass || '';
+      delete email.smtpPass;
+      delete email.configured;
+      delete email.envLocked;
+      if (liveBefore.envLocked) {
+        email.smtpHost = current.email?.smtpHost || '';
+        email.smtpPort = current.email?.smtpPort || '587';
+        email.smtpUser = current.email?.smtpUser || '';
+        email.smtpSecure = current.email?.smtpSecure || false;
       }
       store.settings = {
         ...current,
@@ -42,7 +77,9 @@ export const settingsService = {
         updated_at: new Date().toISOString(),
         updated_by: actor?.userId || null,
       };
-      return publicSettings(store.settings);
+      return store.settings;
     });
+    const live = await smtpConfig();
+    return publicSettings(saved, live);
   },
 };

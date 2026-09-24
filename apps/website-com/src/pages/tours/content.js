@@ -69,7 +69,7 @@ export const safariFaqs = [
   },
   {
     q: 'What are the top safari destinations in Tanzania?',
-    a: 'Most first-time visitors combine Tarangire, Serengeti, and Ngorongoro. The south (Ruaha and Nyerere/Selous) is quieter and wilder. Western parks such as Mahale are for chimpanzee tracking and longer journeys.',
+    a: 'Most first-time visitors combine Tarangire, Serengeti, and Ngorongoro. The south (Ruaha and Nyerere/Selous) is quieter and wilder.',
   },
   {
     q: 'How much does a Tanzania safari cost?',

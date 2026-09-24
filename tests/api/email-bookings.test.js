@@ -124,6 +124,15 @@ describe('email, bookings, and password reset', () => {
     expect(res.status).toBe(200);
     expect(mailOutbox.some((item) => item.to === 'ops@gmsafaris.com' && /SMTP test/i.test(item.subject))).toBe(true);
   });
+
+  it('never returns the SMTP password to the CMS', async () => {
+    const token = await login(app);
+    const res = await send(app, 'GET', '/api/v1/admin/settings', undefined, auth(token));
+    expect(res.status).toBe(200);
+    const pass = res.body.data?.email?.smtpPass || '';
+    expect(pass === '' || pass === '••••••••').toBe(true);
+    expect(JSON.stringify(res.body)).not.toMatch(/qpgi|dghe|jrjz/i);
+  });
 });
 
 describe('booking reminder window', () => {

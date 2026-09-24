@@ -35,11 +35,11 @@ const PARKS = [
   { kind: 'serengeti', re: /serengeti|ndutu|wildebeest|migration|grumeti|mara river/i },
   { kind: 'tarangire', re: /tarangire|baobab|ruaha|selous|nyerere|rufiji|mikumi/i },
   { kind: 'ngorongoro', re: /ngorongoro|crater|manyara|olmoti|empakai/i },
-  { kind: 'culture', re: /materuni|maasai|hadzabe|eyasi|usambara|natron|lengai|gombe|mahale|chimpan|\bcultur|wedding|\bvillage\b/i },
+  { kind: 'culture', re: /materuni|maasai|hadzabe|eyasi|usambara|natron|lengai|\bcultur|wedding|\bvillage\b/i },
 ];
 
 const NAMED_PARK =
-  /kilimanjaro|marangu|machame|lemosho|zanzibar|serengeti|ndutu|wildebeest|migration|tarangire|ngorongoro|crater|manyara|ruaha|selous|materuni|maasai|eyasi|gombe|mahale/i;
+  /kilimanjaro|marangu|machame|lemosho|zanzibar|serengeti|ndutu|wildebeest|migration|tarangire|ngorongoro|crater|manyara|ruaha|selous|materuni|maasai|eyasi/i;
 
 export function haystackFrom(value) {
   if (!value) return '';

@@ -9,6 +9,30 @@ function escapeHtml(value) {
     .replace(/"/g, '&quot;');
 }
 
+function encodeKey(url) {
+  return encodeURIComponent(String(url || ''));
+}
+
+function decodeKey(value) {
+  try {
+    return decodeURIComponent(String(value || ''));
+  } catch {
+    return String(value || '');
+  }
+}
+
+function bindBrokenImage(img) {
+  if (!img || img.dataset.brokenBound) return;
+  img.dataset.brokenBound = '1';
+  img.addEventListener('error', () => {
+    img.classList.add('is-broken');
+  });
+}
+
+function bindBrokenImages(root) {
+  root?.querySelectorAll('img').forEach(bindBrokenImage);
+}
+
 export function prettyImageName(url) {
   const filename = String(url || '').split('?')[0].split('/').pop() || '';
   if (!filename) return 'No photo selected';
@@ -18,13 +42,19 @@ export function prettyImageName(url) {
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
+function thumbMarkup(url) {
+  const src = String(url || '').trim();
+  if (!src) return '<span>No photo</span>';
+  return `<img src="${escapeHtml(src)}" alt="" loading="lazy" decoding="async" draggable="false" />`;
+}
+
 export function imageField(label, name, url = '') {
   const src = String(url || '').trim();
   return `
     <div class="cms-field cms-image-picker" data-image-picker>
       <span class="cms-label">${escapeHtml(label)}</span>
       <div class="cms-image-picker-row">
-        <div class="cms-image-picker-thumb">${src ? `<img src="${escapeHtml(src)}" alt="" />` : '<span>No photo</span>'}</div>
+        <div class="cms-image-picker-thumb">${thumbMarkup(src)}</div>
         <div>
           <strong class="cms-image-picker-name">${escapeHtml(prettyImageName(src))}</strong>
           <p class="cms-hint">Choose a photo from the project gallery or upload one from this computer. You do not need to type a file name.</p>
@@ -47,21 +77,21 @@ export function imageField(label, name, url = '') {
     </div>`;
 }
 
+function galleryChip(url, index) {
+  return `
+      <figure class="cms-gallery-chip" data-gallery-index="${index}">
+        <img src="${escapeHtml(url)}" alt="${escapeHtml(prettyImageName(url))}" loading="lazy" decoding="async" draggable="false" />
+        <figcaption>${escapeHtml(prettyImageName(url))}</figcaption>
+        <button class="cms-btn cms-btn-danger" type="button" data-gallery-remove>Remove</button>
+      </figure>`;
+}
+
 export function galleryField(label, name, urls = []) {
   const list = (Array.isArray(urls) ? urls : String(urls || '').split('\n'))
     .map((item) => (typeof item === 'string' ? item : item?.url || ''))
     .map((item) => item.trim())
     .filter(Boolean);
-  const thumbs = list
-    .map(
-      (url, index) => `
-      <figure class="cms-gallery-chip" data-gallery-index="${index}">
-        <img src="${escapeHtml(url)}" alt="${escapeHtml(prettyImageName(url))}" />
-        <figcaption>${escapeHtml(prettyImageName(url))}</figcaption>
-        <button class="cms-btn cms-btn-danger" type="button" data-gallery-remove>Remove</button>
-      </figure>`
-    )
-    .join('');
+  const thumbs = list.map((url, index) => galleryChip(url, index)).join('');
   return `
     <div class="cms-field cms-gallery-picker" data-gallery-picker>
       <span class="cms-label">${escapeHtml(label)}</span>
@@ -78,6 +108,8 @@ export function galleryField(label, name, urls = []) {
 
 let libraryCache = null;
 let modal = null;
+let pickerState = null;
+let pickerSeq = 0;
 
 async function loadLibrary(force = false) {
   if (libraryCache && !force) return libraryCache;
@@ -90,6 +122,7 @@ function ensureModal() {
   modal = document.createElement('div');
   modal.className = 'cms-picker-modal';
   modal.hidden = true;
+  modal.setAttribute('aria-hidden', 'true');
   modal.innerHTML = `
     <div class="cms-picker-dialog" role="dialog" aria-modal="true" aria-labelledby="cms-picker-title">
       <header class="cms-picker-head">
@@ -101,11 +134,11 @@ function ensureModal() {
       </header>
       <div class="cms-picker-toolbar">
         <input class="cms-picker-search" type="search" placeholder="Search by name, park, or folder…" />
+        <p class="cms-muted cms-picker-count" data-picker-count></p>
         <button class="cms-btn cms-btn-gold" type="button" data-picker-upload>Upload from this device</button>
         <input type="file" hidden accept="image/jpeg,image/png,image/webp,image/gif" multiple data-picker-file />
       </div>
       <div class="cms-picker-tabs" data-picker-tabs></div>
-      <p class="cms-muted" data-picker-count></p>
       <div class="cms-picker-grid" data-picker-grid></div>
       <footer class="cms-picker-foot">
         <div class="cms-picker-url-row">
@@ -117,7 +150,17 @@ function ensureModal() {
       </footer>
     </div>`;
   document.body.appendChild(modal);
+  bindModal(modal);
   return modal;
+}
+
+function closePicker() {
+  if (!modal) return;
+  pickerState = null;
+  modal.hidden = true;
+  modal.setAttribute('aria-hidden', 'true');
+  modal.inert = true;
+  document.body.classList.remove('cms-picker-open');
 }
 
 function paintGrid(items, selected) {
@@ -128,125 +171,130 @@ function paintGrid(items, selected) {
   }
   grid.innerHTML = items
     .map((item) => {
-      const active = selected.has(item.url) ? ' is-selected' : '';
+      const url = item.url || '';
+      const active = selected.has(url) ? ' is-selected' : '';
+      const label = item.label || prettyImageName(item.filename);
+      const meta = (item.usedOn || []).filter(Boolean)[0] || item.folder || item.source || '';
       return `
-        <button class="cms-picker-card${active}" type="button" data-picker-url="${escapeHtml(item.url)}" title="${escapeHtml(item.label || item.filename)}">
-          <img src="${escapeHtml(item.url)}" alt="" />
-          <span>${escapeHtml(item.label || prettyImageName(item.filename))}</span>
+        <button class="cms-picker-card${active}" type="button" data-picker-key="${encodeKey(url)}" aria-pressed="${selected.has(url) ? 'true' : 'false'}" title="${escapeHtml(label)}">
+          <span class="cms-picker-thumb">
+            ${thumbMarkup(url)}
+            <span class="cms-picker-check" aria-hidden="true">
+              <svg viewBox="0 0 20 20" width="14" height="14" focusable="false"><path fill="currentColor" d="M7.7 14.3 3.4 10l1.4-1.4 2.9 2.9 6.5-6.5L15.6 6.4z"/></svg>
+            </span>
+            <span class="cms-picker-caption">
+              <span class="cms-picker-caption-title">${escapeHtml(label)}</span>
+              ${meta ? `<span class="cms-picker-caption-meta">${escapeHtml(meta)}</span>` : ''}
+            </span>
+          </span>
         </button>`;
     })
     .join('');
+  bindBrokenImages(grid);
 }
 
-export function openImagePicker({ multiple = false, selected = [], onPick } = {}) {
-  const root = ensureModal();
-  const chosen = new Set(selected.filter(Boolean));
-  let active = 'all';
-  let query = '';
-  const title = root.querySelector('#cms-picker-title');
-  const useBtn = root.querySelector('[data-picker-use]');
-  const selectedHint = root.querySelector('[data-picker-selected]');
-  title.textContent = multiple ? 'Add photos' : 'Choose a photo';
-  useBtn.hidden = !multiple;
-
-  function currentItems(library) {
-    const group = library.groups.find((item) => item.id === active) || library.groups[0];
-    const needle = query.trim().toLowerCase();
-    return (group?.items || []).filter((item) => {
-      if (!needle) return true;
-      return [item.label, item.filename, item.alt, item.folder, ...(item.usedOn || [])]
-        .join(' ')
-        .toLowerCase()
-        .includes(needle);
-    });
-  }
-
-  function refreshSelection() {
-    selectedHint.textContent = multiple
-      ? `${chosen.size} photo${chosen.size === 1 ? '' : 's'} selected`
-      : 'Click a photo to use it.';
-    useBtn.disabled = multiple && !chosen.size;
-    root.querySelectorAll('[data-picker-url]').forEach((card) => {
-      card.classList.toggle('is-selected', chosen.has(card.getAttribute('data-picker-url')));
-    });
-  }
-
-  async function paint() {
-    const library = await loadLibrary();
-    const tabs = root.querySelector('[data-picker-tabs]');
-    const count = root.querySelector('[data-picker-count]');
-    tabs.innerHTML = library.groups
+async function paintPicker(state) {
+  if (!state || state.id !== pickerState?.id) return;
+  const library = await loadLibrary();
+  if (state.id !== pickerState?.id) return;
+  const root = modal;
+  const tabs = root.querySelector('[data-picker-tabs]');
+  const count = root.querySelector('[data-picker-count]');
+    tabs.innerHTML = (library.groups || [])
       .map(
         (item) =>
-          `<button class="cms-media-tab${item.id === active ? ' is-active' : ''}" type="button" data-picker-group="${item.id}">${escapeHtml(item.label)} <em>${item.count}</em></button>`
+          `<button class="cms-picker-chip${item.id === state.active ? ' is-active' : ''}" type="button" data-picker-group="${escapeHtml(item.id)}">${escapeHtml(item.label)} <em>${item.count}</em></button>`
       )
       .join('');
-    const items = currentItems(library);
-    count.textContent = `${items.length} photos`;
-    paintGrid(items, chosen);
-    refreshSelection();
-  }
-
-  function close() {
-    root.hidden = true;
-    root.setAttribute('aria-hidden', 'true');
-    root.inert = true;
-  }
-
-  async function uploadFiles(files) {
-    const list = [...files];
-    if (!list.length) return;
-    for (const file of list) {
-      const uploaded = await api.uploadMedia(file, prettyImageName(file.name), '');
-      if (uploaded?.url) chosen.add(uploaded.url);
-    }
-    await loadLibrary(true);
-    notifySuccess('Photo uploaded.');
-    if (!multiple && chosen.size) {
-      const url = [...chosen].at(-1);
-      close();
-      onPick?.(url);
-      return;
-    }
-    active = 'uploads';
-    await paint();
-  }
-
-  root.hidden = false;
-  root.removeAttribute('aria-hidden');
-  root.inert = false;
-  paint().catch((err) => {
-    root.querySelector('[data-picker-grid]').innerHTML = `<p class="cms-error">${escapeHtml(err.message)}</p>`;
+  tabs.querySelector('.cms-picker-chip.is-active')?.scrollIntoView({
+    block: 'nearest',
+    inline: 'center',
+    behavior: 'smooth',
   });
+  const group = library.groups.find((item) => item.id === state.active) || library.groups[0];
+  const needle = state.query.trim().toLowerCase();
+  const items = (group?.items || []).filter((item) => {
+    if (!needle) return true;
+    return [item.label, item.filename, item.alt, item.folder, ...(item.usedOn || [])]
+      .join(' ')
+      .toLowerCase()
+      .includes(needle);
+  });
+  count.textContent = `${items.length} photos`;
+  paintGrid(items, state.chosen);
+  refreshSelection(state);
+}
 
-  root.onclick = async (event) => {
+function refreshSelection(state) {
+  if (!modal || !state) return;
+  const selectedHint = modal.querySelector('[data-picker-selected]');
+  const useBtn = modal.querySelector('[data-picker-use]');
+  selectedHint.textContent = state.multiple
+    ? `${state.chosen.size} photo${state.chosen.size === 1 ? '' : 's'} selected`
+    : 'Click a photo to use it.';
+  useBtn.disabled = state.multiple && !state.chosen.size;
+  modal.querySelectorAll('[data-picker-key]').forEach((card) => {
+    const on = state.chosen.has(decodeKey(card.getAttribute('data-picker-key')));
+    card.classList.toggle('is-selected', on);
+    card.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+}
+
+function applyPick(value) {
+  const onPick = pickerState?.onPick;
+  closePicker();
+  onPick?.(value);
+}
+
+async function uploadPickerFiles(files) {
+  const state = pickerState;
+  if (!state) return;
+  const list = [...files];
+  if (!list.length) return;
+  for (const file of list) {
+    const uploaded = await api.uploadMedia(file, prettyImageName(file.name), '');
+    if (uploaded?.url) state.chosen.add(uploaded.url);
+  }
+  await loadLibrary(true);
+  notifySuccess('Photo uploaded.');
+  if (!state.multiple && state.chosen.size) {
+    applyPick([...state.chosen].at(-1));
+    return;
+  }
+  state.active = 'uploads';
+  await paintPicker(state);
+}
+
+function bindModal(root) {
+  root.addEventListener('click', async (event) => {
+    const state = pickerState;
+    if (!state || root.hidden) return;
     if (event.target === root || event.target.closest('[data-picker-close]')) {
-      close();
+      closePicker();
       return;
     }
     const tab = event.target.closest('[data-picker-group]');
     if (tab) {
-      active = tab.getAttribute('data-picker-group');
-      await paint();
+      state.active = tab.getAttribute('data-picker-group');
+      await paintPicker(state);
       return;
     }
-    const card = event.target.closest('[data-picker-url]');
+    const card = event.target.closest('[data-picker-key]');
     if (card) {
-      const url = card.getAttribute('data-picker-url');
-      if (multiple) {
-        if (chosen.has(url)) chosen.delete(url);
-        else chosen.add(url);
-        refreshSelection();
-        card.classList.toggle('is-selected', chosen.has(url));
+      const url = decodeKey(card.getAttribute('data-picker-key'));
+      if (!url) return;
+      if (state.multiple) {
+        if (state.chosen.has(url)) state.chosen.delete(url);
+        else state.chosen.add(url);
+        refreshSelection(state);
         return;
       }
-      close();
-      onPick?.(url);
+      applyPick(url);
       return;
     }
     if (event.target.closest('[data-picker-use]')) {
-      close();
-      onPick?.([...chosen]);
+      if (!state.chosen.size) return;
+      applyPick([...state.chosen]);
       return;
     }
     if (event.target.closest('[data-picker-upload]')) {
@@ -256,24 +304,59 @@ export function openImagePicker({ multiple = false, selected = [], onPick } = {}
     if (event.target.closest('[data-picker-url-use]')) {
       const pasted = root.querySelector('[data-picker-url-input]')?.value.trim();
       if (!pasted) return;
-      close();
-      onPick?.(multiple ? [...chosen, pasted] : pasted);
+      applyPick(state.multiple ? [...state.chosen, pasted] : pasted);
     }
-  };
+  });
 
-  root.querySelector('.cms-picker-search').oninput = (event) => {
-    query = event.target.value;
-    paint();
-  };
-  root.querySelector('[data-picker-file]').onchange = async (event) => {
+  root.querySelector('.cms-picker-search').addEventListener('input', (event) => {
+    if (!pickerState) return;
+    pickerState.query = event.target.value;
+    paintPicker(pickerState);
+  });
+
+  root.querySelector('[data-picker-file]').addEventListener('change', async (event) => {
     try {
-      await uploadFiles(event.target.files || []);
+      await uploadPickerFiles(event.target.files || []);
     } catch (err) {
       root.querySelector('[data-picker-grid]').innerHTML = `<p class="cms-error">${escapeHtml(err.message)}</p>`;
       notifyError(err.message || 'Could not upload that photo.');
     }
     event.target.value = '';
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && pickerState && !modal?.hidden) {
+      event.preventDefault();
+      closePicker();
+    }
+  });
+}
+
+export function openImagePicker({ multiple = false, selected = [], onPick } = {}) {
+  const root = ensureModal();
+  const state = {
+    id: ++pickerSeq,
+    multiple,
+    chosen: new Set((selected || []).filter(Boolean)),
+    active: 'all',
+    query: '',
+    onPick,
   };
+  pickerState = state;
+  root.querySelector('#cms-picker-title').textContent = multiple ? 'Add photos' : 'Choose a photo';
+  root.querySelector('[data-picker-use]').hidden = !multiple;
+  root.querySelector('.cms-picker-search').value = '';
+  root.querySelector('[data-picker-url-input]').value = '';
+  root.hidden = false;
+  root.removeAttribute('aria-hidden');
+  root.inert = false;
+  document.body.classList.add('cms-picker-open');
+  loadLibrary(true)
+    .then(() => paintPicker(state))
+    .catch((err) => {
+      if (pickerState?.id !== state.id) return;
+      root.querySelector('[data-picker-grid]').innerHTML = `<p class="cms-error">${escapeHtml(err.message)}</p>`;
+    });
 }
 
 function emitChange(input) {
@@ -288,7 +371,8 @@ function setPickerValue(picker, url) {
   const link = picker.querySelector('[data-url-input]');
   input.value = url || '';
   if (link) link.value = url || '';
-  thumb.innerHTML = url ? `<img src="${escapeHtml(url)}" alt="" />` : '<span>No photo</span>';
+  thumb.innerHTML = thumbMarkup(url);
+  bindBrokenImages(thumb);
   if (name) name.textContent = prettyImageName(url);
   const actions = picker.querySelector('.cms-editor-actions');
   let clear = picker.querySelector('[data-clear]');
@@ -299,7 +383,6 @@ function setPickerValue(picker, url) {
     clear.dataset.clear = '';
     clear.textContent = 'Remove';
     actions.appendChild(clear);
-    clear.addEventListener('click', () => setPickerValue(picker, ''));
   }
   if (!url && clear) clear.remove();
   emitChange(input);
@@ -307,20 +390,13 @@ function setPickerValue(picker, url) {
 
 function setGalleryValue(picker, urls) {
   const input = picker.querySelector('textarea[name], textarea');
-  input.value = urls.join('\n');
+  const unique = [...new Set((urls || []).map((item) => String(item || '').trim()).filter(Boolean))];
+  input.value = unique.join('\n');
   const chips = picker.querySelector('.cms-gallery-chips');
-  chips.innerHTML = urls.length
-    ? urls
-        .map(
-          (url, index) => `
-      <figure class="cms-gallery-chip" data-gallery-index="${index}">
-        <img src="${escapeHtml(url)}" alt="${escapeHtml(prettyImageName(url))}" />
-        <figcaption>${escapeHtml(prettyImageName(url))}</figcaption>
-        <button class="cms-btn cms-btn-danger" type="button" data-gallery-remove>Remove</button>
-      </figure>`
-        )
-        .join('')
+  chips.innerHTML = unique.length
+    ? unique.map((url, index) => galleryChip(url, index)).join('')
     : '<p class="cms-muted">No gallery photos yet.</p>';
+  bindBrokenImages(chips);
   emitChange(input);
 }
 
@@ -333,14 +409,31 @@ function galleryUrls(picker) {
 
 export function bindImagePickers(root) {
   root?.querySelectorAll('[data-image-picker]').forEach((picker) => {
-    picker.querySelector('[data-pick]')?.addEventListener('click', () => {
-      const current = picker.querySelector('input[type="hidden"]')?.value || '';
-      openImagePicker({
-        selected: current ? [current] : [],
-        onPick: (url) => setPickerValue(picker, Array.isArray(url) ? url[0] : url),
-      });
+    if (picker.dataset.pickerBound) return;
+    picker.dataset.pickerBound = '1';
+    bindBrokenImages(picker);
+    picker.addEventListener('click', (event) => {
+      if (event.target.closest('[data-pick]')) {
+        const current = picker.querySelector('input[type="hidden"]')?.value || '';
+        openImagePicker({
+          selected: current ? [current] : [],
+          onPick: (url) => setPickerValue(picker, Array.isArray(url) ? url[0] : url),
+        });
+        return;
+      }
+      if (event.target.closest('[data-upload]')) {
+        picker.querySelector('[data-file]')?.click();
+        return;
+      }
+      if (event.target.closest('[data-clear]')) {
+        setPickerValue(picker, '');
+        return;
+      }
+      if (event.target.closest('[data-url-apply]')) {
+        const pasted = picker.querySelector('[data-url-input]')?.value.trim();
+        if (pasted) setPickerValue(picker, pasted);
+      }
     });
-    picker.querySelector('[data-upload]')?.addEventListener('click', () => picker.querySelector('[data-file]')?.click());
     picker.querySelector('[data-file]')?.addEventListener('change', async (event) => {
       const file = event.target.files?.[0];
       if (!file) return;
@@ -356,22 +449,32 @@ export function bindImagePickers(root) {
       }
       event.target.value = '';
     });
-    picker.querySelector('[data-clear]')?.addEventListener('click', () => setPickerValue(picker, ''));
-    picker.querySelector('[data-url-apply]')?.addEventListener('click', () => {
-      const pasted = picker.querySelector('[data-url-input]')?.value.trim();
-      if (pasted) setPickerValue(picker, pasted);
-    });
   });
 
   root?.querySelectorAll('[data-gallery-picker]').forEach((picker) => {
-    picker.querySelector('[data-gallery-add]')?.addEventListener('click', () => {
-      openImagePicker({
-        multiple: true,
-        selected: galleryUrls(picker),
-        onPick: (urls) => setGalleryValue(picker, Array.isArray(urls) ? urls : [urls]),
-      });
+    if (picker.dataset.pickerBound) return;
+    picker.dataset.pickerBound = '1';
+    bindBrokenImages(picker);
+    picker.addEventListener('click', (event) => {
+      if (event.target.closest('[data-gallery-add]')) {
+        openImagePicker({
+          multiple: true,
+          selected: galleryUrls(picker),
+          onPick: (urls) => setGalleryValue(picker, Array.isArray(urls) ? urls : [urls]),
+        });
+        return;
+      }
+      if (event.target.closest('[data-gallery-upload]')) {
+        picker.querySelector('[data-gallery-file]')?.click();
+        return;
+      }
+      const remove = event.target.closest('[data-gallery-remove]');
+      if (remove) {
+        const index = Number(remove.closest('[data-gallery-index]')?.dataset.galleryIndex);
+        const next = galleryUrls(picker).filter((_, i) => i !== index);
+        setGalleryValue(picker, next);
+      }
     });
-    picker.querySelector('[data-gallery-upload]')?.addEventListener('click', () => picker.querySelector('[data-gallery-file]')?.click());
     picker.querySelector('[data-gallery-file]')?.addEventListener('change', async (event) => {
       const files = [...(event.target.files || [])];
       if (!files.length) return;
@@ -388,13 +491,6 @@ export function bindImagePickers(root) {
         notifyError(err.message || 'Could not upload those photos.');
       }
       event.target.value = '';
-    });
-    picker.addEventListener('click', (event) => {
-      const remove = event.target.closest('[data-gallery-remove]');
-      if (!remove) return;
-      const index = Number(remove.closest('[data-gallery-index]')?.dataset.galleryIndex);
-      const next = galleryUrls(picker).filter((_, i) => i !== index);
-      setGalleryValue(picker, next);
     });
   });
 }

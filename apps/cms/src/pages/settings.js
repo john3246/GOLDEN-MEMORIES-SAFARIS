@@ -2,14 +2,14 @@ import { api } from '../api/client.js';
 import { shell } from './shell.js';
 import { notifyError, notifySuccess } from '../components/toast.js';
 
-function field(label, name, value, type = 'text') {
+function field(label, name, value, type = 'text', extra = '') {
   if (type === 'textarea') {
-    return `<div class="cms-field"><label class="cms-label" for="${name}">${label}</label><textarea id="${name}" name="${name}">${value || ''}</textarea></div>`;
+    return `<div class="cms-field"><label class="cms-label" for="${name}">${label}</label><textarea id="${name}" name="${name}" ${extra}>${value || ''}</textarea></div>`;
   }
   if (type === 'checkbox') {
-    return `<label class="cms-check"><input type="checkbox" name="${name}" ${value ? 'checked' : ''} /> ${label}</label>`;
+    return `<label class="cms-check"><input id="${name}" name="${name}" type="checkbox" ${value ? 'checked' : ''} ${extra} /> ${label}</label>`;
   }
-  return `<div class="cms-field"><label class="cms-label" for="${name}">${label}</label><input id="${name}" name="${name}" type="${type}" value="${value || ''}" /></div>`;
+  return `<div class="cms-field"><label class="cms-label" for="${name}">${label}</label><input id="${name}" name="${name}" type="${type}" value="${value || ''}" ${extra} /></div>`;
 }
 
 export function renderSettings(user) {
@@ -58,6 +58,7 @@ export async function initSettings() {
   const site = data.site || {};
   const email = data.email || {};
   const seo = data.seo || {};
+  const lock = email.envLocked ? 'readonly disabled' : '';
   form.innerHTML = `
     <div class="cms-panel cms-form-stack">
       <h2 class="cms-hub-title">Public website</h2>
@@ -80,16 +81,19 @@ export async function initSettings() {
     </div>
     <div class="cms-panel cms-form-stack">
       <h2 class="cms-hub-title">Email configuration</h2>
-      <p class="cms-muted">Used for booking confirmations (guest and staff), 24-hour travel reminders, password resets, and contact-form replies. Fill SMTP from your mailbox provider (for example Gmail, Zoho, or the gmsafaris.com mail host).</p>
+      <p class="cms-muted">Used for booking confirmations (guest and staff), 24-hour travel reminders, password resets, and contact-form replies. The SMTP password is stored in the server environment, never in the public CMS store.</p>
+      ${email.configured ? '<p class="cms-hint">SMTP is configured and ready to send.</p>' : '<p class="cms-hint">SMTP is not fully configured yet.</p>'}
+      ${email.envLocked ? '<p class="cms-hint">Host, username, and password are locked to the server .env file. You can still change from-name, from-address, and staff notification email here.</p>' : ''}
       ${field('From name', 'fromName', email.fromName)}
       ${field('From email', 'fromEmail', email.fromEmail, 'email')}
       ${field('Reply-to', 'replyTo', email.replyTo, 'email')}
       ${field('Notify staff at', 'notifyTo', email.notifyTo, 'email')}
-      ${field('SMTP host', 'smtpHost', email.smtpHost)}
-      ${field('SMTP port', 'smtpPort', email.smtpPort)}
-      ${field('SMTP username', 'smtpUser', email.smtpUser)}
-      ${field('SMTP password', 'smtpPass', email.smtpPass, 'password')}
-      ${field('Use TLS/SSL', 'smtpSecure', email.smtpSecure, 'checkbox')}
+      ${field('SMTP host', 'smtpHost', email.smtpHost, 'text', lock)}
+      ${field('SMTP port', 'smtpPort', email.smtpPort, 'text', lock)}
+      ${field('SMTP username', 'smtpUser', email.smtpUser, 'text', lock)}
+      ${field('SMTP password', 'smtpPass', email.smtpPass, 'password', `${lock} autocomplete="new-password" placeholder="${email.configured ? 'Stored on the server' : 'App password'}"`)}
+      <p class="cms-hint">Port 587 uses STARTTLS automatically. Tick SSL only if the host requires port 465. Leave the password blank to keep the stored secret.</p>
+      ${field('Use implicit SSL (port 465)', 'smtpSecure', email.smtpSecure, 'checkbox', lock)}
       <div class="cms-editor-actions">
         <button class="cms-btn" type="button" data-test-email>Send test email</button>
       </div>
@@ -128,7 +132,7 @@ export async function initSettings() {
           smtpHost: fd.get('smtpHost'),
           smtpPort: fd.get('smtpPort'),
           smtpUser: fd.get('smtpUser'),
-          smtpPass: fd.get('smtpPass'),
+          smtpPass: fd.get('smtpPass') === '••••••••' ? '' : fd.get('smtpPass'),
           smtpSecure: form.elements.smtpSecure?.checked,
         },
       });

@@ -128,10 +128,11 @@ function blockFields(block, index, tours, lodges) {
     ])}`;
   }
   if (block.type === 'gallery') {
-    const lines = (block.images || [])
-      .map((image) => [image.url, image.alt, image.caption].filter(Boolean).join(' | '))
-      .join('\n');
-    return `${field('Images', `block.${index}.imagesText`, lines, 'textarea', 'One per line: URL | alt text | caption')}${selectField('View', `block.${index}.gallery_mode`, block.gallery_mode || 'grid', [
+    const urls = (block.images || [])
+      .map((image) => (typeof image === 'string' ? image : image?.url || ''))
+      .map((url) => String(url).trim())
+      .filter(Boolean);
+    return `${galleryField('Photos', `block.${index}.imagesText`, urls)}${selectField('View', `block.${index}.gallery_mode`, block.gallery_mode || 'grid', [
       { value: 'grid', label: 'Grid' },
       { value: 'carousel', label: 'Carousel' },
       { value: 'lightbox', label: 'Lightbox' },
@@ -278,7 +279,12 @@ function collectBlock(form, block, index) {
         .split('\n')
         .map((line) => {
           const [url, alt, caption] = line.split('|').map((part) => part.trim());
-          return { url, alt, caption };
+          const prev = (block.images || []).find((image) => (image.url || image) === url);
+          return {
+            url,
+            alt: alt || prev?.alt || '',
+            caption: caption || prev?.caption || '',
+          };
         })
         .filter((item) => item.url)
     : block.images;

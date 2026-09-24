@@ -47,6 +47,8 @@ data/cms/*.json
 data/cms/*.tmp
 apps/api/data/cms/*.tmp
 apps/api/data/cms/store.json.*
+apps/api/data/cms/smtp.secret.json
+**/smtp.secret.json
 !data/cms/.gitkeep
 
 # Test artifacts

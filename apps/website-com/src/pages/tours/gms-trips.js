@@ -430,17 +430,6 @@ const legacyGmsTrips = [
     "featured": false
   },
   {
-    "slug": "5-days-safari-to-gombe-stream-national-park",
-    "sourceSlug": "5-days-safari-to-gombe-stream-national-park",
-    "title": "5-Day Safari to Gombe Stream National Park",
-    "duration": "5 Days / 4 Nights",
-    "activity": "Wildlife Safari",
-    "places": "Gombe",
-    "image": "/images/gallery/serengeti-08.webp",
-    "style": "wildlife",
-    "featured": false
-  },
-  {
     "slug": "tarangire-ngorongoro-luxury-fly-in-out-safari",
     "sourceSlug": "tarangire-ngorongoro-luxury-fly-in-out-safari",
     "title": "2-Day Tarangire Ngorongoro Luxury Fly in & out Safari",
@@ -883,7 +872,6 @@ function placesFromText(text) {
   if (/\bmeru\b/.test(t)) bits.push('Mount Meru');
   if (/arusha/.test(t)) bits.push('Arusha');
   if (/mikumi/.test(t)) bits.push('Mikumi');
-  if (/gombe/.test(t)) bits.push('Gombe');
   if (/usambara/.test(t)) bits.push('Usambara');
   if (/natron|lengai/.test(t)) bits.push('Lake Natron');
   if (/materuni/.test(t)) bits.push('Materuni');

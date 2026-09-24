@@ -78,7 +78,7 @@ export const BLOG_TOPICS = {
   itineraries: 'Itineraries',
 };
 
-export const DESTINATION_ORDER = ['Northern Tanzania', 'The Coast', 'Southern Tanzania', 'Western Tanzania'];
+export const DESTINATION_ORDER = ['Northern Tanzania', 'The Coast', 'Southern Tanzania'];
 export const BLOG_ORDER = Object.values(BLOG_TOPICS);
 export const TOUR_ORDER = TOUR_CATEGORIES.map((item) => item.label);
 
