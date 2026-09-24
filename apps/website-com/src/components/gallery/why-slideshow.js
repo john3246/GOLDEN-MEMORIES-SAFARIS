@@ -12,8 +12,8 @@ export function whyUsSlideshow(slides) {
         <img
           src="${cardUrl(slide.src, slide.alt, index)}"
           alt="${slide.alt}"
-          width="900"
-          height="720"
+          width="1200"
+          height="800"
           loading="${index === 0 ? 'eager' : 'lazy'}"
           decoding="async"
         />
@@ -38,19 +38,8 @@ export function whyUsSlideshow(slides) {
 
   return `
     <div class="why-slideshow" data-why-slideshow aria-roledescription="carousel" aria-label="Golden Memories Safaris moments">
-      <svg class="why-slideshow-defs" aria-hidden="true" focusable="false">
-        <defs>
-          <clipPath id="why-spill-clip" clipPathUnits="objectBoundingBox">
-            <path d="M0.28 0.20 C0.34 0.08 0.50 0.06 0.60 0.16 C0.70 0.08 0.84 0.12 0.88 0.26 C0.96 0.32 0.90 0.44 0.86 0.50 C1.02 0.56 1.02 0.74 0.90 0.82 C0.94 0.92 0.82 1.00 0.70 0.92 C0.58 1.02 0.40 0.96 0.30 0.86 C0.16 0.92 0.02 0.78 0.06 0.62 C0.00 0.50 0.08 0.38 0.10 0.30 C0.06 0.20 0.16 0.12 0.28 0.20 Z" />
-            <path d="M0.86 0.86 C0.91 0.84 0.95 0.91 0.91 0.95 C0.86 0.97 0.81 0.89 0.86 0.86 Z" />
-            <path d="M0.04 0.86 C0.10 0.84 0.13 0.92 0.08 0.96 C0.02 0.98 0.00 0.90 0.04 0.86 Z" />
-          </clipPath>
-        </defs>
-      </svg>
-      <div class="why-slideshow-spill">
-        <div class="why-slideshow-stage">
-          ${images}
-        </div>
+      <div class="why-slideshow-stage">
+        ${images}
       </div>
       <div class="why-slideshow-dots" role="tablist" aria-label="Slideshow controls">
         ${dots}

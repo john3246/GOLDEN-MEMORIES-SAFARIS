@@ -32,7 +32,7 @@ export function getContactDetails() {
     },
     {
       label: 'Office Hours',
-      value: 'Monday – Saturday: 8:00 AM – 6:00 PM (EAT)',
+      value: '24/7',
       href: '',
     },
   ];

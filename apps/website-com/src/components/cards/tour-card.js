@@ -10,9 +10,7 @@ import { cardUrl } from '../../media/gallery.js';
 export function tourCard(tour) {
   const href = tourHref(tour);
   const price = safariPrice(tour);
-  const badge = tour.featured
-    ? `<span class="absolute left-4 top-4 z-10 bg-gold px-3 py-1 font-body text-xs font-bold uppercase tracking-[0.1em] text-ink">Trip of the month</span>`
-    : '';
+  const badge = '';
 
   const days = durationDays(tour.duration);
   const amount = Number(tour.price_from || tour.price || 0);

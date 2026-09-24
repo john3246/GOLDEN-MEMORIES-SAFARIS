@@ -1,40 +1,30 @@
-/* Why Us photo slideshow — spilled-water image frame */
+/* Why Us photo slideshow — rectangular image holder */
 
 .why-slideshow {
   position: relative;
   width: 100%;
 }
 
-.why-slideshow-defs {
-  position: absolute;
-  width: 0;
-  height: 0;
-  overflow: hidden;
-}
-
-.why-slideshow-spill {
-  filter: drop-shadow(0.45rem 0.75rem 1.25rem rgb(11 22 38 / 0.18));
-}
-
 .why-slideshow-stage {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 3 / 2;
   overflow: hidden;
-  background: var(--color-mist);
-  clip-path: url("#why-spill-clip");
+  background: #e8e2d4;
+  border: 1px solid rgb(11 22 38 / 0.22);
+  border-radius: 0;
 }
 
 @media (min-width: 1024px) {
   .why-slideshow {
     width: 100%;
-    max-width: 34rem;
+    max-width: 38rem;
   }
 }
 
 @media (max-width: 639px) {
   .why-slideshow-stage {
-    aspect-ratio: 16 / 11;
+    aspect-ratio: 4 / 3;
   }
 }
 

@@ -1,8 +1,9 @@
-import { SAFARI_SECTION_TYPES } from '@gm-safaris/shared-types';
-import { renderSafariPage, emptySafariDocument, safariCompletenessErrors } from '@gm-safaris/safari-ui';
+import { SAFARI_SECTION_TYPES, lodgeCategoryLabel } from '@gm-safaris/shared-types';
+import { emptySafariDocument, safariCompletenessErrors } from '@gm-safaris/safari-ui';
 import { api } from '../api/client.js';
 import { shell } from './shell.js';
 import { bindImagePickers, galleryField, imageField } from '../components/image-picker.js';
+import { notifyError, notifySuccess } from '../components/toast.js';
 
 const SECTION_LABELS = {
   hero: 'Hero',
@@ -35,51 +36,25 @@ export function renderEditor(user, id) {
     user,
     'safaris',
     `
-    <section class="cms-editor is-edit" data-safari-id="${id}">
-      <div class="cms-editor-switch">
-        <button class="cms-btn is-active" type="button" data-pane="edit">Content</button>
-        <button class="cms-btn" type="button" data-pane="preview">Preview</button>
-      </div>
-      <aside class="cms-editor-side">
-        <div class="cms-editor-toolbar">
-          <div>
-            <a class="cms-muted" href="#/safaris">← All safari packages</a>
-            <div id="editor-status" class="cms-muted" style="margin-top:0.25rem">Loading…</div>
-          </div>
-          <div class="cms-editor-actions">
-            <button class="cms-btn cms-btn-gold" type="button" data-save>Save draft</button>
-            <button class="cms-btn cms-btn-navy" type="button" data-publish>Publish</button>
-            <button class="cms-btn" type="button" data-unpublish>Unpublish</button>
-            <button class="cms-btn" type="button" data-duplicate>Duplicate</button>
-            <button class="cms-btn cms-btn-danger" type="button" data-archive>Archive</button>
-          </div>
-          <p class="cms-error" id="editor-error" hidden></p>
-          <p class="cms-hint" id="safari-ready"></p>
+    <section class="cms-page cms-doc-editor" data-safari-id="${id}">
+      <div class="cms-page-head">
+        <div>
+          <a class="cms-muted" href="#/safaris">← All safari packages</a>
+          <h1>Edit safari</h1>
+          <p class="cms-lead" id="editor-status">Loading…</p>
         </div>
-        <div class="cms-editor-fields" id="editor-fields"></div>
-      </aside>
-      <div class="cms-preview-wrap">
-        <header class="cms-preview-toolbar">
-          <div>
-            <p class="cms-preview-kicker">Live preview</p>
-            <p class="cms-preview-hint">Public tour page</p>
-          </div>
-          <div class="cms-vp-switch" role="group" aria-label="Preview width">
-            <button class="is-active" type="button" data-vp="desktop">Desktop</button>
-            <button type="button" data-vp="tablet">Tablet</button>
-            <button type="button" data-vp="mobile">Phone</button>
-          </div>
-        </header>
-        <div class="cms-preview-stage">
-          <div class="cms-preview-browser is-desktop">
-            <div class="cms-preview-chrome" aria-hidden="true">
-              <span class="cms-preview-dots"><i></i><i></i><i></i></span>
-              <div class="cms-preview-address" id="preview-url">gmsafaris.com/tours/</div>
-            </div>
-            <div class="cms-preview-frame" id="safari-preview"></div>
-          </div>
+        <div class="cms-dashboard-actions">
+          <a class="cms-btn" href="#/safaris/${id}/preview">Preview</a>
+          <button class="cms-btn cms-btn-gold" type="button" data-save>Save draft</button>
+          <button class="cms-btn cms-btn-navy" type="button" data-publish>Publish</button>
+          <button class="cms-btn" type="button" data-unpublish>Unpublish</button>
+          <button class="cms-btn" type="button" data-duplicate>Duplicate</button>
+          <button class="cms-btn cms-btn-danger" type="button" data-archive>Archive</button>
         </div>
       </div>
+      <p class="cms-error" id="editor-error" hidden></p>
+      <p class="cms-hint" id="safari-ready"></p>
+      <div class="cms-panel" id="editor-fields"></div>
     </section>
   `
   );
@@ -129,7 +104,7 @@ function lodgePicker(selected, lodges) {
           <span class="cms-lodge-pick-media">${doc.image ? `<img src="${escapeValue(doc.image)}" alt="" />` : ''}</span>
           <span>
             <strong>${escapeValue(doc.title || lodge.title || 'Lodge')}</strong>
-            <small>${doc.category === 'luxury' ? 'Luxury' : 'Mid-range'}${doc.place ? ` · ${escapeValue(doc.place)}` : ''}</small>
+            <small>${lodgeCategoryLabel(doc.category)}${doc.place ? ` · ${escapeValue(doc.place)}` : ''}</small>
           </span>
         </label>`;
     })
@@ -309,14 +284,6 @@ function collect(form, current) {
   };
 }
 
-function paintPreview(doc) {
-  const frame = document.querySelector('#safari-preview');
-  const url = document.querySelector('#preview-url');
-  if (!frame) return;
-  frame.innerHTML = renderSafariPage(doc, { editable: true, breadcrumb: true });
-  if (url) url.textContent = `gmsafaris.com/tours/${doc.slug || 'preview'}/`;
-}
-
 function paintReady(doc) {
   const hint = document.querySelector('#safari-ready');
   const save = document.querySelector('[data-save]');
@@ -349,6 +316,7 @@ export async function initEditor(id) {
   function showError(err) {
     error.hidden = false;
     error.textContent = err.message || String(err);
+    notifyError(err.message || String(err));
   }
 
   async function load() {
@@ -368,7 +336,6 @@ export async function initEditor(id) {
         .map((item) => `<li>v${item.version} ${item.action} · ${item.created_by_email || ''} · ${item.created_at?.slice(0, 16)}</li>`)
         .join('') || '<li>No revisions yet</li>';
     }
-    paintPreview(current);
     paintReady(current);
     bindForm();
   }
@@ -378,12 +345,10 @@ export async function initEditor(id) {
     bindImagePickers(form);
     form?.addEventListener('input', () => {
       current = { ...current, ...collect(form, current) };
-      paintPreview(current);
       paintReady(current);
     });
     form?.addEventListener('change', () => {
       current = { ...current, ...collect(form, current) };
-      paintPreview(current);
       paintReady(current);
     });
 
@@ -393,7 +358,6 @@ export async function initEditor(id) {
         { day: `Day ${(current.itinerary?.length || 0) + 1}`, title: '', description: '', activities: [] },
       ];
       fields.innerHTML = `<form id="safari-form">${renderFields(current, lodgeOptions)}</form>`;
-      paintPreview(current);
       paintReady(current);
       bindForm();
     });
@@ -403,7 +367,6 @@ export async function initEditor(id) {
         const index = Number(btn.closest('[data-day-index]')?.dataset.dayIndex);
         current.itinerary = current.itinerary.filter((_, i) => i !== index);
         fields.innerHTML = `<form id="safari-form">${renderFields(current, lodgeOptions)}</form>`;
-        paintPreview(current);
         paintReady(current);
         bindForm();
       });
@@ -415,7 +378,6 @@ export async function initEditor(id) {
         const copy = { ...current.itinerary[index], id: undefined };
         current.itinerary.splice(index + 1, 0, copy);
         fields.innerHTML = `<form id="safari-form">${renderFields(current, lodgeOptions)}</form>`;
-        paintPreview(current);
         paintReady(current);
         bindForm();
       });
@@ -430,7 +392,6 @@ export async function initEditor(id) {
         [next[index], next[swap]] = [next[swap], next[index]];
         current.sections = next.map((item, order) => ({ ...item, order }));
         fields.innerHTML = `<form id="safari-form">${renderFields(current, lodgeOptions)}</form>`;
-        paintPreview(current);
         paintReady(current);
         bindForm();
       });
@@ -446,6 +407,7 @@ export async function initEditor(id) {
       current = { ...emptySafariDocument(), ...record.draft };
       status.textContent = `Draft saved · ${record.status}`;
       error.hidden = true;
+      notifySuccess('Safari draft saved.');
       paintReady(current);
     } catch (err) {
       showError(err);
@@ -460,6 +422,7 @@ export async function initEditor(id) {
       await api.saveSafari(id, current);
       record = await api.action(id, 'publish');
       status.textContent = `PUBLISHED · ${record.slug}`;
+      notifySuccess('Safari published to the website.');
       paintReady(current);
     } catch (err) {
       showError(err);
@@ -470,6 +433,7 @@ export async function initEditor(id) {
     try {
       record = await api.action(id, 'unpublish');
       status.textContent = `UNPUBLISHED · ${record.slug}`;
+      notifySuccess('Safari unpublished.');
     } catch (err) {
       showError(err);
     }
@@ -478,6 +442,7 @@ export async function initEditor(id) {
   document.querySelector('[data-duplicate]')?.addEventListener('click', async () => {
     try {
       const copy = await api.action(id, 'duplicate');
+      notifySuccess('Safari duplicated.');
       window.location.hash = `#/safaris/${copy.id}`;
     } catch (err) {
       showError(err);
@@ -488,54 +453,10 @@ export async function initEditor(id) {
     try {
       record = await api.action(id, 'archive');
       status.textContent = `ARCHIVED · ${record.slug}`;
+      notifySuccess('Safari archived.');
     } catch (err) {
       showError(err);
     }
-  });
-
-  document.querySelectorAll('[data-pane]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const editor = document.querySelector('.cms-editor');
-      editor.classList.remove('is-edit', 'is-preview');
-      editor.classList.add(`is-${btn.dataset.pane}`);
-      document.querySelectorAll('[data-pane]').forEach((item) => item.classList.toggle('is-active', item === btn));
-    });
-  });
-
-  document.querySelectorAll('[data-vp]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const browser = document.querySelector('.cms-preview-browser');
-      browser?.classList.remove('is-desktop', 'is-tablet', 'is-mobile');
-      browser?.classList.add(`is-${btn.dataset.vp}`);
-      document.querySelectorAll('[data-vp]').forEach((item) => item.classList.toggle('is-active', item === btn));
-    });
-  });
-
-  document.querySelector('#safari-preview')?.addEventListener('click', (event) => {
-    const link = event.target.closest('a');
-    if (link) event.preventDefault();
-    const target = event.target.closest('[data-safari-edit]');
-    if (!target) return;
-    event.preventDefault();
-    const fieldName = target.getAttribute('data-safari-edit');
-    const map = {
-      title: 'title',
-      description: 'description',
-      highlights: 'highlights',
-      itinerary: 'day.0.title',
-      gallery: 'gallery',
-      hero_image: 'hero_url',
-      faq: 'faq',
-      destination: 'destination',
-    };
-    const name = map[fieldName] || fieldName;
-    const editor = document.querySelector('.cms-editor');
-    editor?.classList.remove('is-preview');
-    editor?.classList.add('is-edit');
-    document.querySelectorAll('[data-pane]').forEach((item) => {
-      item.classList.toggle('is-active', item.dataset.pane === 'edit');
-    });
-    document.querySelector(`[name="${name}"]`)?.focus();
   });
 
   try {

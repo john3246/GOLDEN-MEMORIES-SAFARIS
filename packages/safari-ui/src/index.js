@@ -17,8 +17,11 @@ export {
   blocksToParagraphs,
   normalizeBlogSections,
   enabledBlogSections,
+  estimateReadTime,
+  blogDocumentHasBody,
 } from './blog-model.js';
-export { renderBlogPage } from './blog-page.js';
+export { renderBlogPage, initBlogArticle } from './blog-page.js';
+export { renderBlogBlocks, blogTocItems, headingId } from './blog-blocks.js';
 export {
   emptyDestinationDocument,
   normalizeDestinationDocument,
@@ -34,3 +37,4 @@ export { formatMoney, safariPrice } from './price.js';
 export { renderSafariPage, applySafariMeta } from './safari-page.js';
 export { renderSafariCard } from './safari-card.js';
 export { editAttr, wrapSection } from './edit.js';
+export { normalizeLodgeCategory, lodgeCategoryLabel } from '@gm-safaris/shared-types';

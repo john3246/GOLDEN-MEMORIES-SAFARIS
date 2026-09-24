@@ -1,5 +1,6 @@
 import { api } from '../api/client.js';
 import { shell } from './shell.js';
+import { notifyError, notifySuccess } from '../components/toast.js';
 
 function pill(status) {
   const kind = /confirm/i.test(status) ? 'is-live' : /pending|new/i.test(status) ? 'is-draft' : '';
@@ -213,8 +214,13 @@ export async function initOperations(kind) {
           : '<p class="cms-muted">No inquiries yet.</p>';
         mount.querySelectorAll('[data-status]').forEach((btn) => {
           btn.addEventListener('click', async () => {
-            await api.updateInquiry(btn.dataset.status, btn.dataset.value);
-            await refresh();
+            try {
+              await api.updateInquiry(btn.dataset.status, btn.dataset.value);
+              notifySuccess('Inquiry updated.');
+              await refresh();
+            } catch (err) {
+              notifyError(err.message);
+            }
           });
         });
       } else {
@@ -273,9 +279,11 @@ export async function initBookingDetail(id) {
     try {
       await api.remindBooking(event.currentTarget.dataset.remind);
       if (lead) lead.textContent = 'Travel reminder sent.';
+      notifySuccess('Travel reminder sent.');
     } catch (err) {
       error.hidden = false;
       error.textContent = err.message;
+      notifyError(err.message);
     }
   });
 
@@ -286,15 +294,18 @@ export async function initBookingDetail(id) {
     try {
       if (isNew) {
         const created = await api.createBooking(data);
+        notifySuccess('Booking saved.');
         window.location.hash = `#/bookings/${created.id}`;
         return;
       }
       const updated = await api.updateBooking(id, data);
       if (title) title.textContent = updated.code || 'Booking';
       if (lead) lead.textContent = 'Saved.';
+      notifySuccess('Booking updated.');
     } catch (err) {
       error.hidden = false;
       error.textContent = err.message;
+      notifyError(err.message);
     }
   });
 }

@@ -10,9 +10,7 @@ function bookingUrl(safari) {
 export function renderHero(safari, options = {}) {
   const editable = Boolean(options.editable);
   const image = safari.hero_image?.url || '';
-  const kicker = safari.featured
-    ? 'Trip of the month'
-    : safari.difficulty || 'Safari package';
+  const kicker = safari.difficulty || 'Safari package';
   const duration = safari.duration_label || (safari.duration ? `${safari.duration} Days` : '');
   const places = safari.destination ? ` · ${escapeHtml(safari.destination)}` : '';
   const price = safariPrice(safari);
@@ -54,35 +52,39 @@ export function renderOverview(safari, options = {}) {
     .join('');
 
   return `
-    <section class="bg-gold py-8 sm:py-10" aria-labelledby="tour-overview-title">
-      <div class="container-site grid items-start gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(18rem,0.8fr)] lg:gap-16">
-        <div class="reveal bg-white p-6 sm:p-10">
-          <p class="section-kicker">Overview</p>
-          <h2 id="tour-overview-title" class="section-title">About this itinerary</h2>
-          <div class="mt-5 font-body text-base leading-relaxed text-ink/75 space-y-4"${editAttr(editable, 'description')}>
-            ${paragraphs(safari.description || safari.short_description)}
+    <section class="bg-gold py-3 sm:py-4" aria-labelledby="tour-overview-title">
+      <div class="container-site">
+        <div class="grid items-stretch overflow-hidden bg-white lg:grid-cols-[minmax(0,1.45fr)_minmax(19rem,0.85fr)]">
+          <div class="flex h-full flex-col p-5 sm:p-7 lg:p-8">
+            <p class="section-kicker">Overview</p>
+            <h2 id="tour-overview-title" class="section-title">About this itinerary</h2>
+            <div class="mt-4 font-body text-base leading-relaxed text-ink/75 space-y-4"${editAttr(editable, 'description')}>
+              ${paragraphs(safari.description || safari.short_description)}
+            </div>
+            ${
+              highlights
+                ? `<h3 class="mt-6 font-body text-xs font-bold uppercase tracking-[0.14em] text-gold-deep">Highlights</h3>
+              <ul class="safari-bullets mt-3 columns-1 gap-x-8 sm:columns-2"${editAttr(editable, 'highlights')}>${highlights}</ul>`
+                : ''
+            }
           </div>
+          <aside class="safari-aside border-t border-black/10 lg:border-l lg:border-t-0">
+            <p class="section-kicker">At a glance</p>
+            <h2 class="font-display text-2xl font-semibold text-black">Plan this trip</h2>
+            <dl class="mt-5 space-y-3 font-body text-sm"${editAttr(editable, 'facts')}>
+              ${factRow('Duration', safari.duration_label || (safari.duration ? `${safari.duration} Days` : ''))}
+              ${factRow('Places', safari.destination)}
+              ${factRow('Style', safari.difficulty)}
+              ${factRow('Best season', safari.best_season)}
+              ${price ? factRow('Price per person', price.perPerson) : ''}
+              ${price ? factRow(`For ${price.share} sharing`, price.sharing) : ''}
+            </dl>
+            ${price ? `<p class="mt-4 font-body text-xs leading-relaxed text-ink/60">${escapeHtml(price.note)}</p>` : ''}
+            <div class="mt-auto pt-5">
+              <a class="btn-navy w-full !rounded-none" href="${bookingUrl(safari)}">Book this safari</a>
+            </div>
+          </aside>
         </div>
-        <aside class="reveal safari-aside">
-          <p class="section-kicker">At a glance</p>
-          <h2 class="font-display text-2xl font-semibold text-black">Plan this trip</h2>
-          <dl class="mt-6 space-y-3 font-body text-sm"${editAttr(editable, 'facts')}>
-            ${factRow('Duration', safari.duration_label || (safari.duration ? `${safari.duration} Days` : ''))}
-            ${factRow('Places', safari.destination)}
-            ${factRow('Style', safari.difficulty)}
-            ${factRow('Best season', safari.best_season)}
-            ${price ? factRow('Price per person', price.perPerson) : ''}
-            ${price ? factRow(`For ${price.share} sharing`, price.sharing) : ''}
-          </dl>
-          ${price ? `<p class="mt-4 font-body text-xs leading-relaxed text-ink/60">${escapeHtml(price.note)}</p>` : ''}
-          ${
-            highlights
-              ? `<h3 class="mt-8 font-body text-xs font-bold uppercase tracking-[0.14em] text-gold-deep">Highlights</h3>
-            <ul class="safari-bullets mt-3"${editAttr(editable, 'highlights')}>${highlights}</ul>`
-              : ''
-          }
-          <a class="btn-navy mt-8 w-full !rounded-none" href="${bookingUrl(safari)}">Book this safari</a>
-        </aside>
       </div>
     </section>
   `;

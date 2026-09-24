@@ -1,5 +1,6 @@
 import { api } from '../api/client.js';
 import { shell } from './shell.js';
+import { notifyError, notifySuccess } from '../components/toast.js';
 
 export function renderMedia(user) {
   return shell(
@@ -39,6 +40,10 @@ export function renderMedia(user) {
       <div id="media-tabs" class="cms-media-tabs"></div>
       <p class="cms-muted" id="media-count"></p>
       <div id="media-grid" class="cms-media-grid"></div>
+      <dialog class="cms-media-lightbox" id="media-lightbox">
+        <img alt="" />
+        <form method="dialog"><button class="cms-btn" type="submit">Close</button></form>
+      </dialog>
     </section>
   `
   );
@@ -50,7 +55,9 @@ function renderGrid(items) {
     .map(
       (item) => `
         <figure class="cms-media-card">
-          <img src="${item.url}" alt="${item.alt || ''}" />
+          <button class="cms-media-thumb" type="button" data-media-open="${encodeURIComponent(item.url)}" aria-label="Open ${item.alt || item.filename || 'image'}">
+            <img src="${item.url}" alt="${item.alt || ''}" loading="lazy" decoding="async" />
+          </button>
           <figcaption>
             <strong>${item.alt || item.filename}</strong>
             <span>${(item.usedOn || []).join(' · ') || item.source}</span>
@@ -100,6 +107,19 @@ export async function initMedia() {
     paint();
   });
 
+  const lightbox = document.querySelector('#media-lightbox');
+  grid?.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-media-open]');
+    if (!button || !lightbox) return;
+    const src = decodeURIComponent(button.getAttribute('data-media-open') || '');
+    const img = lightbox.querySelector('img');
+    if (img) {
+      img.src = src;
+      img.alt = button.querySelector('img')?.alt || '';
+    }
+    if (typeof lightbox.showModal === 'function') lightbox.showModal();
+  });
+
   document.querySelector('#media-form')?.addEventListener('submit', async (event) => {
     event.preventDefault();
     error.hidden = true;
@@ -111,9 +131,11 @@ export async function initMedia() {
       form.reset();
       active = 'uploads';
       await refresh();
+      notifySuccess('Media uploaded.');
     } catch (err) {
       error.hidden = false;
       error.textContent = err.message;
+      notifyError(err.message);
     }
   });
 
@@ -122,5 +144,6 @@ export async function initMedia() {
   } catch (err) {
     error.hidden = false;
     error.textContent = err.message;
+    notifyError(err.message);
   }
 }

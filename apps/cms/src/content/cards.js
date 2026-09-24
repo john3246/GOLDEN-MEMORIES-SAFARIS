@@ -21,7 +21,7 @@ export function shortText(value, max = 92) {
   return `${text.slice(0, max).replace(/\s+\S*$/, '')}…`;
 }
 
-export function photoCard({ href, title, image, kicker, detail, status, featured }) {
+export function photoCard({ href, previewHref, title, image, kicker, detail, status, featured }) {
   return `
     <article class="safari-card">
       <a class="safari-card-media" href="${href}" tabindex="-1">
@@ -30,10 +30,20 @@ export function photoCard({ href, title, image, kicker, detail, status, featured
       <div class="safari-card-overlay">
         <div class="safari-card-top">
           <h3 class="safari-card-title"><a href="${href}">${title}</a></h3>
-          <a class="safari-card-more" href="${href}">
-            <span class="safari-card-more-icon" aria-hidden="true">→</span>
-            Edit
-          </a>
+          <div class="safari-card-links">
+            <a class="safari-card-more" href="${href}">
+              <span class="safari-card-more-icon" aria-hidden="true">→</span>
+              Edit
+            </a>
+            ${
+              previewHref
+                ? `<a class="safari-card-more" href="${previewHref}">
+              <span class="safari-card-more-icon" aria-hidden="true">↗</span>
+              Preview
+            </a>`
+                : ''
+            }
+          </div>
         </div>
         <div class="safari-card-bottom">
           ${kicker ? `<p class="safari-card-meta">${kicker}</p>` : ''}
@@ -52,7 +62,6 @@ export const TOUR_CATEGORIES = [
   { id: 'photographic', label: 'Photographic safaris', test: /photo/i },
   { id: 'fly-in', label: 'Fly-in safaris', test: /fly-?in|fly in/i },
   { id: 'luxury', label: 'Luxury safaris', test: /luxury/i },
-  { id: 'mobile', label: 'Mobile camping', test: /mobile|camping/i },
   { id: 'day-trip', label: 'Day trips', test: /day trip|1 day|one day/i },
   { id: 'wildlife', label: 'Wildlife safari tours', test: /./ },
 ];
@@ -66,6 +75,7 @@ export const BLOG_TOPICS = {
   'about-tanzania': 'About Tanzania',
   islands: 'Islands',
   wildlife: 'Wildlife',
+  itineraries: 'Itineraries',
 };
 
 export const DESTINATION_ORDER = ['Northern Tanzania', 'The Coast', 'Southern Tanzania', 'Western Tanzania'];

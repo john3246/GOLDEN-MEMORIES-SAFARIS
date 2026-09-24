@@ -15,10 +15,8 @@ export const safariStyles = [
   { slug: 'cultural', label: 'Cultural & Historical Tours' },
   { slug: 'fly-in', label: 'Fly-in Tanzania Safaris' },
   { slug: 'honeymoon', label: 'Honeymoon Packages' },
-  { slug: 'mobile', label: 'Mobile Camping Safari' },
   { slug: 'mountain', label: 'Mountain Climbing & Treks' },
   { slug: 'photographic', label: 'Photographic Safaris' },
-  { slug: 'weddings', label: 'Weddings' },
   { slug: 'zanzibar', label: 'Zanzibar & Beach Holidays' },
 ];
 

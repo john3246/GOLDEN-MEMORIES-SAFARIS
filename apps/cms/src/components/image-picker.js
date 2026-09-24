@@ -1,4 +1,5 @@
 import { api } from '../api/client.js';
+import { notifyError, notifySuccess } from './toast.js';
 
 function escapeHtml(value) {
   return String(value ?? '')
@@ -200,6 +201,7 @@ export function openImagePicker({ multiple = false, selected = [], onPick } = {}
       if (uploaded?.url) chosen.add(uploaded.url);
     }
     await loadLibrary(true);
+    notifySuccess('Photo uploaded.');
     if (!multiple && chosen.size) {
       const url = [...chosen].at(-1);
       close();
@@ -268,6 +270,7 @@ export function openImagePicker({ multiple = false, selected = [], onPick } = {}
       await uploadFiles(event.target.files || []);
     } catch (err) {
       root.querySelector('[data-picker-grid]').innerHTML = `<p class="cms-error">${escapeHtml(err.message)}</p>`;
+      notifyError(err.message || 'Could not upload that photo.');
     }
     event.target.value = '';
   };
@@ -346,9 +349,10 @@ export function bindImagePickers(root) {
         if (uploaded?.url) {
           await loadLibrary(true);
           setPickerValue(picker, uploaded.url);
+          notifySuccess('Photo uploaded.');
         }
       } catch (err) {
-        window.alert(err.message || 'Could not upload that photo.');
+        notifyError(err.message || 'Could not upload that photo.');
       }
       event.target.value = '';
     });
@@ -379,8 +383,9 @@ export function bindImagePickers(root) {
         }
         await loadLibrary(true);
         setGalleryValue(picker, next);
+        notifySuccess('Photos uploaded.');
       } catch (err) {
-        window.alert(err.message || 'Could not upload those photos.');
+        notifyError(err.message || 'Could not upload those photos.');
       }
       event.target.value = '';
     });

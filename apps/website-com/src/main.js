@@ -85,7 +85,7 @@ async function mount() {
   const app = document.querySelector('#app');
   if (!app) return;
 
-  const { hydrateFromCms, seoForPath } = await import('./services/cms/overlay.js');
+  const { hydrateFromCms, hydratePublishedPost, seoForPath } = await import('./services/cms/overlay.js');
   await hydrateFromCms();
 
   const [{ renderHeader, initHeader }, { renderFooter }, { renderFab }] = await Promise.all([
@@ -138,14 +138,17 @@ async function mount() {
       const topic = blog.topicBySlug(blogSlug);
       setMeta(`${topic.name} Articles | Golden Memories Safaris Blog`, topic.blurb);
     } else if (blogSlug) {
+      await hydratePublishedPost(blogSlug);
       page = blog.renderBlogArticle(blogSlug);
       blog.applyBlogArticleMeta(blogSlug);
+      afterPaint = async () => blog.initBlogArticle();
     } else {
       page = blog.renderBlog();
       setMeta(
         'Tanzania Travel Blog | Golden Memories Safaris',
         'Articles on Kilimanjaro climbs, Tanzania safaris, Zanzibar, visas, and wildlife — written by the Golden Memories Safaris team in Arusha.'
       );
+      afterPaint = async () => blog.initBlogIndex();
     }
   } else if (isAboutPage()) {
     const { renderAbout } = await import('./pages/about/about.js');
@@ -219,7 +222,7 @@ async function mount() {
   }
 
   const cmsPage = seoForPath(pagePath());
-  if (cmsPage?.seo_title || cmsPage?.title) {
+  if (!blogSlug && !slug && !destSlug && !joinSlug && (cmsPage?.seo_title || cmsPage?.title)) {
     setMeta(
       cmsPage.seo_title || `${cmsPage.title} | Golden Memories Safaris`,
       cmsPage.seo_description || cmsPage.excerpt || document.querySelector('meta[name="description"]')?.content || ''

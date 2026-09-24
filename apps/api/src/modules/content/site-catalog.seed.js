@@ -1,4 +1,4 @@
-import { SafariStatus } from '@gm-safaris/shared-types';
+import { SafariStatus, normalizeLodgeCategory } from '@gm-safaris/shared-types';
 import { updateStore } from '../../cms-store/index.js';
 import { createId, slugify } from '@gm-safaris/shared-utils';
 import { emptyDraft } from './types.js';
@@ -153,10 +153,22 @@ export async function seedWebsiteCatalog() {
             date: post.date || '',
             excerpt: post.excerpt || '',
             image: post.image || '',
-            paragraphs: lines(post.paragraphs),
-            blocks: Array.isArray(post.blocks) ? post.blocks : [],
-            seo_title: post.title,
-            seo_description: post.excerpt || '',
+            paragraphs: Array.isArray(post.paragraphs)
+              ? post.paragraphs
+              : String(post.paragraphs || '')
+                  .split(/\n+/)
+                  .map((item) => item.trim())
+                  .filter(Boolean),
+            blocks: Array.isArray(post.blocks) && post.blocks.length ? post.blocks : [],
+            author: post.author || 'Golden Memories Safaris',
+            featured: Boolean(post.featured),
+            featured_tour_slugs: post.featured_tour_slugs || [],
+            featured_lodge_ids: post.featured_lodge_ids || [],
+            seo_title: post.seo_title || post.title,
+            seo_description: post.seo_description || post.excerpt || '',
+            seo_keywords: post.seo_keywords || '',
+            canonical_url: post.canonical_url || '',
+            og_image: post.og_image || post.image || '',
           },
           at
         )
@@ -172,7 +184,9 @@ export async function seedWebsiteCatalog() {
             title: lodge.name,
             place: lodge.place || '',
             blurb: lodge.blurb || '',
-            category: lodge.category === 'luxury' ? 'luxury' : 'midrange',
+            category: normalizeLodgeCategory(lodge.category),
+            region: lodge.region || '',
+            website: lodge.website || '',
             image: lodge.image || '',
             gallery: lodge.gallery || [],
           },

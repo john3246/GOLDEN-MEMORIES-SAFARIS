@@ -145,4 +145,35 @@ describe('safari-ui', () => {
     expect(html).toContain('<th>Month</th>');
     expect(html).toContain('<td>Calving</td>');
   });
+
+  it('normalizes rich blog blocks, read time, and article layout', async () => {
+    const { normalizeBlogDocument, renderBlogPage, estimateReadTime } = await import('@gm-safaris/safari-ui');
+    const doc = normalizeBlogDocument({
+      title: 'Serengeti migration guide',
+      slug: 'serengeti-migration-guide',
+      topic: 'safari',
+      excerpt: 'When the herds move, and how to sit still for the crossing.',
+      author: 'Golden Memories Safaris',
+      featured_tour_slugs: ['5-day-luxury-migration-safari'],
+      blocks: [
+        { type: 'heading', text: 'Best months', level: 2 },
+        { type: 'paragraph', text: 'July and August put you on the northern river. '.repeat(40) },
+        { type: 'callout', callout_type: 'tip', title: 'Safari tip', text: 'Leave camp before first light.' },
+        { type: 'gallery', gallery_mode: 'lightbox', images: [{ url: '/images/gallery/serengeti-01.webp', alt: 'Crossing' }] },
+        { type: 'cta', text: 'View packages', href: '/tours/', variant: 'gold' },
+      ],
+    });
+    expect(doc.read_time).toBeGreaterThanOrEqual(1);
+    expect(estimateReadTime(doc)).toBe(doc.read_time);
+    expect(doc.featured_tour_slugs).toEqual(['5-day-luxury-migration-safari']);
+    const html = renderBlogPage(doc, { featuredToursHtml: '<article>Tour</article>' });
+    expect(html).toContain('Serengeti migration guide');
+    expect(html).toContain('On this page');
+    expect(html).toContain('Best months');
+    expect(html).toContain('blog-callout--tip');
+    expect(html).toContain('data-blog-lightbox');
+    expect(html).toContain('View packages');
+    expect(html).toContain('Book a safari');
+    expect(html).toContain('Featured tours');
+  });
 });

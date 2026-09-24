@@ -278,9 +278,62 @@ export const DEFAULT_BLOG_SECTIONS = Object.freeze(
   BLOG_SECTION_TYPES.map((type, order) => Object.freeze({ type, enabled: true, order }))
 );
 
-export const BLOG_BLOCK_TYPES = Object.freeze(['heading', 'paragraph', 'image', 'quote']);
+export const BLOG_BLOCK_TYPES = Object.freeze([
+  'heading',
+  'paragraph',
+  'list',
+  'quote',
+  'image',
+  'gallery',
+  'cta',
+  'callout',
+  'map',
+  'tours',
+  'lodges',
+]);
+
+export const BLOG_CALLOUT_TYPES = Object.freeze(['info', 'tip', 'warning']);
+export const BLOG_IMAGE_LAYOUTS = Object.freeze(['full', 'center', 'float-left', 'float-right']);
+export const BLOG_GALLERY_MODES = Object.freeze(['grid', 'carousel', 'lightbox']);
+export const BLOG_CTA_VARIANTS = Object.freeze(['gold', 'navy', 'light']);
+export const BLOG_TOPIC_SLUGS = Object.freeze([
+  'climbing',
+  'safari',
+  'about-us',
+  'about-tanzania',
+  'islands',
+  'wildlife',
+  'itineraries',
+]);
 
 export const DESTINATION_BLOCK_TYPES = Object.freeze(['heading', 'paragraph', 'image', 'table']);
+
+export const LODGE_CATEGORIES = Object.freeze({
+  MIDRANGE: 'midrange',
+  LUXURY: 'luxury',
+  PREMIUM_LUXURY: 'premium-luxury',
+});
+
+export const LODGE_CATEGORY_LABELS = Object.freeze({
+  midrange: 'Mid-range',
+  luxury: 'Luxury',
+  'premium-luxury': 'Premium Luxury',
+});
+
+export function normalizeLodgeCategory(value) {
+  const raw = String(value || '')
+    .toLowerCase()
+    .replace(/_/g, '-')
+    .replace(/\s+/g, '-')
+    .trim();
+  if (raw === 'premium-luxury' || raw === 'premium' || raw === 'premiumluxury') return 'premium-luxury';
+  if (raw === 'luxury') return 'luxury';
+  return 'midrange';
+}
+
+export function lodgeCategoryLabel(value) {
+  return LODGE_CATEGORY_LABELS[normalizeLodgeCategory(value)];
+}
 
 export const ApiVersion = Object.freeze({
   V1: 'v1',

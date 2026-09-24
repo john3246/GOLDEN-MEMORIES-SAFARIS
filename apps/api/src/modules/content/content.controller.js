@@ -1,9 +1,15 @@
 import { contentService } from './content.service.js';
 
+function noStore(res) {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+}
+
 export const publicContentController = {
   async list(req, res, next) {
     try {
       const result = await contentService.listPublic(req.params.type);
+      noStore(res);
       res.json({ success: true, data: result.data, meta: result.meta });
     } catch (err) {
       next(err);
@@ -12,6 +18,7 @@ export const publicContentController = {
   async getBySlug(req, res, next) {
     try {
       const data = await contentService.getPublicBySlug(req.params.type, req.params.slug);
+      noStore(res);
       res.json({ success: true, data });
     } catch (err) {
       next(err);

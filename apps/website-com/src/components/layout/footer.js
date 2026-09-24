@@ -15,6 +15,7 @@ export function renderFooter() {
           <p class="font-display text-2xl font-semibold tracking-tight text-gold">
             ${site.name}
           </p>
+          <p class="mt-3 font-body text-xs font-bold uppercase tracking-[0.14em] text-gold">${site.tagline}</p>
           <p class="mt-4 max-w-xs text-sm leading-relaxed text-white/70">
             Premier Tanzania safari experiences — wildlife, Kilimanjaro, and Zanzibar — crafted by local experts in Arusha.
           </p>

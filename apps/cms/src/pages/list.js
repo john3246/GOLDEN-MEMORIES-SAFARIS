@@ -9,6 +9,7 @@ import {
   TOUR_ORDER,
   tourCategory,
 } from '../content/cards.js';
+import { notifyError, notifySuccess } from '../components/toast.js';
 
 function durationLabel(item) {
   if (item.duration_label) return item.duration_label;
@@ -19,6 +20,7 @@ function durationLabel(item) {
 function tourCard(item) {
   return photoCard({
     href: `#/safaris/${item.id}`,
+    previewHref: `#/safaris/${item.id}/preview`,
     title: item.title,
     image: cardImage(item.hero_image?.url),
     kicker: durationLabel(item),
@@ -127,6 +129,7 @@ export function initList() {
         <p class="cms-muted" style="margin-top:1rem">${result.meta.total} packages</p>
       `;
     } catch (err) {
+      notifyError(err.message);
       mount.innerHTML = `<p class="cms-error">${err.message}</p>`;
     }
   }
@@ -136,8 +139,10 @@ export function initList() {
   document.querySelector('[data-create]')?.addEventListener('click', async () => {
     try {
       const created = await api.createSafari({ title: 'New safari package' });
+      notifySuccess('New safari created.');
       window.location.hash = `#/safaris/${created.id}`;
     } catch (err) {
+      notifyError(err.message);
       mount.innerHTML = `<p class="cms-error">${err.message}</p>`;
     }
   });

@@ -141,7 +141,7 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
         />
         <div class="absolute inset-0 bg-black/55"></div>
         <div class="container-site relative flex min-h-[11rem] flex-col items-center justify-center py-8 text-center sm:min-h-[13rem]">
-          ${tour.featured ? `<p class="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-1.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-black">Trip of the month</p>` : `<p class="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-1.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-black">${tour.activity || 'Safari package'}</p>`}
+          <p class="inline-flex items-center gap-2 rounded-full bg-gold px-4 py-1.5 font-body text-xs font-bold uppercase tracking-[0.14em] text-black">${tour.activity || 'Safari package'}</p>
           <h1 id="tour-title" class="mt-5 max-w-4xl font-display text-3xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
             ${tour.title}
           </h1>
@@ -162,54 +162,57 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
         </div>
       </nav>
 
-      <section class="bg-gold py-8 sm:py-10" aria-labelledby="tour-overview-title">
-        <div class="container-site grid items-start gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(18rem,0.8fr)] lg:gap-16">
-          <div class="reveal bg-white p-6 sm:p-10">
-            <p class="section-kicker">Overview</p>
-            <h2 id="tour-overview-title" class="section-title">About this itinerary</h2>
-            <p class="mt-5 font-body text-base leading-relaxed text-ink/75">${tour.overview}</p>
-          </div>
-
-          <aside class="reveal safari-aside">
-            <p class="section-kicker">At a glance</p>
-            <h2 class="font-display text-2xl font-semibold text-black">Plan this trip</h2>
-            <dl class="mt-6 space-y-3 font-body text-sm">
-              <div class="flex justify-between gap-4 border-b border-black/10 pb-3">
-                <dt class="text-ink/55">Duration</dt>
-                <dd class="font-bold text-black">${tour.duration}</dd>
+      <section class="bg-gold py-3 sm:py-4" aria-labelledby="tour-overview-title">
+        <div class="container-site">
+          <div class="grid items-stretch overflow-hidden bg-white lg:grid-cols-[minmax(0,1.45fr)_minmax(19rem,0.85fr)]">
+            <div class="flex h-full flex-col p-5 sm:p-7 lg:p-8">
+              <p class="section-kicker">Overview</p>
+              <h2 id="tour-overview-title" class="section-title">About this itinerary</h2>
+              <p class="mt-4 font-body text-base leading-relaxed text-ink/75">${tour.overview}</p>
+              <h3 class="mt-6 font-body text-xs font-bold uppercase tracking-[0.14em] text-gold-deep">Highlights</h3>
+              <ul class="safari-bullets mt-3 columns-1 gap-x-8 sm:columns-2">${highlights}</ul>
+            </div>
+            <aside class="safari-aside border-t border-black/10 lg:border-l lg:border-t-0">
+              <p class="section-kicker">At a glance</p>
+              <h2 class="font-display text-2xl font-semibold text-black">Plan this trip</h2>
+              <dl class="mt-5 space-y-3 font-body text-sm">
+                <div class="flex justify-between gap-4 border-b border-black/10 pb-3">
+                  <dt class="text-ink/55">Duration</dt>
+                  <dd class="font-bold text-black">${tour.duration}</dd>
+                </div>
+                ${
+                  tour.places
+                    ? `<div class="flex justify-between gap-4 border-b border-black/10 pb-3">
+                  <dt class="text-ink/55">Places</dt>
+                  <dd class="text-right font-bold text-black">${tour.places}</dd>
+                </div>`
+                    : ''
+                }
+                ${
+                  tour.activity
+                    ? `<div class="flex justify-between gap-4 border-b border-black/10 pb-3">
+                  <dt class="text-ink/55">Style</dt>
+                  <dd class="font-bold text-black">${tour.activity}</dd>
+                </div>`
+                    : ''
+                }
+              </dl>
+              <div class="mt-auto pt-5">
+                <a class="btn-navy w-full !rounded-none" href="${book}">Book this safari</a>
               </div>
-              ${
-                tour.places
-                  ? `<div class="flex justify-between gap-4 border-b border-black/10 pb-3">
-                <dt class="text-ink/55">Places</dt>
-                <dd class="text-right font-bold text-black">${tour.places}</dd>
-              </div>`
-                  : ''
-              }
-              ${
-                tour.activity
-                  ? `<div class="flex justify-between gap-4 border-b border-black/10 pb-3">
-                <dt class="text-ink/55">Style</dt>
-                <dd class="font-bold text-black">${tour.activity}</dd>
-              </div>`
-                  : ''
-              }
-            </dl>
-            <h3 class="mt-8 font-body text-xs font-bold uppercase tracking-[0.14em] text-gold-deep">Highlights</h3>
-            <ul class="safari-bullets mt-3">${highlights}</ul>
-            <a class="btn-navy mt-8 w-full !rounded-none" href="${book}">Book this safari</a>
-          </aside>
+            </aside>
+          </div>
         </div>
       </section>
 
-      <section class="bg-black py-10 text-white sm:py-12 lg:py-14" aria-labelledby="itinerary-title">
+      <section class="bg-black py-5 text-white sm:py-6" aria-labelledby="itinerary-title">
         <div class="container-site">
           <div class="reveal max-w-3xl">
             <p class="section-kicker !text-gold">Itinerary</p>
             <h2 id="itinerary-title" class="section-title !text-white">${tour.duration} — day to day</h2>
-            <p class="mt-4 text-white/75">Each day is paced for game drives, transfers, and a proper night in camp or lodge — the same shape as a classic Tanzania circuit.</p>
+            <p class="mt-3 text-white/75">Each day is paced for game drives, transfers, and a proper night in camp or lodge — the same shape as a classic Tanzania circuit.</p>
           </div>
-          <div class="safari-itinerary reveal mt-12">
+          <div class="safari-itinerary reveal mt-6">
             ${days}
           </div>
         </div>

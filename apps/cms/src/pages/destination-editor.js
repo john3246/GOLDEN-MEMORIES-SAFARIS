@@ -1,7 +1,8 @@
-import { emptyDestinationDocument, normalizeDestinationDocument, renderDestinationBlocks } from '@gm-safaris/safari-ui';
+import { emptyDestinationDocument, normalizeDestinationDocument } from '@gm-safaris/safari-ui';
 import { api } from '../api/client.js';
 import { shell } from './shell.js';
 import { bindImagePickers, galleryField, imageField } from '../components/image-picker.js';
+import { notifyError, notifySuccess } from '../components/toast.js';
 
 const BLOCK_LABELS = {
   heading: 'Heading',
@@ -23,49 +24,23 @@ export function renderDestinationEditor(user, id) {
     user,
     'destinations',
     `
-    <section class="cms-editor is-edit" data-destination-id="${id}">
-      <div class="cms-editor-switch">
-        <button class="cms-btn is-active" type="button" data-pane="edit">Content</button>
-        <button class="cms-btn" type="button" data-pane="preview">Preview</button>
-      </div>
-      <aside class="cms-editor-side">
-        <div class="cms-editor-toolbar">
-          <div>
-            <a class="cms-muted" href="#/destinations">← All destinations</a>
-            <div id="editor-status" class="cms-muted" style="margin-top:0.25rem">Loading…</div>
-          </div>
-          <div class="cms-editor-actions">
-            <button class="cms-btn cms-btn-gold" type="button" data-save>Save draft</button>
-            <button class="cms-btn cms-btn-navy" type="button" data-publish>Publish</button>
-            <button class="cms-btn" type="button" data-unpublish>Unpublish</button>
-            <button class="cms-btn cms-btn-danger" type="button" data-delete>Delete</button>
-          </div>
-          <p class="cms-error" id="editor-error" hidden></p>
+    <section class="cms-page cms-doc-editor" data-destination-id="${id}">
+      <div class="cms-page-head">
+        <div>
+          <a class="cms-muted" href="#/destinations">← All destinations</a>
+          <h1>Edit destination</h1>
+          <p class="cms-lead" id="editor-status">Loading…</p>
         </div>
-        <div class="cms-editor-fields" id="editor-fields"></div>
-      </aside>
-      <div class="cms-preview-wrap">
-        <header class="cms-preview-toolbar">
-          <div>
-            <p class="cms-preview-kicker">Live preview</p>
-            <p class="cms-preview-hint">Public destination page</p>
-          </div>
-          <div class="cms-vp-switch" role="group" aria-label="Preview width">
-            <button class="is-active" type="button" data-vp="desktop">Desktop</button>
-            <button type="button" data-vp="tablet">Tablet</button>
-            <button type="button" data-vp="mobile">Phone</button>
-          </div>
-        </header>
-        <div class="cms-preview-stage">
-          <div class="cms-preview-browser is-desktop">
-            <div class="cms-preview-chrome" aria-hidden="true">
-              <span class="cms-preview-dots"><i></i><i></i><i></i></span>
-              <div class="cms-preview-address" id="preview-url">gmsafaris.com/destinations/</div>
-            </div>
-            <div class="cms-preview-frame dest-cms-preview" id="destination-preview"></div>
-          </div>
+        <div class="cms-dashboard-actions">
+          <a class="cms-btn" href="#/destinations/${id}/preview">Preview</a>
+          <button class="cms-btn cms-btn-gold" type="button" data-save>Save draft</button>
+          <button class="cms-btn cms-btn-navy" type="button" data-publish>Publish</button>
+          <button class="cms-btn" type="button" data-unpublish>Unpublish</button>
+          <button class="cms-btn cms-btn-danger" type="button" data-delete>Delete</button>
         </div>
       </div>
+      <p class="cms-error" id="editor-error" hidden></p>
+      <div class="cms-panel" id="editor-fields"></div>
     </section>
   `
   );
@@ -196,28 +171,6 @@ function collect(form, current) {
   });
 }
 
-function paintPreview(doc) {
-  const frame = document.querySelector('#destination-preview');
-  const url = document.querySelector('#preview-url');
-  const body = renderDestinationBlocks(doc.blocks) || (doc.paragraphs || '')
-    .split('\n')
-    .filter(Boolean)
-    .map((item) => `<p class="mt-5">${escapeValue(item)}</p>`)
-    .join('');
-  if (frame) {
-    frame.innerHTML = `
-      <article class="dest-cms-preview-page">
-        <p class="section-kicker">${escapeValue(doc.kicker || doc.region || 'Destination')}</p>
-        <h1 class="section-title">${escapeValue(doc.title || 'Untitled destination')}</h1>
-        <p>${escapeValue(doc.tagline || doc.blurb || '')}</p>
-        ${doc.image ? `<img src="${escapeValue(doc.image)}" alt="" />` : ''}
-        <div class="dest-cms-body">${body || '<p class="cms-muted">Add paragraphs, images, or tables to fill this page.</p>'}</div>
-      </article>
-    `;
-  }
-  if (url) url.textContent = `gmsafaris.com/destinations/${doc.slug || 'preview'}/`;
-}
-
 export async function initDestinationEditor(id) {
   const status = document.querySelector('#editor-status');
   const fields = document.querySelector('#editor-fields');
@@ -228,11 +181,11 @@ export async function initDestinationEditor(id) {
   function showError(err) {
     error.hidden = false;
     error.textContent = err.message || String(err);
+    notifyError(err.message || String(err));
   }
 
   function redraw() {
     fields.innerHTML = `<form id="destination-form">${renderFields(current)}</form>`;
-    paintPreview(current);
     bindForm();
   }
 
@@ -240,7 +193,6 @@ export async function initDestinationEditor(id) {
     const form = document.querySelector('#destination-form');
     const refresh = () => {
       current = collect(form, current);
-      paintPreview(current);
     };
     form?.addEventListener('input', refresh);
     form?.addEventListener('change', refresh);
@@ -292,6 +244,7 @@ export async function initDestinationEditor(id) {
       current = normalizeDestinationDocument(record.draft);
       status.textContent = `Draft saved · ${record.status}`;
       error.hidden = true;
+      notifySuccess('Destination draft saved.');
     } catch (err) {
       showError(err);
     }
@@ -302,6 +255,7 @@ export async function initDestinationEditor(id) {
       await api.saveContent('destinations', id, current);
       record = await api.publishContent('destinations', id);
       status.textContent = `Published to the website · ${record.slug}`;
+      notifySuccess('Destination published to the website.');
     } catch (err) {
       showError(err);
     }
@@ -310,6 +264,7 @@ export async function initDestinationEditor(id) {
     try {
       record = await api.unpublishContent('destinations', id);
       status.textContent = `Unpublished · ${record.slug}`;
+      notifySuccess('Destination unpublished.');
     } catch (err) {
       showError(err);
     }
@@ -318,26 +273,11 @@ export async function initDestinationEditor(id) {
     if (!window.confirm('Delete this destination?')) return;
     try {
       await api.deleteContent('destinations', id);
+      notifySuccess('Destination deleted.');
       window.location.hash = '#/destinations';
     } catch (err) {
       showError(err);
     }
-  });
-  document.querySelectorAll('[data-pane]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const editor = document.querySelector('.cms-editor');
-      editor.classList.remove('is-edit', 'is-preview');
-      editor.classList.add(`is-${btn.dataset.pane}`);
-      document.querySelectorAll('[data-pane]').forEach((item) => item.classList.toggle('is-active', item === btn));
-    });
-  });
-  document.querySelectorAll('[data-vp]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const browser = document.querySelector('.cms-preview-browser');
-      browser?.classList.remove('is-desktop', 'is-tablet', 'is-mobile');
-      browser?.classList.add(`is-${btn.dataset.vp}`);
-      document.querySelectorAll('[data-vp]').forEach((item) => item.classList.toggle('is-active', item === btn));
-    });
   });
 
   try {

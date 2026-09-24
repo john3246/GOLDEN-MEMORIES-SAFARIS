@@ -1,6 +1,7 @@
 import { api } from '../api/client.js';
 import { shell } from './shell.js';
 import { isStaffAdmin } from '../auth/roles.js';
+import { notifyError, notifySuccess } from '../components/toast.js';
 
 function escapeValue(value) {
   return String(value ?? '')
@@ -69,6 +70,7 @@ export async function initUsers() {
   function showError(message) {
     error.hidden = false;
     error.textContent = message;
+    notifyError(message);
   }
 
   async function refresh() {
@@ -108,6 +110,7 @@ export async function initUsers() {
     try {
       await api.createUser(data);
       form.reset();
+      notifySuccess('Staff user created.');
       await refresh();
     } catch (err) {
       showError(err.message);
@@ -134,6 +137,7 @@ export async function initUsers() {
         const password = window.prompt('New password (leave empty to keep the current one)') || undefined;
         await api.updateUser(id, { name, role, password });
       }
+      notifySuccess('User updated.');
       await refresh();
     } catch (err) {
       showError(err.message);

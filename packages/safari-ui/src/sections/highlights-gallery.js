@@ -31,11 +31,11 @@ export function renderGallery(safari, options = {}) {
     .join('');
 
   return `
-    <section class="bg-mist py-8 sm:py-10" aria-labelledby="gallery-title"${editAttr(options.editable, 'gallery')}>
+    <section class="bg-mist py-4 sm:py-5" aria-labelledby="gallery-title"${editAttr(options.editable, 'gallery')}>
       <div class="container-site">
         <p class="section-kicker">Gallery</p>
         <h2 id="gallery-title" class="section-title">Moments on this route</h2>
-        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           ${figures || '<p class="text-ink/60">Add gallery images in the editor.</p>'}
         </div>
       </div>

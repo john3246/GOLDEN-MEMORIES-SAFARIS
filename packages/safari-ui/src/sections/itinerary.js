@@ -1,6 +1,7 @@
 import { escapeHtml } from '../escape.js';
 import { editAttr } from '../edit.js';
 import { resolveDayImage } from '../day-image.js';
+import { lodgeCategoryLabel } from '@gm-safaris/shared-types';
 
 export function renderItinerary(safari, options = {}) {
   const days = Array.isArray(safari.itinerary) ? safari.itinerary : [];
@@ -9,14 +10,14 @@ export function renderItinerary(safari, options = {}) {
   const articles = days.map((item, index) => renderDay(item, safari, index, days.length)).join('');
 
   return `
-    <section class="bg-black py-10 text-white sm:py-12 lg:py-14" aria-labelledby="itinerary-title"${editAttr(options.editable, 'itinerary')}>
+    <section class="bg-black py-5 text-white sm:py-6" aria-labelledby="itinerary-title"${editAttr(options.editable, 'itinerary')}>
       <div class="container-site">
         <div class="reveal max-w-3xl">
           <p class="section-kicker !text-gold">Itinerary</p>
           <h2 id="itinerary-title" class="section-title !text-white">${escapeHtml(duration)} — day to day</h2>
-          <p class="mt-4 text-white/75">Each day is paced for game drives, transfers, and a proper night in camp or lodge.</p>
+          <p class="mt-3 text-white/75">Each day is paced for game drives, transfers, and a proper night in camp or lodge.</p>
         </div>
-        <div class="safari-itinerary reveal mt-12">
+        <div class="safari-itinerary reveal mt-6">
           ${articles || '<p class="text-white/70">Add itinerary days in the editor.</p>'}
         </div>
       </div>
@@ -89,7 +90,7 @@ export function renderLodges(safari, options = {}) {
           </div>
           <div class="flex flex-1 flex-col p-4">
             <p class="font-body text-xs font-bold uppercase tracking-[0.12em] text-gold-deep">${escapeHtml(
-              [lodge.category === 'luxury' ? 'Luxury' : lodge.category === 'midrange' ? 'Mid-range' : '', lodge.place]
+              [lodgeCategoryLabel(lodge.category), lodge.place]
                 .filter(Boolean)
                 .join(' · ')
             )}</p>

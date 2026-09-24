@@ -1,4 +1,4 @@
-import { SafariStatus } from '@gm-safaris/shared-types';
+import { SafariStatus, normalizeLodgeCategory } from '@gm-safaris/shared-types';
 import { notFound, validationError } from '../../errors/index.js';
 import { recordAudit } from '../audit/audit.service.js';
 import { readStore } from '../../cms-store/index.js';
@@ -79,7 +79,7 @@ export const contentService = {
 
   async create(type, body, actor) {
     const incoming = { ...(body || {}) };
-    if (type === 'lodges' && incoming.category !== 'luxury') incoming.category = 'midrange';
+    if (type === 'lodges') incoming.category = normalizeLodgeCategory(incoming.category);
     const record = await contentRepository.create(type, { draft: emptyDraft(type, incoming), actor });
     if (type === 'posts') await syncBlogPost(record);
     await recordAudit({ ...actorMeta(actor), action: 'content.create', resource: type, resourceId: record.id });
@@ -91,11 +91,7 @@ export const contentService = {
     if (!record) throw notFound('Content not found');
     const nextDraft = emptyDraft(type, { ...record.draft, ...(body || {}) });
     if (type === 'lodges') {
-      const category = String(nextDraft.category || '').toLowerCase();
-      if (category !== 'midrange' && category !== 'luxury') {
-        throw validationError('Category must be midrange or luxury', { field: 'category' });
-      }
-      nextDraft.category = category;
+      nextDraft.category = normalizeLodgeCategory(nextDraft.category);
       if (!Array.isArray(nextDraft.gallery)) {
         nextDraft.gallery = String(nextDraft.gallery || '')
           .split('\n')

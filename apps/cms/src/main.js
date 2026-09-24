@@ -6,6 +6,7 @@ import { isStaffAdmin } from './auth/roles.js';
 import { renderDashboard, initDashboard } from './pages/dashboard.js';
 import { renderList, initList } from './pages/list.js';
 import { renderEditor, initEditor } from './pages/editor.js';
+import { renderPreview, initPreview } from './pages/preview.js';
 import { renderMedia, initMedia } from './pages/media.js';
 import { renderClients, initClients } from './pages/clients.js';
 import { renderAudit, initAudit } from './pages/audit.js';
@@ -23,7 +24,9 @@ function route() {
   const [path, query] = raw.split('?');
   const hash = path || '/dashboard';
   const params = new URLSearchParams(query || '');
+  const safariPreview = hash.match(/^\/safaris\/([^/]+)\/preview$/);
   const safari = hash.match(/^\/safaris\/([^/]+)$/);
+  const contentPreview = hash.match(/^\/(pages|destinations|posts|testimonials|faqs|lodges|departures|menus)\/([^/]+)\/preview$/);
   const contentEdit = hash.match(/^\/(pages|destinations|posts|testimonials|faqs|lodges|departures|menus)\/([^/]+)$/);
   const contentList = hash.match(/^\/(pages|destinations|posts|testimonials|faqs|lodges|departures|menus)$/);
   if (hash === '/login') return { name: 'login' };
@@ -40,8 +43,10 @@ function route() {
   if (hash === '/inquiries') return { name: 'ops', kind: 'inquiries' };
   if (hash === '/customers') return { name: 'ops', kind: 'customers' };
   if (hash === '/users') return { name: 'users' };
+  if (safariPreview) return { name: 'preview', type: 'safaris', id: safariPreview[1] };
   if (safari) return { name: 'editor', id: safari[1] };
   if (hash === '/safaris') return { name: 'list' };
+  if (contentPreview) return { name: 'preview', type: contentPreview[1], id: contentPreview[2] };
   if (contentEdit) {
     if (contentEdit[1] === 'posts') return { name: 'blog-editor', id: contentEdit[2] };
     if (contentEdit[1] === 'destinations') return { name: 'destination-editor', id: contentEdit[2] };
@@ -105,6 +110,12 @@ async function mount() {
     app.innerHTML = renderEditor(user, current.id);
     readyChrome();
     await initEditor(current.id);
+    return;
+  }
+  if (current.name === 'preview') {
+    app.innerHTML = renderPreview(user, current.type, current.id);
+    readyChrome();
+    await initPreview(current.type, current.id);
     return;
   }
   if (current.name === 'media') {

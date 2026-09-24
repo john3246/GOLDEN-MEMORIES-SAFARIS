@@ -11,7 +11,8 @@ import { reviewList } from '../../pages/reviews/content.js';
 import { safariFaqs } from '../../pages/tours/content.js';
 import { kiliFaqs } from '../../pages/kilimanjaro/content.js';
 import { assignUniqueCovers, uniqueCoverFor } from '../../media/gallery.js';
-import { destinationForWebsite, safariPackageTitle } from '@gm-safaris/safari-ui';
+import { destinationForWebsite, safariPackageTitle, normalizeLodgeCategory, normalizeBlogDocument, blogDocumentHasBody } from '@gm-safaris/safari-ui';
+import { fetchPublicSettings, fetchPublishedContent, fetchPublishedContentBySlug } from '../api/cms.js';
 
 assignUniqueCovers(featuredTours);
 
@@ -58,36 +59,48 @@ function mapLodge(item) {
     name: item.title,
     place: item.place || '',
     blurb: item.blurb || '',
-    category: item.category === 'luxury' ? 'luxury' : 'midrange',
+    category: normalizeLodgeCategory(item.category),
+    region: item.region || '',
+    website: item.website || '',
     image: item.image || gallery[0] || '',
     gallery,
   };
 }
 
 function mapPost(item) {
-  const paragraphs = lines(item.paragraphs);
-  const blocks = Array.isArray(item.blocks) && item.blocks.length
-    ? item.blocks
-    : paragraphs.map((text) => ({ type: 'paragraph', text }));
-  return {
-    slug: item.slug,
-    topic: item.topic || 'safari',
-    date: item.date || '',
-    title: item.title,
-    excerpt: item.excerpt || '',
+  return normalizeBlogDocument({
+    ...item,
     image: item.hero_image?.url || item.image || '',
     hero_image: item.hero_image || { url: item.image || '', alt: item.title || '' },
-    kicker: item.kicker || '',
-    author: item.author || 'Golden Memories Safaris',
-    blocks,
-    paragraphs: paragraphs.length ? paragraphs : blocks.filter((block) => block.type === 'paragraph').map((block) => block.text),
-    gallery: item.gallery || [],
-    sections: item.sections,
-    cta_label: item.cta_label || 'Plan this trip',
-    cta_href: item.cta_href || '/contact/',
     seo_title: item.seo_title || item.seo?.title,
     seo_description: item.seo_description || item.seo?.description,
-  };
+  });
+}
+
+function postHasBody(item) {
+  return blogDocumentHasBody(item);
+}
+
+function upsertPost(post) {
+  const mapped = mapPost(post);
+  if (!mapped.slug) return mapped;
+  const index = blogArticles.findIndex((item) => item.slug === mapped.slug);
+  if (index >= 0) {
+    const existing = blogArticles[index];
+    if (!postHasBody(mapped) && postHasBody(existing)) {
+      blogArticles.splice(index, 1, {
+        ...existing,
+        ...mapped,
+        paragraphs: existing.paragraphs,
+        blocks: existing.blocks?.length ? existing.blocks : mapped.blocks,
+      });
+    } else {
+      blogArticles.splice(index, 1, mapped);
+    }
+  } else if (postHasBody(mapped) || mapped.title) {
+    blogArticles.unshift(mapped);
+  }
+  return mapped;
 }
 
 function galleryUrls(value) {
@@ -155,7 +168,7 @@ export async function hydrateFromCms() {
         fetchPublishedContent('menus').catch(() => []),
         fetchPublishedContent('testimonials', wait.signal).catch(() => []),
         fetchPublishedContent('lodges', wait.signal).catch(() => []),
-        fetchPublishedContent('posts', wait.signal).catch(() => []),
+        fetchPublishedContent('posts').catch(() => []),
         fetchPublishedContent('destinations').catch(() => []),
         fetchPublishedContent('departures', wait.signal).catch(() => []),
         fetchPublishedContent('pages', wait.signal).catch(() => []),
@@ -201,12 +214,7 @@ export async function hydrateFromCms() {
     if (cmsLodges?.length) replace(lodges, cmsLodges.map(mapLodge));
 
     if (posts?.length) {
-      for (const post of posts) {
-        const mapped = mapPost(post);
-        const index = blogArticles.findIndex((item) => item.slug === mapped.slug);
-        if (index >= 0) blogArticles.splice(index, 1, mapped);
-        else blogArticles.unshift(mapped);
-      }
+      for (const post of posts) upsertPost(post);
     }
 
     const cmsDestinationImages = new Map();
@@ -289,4 +297,12 @@ export async function hydrateFromCms() {
   } finally {
     wait.done();
   }
+}
+
+/** Fetch one published journal article by slug so a hard refresh shows the CMS version immediately. */
+export async function hydratePublishedPost(slug) {
+  if (!slug) return null;
+  const post = await fetchPublishedContentBySlug('posts', slug);
+  if (!post) return null;
+  return upsertPost(post);
 }

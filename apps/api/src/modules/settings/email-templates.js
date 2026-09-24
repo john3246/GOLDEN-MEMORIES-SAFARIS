@@ -117,7 +117,7 @@ export function bookingReminderEmail(booking, settings = DEFAULT_SETTINGS) {
       { label: 'Safari', value: booking.safariTitle },
       { label: 'Travel date', value: booking.travelDate },
       { label: 'Party', value: partySummary(booking) },
-      { label: 'Office', value: '+255 786 383 273 · info@gmsafaris.com' },
+      { label: 'Office', value: '+255 786 383 273 · info@gmsafaris.co.tz' },
     ],
     cta: { label: 'gmsafaris.com', href: siteUrl },
     footer: 'We look forward to welcoming you in Tanzania.',
@@ -175,7 +175,7 @@ export function smtpTestEmail(settings = DEFAULT_SETTINGS) {
   return layout({
     title: 'SMTP test from Golden Memories Safaris',
     intro: 'This confirms outbound email is working for booking confirmations, travel reminders, and password resets on gmsafaris.com.',
-    rows: [{ label: 'From', value: settings.email?.fromEmail || 'info@gmsafaris.com' }],
+    rows: [{ label: 'From', value: settings.email?.fromEmail || 'info@gmsafaris.co.tz' }],
     cta: { label: 'gmsafaris.com', href: siteUrl },
     footer: 'You can ignore this message if you were only testing SMTP.',
     siteUrl,

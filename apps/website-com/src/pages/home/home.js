@@ -10,6 +10,7 @@ import {
   testimonials,
   whyBook,
   pageImages,
+  site,
 } from './content.js';
 import { joiningSafaris } from '../join-safari/content.js';
 import { openJoiningPackages } from '../join-safari/packages.js';
@@ -108,8 +109,8 @@ export function renderHome() {
             <h1 class="home-hero-title mt-4 font-display font-semibold leading-[1.05] tracking-tight">
               Karibu Tanzania
             </h1>
-            <p class="mt-5 max-w-xl text-base text-white/90 sm:text-lg">
-              Grab your stuff and let’s get lost in Tanzania’s wonders.
+            <p class="mt-3 font-body text-sm font-semibold uppercase tracking-[0.16em] text-gold sm:text-base">
+              ${site.tagline}
             </p>
             <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <a class="btn-gold" href="/booking/">Book now</a>

@@ -37,10 +37,10 @@ export const media = GM;
 export const site = {
   name: 'Golden Memories Safaris',
   shortName: 'GM Safaris',
-  tagline: 'Your Culture or Ours',
+    tagline: 'Every safari with Sparkle of Gold',
   phone: '+255 786 383 273',
   phoneAlt: '+255 754 750 070',
-  email: 'info@gmsafaris.com',
+  email: 'info@gmsafaris.co.tz',
   address: 'Njiro, Arusha, Tanzania',
   socials: [
     { label: 'Facebook', href: 'https://www.facebook.com/' },

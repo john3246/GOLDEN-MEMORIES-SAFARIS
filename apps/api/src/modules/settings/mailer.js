@@ -28,7 +28,7 @@ async function smtpConfig() {
     smtpPass: pass,
     smtpPort: email.smtpPort || process.env.SMTP_PORT || '587',
     smtpSecure: Boolean(email.smtpSecure) || process.env.SMTP_SECURE === 'true',
-    fromEmail: email.fromEmail || 'info@gmsafaris.com',
+    fromEmail: email.fromEmail || 'info@gmsafaris.co.tz',
     fromName: email.fromName || 'Golden Memories Safaris',
     settings: store.settings || DEFAULT_SETTINGS,
   };

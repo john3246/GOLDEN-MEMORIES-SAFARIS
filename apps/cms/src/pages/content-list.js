@@ -1,3 +1,4 @@
+import { lodgeCategoryLabel } from '@gm-safaris/shared-types';
 import { api } from '../api/client.js';
 import { shell } from './shell.js';
 import {
@@ -13,6 +14,7 @@ import {
   renderGroupedCards,
   shortText,
 } from '../content/cards.js';
+import { notifyError, notifySuccess } from '../components/toast.js';
 
 function packageCards(type, rows) {
   return `
@@ -27,6 +29,10 @@ function packageCards(type, rows) {
             <span>${item.slug}</span>
             <span>${item.updated_at?.slice(0, 16)?.replace('T', ' ') || ''}</span>
           </p>
+          <p class="cms-editor-actions" style="margin-top:0.7rem">
+            <a class="cms-btn" href="#/${type}/${item.id}">Edit</a>
+            <a class="cms-btn" href="#/${type}/${item.id}/preview">Preview</a>
+          </p>
         </article>`
         )
         .join('')}
@@ -37,6 +43,7 @@ function destinationCard(item) {
   const doc = item.draft || item.published || {};
   return photoCard({
     href: `#/destinations/${item.id}`,
+    previewHref: `#/destinations/${item.id}/preview`,
     title: item.title,
     image: cardImage(doc.image),
     kicker: destinationCategory(item, doc),
@@ -49,6 +56,7 @@ function blogCard(item) {
   const doc = item.draft || item.published || {};
   return photoCard({
     href: `#/posts/${item.id}`,
+    previewHref: `#/posts/${item.id}/preview`,
     title: item.title,
     image: cardImage(doc.image),
     kicker: blogCategory(item, doc),
@@ -64,7 +72,7 @@ function photoSections(type, rows, selected) {
       : type === 'lodges'
         ? (item) => lodgeCategory(item, item.draft || item.published || {})
         : (item) => blogCategory(item, item.draft || item.published || {});
-  const order = type === 'destinations' ? DESTINATION_ORDER : type === 'lodges' ? ['Mid-range', 'Luxury'] : BLOG_ORDER;
+  const order = type === 'destinations' ? DESTINATION_ORDER : type === 'lodges' ? ['Mid-range', 'Luxury', 'Premium Luxury'] : BLOG_ORDER;
   const renderItem = type === 'destinations' ? destinationCard : type === 'lodges' ? lodgeCard : blogCard;
   const sections = groupedSections(rows, getCategory, order).filter(([label]) => !selected || label === selected);
   const select = document.querySelector('#filter-category');
@@ -80,13 +88,14 @@ function photoSections(type, rows, selected) {
 }
 
 function lodgeCategory(item, doc = {}) {
-  return doc.category === 'luxury' ? 'Luxury' : 'Mid-range';
+  return lodgeCategoryLabel(doc.category);
 }
 
 function lodgeCard(item) {
   const doc = item.draft || item.published || {};
   return photoCard({
     href: `#/lodges/${item.id}`,
+    previewHref: `#/lodges/${item.id}/preview`,
     title: item.title,
     image: cardImage(doc.image),
     kicker: lodgeCategory(item, doc),
@@ -172,6 +181,7 @@ export function initContentList(type) {
         <p class="cms-muted" style="margin-top:1rem">${result.meta?.total ?? result.data.length} items</p>
       `;
     } catch (err) {
+      notifyError(err.message);
       mount.innerHTML = `<p class="cms-error">${err.message}</p>`;
     }
   }
@@ -181,8 +191,10 @@ export function initContentList(type) {
   document.querySelector('[data-create]')?.addEventListener('click', async () => {
     try {
       const created = await api.createContent(type, { title: 'Untitled' });
+      notifySuccess('New item created.');
       window.location.hash = `#/${type}/${created.id}`;
     } catch (err) {
+      notifyError(err.message);
       mount.innerHTML = `<p class="cms-error">${err.message}</p>`;
     }
   });

@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Sound of Silence Manyara",
+    "photos": 0,
+    "website": "https://serengetisoundofsilence.com/",
+    "notes": [
+      "https://serengetisoundofsilence.com/: Command failed: curl.exe -L -sS --max-time 25 -A Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 --doh-url https://1.1.1.1/dns-query https://serengetisoundofsilence.com/\ncurl: (35) schannel: next InitializeSecurityContext failed: CRYPT_E_REVOCATION_OFFLINE (0x80092013) - The revocation function was unable to check revocation because the revocation server was offline.\r\n",
+      "https://soundofsilence.co.tz/: Command failed: curl.exe -L -sS --max-time 25 -A Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 --doh-url https://1.1.1.1/dns-query https://soundofsilence.co.tz/\ncurl: (6) Could not resolve host: soundofsilence.co.tz\r\n",
+      "https://www.soundofsilence.co.tz/: Command failed: curl.exe -L -sS --max-time 25 -A Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 --doh-url https://1.1.1.1/dns-query https://www.soundofsilence.co.tz/\ncurl: (6) Could not resolve host: www.soundofsilence.co.tz\r\n"
+    ]
+  },
+  {
+    "name": "Mama Dunia Safari Lodge",
+    "photos": 3,
+    "website": "https://www.mamadunia.com/",
+    "notes": []
+  },
+  {
+    "name": "Manyara's Secret",
+    "photos": 3,
+    "website": "https://manyarassecret.com/",
+    "notes": [
+      "img https://manyarassecret.com/wp-content/uploads/2024/04/trip-advisor-travelers-choice-2024.png: too small 151x100",
+      "img https://manyarassecret.com/wp-content/uploads/2024/06/massage-rates.pdf: Input buffer contains unsupported image format",
+      "img https://manyarassecret.com/wp-content/uploads/2024/10/Manyaras-Secret-factsheet.pdf: Input buffer contains unsupported image format",
+      "img https://manyarassecret.com/wp-content/uploads/2024/11/ms-pic-1-1.jpg: too small 491x368",
+      "img https://manyarassecret.com/wp-content/uploads/2024/11/ms-pic-1-2.jpg: too small 492x370"
+    ]
+  },
+  {
+    "name": "Mawe Mawe Manyara Lodge",
+    "photos": 3,
+    "website": "https://mawemawemanyaralodge.com/",
+    "notes": [
+      "img https://mawemawemanyaralodge.com/wp-content/uploads/2024/12/portrait-square-06.jpg: too small 400x400",
+      "img https://mawemawemanyaralodge.com/wp-content/uploads/2024/12/portrait-square-02.jpg: too small 400x400",
+      "img https://mawemawemanyaralodge.com/wp-content/uploads/2024/12/portrait-square-05.jpg: too small 400x400"
+    ]
+  },
+  {
+    "name": "Serengeti Explorer",
+    "photos": 2,
+    "website": "https://www.elewanacollection.com/serengeti-explorer-camp",
+    "notes": [
+      "https://www.elewanacollection.com/serengeti-explorer-camp/the-camp: Command failed: curl.exe -L -sS --max-time 25 -A Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 --doh-url https://1.1.1.1/dns-query https://www.elewanacollection.com/serengeti-explorer-camp/the-camp\ncurl: (28) Failed to connect to www.elewanacollection.com:443 after 21210 ms: Could not connect to server\r\n",
+      "https://elewanacollection.com/serengeti-explorer-camp: Command failed: curl.exe -L -sS --max-time 25 -A Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 --doh-url https://1.1.1.1/dns-query https://elewanacollection.com/serengeti-explorer-camp\ncurl: (28) Failed to connect to elewanacollection.com:443 after 21234 ms: Could not connect to server\r\n"
+    ]
+  },
+  {
+    "name": "The Manor at Ngorongoro",
+    "photos": 2,
+    "website": "https://elewanacollection.com/the-manor-at-ngorongoro",
+    "notes": [
+      "https://www.elewanacollection.com/the-manor-at-ngorongoro/the-manor: Command failed: curl.exe -L -sS --max-time 25 -A Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 --doh-url https://1.1.1.1/dns-query https://www.elewanacollection.com/the-manor-at-ngorongoro/the-manor\ncurl: (28) Failed to connect to www.elewanacollection.com:443 after 21525 ms: Could not connect to server\r\n",
+      "https://www.elewanacollection.com/the-manor-at-ngorongoro: Command failed: curl.exe -L -sS --max-time 25 -A Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 --doh-url https://1.1.1.1/dns-query https://www.elewanacollection.com/the-manor-at-ngorongoro\ncurl: (28) Failed to connect to www.elewanacollection.com:443 after 23135 ms: Could not connect to server\r\n"
+    ]
+  }
+]

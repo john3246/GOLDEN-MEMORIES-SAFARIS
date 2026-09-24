@@ -57,13 +57,16 @@ export const CONTENT_TYPES = Object.freeze({
     fields: [
       { name: 'title', label: 'Title', type: 'text' },
       { name: 'slug', label: 'Slug', type: 'text' },
-      { name: 'topic', label: 'Topic', type: 'text', hint: 'climbing, safari, about-us, about-tanzania, islands, wildlife' },
-      { name: 'date', label: 'Date', type: 'text' },
+      { name: 'topic', label: 'Category', type: 'text', hint: 'climbing, safari, about-us, about-tanzania, islands, wildlife, itineraries' },
+      { name: 'date', label: 'Publish date', type: 'text' },
       { name: 'excerpt', label: 'Excerpt', type: 'textarea' },
+      { name: 'author', label: 'Author', type: 'text' },
       { name: 'image', label: 'Cover photo', type: 'image' },
-      { name: 'paragraphs', label: 'Article body (one paragraph per line)', type: 'textarea' },
       { name: 'seo_title', label: 'SEO title', type: 'text' },
       { name: 'seo_description', label: 'SEO description', type: 'textarea' },
+      { name: 'seo_keywords', label: 'Keywords', type: 'text' },
+      { name: 'canonical_url', label: 'Canonical URL', type: 'text' },
+      { name: 'og_image', label: 'Open Graph image', type: 'image' },
     ],
   },
   testimonials: {
@@ -100,6 +103,8 @@ export const CONTENT_TYPES = Object.freeze({
     fields: [
       { name: 'title', label: 'Name', type: 'text' },
       { name: 'place', label: 'Place', type: 'text' },
+      { name: 'region', label: 'Region', type: 'text', hint: 'Arusha, Tarangire, Lake Manyara, Serengeti, Ngorongoro / Karatu' },
+      { name: 'website', label: 'Property website', type: 'text' },
       { name: 'blurb', label: 'Blurb', type: 'textarea' },
       {
         name: 'category',
@@ -108,6 +113,7 @@ export const CONTENT_TYPES = Object.freeze({
         options: [
           { value: 'midrange', label: 'Mid-range' },
           { value: 'luxury', label: 'Luxury' },
+          { value: 'premium-luxury', label: 'Premium Luxury' },
         ],
         hint: 'Required. Used to filter lodges on the website and in this list.',
       },

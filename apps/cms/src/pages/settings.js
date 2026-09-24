@@ -1,5 +1,6 @@
 import { api } from '../api/client.js';
 import { shell } from './shell.js';
+import { notifyError, notifySuccess } from '../components/toast.js';
 
 function field(label, name, value, type = 'text') {
   if (type === 'textarea') {
@@ -132,9 +133,11 @@ export async function initSettings() {
         },
       });
       ok.hidden = false;
+      notifySuccess('Settings saved.');
     } catch (err) {
       error.hidden = false;
       error.textContent = err.message;
+      notifyError(err.message);
     }
   });
 
@@ -150,9 +153,12 @@ export async function initSettings() {
           ? `Test email sent to ${result.to}.`
           : `SMTP is not sending yet (${result.reason || 'not configured'}). Save host, user, and password, then try again.`;
       }
+      if (result.sent) notifySuccess(`Test email sent to ${result.to}.`);
+      else notifyError(result.reason || 'SMTP is not configured.');
     } catch (err) {
       error.hidden = false;
       error.textContent = err.message;
+      notifyError(err.message);
     }
   });
 }

@@ -1,33 +1,14 @@
 import { articleCard } from '../../components/cards/article-card.js';
+import { cardUrl } from '../../media/gallery.js';
 import {
   articlesForTopic,
-  blogArticles,
   blogIntro,
   blogTopics,
+  featuredArticle,
+  sortedArticles,
   topicBySlug,
   topicLabel,
 } from './content.js';
-
-const MONTHS = {
-  January: 0,
-  February: 1,
-  March: 2,
-  April: 3,
-  May: 4,
-  June: 5,
-  July: 6,
-  August: 7,
-  September: 8,
-  October: 9,
-  November: 10,
-  December: 11,
-};
-
-function articleStamp(article) {
-  const match = article.date.match(/^(\d+) (\w+) (\d+)$/);
-  if (!match) return 0;
-  return Date.UTC(Number(match[3]), MONTHS[match[2]] ?? 0, Number(match[1]));
-}
 
 function topicCard(topic, count) {
   const noun = count === 1 ? 'Article' : 'Articles';
@@ -62,8 +43,88 @@ function otherTopics(activeSlug) {
     .join('');
 }
 
+function featuredHero(article) {
+  if (!article) return '';
+  const href = `/blog/${article.slug}/`;
+  const topic = topicLabel(article.topic);
+  return `
+    <section class="blog-featured" aria-labelledby="blog-featured-title">
+      <div class="container-site">
+        <article class="blog-featured-card">
+          <a class="blog-featured-media" href="${href}">
+            <img src="${cardUrl(article.image, article.title, 0)}" alt="${article.title}" width="1200" height="800" decoding="async" />
+          </a>
+          <div class="blog-featured-copy">
+            <p class="section-kicker">Featured tour article</p>
+            <p class="blog-featured-topic">${topic}</p>
+            <h2 id="blog-featured-title" class="section-title">
+              <a href="${href}">${article.title}</a>
+            </h2>
+            <p>${article.excerpt}</p>
+            <a class="btn-gold mt-6 !rounded-none" href="${href}">Read the story</a>
+          </div>
+        </article>
+      </div>
+    </section>`;
+}
+
+function filterBar(active = '') {
+  const tabs = [
+    { slug: '', name: 'All' },
+    ...blogTopics.map((topic) => ({ slug: topic.slug, name: topic.name })),
+  ];
+  return `
+    <div class="blog-toolbar">
+      <div class="blog-tabs" role="tablist" aria-label="Article categories">
+        ${tabs
+          .map(
+            (tab) =>
+              `<button class="blog-tab${tab.slug === active ? ' is-active' : ''}" type="button" data-blog-topic="${tab.slug}">${tab.name}</button>`
+          )
+          .join('')}
+      </div>
+      <label class="blog-search">
+        <span class="sr-only">Search articles</span>
+        <input type="search" data-blog-search placeholder="Search safari stories…" />
+      </label>
+    </div>`;
+}
+
+export function initBlogIndex() {
+  const search = document.querySelector('[data-blog-search]');
+  const tabs = [...document.querySelectorAll('[data-blog-topic]')];
+  const cards = [...document.querySelectorAll('[data-blog-card]')];
+  const empty = document.querySelector('[data-blog-empty]');
+  if (!tabs.length || !cards.length) return;
+  let topic = '';
+
+  function apply() {
+    const q = String(search?.value || '')
+      .trim()
+      .toLowerCase();
+    let visible = 0;
+    cards.forEach((card) => {
+      const matchTopic = !topic || card.dataset.topic === topic;
+      const matchSearch = !q || (card.dataset.search || '').includes(q);
+      const show = matchTopic && matchSearch;
+      card.hidden = !show;
+      if (show) visible += 1;
+    });
+    if (empty) empty.hidden = visible > 0;
+    tabs.forEach((tab) => tab.classList.toggle('is-active', tab.dataset.blogTopic === topic));
+  }
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      topic = tab.dataset.blogTopic || '';
+      apply();
+    });
+  });
+  search?.addEventListener('input', apply);
+}
+
 /**
- * Blog hub (Altezza /articles format) and topic listing.
+ * Blog hub and topic listing.
  * @param {string} [topicSlug]
  */
 export function renderBlog(topicSlug = '') {
@@ -133,11 +194,9 @@ export function renderBlog(topicSlug = '') {
   const topicGrid = blogTopics
     .map((item) => topicCard(item, articlesForTopic(item.slug).length))
     .join('');
-
-  const latest = [...blogArticles]
-    .slice()
-    .sort((a, b) => articleStamp(b) - articleStamp(a))
-    .slice(0, 6)
+  const featured = featuredArticle();
+  const cards = sortedArticles()
+    .filter((article) => article.slug !== featured?.slug)
     .map((article) => articleCard(article, topicLabel(article.topic)))
     .join('');
 
@@ -160,26 +219,30 @@ export function renderBlog(topicSlug = '') {
         </div>
       </section>
 
-      <section class="bg-white pb-16 sm:pb-20 lg:pb-24" aria-labelledby="blog-topics-title">
-        <div class="container-site">
-          <div class="reveal mx-auto max-w-2xl text-center">
-            <h2 id="blog-topics-title" class="section-title">Select Topic</h2>
-            <div class="mx-auto mt-3 h-0.5 w-12 bg-gold" aria-hidden="true"></div>
-          </div>
-          <div class="reveal mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            ${topicGrid}
-          </div>
-        </div>
-      </section>
+      ${featuredHero(featured)}
 
       <section class="bg-mist py-8 sm:py-10" aria-labelledby="blog-latest-title">
         <div class="container-site">
           <div class="reveal max-w-2xl">
-            <p class="section-kicker">Latest reads</p>
-            <h2 id="blog-latest-title" class="section-title">From the journal</h2>
+            <p class="section-kicker">Journal</p>
+            <h2 id="blog-latest-title" class="section-title">Safari stories</h2>
           </div>
+          ${filterBar()}
           <div class="reveal mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            ${latest}
+            ${cards}
+          </div>
+          <p class="blog-empty" data-blog-empty hidden>No articles match that search.</p>
+        </div>
+      </section>
+
+      <section class="bg-white pb-16 pt-8 sm:pb-20 lg:pb-24" aria-labelledby="blog-topics-title">
+        <div class="container-site">
+          <div class="reveal mx-auto max-w-2xl text-center">
+            <h2 id="blog-topics-title" class="section-title">Browse by topic</h2>
+            <div class="mx-auto mt-3 h-0.5 w-12 bg-gold" aria-hidden="true"></div>
+          </div>
+          <div class="reveal mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            ${topicGrid}
           </div>
         </div>
       </section>

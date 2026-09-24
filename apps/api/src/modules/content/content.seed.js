@@ -8,10 +8,10 @@ const DEFAULT_SETTINGS = {
   site: {
     name: 'Golden Memories Safaris',
     shortName: 'GM Safaris',
-    tagline: 'Your Culture or Ours',
+    tagline: 'Every safari with Sparkle of Gold',
     phone: '+255 786 383 273',
     phoneAlt: '+255 754 750 070',
-    email: 'info@gmsafaris.com',
+    email: 'info@gmsafaris.co.tz',
     address: 'Njiro, Arusha, Tanzania',
     websiteUrl: 'https://www.gmsafaris.com',
     cmsUrl: '',
@@ -23,9 +23,9 @@ const DEFAULT_SETTINGS = {
   },
   email: {
     fromName: 'Golden Memories Safaris',
-    fromEmail: 'info@gmsafaris.com',
-    replyTo: 'info@gmsafaris.com',
-    notifyTo: 'info@gmsafaris.com',
+    fromEmail: 'info@gmsafaris.co.tz',
+    replyTo: 'info@gmsafaris.co.tz',
+    notifyTo: 'info@gmsafaris.co.tz',
     smtpHost: '',
     smtpPort: '587',
     smtpUser: '',
@@ -40,7 +40,7 @@ const DEFAULT_SETTINGS = {
 };
 
 const PAGES = [
-  { title: 'Home', slug: 'home', kicker: 'Golden Memories Safaris', excerpt: 'Karibu Tanzania.', body: 'Grab your stuff and let’s get lost in Tanzania’s wonders.' },
+  { title: 'Home', slug: 'home', kicker: 'Golden Memories Safaris', excerpt: 'Karibu Tanzania.', },
   { title: 'About Us', slug: 'about', kicker: 'Our story', excerpt: 'Local Tanzanian safari experts since 2023.' },
   { title: 'Contact', slug: 'contact', kicker: 'Plan your trip', excerpt: 'Call, email, or send a message from Arusha.' },
   { title: 'Accommodations', slug: 'accommodations', kicker: 'Where you stay', excerpt: 'Lodges and camps we book across Tanzania.' },

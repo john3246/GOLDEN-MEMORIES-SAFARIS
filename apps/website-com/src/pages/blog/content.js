@@ -44,12 +44,19 @@ export const blogTopics = [
     blurb: 'Big Five, migration, and the animals you meet on the mountain.',
     image: GM.migration,
   },
+  {
+    slug: 'itineraries',
+    name: 'Itineraries',
+    blurb: 'Day-by-day safari outlines, route notes, and how we pace a northern-circuit trip.',
+    image: GM.savanna,
+  },
 ];
 
 export const blogArticles = [
   {
     slug: 'best-time-to-climb-kilimanjaro',
     topic: 'climbing',
+    featured: true,
     date: '12 August 2026',
     title: 'When is the best time to climb Kilimanjaro?',
     excerpt: 'Dry months, shoulder seasons, and what rain actually does to the trail.',
@@ -341,4 +348,33 @@ export function relatedArticles(article, count = 3) {
 
 export function allBlogSlugs() {
   return [...blogTopics.map((topic) => topic.slug), ...blogArticles.map((article) => article.slug)];
+}
+
+const MONTHS = {
+  January: 0,
+  February: 1,
+  March: 2,
+  April: 3,
+  May: 4,
+  June: 5,
+  July: 6,
+  August: 7,
+  September: 8,
+  October: 9,
+  November: 10,
+  December: 11,
+};
+
+export function articleStamp(article) {
+  const match = String(article?.date || '').match(/^(\d+) (\w+) (\d+)$/);
+  if (!match) return Date.parse(article?.date || '') || 0;
+  return Date.UTC(Number(match[3]), MONTHS[match[2]] ?? 0, Number(match[1]));
+}
+
+export function sortedArticles() {
+  return [...blogArticles].sort((a, b) => articleStamp(b) - articleStamp(a));
+}
+
+export function featuredArticle() {
+  return blogArticles.find((item) => item.featured) || sortedArticles()[0] || null;
 }

@@ -1,6 +1,7 @@
 import { api } from '../api/client.js';
 import { shell } from './shell.js';
 import { bindImagePickers, galleryField, imageField } from '../components/image-picker.js';
+import { notifyError, notifySuccess } from '../components/toast.js';
 
 function escapeValue(value) {
   return String(value ?? '')
@@ -48,6 +49,7 @@ export function renderContentEditor(user, spec, id) {
           <p class="cms-lead" id="editor-status">Loading…</p>
         </div>
         <div class="cms-dashboard-actions">
+          <a class="cms-btn" href="#/${spec.key}/${id}/preview">Preview</a>
           <button class="cms-btn cms-btn-gold" type="button" data-save>Save draft</button>
           <button class="cms-btn cms-btn-navy" type="button" data-publish>Publish</button>
           <button class="cms-btn" type="button" data-unpublish>Unpublish</button>
@@ -70,6 +72,7 @@ export async function initContentEditor(type, id, spec) {
   function showError(message) {
     error.hidden = false;
     error.textContent = message;
+    notifyError(message);
   }
 
   function readForm() {
@@ -104,6 +107,7 @@ export async function initContentEditor(type, id, spec) {
     try {
       current = await api.saveContent(type, id, readForm());
       status.textContent = `Saved draft · ${current.status}`;
+      notifySuccess('Draft saved.');
     } catch (err) {
       showError(err.message);
     }
@@ -114,6 +118,7 @@ export async function initContentEditor(type, id, spec) {
       await api.saveContent(type, id, readForm());
       current = await api.publishContent(type, id);
       status.textContent = 'Published to the public website';
+      notifySuccess('Published to the website.');
     } catch (err) {
       showError(err.message);
     }
@@ -122,6 +127,7 @@ export async function initContentEditor(type, id, spec) {
     try {
       current = await api.unpublishContent(type, id);
       status.textContent = 'Unpublished';
+      notifySuccess('Unpublished.');
     } catch (err) {
       showError(err.message);
     }
@@ -130,6 +136,7 @@ export async function initContentEditor(type, id, spec) {
     if (!window.confirm('Delete this item?')) return;
     try {
       await api.deleteContent(type, id);
+      notifySuccess('Deleted.');
       window.location.hash = `#/${type}`;
     } catch (err) {
       showError(err.message);
