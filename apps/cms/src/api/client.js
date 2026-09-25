@@ -206,6 +206,17 @@ export const api = {
     return body.data;
   },
 
+  async deleteMedia({ id, url } = {}) {
+    const body = await parse(
+      await fetch(`${API_BASE}/api/v1/admin/media/asset`, {
+        method: 'DELETE',
+        headers: headers({ json: true }),
+        body: JSON.stringify({ id, url }),
+      })
+    );
+    return body.data;
+  },
+
   async listClients() {
     const body = await parse(await fetch(`${API_BASE}/api/v1/admin/api-clients`, { headers: headers() }));
     return body.data;

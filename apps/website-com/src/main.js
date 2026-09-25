@@ -102,9 +102,12 @@ async function mount() {
   let afterPaint = async () => {};
 
   if (destSlug) {
-    const { renderDestinationDetail, applyDestinationMeta } = await import('./pages/destinations/detail.js');
+    const overlay = await import('./services/cms/overlay.js');
+    if (overlay.hydratePublishedDestination) await overlay.hydratePublishedDestination(destSlug);
+    const { renderDestinationDetail, applyDestinationMeta, initDestinationDetail } = await import('./pages/destinations/detail.js');
     page = renderDestinationDetail(destSlug);
     applyDestinationMeta(destSlug);
+    afterPaint = async () => initDestinationDetail();
   } else if (isDestinationsPage()) {
     const { renderDestinations } = await import('./pages/destinations/destinations.js');
     page = renderDestinations();

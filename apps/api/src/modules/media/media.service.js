@@ -7,15 +7,20 @@ import { readStore, updateStore } from '../../cms-store/index.js';
 import { config } from '../../config/index.js';
 import { notFound, validationError } from '../../errors/index.js';
 import { compressUpload } from './compress.js';
+import { GALLERY_FOLDERS } from '@gm-safaris/safari-ui';
+
+const PUBLIC_IMAGES = path.resolve(fileURLToPath(new URL('../../../../website-com/public/images', import.meta.url)));
+const GALLERY_DIR = path.join(PUBLIC_IMAGES, 'gallery');
+const COUNTS_FILE = path.resolve(fileURLToPath(new URL('../../../../../packages/safari-ui/src/gallery-kind.js', import.meta.url)));
+const FOLDER_ORDER = ['maps', 'arusha', 'eyasi', 'serengeti', 'ngorongoro', 'tarangire', 'mikumi', 'ruaha', 'selous', 'kilimanjaro', 'zanzibar', 'culture'];
 
 const PUBLIC_FIELDS = ['id', 'url', 'alt', 'caption', 'mimeType', 'width', 'height', 'filename', 'createdAt'];
 
-function toPublic(item, req) {
+function toPublic(item) {
   if (!item) return null;
-  const base = (req && req.publicBase) || config.apiBaseUrl;
   return {
     id: item.id,
-    url: item.externalUrl || `${base}/api/v1/media/${item.id}/file`,
+    url: item.externalUrl || `/api/v1/media/${item.id}/file`,
     alt: item.alt || '',
     caption: item.caption || '',
     mimeType: item.mimeType || '',
@@ -27,11 +32,11 @@ function toPublic(item, req) {
   };
 }
 
-export function mediaPublicDto(item, baseUrl = config.apiBaseUrl) {
+export function mediaPublicDto(item) {
   if (!item) return null;
   return {
     id: item.id,
-    url: item.externalUrl || `${baseUrl}/api/v1/media/${item.id}/file`,
+    url: item.externalUrl || `/api/v1/media/${item.id}/file`,
     alt: item.alt || '',
     caption: item.caption || '',
   };
@@ -83,6 +88,91 @@ export const mediaRepository = {
   PUBLIC_FIELDS,
 };
 
+function mediaUrls(item) {
+  const urls = new Set();
+  if (item?.id) urls.add(`/api/v1/media/${item.id}/file`);
+  if (item?.externalUrl) urls.add(String(item.externalUrl).split('?')[0]);
+  return urls;
+}
+
+function publicFileFromUrl(url) {
+  const clean = String(url || '').split('?')[0];
+  const match = clean.match(/^\/images\/(.+)$/i);
+  if (!match) return null;
+  const full = path.resolve(PUBLIC_IMAGES, match[1]);
+  const relative = path.relative(PUBLIC_IMAGES, full);
+  if (!relative || relative.startsWith('..') || path.isAbsolute(relative)) return null;
+  return full;
+}
+
+function rewriteValue(value, urls, remaps) {
+  if (value == null) return value;
+  if (typeof value === 'string') {
+    const clean = value.split('?')[0];
+    if (remaps.has(clean)) return remaps.get(clean);
+    if (urls.has(clean)) return '';
+    return value;
+  }
+  if (Array.isArray(value)) {
+    return value
+      .map((item) => rewriteValue(item, urls, remaps))
+      .filter((item) => {
+        if (item == null || item === '') return false;
+        if (typeof item === 'object' && item && 'url' in item && !item.url) return false;
+        return true;
+      });
+  }
+  if (typeof value === 'object') {
+    for (const key of Object.keys(value)) {
+      value[key] = rewriteValue(value[key], urls, remaps);
+    }
+  }
+  return value;
+}
+
+async function unlinkPublicImage(url) {
+  const file = publicFileFromUrl(url);
+  if (!file) return;
+  await fs.unlink(file).catch(() => undefined);
+  if (/\.webp$/i.test(file) && !/-card\.webp$/i.test(file)) {
+    await fs.unlink(file.replace(/\.webp$/i, '-card.webp')).catch(() => undefined);
+  }
+}
+
+async function compactGalleryPrefix(prefix) {
+  const names = (await fs.readdir(GALLERY_DIR).catch(() => []))
+    .filter((name) => new RegExp(`^${prefix}-\\d+\\.webp$`, 'i').test(name))
+    .sort();
+  const remaps = new Map();
+  const planned = names.map((name, index) => ({
+    from: name,
+    to: `${prefix}-${String(index + 1).padStart(2, '0')}.webp`,
+  }));
+  for (const row of planned) {
+    if (row.from === row.to) continue;
+    await fs.rename(path.join(GALLERY_DIR, row.from), path.join(GALLERY_DIR, `${row.from}.tmp`));
+    await fs
+      .rename(path.join(GALLERY_DIR, row.from.replace(/\.webp$/i, '-card.webp')), path.join(GALLERY_DIR, `${row.from}.tmp-card`))
+      .catch(() => undefined);
+  }
+  for (const row of planned) {
+    if (row.from === row.to) continue;
+    await fs.rename(path.join(GALLERY_DIR, `${row.from}.tmp`), path.join(GALLERY_DIR, row.to));
+    await fs
+      .rename(path.join(GALLERY_DIR, `${row.from}.tmp-card`), path.join(GALLERY_DIR, row.to.replace(/\.webp$/i, '-card.webp')))
+      .catch(() => undefined);
+    remaps.set(`/images/gallery/${row.from}`, `/images/gallery/${row.to}`);
+  }
+  return { remaps, count: names.length };
+}
+
+async function writeGalleryCount(prefix, count) {
+  const source = await fs.readFile(COUNTS_FILE, 'utf8');
+  const next = source.replace(new RegExp(`(${prefix}:\\s*)\\d+`), `$1${count}`);
+  if (next === source) return;
+  await fs.writeFile(COUNTS_FILE, next);
+}
+
 export const mediaService = {
   async list() {
     const items = await mediaRepository.list();
@@ -102,10 +192,10 @@ export const mediaService = {
 
     function folderFromName(filename, extra = '') {
       const name = `${filename} ${extra}`.toLowerCase();
-      return ['serengeti', 'ngorongoro', 'tarangire', 'kilimanjaro', 'zanzibar', 'culture'].find((key) => name.includes(key)) || '';
+      return FOLDER_ORDER.find((key) => name.includes(key)) || '';
     }
 
-    function add(url, alt, usedOn, source = 'content') {
+    function add(url, alt, usedOn, source = 'content', extra = {}) {
       const clean = String(url || '').split('?')[0].trim();
       if (!clean) return;
       if (!/^(\/|https?:)/i.test(clean)) return;
@@ -121,7 +211,10 @@ export const mediaService = {
         folder,
         source,
         usedOn: [],
+        deletable: filename !== 'logo.webp',
       };
+      if (extra.id) existing.id = extra.id;
+      if (extra.deletable === false) existing.deletable = false;
       if (!existing.usedOn.includes(usedOn)) existing.usedOn.push(usedOn);
       if (source === 'upload') existing.source = 'upload';
       if (source === 'gallery' && existing.source !== 'upload') existing.source = 'gallery';
@@ -133,7 +226,7 @@ export const mediaService = {
 
     for (const item of store.media || []) {
       const url = item.externalUrl || `/api/v1/media/${item.id}/file`;
-      add(url, item.alt || item.originalName || item.filename, 'Uploads', 'upload');
+      add(url, item.alt || item.originalName || item.filename, 'Uploads', 'upload', { id: item.id });
     }
 
     for (const safari of store.safaris || []) {
@@ -169,7 +262,7 @@ export const mediaService = {
       add(doc.image, doc.title, 'Join safari');
     }
 
-    add('/images/logo.webp', 'Golden Memories Safaris logo', 'Site chrome', 'gallery');
+    add('/images/logo.webp', 'Golden Memories Safaris logo', 'Site chrome', 'gallery', { deletable: false });
 
     try {
       const galleryRoot = path.resolve(fileURLToPath(new URL('../../../../website-com/public/images', import.meta.url)));
@@ -192,14 +285,7 @@ export const mediaService = {
     }
 
     const list = [...items.values()].sort((a, b) => a.filename.localeCompare(b.filename));
-    const folderLabels = {
-      serengeti: 'Serengeti',
-      ngorongoro: 'Ngorongoro',
-      tarangire: 'Tarangire',
-      kilimanjaro: 'Kilimanjaro',
-      zanzibar: 'Zanzibar',
-      culture: 'Culture',
-    };
+    const folderLabels = GALLERY_FOLDERS;
     const groups = [
       { id: 'all', label: 'All photos', items: list },
       { id: 'gallery', label: 'Project gallery', items: list.filter((item) => item.source === 'gallery' || item.usedOn.includes('Project gallery')) },
@@ -299,21 +385,63 @@ export const mediaService = {
   },
 
   async remove(id, actor) {
-    const item = await mediaRepository.remove(id);
-    if (!item) throw notFound('Media not found');
-    if (item.storagePath) {
-      await fs.unlink(item.storagePath).catch(() => undefined);
+    return this.removeAsset({ id }, actor);
+  },
+
+  async removeAsset({ id, url } = {}, actor) {
+    const urls = new Set();
+    const cleanUrl = String(url || '')
+      .split('?')[0]
+      .trim();
+    let item = id ? await mediaRepository.findById(id) : null;
+    const fileId = cleanUrl.match(/\/api\/v1\/media\/([^/]+)\/file/i)?.[1];
+    if (!item && fileId) item = await mediaRepository.findById(fileId);
+    if (item) for (const value of mediaUrls(item)) urls.add(value);
+    if (cleanUrl) urls.add(cleanUrl);
+
+    if (/\/images\/logo\.webp$/i.test(cleanUrl)) {
+      throw validationError('The site logo cannot be deleted.');
     }
+    if (!item && !cleanUrl) throw validationError('Choose a photo to delete.');
+    if (!item && cleanUrl && !cleanUrl.startsWith('/images/')) {
+      throw notFound('Media not found');
+    }
+
+    if (cleanUrl.startsWith('/images/')) {
+      await unlinkPublicImage(cleanUrl);
+    }
+    if (item) {
+      await mediaRepository.remove(item.id);
+      if (item.storagePath) await fs.unlink(item.storagePath).catch(() => undefined);
+    }
+
+    let remaps = new Map();
+    const galleryMatch = [...urls]
+      .map((value) => String(value).match(/^\/images\/gallery\/([a-z]+)-\d+\.webp$/i))
+      .find(Boolean);
+    if (galleryMatch) {
+      const compacted = await compactGalleryPrefix(galleryMatch[1].toLowerCase());
+      remaps = compacted.remaps;
+      await writeGalleryCount(galleryMatch[1].toLowerCase(), compacted.count);
+    }
+
+    await updateStore((store) => {
+      for (const key of ['safaris', 'destinations', 'posts', 'lodges', 'pages', 'departures']) {
+        store[key] = rewriteValue(store[key], urls, remaps);
+      }
+    });
+
     await import('../audit/audit.service.js').then(({ recordAudit }) =>
       recordAudit({
         actorId: actor?.userId,
         actorEmail: actor?.email,
         action: 'media.deleted',
         resource: 'media',
-        resourceId: id,
+        resourceId: item?.id || cleanUrl,
+        metadata: { url: cleanUrl || null },
       })
     );
-    return { id };
+    return { id: item?.id || null, url: cleanUrl || null, removed: [...urls] };
   },
 
   async setVisibility(id, visibility) {

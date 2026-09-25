@@ -1,5 +1,6 @@
 import { articleCard } from '../../components/cards/article-card.js';
 import { cardUrl } from '../../media/gallery.js';
+import { allDestinations } from '../destinations/catalog.js';
 import {
   articlesForTopic,
   blogIntro,
@@ -73,6 +74,9 @@ function filterBar(active = '') {
     { slug: '', name: 'All' },
     ...blogTopics.map((topic) => ({ slug: topic.slug, name: topic.name })),
   ];
+  const dests = allDestinations()
+    .slice(0, 12)
+    .map((place) => ({ slug: place.slug, name: place.name.replace(/ National Park| Conservation Area/g, '') }));
   return `
     <div class="blog-toolbar">
       <div class="blog-tabs" role="tablist" aria-label="Article categories">
@@ -82,6 +86,10 @@ function filterBar(active = '') {
               `<button class="blog-tab${tab.slug === active ? ' is-active' : ''}" type="button" data-blog-topic="${tab.slug}">${tab.name}</button>`
           )
           .join('')}
+      </div>
+      <div class="blog-tabs blog-tabs-dest" role="tablist" aria-label="Filter by destination">
+        <button class="blog-tab is-active" type="button" data-blog-dest="">All parks</button>
+        ${dests.map((place) => `<button class="blog-tab" type="button" data-blog-dest="${place.slug}">${place.name}</button>`).join('')}
       </div>
       <label class="blog-search">
         <span class="sr-only">Search articles</span>
@@ -93,10 +101,12 @@ function filterBar(active = '') {
 export function initBlogIndex() {
   const search = document.querySelector('[data-blog-search]');
   const tabs = [...document.querySelectorAll('[data-blog-topic]')];
+  const destTabs = [...document.querySelectorAll('[data-blog-dest]')];
   const cards = [...document.querySelectorAll('[data-blog-card]')];
   const empty = document.querySelector('[data-blog-empty]');
   if (!tabs.length || !cards.length) return;
   let topic = '';
+  let dest = '';
 
   function apply() {
     const q = String(search?.value || '')
@@ -105,18 +115,26 @@ export function initBlogIndex() {
     let visible = 0;
     cards.forEach((card) => {
       const matchTopic = !topic || card.dataset.topic === topic;
+      const matchDest = !dest || (card.dataset.destinations || '').split(/\s+/).includes(dest) || (card.dataset.search || '').includes(dest.replace(/-/g, ' '));
       const matchSearch = !q || (card.dataset.search || '').includes(q);
-      const show = matchTopic && matchSearch;
+      const show = matchTopic && matchDest && matchSearch;
       card.hidden = !show;
       if (show) visible += 1;
     });
     if (empty) empty.hidden = visible > 0;
     tabs.forEach((tab) => tab.classList.toggle('is-active', tab.dataset.blogTopic === topic));
+    destTabs.forEach((tab) => tab.classList.toggle('is-active', (tab.dataset.blogDest || '') === dest));
   }
 
   tabs.forEach((tab) => {
     tab.addEventListener('click', () => {
       topic = tab.dataset.blogTopic || '';
+      apply();
+    });
+  });
+  destTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      dest = tab.dataset.blogDest || '';
       apply();
     });
   });

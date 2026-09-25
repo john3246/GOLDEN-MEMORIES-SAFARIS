@@ -1,10 +1,15 @@
 import { joinCard } from '../../components/cards/join-card.js';
 import { isGalleryUrl, uniquePhoto, uniqueCoverFor, galleryKindForText } from '../../media/gallery.js';
-import { safariPrice } from '@gm-safaris/safari-ui';
+import { safariPrice, publicMediaUrl } from '@gm-safaris/safari-ui';
 import { bookingHref } from '../tours/paths.js';
 import { getJoinPackageBySlug, relatedJoinPackages } from './catalog.js';
 
 function dayImage(item, pkg, used) {
+  const picked = publicMediaUrl(typeof item.image === 'string' ? item.image : item.image?.url);
+  if (picked) {
+    used.add(picked);
+    return picked;
+  }
   const hint = `${item.title} ${item.body || ''}`;
   if (item.image && isGalleryUrl(item.image)) {
     const url = String(item.image).split('?')[0];

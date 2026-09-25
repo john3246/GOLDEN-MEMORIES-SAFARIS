@@ -12,7 +12,7 @@ export function renderMedia(user) {
         <div>
           <p class="cms-kicker">Library</p>
           <h1>Media</h1>
-          <p class="cms-lead">Every image used on tours, destinations, blog, lodges, and the project gallery — plus files you upload here.</p>
+          <p class="cms-lead">Every image used on tours, destinations, blog, lodges, and the project gallery — plus files you upload here. Delete a photo to remove it from the library, disk, and any content still using it.</p>
         </div>
       </div>
       <form id="media-form" class="cms-panel cms-form-stack">
@@ -52,8 +52,9 @@ export function renderMedia(user) {
 function renderGrid(items) {
   if (!items.length) return '<p class="cms-muted">No media in this category.</p>';
   return items
-    .map(
-      (item) => `
+    .map((item) => {
+      const canDelete = item.deletable !== false;
+      return `
         <figure class="cms-media-card">
           <button class="cms-media-thumb" type="button" data-media-open="${encodeURIComponent(item.url)}" aria-label="Open ${item.alt || item.filename || 'image'}">
             <img src="${item.url}" alt="${item.alt || ''}" loading="lazy" decoding="async" draggable="false" />
@@ -61,9 +62,14 @@ function renderGrid(items) {
           <figcaption>
             <strong>${item.alt || item.filename}</strong>
             <span>${(item.usedOn || []).join(' · ') || item.source}</span>
+            ${
+              canDelete
+                ? `<button class="cms-btn cms-btn-danger cms-media-delete" type="button" data-media-delete data-media-id="${item.id || ''}" data-media-url="${encodeURIComponent(item.url || '')}">Delete</button>`
+                : ''
+            }
           </figcaption>
-        </figure>`
-    )
+        </figure>`;
+    })
     .join('');
 }
 
@@ -111,7 +117,28 @@ export async function initMedia() {
   });
 
   const lightbox = document.querySelector('#media-lightbox');
-  grid?.addEventListener('click', (event) => {
+  grid?.addEventListener('click', async (event) => {
+    const remove = event.target.closest('[data-media-delete]');
+    if (remove) {
+      event.preventDefault();
+      const label = remove.closest('figure')?.querySelector('strong')?.textContent || 'this photo';
+      if (!window.confirm(`Delete ${label}? It will be removed from the library and from any tours, destinations, or articles using it.`)) {
+        return;
+      }
+      try {
+        await api.deleteMedia({
+          id: remove.getAttribute('data-media-id') || undefined,
+          url: decodeURIComponent(remove.getAttribute('data-media-url') || ''),
+        });
+        await refresh();
+        notifySuccess('Photo deleted.');
+      } catch (err) {
+        error.hidden = false;
+        error.textContent = err.message;
+        notifyError(err.message);
+      }
+      return;
+    }
     const button = event.target.closest('[data-media-open]');
     if (!button || !lightbox) return;
     const src = decodeURIComponent(button.getAttribute('data-media-open') || '');

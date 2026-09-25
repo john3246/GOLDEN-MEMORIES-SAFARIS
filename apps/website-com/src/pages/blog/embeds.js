@@ -1,3 +1,4 @@
+import { destinationPlaces } from '../destinations/catalog.js';
 import { tourCard } from '../../components/cards/tour-card.js';
 import { featuredTours } from '../home/content.js';
 import { lodges } from '../accommodations/content.js';
@@ -65,4 +66,37 @@ export function featuredToursHtml(slugs = []) {
 
 export function featuredLodgesHtml(ids = []) {
   return ids.map((id) => lodgeEmbedHtml(id)).filter(Boolean).join('');
+}
+
+export function destinationEmbedHtml(slug) {
+  const place = destinationPlaces.find((item) => item.slug === slug);
+  if (!place) return '';
+  const href = `/destinations/${place.slug}/`;
+  return `
+    <a class="park-card blog-dest-card" href="${href}">
+      <div class="park-card-media">
+        <img src="${place.image}" alt="${place.name}" loading="lazy" decoding="async" width="800" height="520" />
+      </div>
+      <div class="park-card-body">
+        <p class="font-body text-xs font-bold uppercase tracking-[0.12em] text-gold-deep">${place.region || place.kicker || 'Tanzania'}</p>
+        <h3 class="mt-2 font-display text-xl font-semibold text-black">${place.name}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-ink/70">${place.tagline || ''}</p>
+        <p class="mt-4 font-body text-xs font-bold uppercase tracking-[0.12em] text-gold-deep">View destination</p>
+      </div>
+    </a>`;
+}
+
+export function featuredDestinationsHtml(slugs = []) {
+  return slugs.map((slug) => destinationEmbedHtml(slug)).filter(Boolean).join('');
+}
+
+export function destinationBadgesHtml(slugs = []) {
+  return slugs
+    .map((slug) => destinationPlaces.find((item) => item.slug === slug))
+    .filter(Boolean)
+    .map(
+      (place) =>
+        `<a class="blog-dest-badge" href="/destinations/${place.slug}/">${place.name}</a>`
+    )
+    .join('');
 }

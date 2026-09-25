@@ -161,7 +161,7 @@ fs.writeFileSync(contentPath, renderContent(next, accommodationsHero.image));
 const store = JSON.parse(fs.readFileSync(storePath, 'utf8'));
 const at = new Date().toISOString();
 if (!store.settings?.site) store.settings = { ...(store.settings || {}), site: {} };
-store.settings.site.tagline = 'Every Safari With A sparkle of Golden Memories.';
+store.settings.site.tagline = 'Your Path to Golden Memories begins here';
 
 const existing = store.lodges || [];
 const keep = new Set(next.map((item) => item.slug));

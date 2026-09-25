@@ -1,5 +1,11 @@
 import { SAFARI_SECTION_TYPES, lodgeCategoryLabel } from '@gm-safaris/shared-types';
-import { emptySafariDocument, safariCompletenessErrors } from '@gm-safaris/safari-ui';
+import {
+  emptySafariDocument,
+  emptyGroupSafariDocument,
+  safariCompletenessErrors,
+  clampSeoTitle,
+  safariPackageTitle,
+} from '@gm-safaris/safari-ui';
 import { api } from '../api/client.js';
 import { shell } from './shell.js';
 import { bindImagePickers, galleryField, imageField } from '../components/image-picker.js';
@@ -23,6 +29,43 @@ const SECTION_LABELS = {
   booking_cta: 'Booking CTA',
 };
 
+const EDITOR = {
+  safaris: {
+    nav: 'safaris',
+    listHref: '#/safaris',
+    listLabel: 'All safari packages',
+    heading: 'Edit safari',
+    empty: emptySafariDocument,
+    preview: (id) => `#/safaris/${id}/preview`,
+    load: (id) => api.getSafari(id),
+    save: (id, doc) => api.saveSafari(id, doc),
+    publish: (id) => api.action(id, 'publish'),
+    unpublish: (id) => api.action(id, 'unpublish'),
+    duplicate: (id) => api.action(id, 'duplicate'),
+    archive: (id) => api.action(id, 'archive'),
+    groupFields: false,
+    saved: 'Safari draft saved.',
+    published: 'Safari published to the website.',
+  },
+  departures: {
+    nav: 'departures',
+    listHref: '#/departures',
+    listLabel: 'All group safaris',
+    heading: 'Edit group safari',
+    empty: emptyGroupSafariDocument,
+    preview: (id) => `#/departures/${id}/preview`,
+    load: (id) => api.getContent('departures', id),
+    save: (id, doc) => api.saveContent('departures', id, doc),
+    publish: (id) => api.publishContent('departures', id),
+    unpublish: (id) => api.unpublishContent('departures', id),
+    duplicate: null,
+    archive: null,
+    groupFields: true,
+    saved: 'Group safari draft saved.',
+    published: 'Group safari published to the website.',
+  },
+};
+
 function escapeValue(value) {
   return String(value ?? '')
     .replace(/&/g, '&amp;')
@@ -31,25 +74,26 @@ function escapeValue(value) {
     .replace(/"/g, '&quot;');
 }
 
-export function renderEditor(user, id) {
+export function renderEditor(user, id, kind = 'safaris') {
+  const spec = EDITOR[kind] || EDITOR.safaris;
   return shell(
     user,
-    'safaris',
+    spec.nav,
     `
-    <section class="cms-page cms-doc-editor" data-safari-id="${id}">
+    <section class="cms-page cms-doc-editor" data-safari-id="${id}" data-editor-kind="${spec.nav}">
       <div class="cms-page-head">
         <div>
-          <a class="cms-muted" href="#/safaris">← All safari packages</a>
-          <h1>Edit safari</h1>
+          <a class="cms-muted" href="${spec.listHref}">← ${spec.listLabel}</a>
+          <h1>${spec.heading}</h1>
           <p class="cms-lead" id="editor-status">Loading…</p>
         </div>
         <div class="cms-dashboard-actions">
-          <a class="cms-btn" href="#/safaris/${id}/preview">Preview</a>
+          <a class="cms-btn" href="${spec.preview(id)}">Preview</a>
           <button class="cms-btn cms-btn-gold" type="button" data-save>Save draft</button>
           <button class="cms-btn cms-btn-navy" type="button" data-publish>Publish</button>
           <button class="cms-btn" type="button" data-unpublish>Unpublish</button>
-          <button class="cms-btn" type="button" data-duplicate>Duplicate</button>
-          <button class="cms-btn cms-btn-danger" type="button" data-archive>Archive</button>
+          ${spec.duplicate ? '<button class="cms-btn" type="button" data-duplicate>Duplicate</button>' : ''}
+          ${spec.archive ? '<button class="cms-btn cms-btn-danger" type="button" data-archive>Archive</button>' : '<button class="cms-btn cms-btn-danger" type="button" data-delete>Delete</button>'}
         </div>
       </div>
       <p class="cms-error" id="editor-error" hidden></p>
@@ -64,14 +108,14 @@ function lines(value) {
   return Array.isArray(value) ? value.join('\n') : '';
 }
 
-function field(label, name, value, type = 'text', hint = '') {
+function field(label, name, value, type = 'text', hint = '', extra = '') {
   if (type === 'textarea') {
     return `<div class="cms-field"><label class="cms-label" for="${name}">${label}</label><textarea id="${name}" name="${name}" rows="5">${escapeValue(value)}</textarea>${hint ? `<p class="cms-hint">${hint}</p>` : ''}</div>`;
   }
   if (type === 'checkbox') {
     return `<label class="cms-check"><input type="checkbox" name="${name}" ${value ? 'checked' : ''} /> ${label}</label>`;
   }
-  return `<div class="cms-field"><label class="cms-label" for="${name}">${label}</label><input id="${name}" name="${name}" type="${type}" value="${escapeValue(value)}" />${hint ? `<p class="cms-hint">${hint}</p>` : ''}</div>`;
+  return `<div class="cms-field"><label class="cms-label" for="${name}">${label}</label><input id="${name}" name="${name}" type="${type}" value="${escapeValue(value)}" ${extra} />${hint ? `<p class="cms-hint">${hint}</p>` : ''}</div>`;
 }
 
 function group(title, inner, open = false) {
@@ -141,8 +185,27 @@ function itineraryEditor(days) {
   return `<p class="cms-hint">Add one itinerary day for each duration day, and give every day a title.</p><button class="cms-btn cms-btn-navy" type="button" data-add-day>Add itinerary day</button>${blocks}`;
 }
 
-function renderFields(doc, lodges = []) {
+function renderFields(doc, lodges = [], groupFields = false) {
   return `
+    ${
+      groupFields
+        ? group(
+            'Group departure',
+            `
+      <div class="cms-grid-2">
+        ${field('Dates label', 'dates', doc.dates, 'text', 'For example Open 2026–2027 or 12 Feb 2027.')}
+        ${field('Spaces', 'spaces', doc.spaces, 'text', 'For example Shared vehicle · lodge nights.')}
+      </div>
+      <div class="cms-grid-2">
+        ${field('Start date', 'start', doc.start, 'text', 'YYYY-MM-DD. Leave blank for an open departure.')}
+        ${field('End date', 'end', doc.end, 'text', 'YYYY-MM-DD. Leave blank for an open departure.')}
+      </div>
+      ${field('Deposit / join label', 'deposit', doc.deposit, 'text', 'For example Join group or 30% deposit.')}
+    `,
+            true
+          )
+        : ''
+    }
     ${group(
       'Package details',
       `
@@ -200,7 +263,14 @@ function renderFields(doc, lodges = []) {
     ${group(
       'Search and sharing',
       `
-      ${field('SEO title', 'seo_title', doc.seo?.title)}
+      ${field(
+        'SEO title',
+        'seo_title',
+        doc.seo?.title,
+        'text',
+        'Google shows about 70 characters. Longer titles are shortened automatically when you save or publish.',
+        'maxlength="180"'
+      )}
       ${field('SEO description', 'seo_description', doc.seo?.description, 'textarea')}
       ${field('Canonical URL', 'seo_canonical', doc.seo?.canonical)}
       ${imageField('Share photo', 'seo_og_image', doc.seo?.og_image)}
@@ -242,9 +312,9 @@ function collect(form, current) {
   }));
 
   return {
-    title: form.title?.value,
+    title: safariPackageTitle(form.title?.value),
     slug: form.slug?.value,
-    short_description: form.short_description?.value,
+    short_description: safariPackageTitle(form.short_description?.value),
     description: form.description?.value,
     duration: form.duration?.value ? Number(form.duration.value) : null,
     duration_label: form.duration_label?.value,
@@ -270,10 +340,10 @@ function collect(form, current) {
     }),
     map: { embed_url: form.map_embed?.value, label: form.destination?.value },
     seo: {
-      title: form.seo_title?.value,
+      title: clampSeoTitle(form.seo_title?.value, form.title?.value),
       description: form.seo_description?.value,
       canonical: form.seo_canonical?.value,
-      og_title: form.seo_title?.value,
+      og_title: clampSeoTitle(form.seo_title?.value, form.title?.value),
       og_description: form.seo_description?.value,
       og_image: form.seo_og_image?.value,
       robots: form.seo_robots?.value,
@@ -281,6 +351,14 @@ function collect(form, current) {
     itinerary: days,
     lodge_ids: [...form.querySelectorAll('input[name="lodge_ids"]:checked')].map((input) => input.value),
     sections: sections.length ? sections : current.sections,
+    dates: form.dates?.value,
+    start: form.start?.value,
+    end: form.end?.value,
+    spaces: form.spaces?.value,
+    deposit: form.deposit?.value,
+    overview: form.short_description?.value,
+    image: form.hero_url?.value,
+    product_type: form.dates ? 'join_safari' : current.product_type,
   };
 }
 
@@ -305,11 +383,12 @@ function requireReady(doc) {
   if (errors.length) throw new Error(errors.join(' '));
 }
 
-export async function initEditor(id) {
+export async function initEditor(id, kind = 'safaris') {
+  const spec = EDITOR[kind] || EDITOR.safaris;
   const status = document.querySelector('#editor-status');
   const fields = document.querySelector('#editor-fields');
   const error = document.querySelector('#editor-error');
-  let current = emptySafariDocument();
+  let current = spec.empty();
   let record = null;
   let lodgeOptions = [];
 
@@ -319,9 +398,13 @@ export async function initEditor(id) {
     notifyError(err.message || String(err));
   }
 
+  function paintForm() {
+    fields.innerHTML = `<form id="safari-form">${renderFields(current, lodgeOptions, spec.groupFields)}</form>`;
+  }
+
   async function load() {
-    record = await api.getSafari(id);
-    current = { ...emptySafariDocument(), ...record.draft, slug: record.slug };
+    record = await spec.load(id);
+    current = spec.empty({ ...record.draft, slug: record.slug });
     try {
       const listed = await api.listContent('lodges');
       lodgeOptions = listed.data || [];
@@ -329,12 +412,13 @@ export async function initEditor(id) {
       lodgeOptions = [];
     }
     status.textContent = `${record.status} · ${record.slug}`;
-    fields.innerHTML = `<form id="safari-form">${renderFields(current, lodgeOptions)}</form>`;
+    paintForm();
     const list = document.querySelector('#revision-list');
     if (list) {
-      list.innerHTML = (record.revisions || [])
-        .map((item) => `<li>v${item.version} ${item.action} · ${item.created_by_email || ''} · ${item.created_at?.slice(0, 16)}</li>`)
-        .join('') || '<li>No revisions yet</li>';
+      list.innerHTML =
+        (record.revisions || [])
+          .map((item) => `<li>v${item.version} ${item.action} · ${item.created_by_email || ''} · ${item.created_at?.slice(0, 16)}</li>`)
+          .join('') || '<li>No revisions yet</li>';
     }
     paintReady(current);
     bindForm();
@@ -357,7 +441,7 @@ export async function initEditor(id) {
         ...(current.itinerary || []),
         { day: `Day ${(current.itinerary?.length || 0) + 1}`, title: '', description: '', activities: [] },
       ];
-      fields.innerHTML = `<form id="safari-form">${renderFields(current, lodgeOptions)}</form>`;
+      paintForm();
       paintReady(current);
       bindForm();
     });
@@ -366,7 +450,7 @@ export async function initEditor(id) {
       btn.addEventListener('click', () => {
         const index = Number(btn.closest('[data-day-index]')?.dataset.dayIndex);
         current.itinerary = current.itinerary.filter((_, i) => i !== index);
-        fields.innerHTML = `<form id="safari-form">${renderFields(current, lodgeOptions)}</form>`;
+        paintForm();
         paintReady(current);
         bindForm();
       });
@@ -377,7 +461,7 @@ export async function initEditor(id) {
         const index = Number(btn.closest('[data-day-index]')?.dataset.dayIndex);
         const copy = { ...current.itinerary[index], id: undefined };
         current.itinerary.splice(index + 1, 0, copy);
-        fields.innerHTML = `<form id="safari-form">${renderFields(current, lodgeOptions)}</form>`;
+        paintForm();
         paintReady(current);
         bindForm();
       });
@@ -391,7 +475,7 @@ export async function initEditor(id) {
         if (swap < 0 || swap >= next.length) return;
         [next[index], next[swap]] = [next[swap], next[index]];
         current.sections = next.map((item, order) => ({ ...item, order }));
-        fields.innerHTML = `<form id="safari-form">${renderFields(current, lodgeOptions)}</form>`;
+        paintForm();
         paintReady(current);
         bindForm();
       });
@@ -401,13 +485,13 @@ export async function initEditor(id) {
   document.querySelector('[data-save]')?.addEventListener('click', async () => {
     try {
       const form = document.querySelector('#safari-form');
-      current = { ...current, ...collect(form, current) };
+      current = spec.empty({ ...current, ...collect(form, current) });
       requireReady(current);
-      record = await api.saveSafari(id, current);
-      current = { ...emptySafariDocument(), ...record.draft };
+      record = await spec.save(id, current);
+      current = spec.empty({ ...record.draft, slug: record.slug });
       status.textContent = `Draft saved · ${record.status}`;
       error.hidden = true;
-      notifySuccess('Safari draft saved.');
+      notifySuccess(spec.saved);
       paintReady(current);
     } catch (err) {
       showError(err);
@@ -417,12 +501,12 @@ export async function initEditor(id) {
   document.querySelector('[data-publish]')?.addEventListener('click', async () => {
     try {
       const form = document.querySelector('#safari-form');
-      current = { ...current, ...collect(form, current) };
+      current = spec.empty({ ...current, ...collect(form, current) });
       requireReady(current);
-      await api.saveSafari(id, current);
-      record = await api.action(id, 'publish');
+      await spec.save(id, current);
+      record = await spec.publish(id);
       status.textContent = `PUBLISHED · ${record.slug}`;
-      notifySuccess('Safari published to the website.');
+      notifySuccess(spec.published);
       paintReady(current);
     } catch (err) {
       showError(err);
@@ -431,9 +515,9 @@ export async function initEditor(id) {
 
   document.querySelector('[data-unpublish]')?.addEventListener('click', async () => {
     try {
-      record = await api.action(id, 'unpublish');
+      record = await spec.unpublish(id);
       status.textContent = `UNPUBLISHED · ${record.slug}`;
-      notifySuccess('Safari unpublished.');
+      notifySuccess('Unpublished.');
     } catch (err) {
       showError(err);
     }
@@ -441,7 +525,7 @@ export async function initEditor(id) {
 
   document.querySelector('[data-duplicate]')?.addEventListener('click', async () => {
     try {
-      const copy = await api.action(id, 'duplicate');
+      const copy = await spec.duplicate(id);
       notifySuccess('Safari duplicated.');
       window.location.hash = `#/safaris/${copy.id}`;
     } catch (err) {
@@ -451,9 +535,19 @@ export async function initEditor(id) {
 
   document.querySelector('[data-archive]')?.addEventListener('click', async () => {
     try {
-      record = await api.action(id, 'archive');
+      record = await spec.archive(id);
       status.textContent = `ARCHIVED · ${record.slug}`;
       notifySuccess('Safari archived.');
+    } catch (err) {
+      showError(err);
+    }
+  });
+
+  document.querySelector('[data-delete]')?.addEventListener('click', async () => {
+    try {
+      await api.deleteContent('departures', id);
+      notifySuccess('Group safari deleted.');
+      window.location.hash = '#/departures';
     } catch (err) {
       showError(err);
     }

@@ -1,6 +1,7 @@
 import { safariCard } from '../../components/cards/safari-card.js';
 import { renderSafariPage, applySafariMeta, renderSafariCard, normalizeItinerary } from '@gm-safaris/safari-ui';
 import { isGalleryUrl, uniquePhoto, uniqueCoverFor, galleryKindForText } from '../../media/gallery.js';
+import { publicMediaUrl } from '@gm-safaris/safari-ui';
 import { getTourBySlug, relatedTours } from './catalog.js';
 import { bookingHref } from './paths.js';
 
@@ -16,22 +17,30 @@ function localizeSafari(doc, index = 0) {
   if (!doc) return doc;
   const used = new Set();
   const image = uniqueCoverFor(doc);
-  used.add(image);
+  if (image) used.add(image);
   const gallery = Array.isArray(doc.gallery)
-    ? doc.gallery.map((item, offset) => ({
-        ...item,
-        url: uniquePhoto(item.alt || item.caption || doc, used, index + offset + 1),
-      }))
+    ? doc.gallery.map((item, offset) => {
+        const picked = publicMediaUrl(typeof item === 'string' ? item : item?.url);
+        const url = picked || uniquePhoto(item?.alt || item?.caption || doc, used, index + offset + 1);
+        if (url) used.add(url);
+        return typeof item === 'object' && item ? { ...item, url } : { url };
+      })
     : doc.gallery;
   return {
     ...doc,
+    image,
     hero_image: { ...(doc.hero_image || {}), url: image, alt: doc.hero_image?.alt || doc.title || '' },
     gallery,
-    seo: doc.seo ? { ...doc.seo, og_image: image } : doc.seo,
+    seo: doc.seo ? { ...doc.seo, og_image: publicMediaUrl(doc.seo.og_image) || image } : doc.seo,
   };
 }
 
 function dayImage(item, tour, used) {
+  const picked = publicMediaUrl(typeof item.image === 'string' ? item.image : item.image?.url);
+  if (picked) {
+    used.add(picked);
+    return picked;
+  }
   const hint = `${item.title} ${item.body || ''}`;
   if (item.image && isGalleryUrl(item.image)) {
     const url = String(item.image).split('?')[0];

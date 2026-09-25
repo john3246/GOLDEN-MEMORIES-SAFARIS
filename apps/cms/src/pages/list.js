@@ -1,3 +1,4 @@
+import { safariPackageTitle } from '@gm-safaris/safari-ui';
 import { api } from '../api/client.js';
 import { shell } from './shell.js';
 import {
@@ -21,7 +22,7 @@ function tourCard(item) {
   return photoCard({
     href: `#/safaris/${item.id}`,
     previewHref: `#/safaris/${item.id}/preview`,
-    title: item.title,
+    title: safariPackageTitle(item.title),
     image: cardImage(item.hero_image?.url),
     kicker: durationLabel(item),
     detail: item.destination || '',

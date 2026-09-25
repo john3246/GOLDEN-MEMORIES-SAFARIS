@@ -103,6 +103,15 @@ describe('safari-ui', () => {
     expect(galleryKindForText('Ngorongoro Crater Day Trip')).toBe('ngorongoro');
     expect(galleryKindForText('Machame Route Kilimanjaro')).toBe('kilimanjaro');
 
+    const { publicMediaUrl, pickedMediaUrl } = await import('@gm-safaris/safari-ui');
+    expect(publicMediaUrl('http://localhost:3000/api/v1/media/abc-123/file')).toBe('/api/v1/media/abc-123/file');
+    expect(pickedMediaUrl({ hero_image: { url: 'http://127.0.0.1:3000/api/v1/media/abc-123/file' } })).toBe(
+      '/api/v1/media/abc-123/file'
+    );
+    expect(resolveDayImage({ title: 'Tarangire', image: '/api/v1/media/day-1/file' }, { slug: 'demo' }, 0)).toBe(
+      '/api/v1/media/day-1/file'
+    );
+
     const tarangire = resolveDayImage(
       { title: 'Tarangire National Park', description: 'Elephants among baobabs.' },
       { slug: '3-days-affordable-joining-safari', title: '3-Day Affordable Joining Safari' },
@@ -124,11 +133,19 @@ describe('safari-ui', () => {
     expect(tarangire).not.toBe(otherTarangire);
   });
 
-  it('names safari packages with Day, not Days', async () => {
-    const { safariPackageTitle } = await import('@gm-safaris/safari-ui');
-    expect(safariPackageTitle('4 Days Mt Meru Trekking Via Momella Gate')).toBe('4-Day Mt Meru Trekking Via Momella Gate');
-    expect(safariPackageTitle('6 Day Family Tour Tanzania')).toBe('6-Day Family Tour Tanzania');
-    expect(safariPackageTitle('8-Day Luxury Tanzania Safari')).toBe('8-Day Luxury Tanzania Safari');
+  it('names safari packages with spaces, not hyphens', async () => {
+    const { safariPackageTitle, clampSeoTitle } = await import('@gm-safaris/safari-ui');
+    expect(safariPackageTitle('4 Days Mt Meru Trekking Via Momella Gate')).toBe('4 Days Mt Meru Trekking Via Momella Gate');
+    expect(safariPackageTitle('6 Day Family Tour Tanzania')).toBe('6 Day Family Tour Tanzania');
+    expect(safariPackageTitle('8-Day Luxury Tanzania Safari')).toBe('8 Day Luxury Tanzania Safari');
+    expect(safariPackageTitle('4-Day Tanzania safari- Tarangire, Serengeti')).toBe(
+      '4 Day Tanzania safari, Tarangire, Serengeti'
+    );
+    expect(
+      clampSeoTitle(
+        '8 Day Luxury Tanzania Safari, Tarangire, Serengeti, Ngorongoro Crater and Zanzibar Beach'
+      ).length
+    ).toBeLessThanOrEqual(70);
   });
 
   it('renders destination paragraphs, tables and images', async () => {
@@ -175,5 +192,71 @@ describe('safari-ui', () => {
     expect(html).toContain('View packages');
     expect(html).toContain('Book a safari');
     expect(html).toContain('Featured tours');
+  });
+
+  it('normalizes destination travel fields, coordinates, and relations', async () => {
+    const { normalizeDestinationDocument, destinationForWebsite, monthGuideFromSeasons, destinationJsonLd } = await import(
+      '@gm-safaris/safari-ui'
+    );
+    const doc = normalizeDestinationDocument({
+      title: 'Serengeti National Park',
+      slug: 'serengeti',
+      climate: 'Dry season — June to October\nRainy season — November to May',
+      getting_there: 'Fly Arusha to Seronera.',
+      tour_slugs: ['5-day-luxury-migration-safari'],
+      related_post_slugs: ['serengeti-migration-guide'],
+      seasons: 'July–October — Mara River crossings',
+    });
+    expect(doc.lat).toBe(-2.3333);
+    expect(doc.lng).toBe(34.8333);
+    expect(doc.tour_slugs).toEqual(['5-day-luxury-migration-safari']);
+    expect(doc.getting_there).toContain('Seronera');
+    const web = destinationForWebsite(doc, { regionSlug: 'northern-tanzania' });
+    expect(web.gettingThere).toContain('Seronera');
+    expect(web.monthGuide.some((month) => month.active)).toBe(true);
+    expect(monthGuideFromSeasons(doc.seasons).filter((month) => month.active).length).toBeGreaterThan(2);
+    const schema = destinationJsonLd(web);
+    expect(schema['@type']).toBe('TouristAttraction');
+    expect(schema.geo.latitude).toBe(-2.3333);
+  });
+
+  it('upgrades a thin group safari into a full safari document', async () => {
+    const { normalizeGroupSafariDocument, safariCompletenessErrors } = await import('@gm-safaris/safari-ui');
+    const doc = normalizeGroupSafariDocument({
+      title: '3-Day Affordable Joining Safari',
+      slug: '3-days-affordable-joining-safari',
+      dates: 'Open 2026–2027',
+      duration: '3 Days / 2 Nights',
+      overview: 'Shared safari from Arusha.',
+      image: '/images/gallery/tarangire-01.webp',
+      price_from: 800,
+      highlights: 'Tarangire\nNgorongoro',
+      included: ['Park fees'],
+      days: [
+        { day: 'Day 1', title: 'Tarangire', body: 'Game drive among baobabs.' },
+        { day: 'Day 2', title: 'Ngorongoro Crater', description: 'Crater floor.' },
+        { day: 'Day 3', title: 'Lake Manyara', body: 'Return to Arusha.' },
+      ],
+    });
+    expect(doc.product_type).toBe('join_safari');
+    expect(doc.duration).toBe(3);
+    expect(doc.duration_label).toBe('3 Days / 2 Nights');
+    expect(doc.hero_image.url).toBe('/images/gallery/tarangire-01.webp');
+    expect(doc.itinerary).toHaveLength(3);
+    expect(doc.itinerary[0].description).toContain('baobabs');
+    expect(doc.inclusions).toEqual(['Park fees']);
+    expect(safariCompletenessErrors(doc)).toEqual([]);
+  });
+
+  it('keeps destination slugs on blog documents and destination embed blocks', async () => {
+    const { normalizeBlogDocument } = await import('@gm-safaris/safari-ui');
+    const doc = normalizeBlogDocument({
+      title: 'When to visit the Serengeti',
+      slug: 'when-to-visit-the-serengeti',
+      destination_slugs: ['serengeti'],
+      blocks: [{ type: 'destinations', destination_slugs: ['serengeti', 'ngorongoro'] }],
+    });
+    expect(doc.destination_slugs).toEqual(['serengeti']);
+    expect(doc.blocks[0].destination_slugs).toEqual(['serengeti', 'ngorongoro']);
   });
 });

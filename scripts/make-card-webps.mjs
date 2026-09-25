@@ -9,9 +9,14 @@ const files = fs.readdirSync(galleryDir).filter((name) => /\.webp$/i.test(name) 
 for (const name of files) {
   const src = path.join(galleryDir, name);
   const dest = path.join(galleryDir, name.replace(/\.webp$/i, '-card.webp'));
-  await sharp(src)
-    .resize({ width: 800, height: 560, fit: 'cover' })
-    .webp({ quality: 68, effort: 4 })
-    .toFile(dest);
-  console.log(`${name} -> ${path.basename(dest)} (${Math.round(fs.statSync(dest).size / 1024)} KB)`);
+  try {
+    if (fs.existsSync(dest)) fs.unlinkSync(dest);
+    await sharp(src)
+      .resize({ width: 800, height: 560, fit: 'cover' })
+      .webp({ quality: 68, effort: 4 })
+      .toFile(dest);
+    console.log(`${name} -> ${path.basename(dest)} (${Math.round(fs.statSync(dest).size / 1024)} KB)`);
+  } catch (err) {
+    console.warn(`${name} skipped: ${err.message}`);
+  }
 }

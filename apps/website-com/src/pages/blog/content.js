@@ -1,4 +1,5 @@
 import { media as GM } from '../home/content.js';
+import { destinationSlugsFromCopy } from '../destinations/catalog.js';
 import { rewrittenJournalArticles } from './rewritten-journal.js';
 import { zaraInspiredJournalArticles } from './zara-inspired-journal.js';
 
@@ -323,6 +324,13 @@ export const blogArticles = [
   ...rewrittenJournalArticles,
   ...zaraInspiredJournalArticles,
 ];
+
+for (const article of blogArticles) {
+  if (article.destination_slugs?.length) continue;
+  article.destination_slugs = destinationSlugsFromCopy(
+    `${article.title || ''} ${article.excerpt || ''} ${article.slug || ''} ${(article.paragraphs || []).join(' ')}`
+  );
+}
 
 export function topicBySlug(slug) {
   return blogTopics.find((topic) => topic.slug === slug) || null;

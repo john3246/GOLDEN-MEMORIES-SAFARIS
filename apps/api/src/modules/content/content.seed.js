@@ -8,7 +8,7 @@ const DEFAULT_SETTINGS = {
   site: {
     name: 'Golden Memories Safaris',
     shortName: 'GM Safaris',
-    tagline: 'Every Safari With A sparkle of Golden Memories.',
+    tagline: 'Your Path to Golden Memories begins here',
     phone: '+255 786 383 273',
     phoneAlt: '+255 754 750 070',
     email: 'info@gmsafaris.co.tz',
@@ -47,7 +47,7 @@ const PAGES = [
   { title: 'Reviews', slug: 'reviews', kicker: 'Guest stories', excerpt: 'Rated 5/5 by served clients.' },
   { title: 'Kilimanjaro', slug: 'kilimanjaro', kicker: 'Mountain climbing', excerpt: 'Guided routes from Arusha and Moshi.' },
   { title: 'Group Safari', slug: 'join-safari', kicker: 'Open departures', excerpt: 'Small-group dates you can join.' },
-  { title: 'Destinations', slug: 'destinations', kicker: 'Tanzania parks', excerpt: 'Northern Circuit, coast, south, and west.' },
+  { title: 'Destinations', slug: 'destinations', kicker: 'Tanzania parks', excerpt: 'Northern Circuit, coast, and southern parks.' },
   { title: 'Blog', slug: 'blog', kicker: 'Travel notes', excerpt: 'Practical Tanzania travel articles.' },
 ];
 

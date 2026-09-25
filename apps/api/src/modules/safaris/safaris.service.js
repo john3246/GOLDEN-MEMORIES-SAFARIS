@@ -172,7 +172,7 @@ export const safarisService = {
     const payload = validateSafariPayload(body, { partial: false });
     if (!payload.slug) payload.slug = slugify(payload.title);
     const record = await safarisRepository.create({
-      draft: { ...emptySafariDocument(), ...payload },
+      draft: emptySafariDocument(payload),
       actor: actorMeta(actor),
     });
     await syncSafari(record);
@@ -198,7 +198,7 @@ export const safarisService = {
       }
       record.slug = payload.slug;
     }
-    record.draft = { ...record.draft, ...payload, slug: record.slug };
+    record.draft = emptySafariDocument({ ...record.draft, ...payload, slug: record.slug });
     requireReadyDraft(record.draft);
     record.updated_by = actor?.userId || null;
     record.updated_at = new Date().toISOString();
@@ -309,13 +309,12 @@ export const safarisService = {
     const title = `${record.draft?.title || 'Safari'} (copy)`;
     const slug = await safarisRepository.uniqueSlug(title);
     const copy = await safarisRepository.create({
-      draft: {
-        ...emptySafariDocument(),
+      draft: emptySafariDocument({
         ...record.draft,
         title,
         slug,
         featured: false,
-      },
+      }),
       actor: actorMeta(actor),
     });
     copy.draft.slug = slug;

@@ -92,6 +92,7 @@ export function renderBlogPage(raw, options = {}) {
   const body = renderBlogBlocks(doc.blocks, {
     embedTour: options.embedTour,
     embedLodge: options.embedLodge,
+    embedDestination: options.embedDestination,
   });
   const cover = doc.hero_image?.url || doc.image || '';
   const related = options.relatedHtml && sections.has('related') ? options.relatedHtml : '';
@@ -112,6 +113,7 @@ export function renderBlogPage(raw, options = {}) {
       <header class="blog-article-hero">
         <div class="container-site">
           <p class="section-kicker">${escapeHtml(doc.kicker || doc.topic || 'Journal')}</p>
+          ${options.destinationBadgesHtml ? `<p class="blog-article-dests">${options.destinationBadgesHtml}</p>` : ''}
           <h1 class="section-title">${escapeHtml(doc.title || 'Untitled article')}</h1>
           <p class="blog-article-meta">
             <span>${escapeHtml(doc.author || 'Golden Memories Safaris')}</span>
@@ -159,6 +161,11 @@ export function renderBlogPage(raw, options = {}) {
           ${
             featuredLodges
               ? `<div class="blog-aside-block"><p class="blog-aside-kicker">Stay here</p><div class="blog-aside-cards">${featuredLodges}</div></div>`
+              : ''
+          }
+          ${
+            options.featuredDestinationsHtml
+              ? `<div class="blog-aside-block"><p class="blog-aside-kicker">Destinations</p><div class="blog-aside-cards">${options.featuredDestinationsHtml}</div></div>`
               : ''
           }
         </aside>

@@ -109,6 +109,21 @@ export const mediaController = {
     }
   },
 
+  async removeAsset(req, res, next) {
+    try {
+      const data = await mediaService.removeAsset(
+        {
+          id: req.body?.id || req.query?.id,
+          url: req.body?.url || req.query?.url,
+        },
+        actor(req)
+      );
+      res.json({ success: true, data });
+    } catch (err) {
+      next(err);
+    }
+  },
+
   async remove(req, res, next) {
     try {
       const data = await mediaService.remove(req.params.id, actor(req));

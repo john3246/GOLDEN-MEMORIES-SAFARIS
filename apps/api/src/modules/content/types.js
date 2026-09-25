@@ -1,5 +1,5 @@
 import { SafariStatus } from '@gm-safaris/shared-types';
-import { emptyBlogDocument, normalizeBlogDocument, emptyDestinationDocument, normalizeDestinationDocument } from '@gm-safaris/safari-ui';
+import { emptyBlogDocument, normalizeBlogDocument, emptyDestinationDocument, normalizeDestinationDocument, emptyGroupSafariDocument } from '@gm-safaris/safari-ui';
 
 export const CONTENT_TYPES = Object.freeze({
   pages: {
@@ -29,13 +29,21 @@ export const CONTENT_TYPES = Object.freeze({
       { name: 'title', label: 'Name', type: 'text' },
       { name: 'slug', label: 'Slug', type: 'text' },
       { name: 'region', label: 'Region', type: 'text' },
+      { name: 'country', label: 'Country', type: 'text' },
       { name: 'kicker', label: 'Kicker', type: 'text' },
       { name: 'tagline', label: 'Tagline', type: 'textarea' },
       { name: 'blurb', label: 'Short blurb', type: 'textarea' },
       { name: 'location', label: 'Location', type: 'text' },
       { name: 'cta', label: 'Button label', type: 'text' },
       { name: 'image', label: 'Cover photo', type: 'image' },
+      { name: 'image_alt', label: 'Cover alt text', type: 'text' },
       { name: 'gallery', label: 'Gallery photos', type: 'gallery' },
+      { name: 'lat', label: 'Latitude', type: 'text' },
+      { name: 'lng', label: 'Longitude', type: 'text' },
+      { name: 'climate', label: 'Climate (Title — body, one per line)', type: 'textarea' },
+      { name: 'getting_there', label: 'How to get there', type: 'textarea' },
+      { name: 'airstrips', label: 'Airstrips and transfers (one per line)', type: 'textarea' },
+      { name: 'entry_fees', label: 'Park fees and rules', type: 'textarea' },
       { name: 'paragraphs', label: 'Page copy (one paragraph per line)', type: 'textarea' },
       { name: 'highlights', label: 'Highlights (Title — body, one per line)', type: 'textarea' },
       { name: 'facts', label: 'Quick facts (Label | Value, one per line)', type: 'textarea' },
@@ -46,6 +54,9 @@ export const CONTENT_TYPES = Object.freeze({
       { name: 'faqs', label: 'FAQs (Question | Answer, one per line)', type: 'textarea' },
       { name: 'seo_title', label: 'SEO title', type: 'text' },
       { name: 'seo_description', label: 'SEO description', type: 'textarea' },
+      { name: 'seo_keywords', label: 'Keywords', type: 'text' },
+      { name: 'canonical_url', label: 'Canonical URL', type: 'text' },
+      { name: 'og_image', label: 'Open Graph image', type: 'image' },
     ],
   },
   posts: {
@@ -123,19 +134,29 @@ export const CONTENT_TYPES = Object.freeze({
   },
   departures: {
     key: 'departures',
-    label: 'Group Safari departures',
-    singular: 'departure',
+    label: 'Group Safari',
+    singular: 'group safari',
     nav: 'departures',
-    createTitle: 'New departure',
+    createTitle: 'New group safari',
     fields: [
       { name: 'title', label: 'Title', type: 'text' },
+      { name: 'slug', label: 'Slug', type: 'text' },
       { name: 'dates', label: 'Dates label', type: 'text' },
       { name: 'start', label: 'Start date (YYYY-MM-DD)', type: 'text' },
       { name: 'end', label: 'End date (YYYY-MM-DD)', type: 'text' },
-      { name: 'duration', label: 'Duration', type: 'text' },
+      { name: 'duration', label: 'Duration (days)', type: 'text' },
+      { name: 'duration_label', label: 'Duration label', type: 'text' },
       { name: 'spaces', label: 'Spaces label', type: 'text' },
+      { name: 'price_from', label: 'Price per person', type: 'text' },
+      { name: 'currency', label: 'Currency', type: 'text' },
+      { name: 'destination', label: 'Places', type: 'text' },
+      { name: 'short_description', label: 'Short description', type: 'textarea' },
       { name: 'overview', label: 'Overview', type: 'textarea' },
-      { name: 'highlights', label: 'Highlights (one per line)', type: 'textarea' },
+      { name: 'description', label: 'Full description', type: 'textarea' },
+      { name: 'highlights', label: 'Highlights', type: 'textarea' },
+      { name: 'inclusions', label: 'Inclusions', type: 'textarea' },
+      { name: 'exclusions', label: 'Exclusions', type: 'textarea' },
+      { name: 'itinerary', label: 'Itinerary', type: 'textarea' },
       { name: 'image', label: 'Photo', type: 'image' },
     ],
   },
@@ -159,6 +180,9 @@ export function emptyDraft(type, extras = {}) {
   }
   if (type === 'destinations') {
     return normalizeDestinationDocument(emptyDestinationDocument(extras));
+  }
+  if (type === 'departures') {
+    return emptyGroupSafariDocument(extras);
   }
   const spec = CONTENT_TYPES[type];
   const draft = { title: extras.title || `New ${spec?.singular || 'item'}` };

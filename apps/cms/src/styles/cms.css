@@ -43,9 +43,14 @@ body,
   height: 100%;
 }
 
+html:has(.cms-app),
+html:has(.cms-app) body,
+html:has(.cms-app) #app,
 body:has(.cms-app),
 body.cms-picker-open {
+  height: 100%;
   overflow: hidden;
+  scroll-behavior: auto;
 }
 
 img,
@@ -669,10 +674,37 @@ a {
   font-size: 0.72rem;
 }
 
+.cms-media-delete {
+  margin-top: 0.45rem;
+  width: 100%;
+  justify-content: center;
+}
+
 .cms-tour-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
+}
+
+.cms-tour-grid .safari-card {
+  aspect-ratio: 4 / 3;
+  min-height: 0;
+  max-height: 18rem;
+}
+
+.cms-tour-grid .safari-card-media,
+.cms-tour-grid .safari-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.cms-tour-grid .safari-card-overlay {
+  min-height: 0;
+  height: 100%;
 }
 
 @media (min-width: 720px) {
@@ -1621,6 +1653,7 @@ a {
   min-width: 0;
   min-height: 0;
   overflow: auto;
+  overscroll-behavior: contain;
 }
 
 .cms-workspace:has(.cms-editor),
@@ -2458,6 +2491,38 @@ a {
   max-height: 18rem;
   margin: 1rem 0 0;
   object-fit: cover;
+}
+
+.dest-cms-preview-cover {
+  margin: 0 0 1rem;
+}
+
+.cms-preview-frame .dest-month-guide {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cms-preview-frame .dest-month-guide li {
+  display: grid;
+  place-items: center;
+  min-height: 2.2rem;
+  background: #eeeae2;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.cms-preview-frame .dest-month-guide li.is-on {
+  background: var(--cms-gold);
+}
+
+.cms-preview-frame .dest-map-embed {
+  width: 100%;
+  min-height: 16rem;
+  border: 0;
 }
 
 .dest-cms-body .dest-block-heading {

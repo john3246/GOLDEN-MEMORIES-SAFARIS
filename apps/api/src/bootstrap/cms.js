@@ -2,6 +2,7 @@ import { seedDefaultUsers } from '../modules/users/index.js';
 import { seedSafariPackages } from '../modules/safaris/index.js';
 import { unpublishPricelessSafaris, syncAllSafaris, fillEmptyItineraries } from '../modules/safaris/safari.maintenance.js';
 import { seedSiteContent, upgradeBlogDocuments, upgradeCatalogCopy } from '../modules/content/index.js';
+import { syncAllGroupSafaris } from '../modules/content/departure.sync.js';
 import { logger } from '../logging/index.js';
 
 let bootstrapped = false;
@@ -18,6 +19,7 @@ export async function bootstrapCms() {
   await upgradeBlogDocuments();
   await upgradeCatalogCopy();
   await syncAllSafaris();
+  await syncAllGroupSafaris();
   bootstrapped = true;
   logger.info('Safari CMS store ready');
 }

@@ -1038,6 +1038,21 @@
       align-items: center;
     }
 
+    .blog-tabs {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .blog-search {
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    .blog-tabs-dest {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+
     .blog-figure--float-left {
       float: left;
       margin: 0.4rem 1.25rem 1rem 0;
@@ -1765,9 +1780,14 @@
   }
 
   .dest-gallery-item {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
     overflow: hidden;
     background: var(--color-black);
     aspect-ratio: 16 / 10;
+    cursor: zoom-in;
   }
 
   .dest-gallery-item img {
@@ -1789,6 +1809,187 @@
       aspect-ratio: auto;
       min-height: 20rem;
     }
+  }
+
+  .dest-section-nav {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: #fff;
+    border-bottom: 1px solid rgb(0 0 0 / 0.08);
+  }
+
+  .dest-section-nav-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    overflow-x: auto;
+    padding-block: 0.65rem;
+    scrollbar-width: none;
+  }
+
+  .dest-section-nav-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .dest-section-nav a {
+    flex: 0 0 auto;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgb(0 0 0 / 0.55);
+  }
+
+  .dest-section-nav a.is-active,
+  .dest-section-nav a:hover {
+    color: var(--color-gold-deep, #8a6b1f);
+  }
+
+  .dest-section-nav-cta {
+    margin-left: auto;
+    color: #fff !important;
+    background: var(--color-navy, #0c2233);
+    padding: 0.45rem 0.8rem;
+  }
+
+  .dest-factbar {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .dest-factbar > div {
+    background: #fff;
+    padding: 0.9rem 1rem;
+  }
+
+  .dest-factbar p {
+    margin: 0;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgb(0 0 0 / 0.45);
+  }
+
+  .dest-factbar strong {
+    display: block;
+    margin-top: 0.35rem;
+    font-family: var(--font-display);
+    font-size: 0.98rem;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  @media (min-width: 768px) {
+    .dest-factbar {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .dest-month-guide {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 720px) {
+    .dest-month-guide {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+  }
+
+  .dest-month-guide li {
+    display: grid;
+    place-items: center;
+    min-height: 2.6rem;
+    background: rgb(0 0 0 / 0.05);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .dest-month-guide li.is-on {
+    background: var(--color-gold);
+    color: #111;
+  }
+
+  .dest-map-wrap,
+  .dest-map-embed {
+    min-height: 18rem;
+    background: #d9d4c8;
+  }
+
+  .dest-map-wrap iframe,
+  .dest-map-embed {
+    width: 100%;
+    height: 100%;
+    min-height: 18rem;
+    border: 0;
+  }
+
+  .dest-sticky-cta {
+    position: sticky;
+    top: 4.5rem;
+  }
+
+  .blog-article-dests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0.85rem 0 0;
+  }
+
+  .dest-card-chip,
+  .blog-dest-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.18rem 0.5rem;
+    border-radius: 999px;
+    background: rgb(196 164 85 / 0.18);
+    color: var(--color-gold-deep, #8a6b1f);
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .dest-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    display: grid;
+    place-items: center;
+    background: rgb(12 12 10 / 0.88);
+    padding: 1.5rem;
+  }
+
+  .dest-lightbox[hidden] {
+    display: none;
+  }
+
+  .dest-lightbox img {
+    max-width: min(92vw, 1100px);
+    max-height: 86vh;
+    object-fit: contain;
+  }
+
+  .dest-lightbox-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0;
+    background: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
   }
 
   .site-fab {

@@ -63,7 +63,7 @@ export const safarisRepository = {
       id: createId(),
       slug,
       status: SafariStatus.DRAFT,
-      draft: { ...emptySafariDocument(), ...draft, slug },
+      draft: emptySafariDocument({ ...draft, slug }),
       published: null,
       created_by: actor?.userId || null,
       updated_by: actor?.userId || null,

@@ -1,10 +1,13 @@
 import {
   emptySafariDocument,
+  emptyGroupSafariDocument,
   initBlogArticle,
   normalizeBlogDocument,
-  normalizeDestinationDocument,
+  destinationForWebsite,
+  destinationMapSrc,
   renderBlogPage,
   renderDestinationBlocks,
+  renderMonthGuide,
   renderSafariPage,
 } from '@gm-safaris/safari-ui';
 import { lodgeCategoryLabel } from '@gm-safaris/shared-types';
@@ -24,7 +27,7 @@ function publicUrl(type, slug) {
   if (type === 'posts') return `gmsafaris.com/blog/${slug || 'preview'}/`;
   if (type === 'destinations') return `gmsafaris.com/destinations/${slug || 'preview'}/`;
   if (type === 'lodges') return `gmsafaris.com/accommodations/`;
-  if (type === 'departures') return `gmsafaris.com/join-safari/`;
+  if (type === 'departures') return `gmsafaris.com/join-safari/${slug || 'preview'}/`;
   if (type === 'pages') return `gmsafaris.com/${slug || ''}/`;
   return `gmsafaris.com/`;
 }
@@ -49,6 +52,7 @@ function galleryUrls(value) {
 }
 
 function destinationHtml(doc) {
+  const place = destinationForWebsite(doc, { name: doc.title, slug: doc.slug });
   const body =
     renderDestinationBlocks(doc.blocks) ||
     (doc.paragraphs || '')
@@ -56,13 +60,23 @@ function destinationHtml(doc) {
       .filter(Boolean)
       .map((item) => `<p class="mt-5">${escapeValue(item)}</p>`)
       .join('');
+  const facts = (place.facts || [])
+    .slice(0, 6)
+    .map((row) => `<div class="flex justify-between gap-4 border-b border-black/10 pb-2"><dt>${escapeValue(row[0])}</dt><dd class="font-bold">${escapeValue(row[1])}</dd></div>`)
+    .join('');
+  const map = destinationMapSrc(place.lat, place.lng);
   return `
     <article class="dest-cms-preview-page">
-      <p class="section-kicker">${escapeValue(doc.kicker || doc.region || 'Destination')}</p>
-      <h1 class="section-title">${escapeValue(doc.title || 'Untitled destination')}</h1>
-      <p>${escapeValue(doc.tagline || doc.blurb || '')}</p>
-      ${doc.image ? `<img src="${escapeValue(doc.image)}" alt="" />` : ''}
+      ${place.image ? `<img class="dest-cms-preview-cover" src="${escapeValue(place.image)}" alt="${escapeValue(place.imageAlt || place.name)}" />` : ''}
+      <p class="section-kicker">${escapeValue(place.kicker || place.region || 'Destination')}</p>
+      <h1 class="section-title">${escapeValue(place.name || 'Untitled destination')}</h1>
+      <p>${escapeValue(place.tagline || place.blurb || '')}</p>
+      <p class="cms-muted">${escapeValue([place.region, place.country].filter(Boolean).join(' · '))}</p>
+      ${facts ? `<dl class="mt-6 space-y-2 font-body text-sm">${facts}</dl>` : ''}
       <div class="dest-cms-body">${body || '<p class="cms-muted">Add paragraphs, images, or tables to fill this page.</p>'}</div>
+      ${place.seasons?.length ? `<div class="mt-8">${renderMonthGuide(place.monthGuide)}</div>` : ''}
+      ${place.gettingThere ? `<section class="mt-8"><h2>How to get there</h2><p>${escapeValue(place.gettingThere)}</p></section>` : ''}
+      ${map ? `<iframe class="dest-map-embed mt-6" src="${escapeValue(map)}" title="Map of ${escapeValue(place.name)}" loading="lazy"></iframe>` : ''}
     </article>
   `;
 }
@@ -158,12 +172,19 @@ export async function initPreview(type, id) {
     } else if (type === 'posts') {
       record = await api.getContent('posts', id);
       const doc = normalizeBlogDocument({ ...(record.draft || {}), slug: record.slug });
-      const [safariResult, lodgeResult] = await Promise.all([
+      const [safariResult, lodgeResult, destResult] = await Promise.all([
         api.listSafaris({ limit: 200 }).catch(() => ({ data: [] })),
         api.listContent('lodges').catch(() => ({ data: [] })),
+        api.listContent('destinations').catch(() => ({ data: [] })),
       ]);
       const tours = new Map((safariResult.data || []).map((item) => [item.slug || item.id, item]));
       const lodges = new Map((lodgeResult.data || []).map((item) => [item.id, item]));
+      const dests = new Map(
+        (destResult.data || []).map((item) => {
+          const draft = item.published || item.draft || {};
+          return [draft.slug || item.slug, { ...item, ...draft }];
+        })
+      );
       const tourHtml = (key) => {
         const item = tours.get(key);
         if (!item) return '';
@@ -175,18 +196,35 @@ export async function initPreview(type, id) {
         if (!lodge.title && !item) return '';
         return `<article class="tour-card border border-ink/10 p-3"><h3 class="font-display text-lg">${escapeValue(lodge.title || 'Lodge')}</h3><p class="text-sm text-ink/70">${escapeValue(lodge.place || '')}</p></article>`;
       };
+      const destHtml = (key) => {
+        const item = dests.get(key);
+        if (!item) return '';
+        return `<a class="park-card" href="/destinations/${escapeValue(item.slug || key)}/"><strong>${escapeValue(item.title || key)}</strong><p>${escapeValue(item.tagline || item.region || '')}</p></a>`;
+      };
       html = renderBlogPage(doc, {
         editable: false,
         embedTour: tourHtml,
         embedLodge: lodgeHtml,
+        embedDestination: destHtml,
         featuredToursHtml: (doc.featured_tour_slugs || []).map(tourHtml).join(''),
         featuredLodgesHtml: (doc.featured_lodge_ids || []).map(lodgeHtml).join(''),
+        featuredDestinationsHtml: (doc.destination_slugs || []).map(destHtml).join(''),
+        destinationBadgesHtml: (doc.destination_slugs || [])
+          .map((slug) => dests.get(slug))
+          .filter(Boolean)
+          .map((item) => `<a class="blog-dest-badge" href="/destinations/${escapeValue(item.slug)}/">${escapeValue(item.title)}</a>`)
+          .join(''),
       });
       slug = doc.slug;
     } else if (type === 'destinations') {
       record = await api.getContent('destinations', id);
-      const doc = normalizeDestinationDocument({ ...(record.draft || {}), slug: record.slug });
+      const doc = { ...(record.draft || {}), slug: record.slug };
       html = destinationHtml(doc);
+      slug = doc.slug;
+    } else if (type === 'departures') {
+      record = await api.getContent('departures', id);
+      const doc = emptyGroupSafariDocument({ ...(record.draft || {}), slug: record.slug });
+      html = renderSafariPage(doc, { editable: false, breadcrumb: true });
       slug = doc.slug;
     } else {
       record = await api.getContent(type, id);

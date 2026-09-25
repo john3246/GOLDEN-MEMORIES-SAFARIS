@@ -37,7 +37,7 @@ export const media = GM;
 export const site = {
   name: 'Golden Memories Safaris',
   shortName: 'GM Safaris',
-    tagline: 'Every Safari With A sparkle of Golden Memories.',
+    tagline: 'Your Path to Golden Memories begins here',
   phone: '+255 786 383 273',
   phoneAlt: '+255 754 750 070',
   email: 'info@gmsafaris.co.tz',

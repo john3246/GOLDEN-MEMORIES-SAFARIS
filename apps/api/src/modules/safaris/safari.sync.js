@@ -14,11 +14,12 @@ function isUuid(value) {
 }
 
 function productType(doc = {}) {
+  if (doc.product_type === 'join_safari') return 'join_safari';
   const hay = `${doc.title || ''} ${doc.slug || ''}`.toLowerCase();
   if (/kilimanjaro|machame|marangu|lemosho|rongai|umbwe|northern circuit/.test(hay)) return 'kilimanjaro';
   if (/\bmeru\b/.test(hay)) return 'meru';
   if (/zanzibar|beach/.test(hay)) return 'beach';
-  if (/join safari|joining/.test(hay)) return 'join_safari';
+  if (/join safari|joining|group safari/.test(hay)) return 'join_safari';
   if (/day trip/.test(hay)) return 'day_trip';
   return 'private_safari';
 }

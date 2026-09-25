@@ -4,23 +4,24 @@ import { joiningSafaris } from './content.js';
 
 function asPackage(item) {
   const slug = item.slug || item.id || slugify(item.title);
+  const days = Array.isArray(item.itinerary) && item.itinerary.length ? item.itinerary : item.days || [];
   return {
     ...item,
     slug,
     id: item.id || slug,
     activity: item.activity || 'Group Safari',
-    itinerary: Array.isArray(item.days)
-      ? item.days.map((day) => ({
-          day: day.day,
-          title: day.title,
-          body: day.body,
-          stay: day.stay,
-          meals: day.meals,
-          viewing: day.viewing,
-          transport: day.transport,
-          image: day.image,
-        }))
-      : item.itinerary || [],
+    included: item.included || item.inclusions || [],
+    excluded: item.excluded || item.exclusions || [],
+    itinerary: days.map((day) => ({
+      day: day.day,
+      title: day.title,
+      body: day.body || day.description || '',
+      stay: day.stay || day.accommodation || '',
+      meals: day.meals,
+      viewing: day.viewing,
+      transport: day.transport,
+      image: typeof day.image === 'string' ? day.image : day.image?.url,
+    })),
   };
 }
 

@@ -3,7 +3,7 @@ import { media as GM } from '../home/content.js';
 export const aboutHero = {
   kicker: 'Our story',
     title: 'About Golden Memories Safaris',
-  motto: 'Every Safari With A sparkle of Golden Memories.',
+  motto: 'Your Path to Golden Memories begins here',
   cta: 'Get in touch',
   image: GM.hero,
 };

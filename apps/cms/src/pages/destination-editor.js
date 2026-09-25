@@ -2,6 +2,7 @@ import { emptyDestinationDocument, normalizeDestinationDocument } from '@gm-safa
 import { api } from '../api/client.js';
 import { shell } from './shell.js';
 import { bindImagePickers, galleryField, imageField } from '../components/image-picker.js';
+import { collectChecks, filterPickers, relationPicker } from '../components/relation-picker.js';
 import { notifyError, notifySuccess } from '../components/toast.js';
 
 const BLOCK_LABELS = {
@@ -32,7 +33,7 @@ export function renderDestinationEditor(user, id) {
           <p class="cms-lead" id="editor-status">Loading…</p>
         </div>
         <div class="cms-dashboard-actions">
-          <a class="cms-btn" href="#/destinations/${id}/preview">Preview</a>
+          <a class="cms-btn" href="#/destinations/${id}/preview">Live preview</a>
           <button class="cms-btn cms-btn-gold" type="button" data-save>Save draft</button>
           <button class="cms-btn cms-btn-navy" type="button" data-publish>Publish</button>
           <button class="cms-btn" type="button" data-unpublish>Unpublish</button>
@@ -92,7 +93,7 @@ function blockEditor(blocks) {
     ${rows}`;
 }
 
-function renderFields(doc) {
+function renderFields(doc, tours, lodges, posts) {
   return `
     ${group(
       'Name and hero',
@@ -101,18 +102,37 @@ function renderFields(doc) {
       ${field('Slug', 'slug', doc.slug)}
       <div class="cms-grid-2">
         ${field('Region', 'region', doc.region)}
+        ${field('Country', 'country', doc.country || 'Tanzania')}
+      </div>
+      <div class="cms-grid-2">
         ${field('Kicker', 'kicker', doc.kicker)}
+        ${field('Button label', 'cta', doc.cta)}
       </div>
       ${field('Tagline', 'tagline', doc.tagline, 'textarea')}
-      ${field('Short blurb', 'blurb', doc.blurb, 'textarea')}
+      ${field('Short blurb / excerpt', 'blurb', doc.blurb, 'textarea')}
       ${field('Location', 'location', doc.location)}
-      ${field('Button label', 'cta', doc.cta)}
       ${imageField('Cover photo', 'image', doc.image)}
+      ${field('Cover alt text', 'image_alt', doc.image_alt || doc.title)}
       ${galleryField('Gallery photos', 'gallery', doc.gallery || [])}
     `,
       true
     )}
     ${group('Page copy, images and tables', blockEditor(doc.blocks), true)}
+    ${group(
+      'Map, climate and travel',
+      `
+      <div class="cms-grid-2">
+        ${field('Latitude', 'lat', doc.lat)}
+        ${field('Longitude', 'lng', doc.lng)}
+      </div>
+      <p class="cms-hint">Used for the embedded map on the public destination page. Leave blank to use the park default.</p>
+      ${field('Climate', 'climate', doc.climate, 'textarea', 'Dry season — … / Rainy season — … / Average temperature — …, one per line')}
+      ${field('How to get there', 'getting_there', doc.getting_there, 'textarea', 'Airports, road times, and airstrip notes')}
+      ${field('Airstrips and transfers', 'airstrips', doc.airstrips, 'textarea', 'One item per line')}
+      ${field('Park fees and rules', 'entry_fees', doc.entry_fees, 'textarea')}
+    `,
+      true
+    )}
     ${group(
       'Facts, seasons and wildlife',
       `
@@ -122,14 +142,28 @@ function renderFields(doc) {
       ${field('Wildlife', 'wildlife', doc.wildlife, 'textarea', 'One item per line')}
       ${field('Activities', 'activities', doc.activities, 'textarea', 'Title — body, one per line')}
       ${field('Attractions', 'attractions', doc.attractions, 'textarea', 'One item per line')}
+      ${field('Match keywords', 'match', doc.match, 'textarea', 'Used to attach related tours when no package is picked. One per line.')}
       ${field('FAQs', 'faqs', doc.faqs, 'textarea', 'Question | Answer, one per line')}
     `
     )}
     ${group(
+      'Tours, lodges and articles',
+      `
+      <p class="cms-hint">Search and tick the packages, stays, and journal stories that belong on this destination page.</p>
+      ${relationPicker('tour_slugs', doc.tour_slugs, tours, 'Publish safari packages first.')}
+      ${relationPicker('lodge_ids', doc.lodge_ids, lodges, 'Publish lodges under Accommodations first.')}
+      ${relationPicker('related_post_slugs', doc.related_post_slugs, posts, 'Publish journal articles first.')}
+    `,
+      true
+    )}
+    ${group(
       'SEO',
       `
-      ${field('SEO title', 'seo_title', doc.seo_title)}
-      ${field('SEO description', 'seo_description', doc.seo_description, 'textarea')}
+      ${field('Meta title', 'seo_title', doc.seo_title)}
+      ${field('Meta description', 'seo_description', doc.seo_description, 'textarea')}
+      ${field('Keywords', 'seo_keywords', doc.seo_keywords, 'text', 'Comma-separated')}
+      ${field('Canonical URL', 'canonical_url', doc.canonical_url)}
+      ${imageField('Open Graph image', 'og_image', doc.og_image || doc.image)}
     `
     )}
   `;
@@ -151,13 +185,22 @@ function collect(form, current) {
     title: form.title?.value,
     slug: form.slug?.value,
     region: form.region?.value,
+    country: form.country?.value,
     kicker: form.kicker?.value,
     tagline: form.tagline?.value,
     blurb: form.blurb?.value,
     location: form.location?.value,
     cta: form.cta?.value,
     image: form.image?.value,
+    image_alt: form.image_alt?.value,
     gallery: form.gallery?.value,
+    lat: form.lat?.value,
+    lng: form.lng?.value,
+    climate: form.climate?.value,
+    getting_there: form.getting_there?.value,
+    airstrips: form.airstrips?.value,
+    entry_fees: form.entry_fees?.value,
+    match: form.match?.value,
     highlights: form.highlights?.value,
     facts: form.facts?.value,
     seasons: form.seasons?.value,
@@ -165,8 +208,14 @@ function collect(form, current) {
     activities: form.activities?.value,
     attractions: form.attractions?.value,
     faqs: form.faqs?.value,
+    tour_slugs: collectChecks(form, 'tour_slugs'),
+    lodge_ids: collectChecks(form, 'lodge_ids'),
+    related_post_slugs: collectChecks(form, 'related_post_slugs'),
     seo_title: form.seo_title?.value,
     seo_description: form.seo_description?.value,
+    seo_keywords: form.seo_keywords?.value,
+    canonical_url: form.canonical_url?.value,
+    og_image: form.og_image?.value,
     blocks,
   });
 }
@@ -177,6 +226,9 @@ export async function initDestinationEditor(id) {
   const error = document.querySelector('#editor-error');
   let current = emptyDestinationDocument();
   let record = null;
+  let tours = [];
+  let lodges = [];
+  let posts = [];
 
   function showError(err) {
     error.hidden = false;
@@ -185,7 +237,7 @@ export async function initDestinationEditor(id) {
   }
 
   function redraw() {
-    fields.innerHTML = `<form id="destination-form">${renderFields(current)}</form>`;
+    fields.innerHTML = `<form id="destination-form">${renderFields(current, tours, lodges, posts)}</form>`;
     bindForm();
   }
 
@@ -228,9 +280,49 @@ export async function initDestinationEditor(id) {
       });
     });
     bindImagePickers(form);
+    filterPickers(form);
+  }
+
+  async function loadRelations() {
+    try {
+      const [safariResult, lodgeResult, postResult] = await Promise.all([
+        api.listSafaris({ limit: 200 }).catch(() => ({ data: [] })),
+        api.listContent('lodges').catch(() => ({ data: [] })),
+        api.listContent('posts').catch(() => ({ data: [] })),
+      ]);
+      tours = (safariResult.data || []).map((item) => ({
+        value: item.slug || item.id,
+        title: item.title || item.slug,
+        detail: item.duration_label || item.destination || item.status,
+        image: item.hero_image?.url || '',
+      }));
+      lodges = (lodgeResult.data || []).map((item) => {
+        const doc = item.published || item.draft || {};
+        return {
+          value: item.id,
+          title: doc.title || item.title || 'Lodge',
+          detail: [doc.place, doc.category].filter(Boolean).join(' · '),
+          image: doc.image || '',
+        };
+      });
+      posts = (postResult.data || []).map((item) => {
+        const doc = item.published || item.draft || {};
+        return {
+          value: doc.slug || item.slug,
+          title: doc.title || item.title || item.slug,
+          detail: doc.topic || doc.date || item.slug,
+          image: doc.hero_image?.url || doc.image || '',
+        };
+      });
+    } catch {
+      tours = [];
+      lodges = [];
+      posts = [];
+    }
   }
 
   async function load() {
+    await loadRelations();
     record = await api.getContent('destinations', id);
     current = normalizeDestinationDocument({ ...emptyDestinationDocument(), ...record.draft, slug: record.slug });
     status.textContent = `${record.status} · ${record.slug}`;

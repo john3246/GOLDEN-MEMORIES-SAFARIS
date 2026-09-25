@@ -5,12 +5,33 @@
  */
 
 export const GALLERY_COUNTS = {
-  serengeti: 9,
+  serengeti: 16,
   ngorongoro: 14,
   tarangire: 17,
   kilimanjaro: 19,
-  zanzibar: 13,
+  zanzibar: 23,
   culture: 7,
+  arusha: 5,
+  eyasi: 3,
+  maps: 10,
+  mikumi: 3,
+  ruaha: 6,
+  selous: 5,
+};
+
+export const GALLERY_FOLDERS = {
+  serengeti: 'Serengeti',
+  ngorongoro: 'Ngorongoro',
+  tarangire: 'Tarangire',
+  kilimanjaro: 'Kilimanjaro',
+  zanzibar: 'Zanzibar',
+  culture: 'Culture',
+  arusha: 'Arusha',
+  eyasi: 'Lake Eyasi',
+  maps: 'Kilimanjaro maps',
+  mikumi: 'Mikumi',
+  ruaha: 'Ruaha',
+  selous: 'Selous',
 };
 
 export function numberedGallery(prefix, count) {
@@ -20,26 +41,27 @@ export function numberedGallery(prefix, count) {
   );
 }
 
-export const GALLERY_POOLS = {
-  serengeti: numberedGallery('serengeti', GALLERY_COUNTS.serengeti),
-  ngorongoro: numberedGallery('ngorongoro', GALLERY_COUNTS.ngorongoro),
-  tarangire: numberedGallery('tarangire', GALLERY_COUNTS.tarangire),
-  kilimanjaro: numberedGallery('kilimanjaro', GALLERY_COUNTS.kilimanjaro),
-  zanzibar: numberedGallery('zanzibar', GALLERY_COUNTS.zanzibar),
-  culture: numberedGallery('culture', GALLERY_COUNTS.culture),
-};
+export const GALLERY_POOLS = Object.fromEntries(
+  Object.keys(GALLERY_FOLDERS).map((prefix) => [prefix, numberedGallery(prefix, GALLERY_COUNTS[prefix] || 0)])
+);
 
 const PARKS = [
+  { kind: 'maps', re: /route map|kili(?:manjaro)? maps?|uhuru peak map/i },
+  { kind: 'arusha', re: /arusha national|arusha np|arusha park/i },
+  { kind: 'eyasi', re: /eyasi|hadzabe/i },
   { kind: 'kilimanjaro', re: /kilimanjaro|marangu|machame|lemosho|umbwe|rongai|uhuru|\bkili\b|\bmeru\b|momella|northern circuit/i },
   { kind: 'zanzibar', re: /zanzibar|nungwi|kendwa|paje|stone town|unguja|pemba|spice island|beach holiday/i },
+  { kind: 'mikumi', re: /mikumi/i },
+  { kind: 'ruaha', re: /ruaha/i },
+  { kind: 'selous', re: /selous|nyerere|rufiji/i },
   { kind: 'serengeti', re: /serengeti|ndutu|wildebeest|migration|grumeti|mara river/i },
-  { kind: 'tarangire', re: /tarangire|baobab|ruaha|selous|nyerere|rufiji|mikumi/i },
+  { kind: 'tarangire', re: /tarangire|baobab/i },
   { kind: 'ngorongoro', re: /ngorongoro|crater|manyara|olmoti|empakai/i },
-  { kind: 'culture', re: /materuni|maasai|hadzabe|eyasi|usambara|natron|lengai|\bcultur|wedding|\bvillage\b/i },
+  { kind: 'culture', re: /materuni|maasai|usambara|natron|lengai|\bcultur|wedding|\bvillage\b/i },
 ];
 
 const NAMED_PARK =
-  /kilimanjaro|marangu|machame|lemosho|zanzibar|serengeti|ndutu|wildebeest|migration|tarangire|ngorongoro|crater|manyara|ruaha|selous|materuni|maasai|eyasi/i;
+  /kilimanjaro|marangu|machame|lemosho|zanzibar|serengeti|ndutu|wildebeest|migration|tarangire|ngorongoro|crater|manyara|ruaha|selous|nyerere|mikumi|materuni|maasai|eyasi|arusha national/i;
 
 export function haystackFrom(value) {
   if (!value) return '';
@@ -119,6 +141,7 @@ export function hashSeed(value) {
 }
 
 export function photoFromPool(kind, seed = 0, index = 0) {
-  const pool = GALLERY_POOLS[kind] || GALLERY_POOLS.serengeti;
+  const pool = (GALLERY_POOLS[kind] || []).length ? GALLERY_POOLS[kind] : GALLERY_POOLS.serengeti;
+  if (!pool.length) return '/images/gallery/serengeti-01.webp';
   return pool[Math.abs(Number(seed) + Number(index) || 0) % pool.length];
 }

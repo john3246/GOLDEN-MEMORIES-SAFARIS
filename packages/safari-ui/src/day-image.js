@@ -5,6 +5,7 @@ import {
   isLocalGalleryUrl,
   photoFromPool,
 } from './gallery-kind.js';
+import { publicMediaUrl } from './media-url.js';
 
 /** First photo of each park — used by CMS seeds and PDF packages. */
 export const SAFARI_DAY_IMAGES = {
@@ -35,6 +36,8 @@ export const SAFARI_DAY_IMAGES = {
  * @param {number} [index]
  */
 export function resolveDayImage(item, safari = {}, index = 0) {
+  const picked = publicMediaUrl(typeof item?.image === 'string' ? item.image : item?.image?.url);
+  if (picked) return picked;
   const kind = galleryKindForDay(item, safari);
   const seed = hashSeed(safari.slug || safari.id || safari.title || '');
   return photoFromPool(kind, seed, index);

@@ -290,6 +290,7 @@ export const BLOG_BLOCK_TYPES = Object.freeze([
   'map',
   'tours',
   'lodges',
+  'destinations',
 ]);
 
 export const BLOG_CALLOUT_TYPES = Object.freeze(['info', 'tip', 'warning']);

@@ -1,5 +1,6 @@
 import { cardUrl } from '../../media/gallery.js';
 import { estimateReadTime, normalizeBlogDocument } from '@gm-safaris/safari-ui';
+import { destinationPlaces, destinationSlugsFromCopy } from '../../pages/destinations/catalog.js';
 
 function attr(value) {
   return String(value ?? '')
@@ -15,14 +16,24 @@ function attr(value) {
  */
 export function articleCard(article, topicName) {
   const doc = normalizeBlogDocument(article || {});
+  const destSlugs = destinationSlugsFromCopy(
+    `${doc.title} ${doc.excerpt} ${doc.slug} ${topicName}`,
+    doc.destination_slugs
+  );
   const href = `/blog/${doc.slug || article.slug}/`;
   const minutes = doc.read_time || estimateReadTime(doc);
-  const search = `${doc.title} ${doc.excerpt} ${doc.author} ${topicName}`.toLowerCase();
+  const search = `${doc.title} ${doc.excerpt} ${doc.author} ${topicName} ${destSlugs.join(' ')}`.toLowerCase();
+  const destBadges = destSlugs
+    .map((slug) => destinationPlaces.find((place) => place.slug === slug))
+    .filter(Boolean)
+    .map((place) => `<span class="blog-dest-badge">${place.name.replace(/ National Park| Conservation Area/g, '')}</span>`)
+    .join('');
   return `
     <article
       class="tour-card blog-index-card flex h-full min-w-0 flex-col border border-ink/10"
       data-blog-card
       data-topic="${attr(doc.topic || article.topic || '')}"
+      data-destinations="${attr(destSlugs.join(' '))}"
       data-search="${attr(search)}"
     >
       <a href="${href}" class="relative block aspect-[16/9] overflow-hidden bg-mist">
@@ -42,6 +53,7 @@ export function articleCard(article, topicName) {
           <span>${minutes} min read</span>
           ${doc.date ? `<span aria-hidden="true">·</span><span>${doc.date}</span>` : ''}
         </div>
+        ${destBadges ? `<p class="mt-2 flex flex-wrap gap-1.5">${destBadges}</p>` : ''}
         <h3 class="mt-3 font-display text-xl font-semibold leading-tight text-black sm:text-2xl">
           <a href="${href}" class="card-title-link">${doc.title}</a>
         </h3>

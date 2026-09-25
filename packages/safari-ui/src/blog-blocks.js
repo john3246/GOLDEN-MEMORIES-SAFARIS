@@ -120,7 +120,7 @@ function renderImage(block) {
 
 /**
  * @param {Array<Record<string, unknown>>} blocks
- * @param {{ embedTour?: (slug: string) => string, embedLodge?: (id: string) => string }} [options]
+ * @param {{ embedTour?: (slug: string) => string, embedLodge?: (id: string) => string, embedDestination?: (slug: string) => string }} [options]
  */
 export function renderBlogBlocks(blocks = [], options = {}) {
   const toc = blogTocItems(blocks);
@@ -147,6 +147,10 @@ export function renderBlogBlocks(blocks = [], options = {}) {
       }
       if (block.type === 'lodges') {
         const html = (block.lodge_ids || []).map((id) => options.embedLodge?.(id) || '').join('');
+        return html ? `<div class="blog-embed-grid">${html}</div>` : '';
+      }
+      if (block.type === 'destinations') {
+        const html = (block.destination_slugs || []).map((slug) => options.embedDestination?.(slug) || '').join('');
         return html ? `<div class="blog-embed-grid">${html}</div>` : '';
       }
       if (block.text) return paragraphs(block.text);

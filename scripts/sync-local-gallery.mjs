@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -8,7 +8,7 @@ const root = path.resolve(__dirname, '..');
 const sourceRoot = path.join(root, 'Assets 001', 'gms gallery');
 const destDir = path.join(root, 'apps', 'website-com', 'public', 'images', 'gallery');
 const storePath = path.join(root, 'apps', 'api', 'data', 'cms', 'store.json');
-const galleryPath = path.join(root, 'apps', 'website-com', 'src', 'media', 'gallery.js');
+const countsPath = path.join(root, 'packages', 'safari-ui', 'src', 'gallery-kind.js');
 
 const GROUPS = [
   { folder: 'serengeti', prefix: 'serengeti' },
@@ -17,6 +17,12 @@ const GROUPS = [
   { folder: 'kilimanjaro', prefix: 'kilimanjaro' },
   { folder: 'zanzibar', prefix: 'zanzibar' },
   { folder: 'culture', prefix: 'culture' },
+  { folder: 'Arusha national park', prefix: 'arusha' },
+  { folder: 'lake eyasi', prefix: 'eyasi' },
+  { folder: 'kilimanjaro maps for routes', prefix: 'maps' },
+  { folder: 'mikumi', prefix: 'mikumi' },
+  { folder: 'ruaha', prefix: 'ruaha' },
+  { folder: 'selous', prefix: 'selous' },
 ];
 
 function sourceFiles(folder) {
@@ -33,12 +39,29 @@ function pad(n) {
   return String(n).padStart(2, '0');
 }
 
-function replaceCount(source, prefix, count) {
-  const pattern = new RegExp(`numbered\\('${prefix}',\\s*\\d+\\)`);
-  if (!pattern.test(source)) {
-    throw new Error(`gallery.js is missing numbered('${prefix}', n)`);
+function writeCounts(counts) {
+  let source = fs.readFileSync(countsPath, 'utf8');
+  source = source.replace(/export const GALLERY_COUNTS = \{[\s\S]*?\};/, () => {
+    const body = Object.entries(counts)
+      .map(([key, value]) => `  ${key}: ${value},`)
+      .join('\n');
+    return `export const GALLERY_COUNTS = {\n${body}\n};`;
+  });
+  fs.writeFileSync(countsPath, source);
+}
+
+function rewriteStoreUrls(store, removedUrls) {
+  if (!removedUrls.size) return store;
+  const text = JSON.stringify(store);
+  let next = text;
+  for (const url of removedUrls) {
+    next = next.split(url).join('');
   }
-  return source.replace(pattern, `numbered('${prefix}', ${count})`);
+  try {
+    return JSON.parse(next);
+  } catch {
+    return store;
+  }
 }
 
 fs.mkdirSync(destDir, { recursive: true });
@@ -52,6 +75,7 @@ for (const { folder, prefix } of GROUPS) {
   for (const [index, src] of files.entries()) {
     const destName = `${prefix}-${pad(index + 1)}.webp`;
     keep.add(destName);
+    keep.add(destName.replace(/\.webp$/i, '-card.webp'));
     const dest = path.join(destDir, destName);
     await sharp(src)
       .rotate()
@@ -62,56 +86,22 @@ for (const { folder, prefix } of GROUPS) {
   }
 }
 
-let removed = [];
+const removed = [];
+const removedUrls = new Set();
 for (const name of fs.readdirSync(destDir)) {
-  if (name.endsWith('-card.webp')) continue;
   if (!keep.has(name)) {
     fs.unlinkSync(path.join(destDir, name));
     removed.push(name);
+    if (!name.includes('-card.')) removedUrls.add(`/images/gallery/${name}`);
   }
 }
 
-let galleryJs = fs.readFileSync(galleryPath, 'utf8');
-for (const { prefix } of GROUPS) {
-  galleryJs = replaceCount(galleryJs, prefix, counts[prefix] || 0);
-}
-fs.writeFileSync(galleryPath, galleryJs);
+writeCounts(counts);
 
-const { photoForText } = await import(`${pathToFileURL(galleryPath).href}?t=${Date.now()}`);
-
-function applyImage(target, hint, index, field = 'image') {
-  if (!target || typeof target !== 'object') return;
-  const next = photoForText(hint, index);
-  if (typeof target[field] === 'string') target[field] = next;
-  if (target[field] && typeof target[field] === 'object' && 'url' in target[field]) {
-    target[field].url = next;
-  }
+if (fs.existsSync(storePath) && removedUrls.size) {
+  const store = JSON.parse(fs.readFileSync(storePath, 'utf8'));
+  const next = rewriteStoreUrls(store, removedUrls);
+  fs.writeFileSync(storePath, `${JSON.stringify(next, null, 2)}\n`);
 }
-
-const store = JSON.parse(fs.readFileSync(storePath, 'utf8'));
-for (const record of store.safaris || []) {
-  const hint = `${record.slug || ''} ${record.draft?.title || ''} ${record.draft?.destination || ''}`;
-  for (const doc of [record.draft, record.published]) {
-    if (!doc) continue;
-    applyImage(doc, hint, 0, 'hero_image');
-    if (Array.isArray(doc.gallery)) {
-      doc.gallery.forEach((shot, index) => applyImage(shot, hint, index + 1, 'url'));
-    }
-    if (Array.isArray(doc.itinerary)) {
-      doc.itinerary.forEach((day, index) => {
-        applyImage(day, `${hint} ${day.title || ''}`, index, 'image');
-      });
-    }
-  }
-}
-for (const type of ['destinations', 'posts', 'lodges', 'departures']) {
-  for (const record of store[type] || []) {
-    const hint = `${record.slug || ''} ${record.draft?.title || ''} ${record.draft?.region || ''}`;
-    for (const doc of [record.draft, record.published]) {
-      applyImage(doc, hint, 0, 'image');
-    }
-  }
-}
-fs.writeFileSync(storePath, `${JSON.stringify(store, null, 2)}\n`);
 
 console.log(JSON.stringify({ counts, removed }, null, 2));

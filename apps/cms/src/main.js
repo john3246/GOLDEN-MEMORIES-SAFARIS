@@ -50,6 +50,7 @@ function route() {
   if (contentEdit) {
     if (contentEdit[1] === 'posts') return { name: 'blog-editor', id: contentEdit[2] };
     if (contentEdit[1] === 'destinations') return { name: 'destination-editor', id: contentEdit[2] };
+    if (contentEdit[1] === 'departures') return { name: 'group-editor', id: contentEdit[2] };
     return { name: 'content-editor', type: contentEdit[1], id: contentEdit[2] };
   }
   if (contentList) return { name: 'content-list', type: contentList[1] };
@@ -110,6 +111,12 @@ async function mount() {
     app.innerHTML = renderEditor(user, current.id);
     readyChrome();
     await initEditor(current.id);
+    return;
+  }
+  if (current.name === 'group-editor') {
+    app.innerHTML = renderEditor(user, current.id, 'departures');
+    readyChrome();
+    await initEditor(current.id, 'departures');
     return;
   }
   if (current.name === 'preview') {

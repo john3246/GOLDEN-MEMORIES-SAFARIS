@@ -20,6 +20,7 @@ function extrasPayload(live) {
     og_image: live.og_image || '',
     featured_tour_slugs: live.featured_tour_slugs || [],
     featured_lodge_ids: live.featured_lodge_ids || [],
+    destination_slugs: live.destination_slugs || [],
   };
 }
 

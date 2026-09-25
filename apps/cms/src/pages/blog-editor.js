@@ -4,6 +4,7 @@ import { api } from '../api/client.js';
 import { BLOG_TOPICS } from '../content/cards.js';
 import { shell } from './shell.js';
 import { bindImagePickers, galleryField, imageField } from '../components/image-picker.js';
+import { collectChecks, filterPickers, relationPicker } from '../components/relation-picker.js';
 import { notifyError, notifySuccess } from '../components/toast.js';
 
 const BLOCK_LABELS = {
@@ -18,6 +19,7 @@ const BLOCK_LABELS = {
   map: 'Map / itinerary highlight',
   tours: 'Featured tours',
   lodges: 'Featured lodges',
+  destinations: 'Destination cards',
 };
 
 function escapeValue(value) {
@@ -78,35 +80,7 @@ function group(title, inner, open = false) {
   return `<details class="cms-accordion"${open ? ' open' : ''}><summary>${title}</summary><div class="cms-accordion-body">${inner}</div></details>`;
 }
 
-function selectedSet(values) {
-  return new Set((values || []).map((item) => String(item)));
-}
-
-function relationPicker(kind, selected, rows, emptyLabel) {
-  const ids = selectedSet(selected);
-  const cards = (rows || [])
-    .map((row) => {
-      const value = row.value;
-      const checked = ids.has(value);
-      return `
-        <label class="cms-lodge-pick${checked ? ' is-on' : ''}" data-search="${escapeValue(`${row.title} ${row.detail} ${value}`.toLowerCase())}">
-          <input type="checkbox" name="${kind}" value="${escapeValue(value)}" ${checked ? 'checked' : ''} />
-          <span class="cms-lodge-pick-media">${row.image ? `<img src="${escapeValue(row.image)}" alt="" />` : ''}</span>
-          <span>
-            <strong>${escapeValue(row.title)}</strong>
-            <small>${escapeValue(row.detail || value)}</small>
-          </span>
-        </label>`;
-    })
-    .join('');
-  return `
-    <div class="cms-field">
-      <input class="cms-picker-search" type="search" data-picker-filter="${kind}" placeholder="Search ${String(kind).includes('lodge') ? 'lodges' : 'safaris'}…" />
-    </div>
-    <div class="cms-lodge-grid" data-picker-list="${kind}">${cards || `<p class="cms-muted">${emptyLabel}</p>`}</div>`;
-}
-
-function blockFields(block, index, tours, lodges) {
+function blockFields(block, index, tours, lodges, destinations) {
   if (block.type === 'heading') {
     return `${selectField('Level', `block.${index}.level`, String(block.level || 2), [
       { value: '2', label: 'Heading 2' },
@@ -164,10 +138,13 @@ function blockFields(block, index, tours, lodges) {
   if (block.type === 'lodges') {
     return relationPicker(`block.${index}.lodge_ids`, block.lodge_ids, lodges, 'Publish lodges under Accommodations first.');
   }
+  if (block.type === 'destinations') {
+    return relationPicker(`block.${index}.destination_slugs`, block.destination_slugs, destinations, 'Publish destinations first.');
+  }
   return field(block.type === 'quote' ? 'Quote' : 'Paragraph', `block.${index}.text`, block.text, 'textarea');
 }
 
-function blockEditor(blocks, tours, lodges) {
+function blockEditor(blocks, tours, lodges, destinations) {
   const rows = (blocks || [])
     .map(
       (block, index) => `
@@ -181,7 +158,7 @@ function blockEditor(blocks, tours, lodges) {
           </span>
         </div>
         <input type="hidden" name="block.${index}.type" value="${escapeValue(block.type)}" />
-        ${blockFields(block, index, tours, lodges)}
+        ${blockFields(block, index, tours, lodges, destinations)}
       </article>`
     )
     .join('');
@@ -195,7 +172,7 @@ function blockEditor(blocks, tours, lodges) {
     <div class="cms-block-stack">${rows}</div>`;
 }
 
-function renderFields(doc, tours, lodges) {
+function renderFields(doc, tours, lodges, destinations) {
   const topicOptions = Object.entries(BLOG_TOPICS).map(([value, label]) => ({ value, label }));
   return `
     ${group(
@@ -223,13 +200,14 @@ function renderFields(doc, tours, lodges) {
     `,
       true
     )}
-    ${group('Layout blocks', blockEditor(doc.blocks, tours, lodges), true)}
+    ${group('Layout blocks', blockEditor(doc.blocks, tours, lodges, destinations), true)}
     ${group(
-      'Tours and lodges',
+      'Tours, lodges and destinations',
       `
-      <p class="cms-hint">These appear in the article sidebar and can also be dropped into the body with Tour or Lodge blocks.</p>
+      <p class="cms-hint">These appear in the article sidebar and can also be dropped into the body with Tour, Lodge, or Destination blocks.</p>
       ${relationPicker('featured_tour_slugs', doc.featured_tour_slugs, tours, 'Publish safari packages first.')}
       ${relationPicker('featured_lodge_ids', doc.featured_lodge_ids, lodges, 'Publish lodges under Accommodations first.')}
+      ${relationPicker('destination_slugs', doc.destination_slugs, destinations, 'Publish destinations first.')}
     `,
       true
     )}
@@ -266,10 +244,6 @@ function renderFields(doc, tours, lodges) {
     `
     )}
   `;
-}
-
-function collectChecks(form, name) {
-  return [...form.querySelectorAll(`input[name="${name}"]:checked`)].map((input) => input.value);
 }
 
 function collectBlock(form, block, index) {
@@ -311,6 +285,7 @@ function collectBlock(form, block, index) {
     embed_url: form[`block.${index}.embed_url`]?.value || '',
     tour_slugs: collectChecks(form, `block.${index}.tour_slugs`),
     lodge_ids: collectChecks(form, `block.${index}.lodge_ids`),
+    destination_slugs: collectChecks(form, `block.${index}.destination_slugs`),
   };
 }
 
@@ -344,6 +319,7 @@ function collect(form, current) {
       .map((url) => ({ url, alt: form.hero_alt?.value || current.title || '' })),
     featured_tour_slugs: collectChecks(form, 'featured_tour_slugs'),
     featured_lodge_ids: collectChecks(form, 'featured_lodge_ids'),
+    destination_slugs: collectChecks(form, 'destination_slugs'),
     cta_label: form.cta_label?.value,
     cta_href: form.cta_href?.value,
     seo_title: form.seo_title?.value,
@@ -353,18 +329,6 @@ function collect(form, current) {
     og_image: form.og_image?.value,
     blocks,
     sections: sections.length ? sections : current.sections,
-  });
-}
-
-function filterPickers(form) {
-  form.querySelectorAll('[data-picker-filter]').forEach((input) => {
-    input.addEventListener('input', () => {
-      const q = input.value.trim().toLowerCase();
-      const list = form.querySelector(`[data-picker-list="${input.dataset.pickerFilter}"]`);
-      list?.querySelectorAll('[data-search]').forEach((card) => {
-        card.hidden = Boolean(q) && !card.dataset.search.includes(q);
-      });
-    });
   });
 }
 
@@ -405,6 +369,7 @@ export async function initBlogEditor(id) {
   let record = null;
   let tours = [];
   let lodges = [];
+  let destinations = [];
 
   function showError(err) {
     error.hidden = false;
@@ -413,7 +378,7 @@ export async function initBlogEditor(id) {
   }
 
   function redraw() {
-    fields.innerHTML = `<form id="blog-form">${renderFields(current, tours, lodges)}</form>`;
+    fields.innerHTML = `<form id="blog-form">${renderFields(current, tours, lodges, destinations)}</form>`;
     bindForm();
   }
 
@@ -474,9 +439,10 @@ export async function initBlogEditor(id) {
 
   async function loadRelations() {
     try {
-      const [safariResult, lodgeResult] = await Promise.all([
+      const [safariResult, lodgeResult, destResult] = await Promise.all([
         api.listSafaris({ limit: 200 }).catch(() => ({ data: [] })),
         api.listContent('lodges').catch(() => ({ data: [] })),
+        api.listContent('destinations').catch(() => ({ data: [] })),
       ]);
       tours = (safariResult.data || []).map((item) => ({
         value: item.slug || item.id,
@@ -493,9 +459,19 @@ export async function initBlogEditor(id) {
           image: doc.image || '',
         };
       });
+      destinations = (destResult.data || []).map((item) => {
+        const doc = item.published || item.draft || {};
+        return {
+          value: doc.slug || item.slug,
+          title: doc.title || item.title || item.slug,
+          detail: doc.region || doc.kicker || item.slug,
+          image: doc.image || '',
+        };
+      });
     } catch {
       tours = [];
       lodges = [];
+      destinations = [];
     }
   }
 

@@ -8,6 +8,8 @@ import {
   galleryKindForText as kindFromText,
   galleryKindForCover,
   isLocalGalleryUrl,
+  publicMediaUrl,
+  pickedMediaUrl,
 } from '@gm-safaris/safari-ui';
 
 export const gallery = GALLERY_POOLS;
@@ -22,7 +24,8 @@ function toWebp(url) {
 }
 
 export function galleryPhoto(kind, index = 0) {
-  const pool = gallery[kind] || gallery.serengeti;
+  const pool = (gallery[kind] || []).length ? gallery[kind] : gallery.serengeti;
+  if (!pool.length) return '/images/gallery/serengeti-01.webp';
   return pool[Math.abs(Number(index) || 0) % pool.length];
 }
 
@@ -35,10 +38,16 @@ export { galleryKindForCover };
 const RELATED_KINDS = {
   serengeti: ['serengeti', 'ngorongoro', 'tarangire'],
   ngorongoro: ['ngorongoro', 'tarangire', 'serengeti'],
-  tarangire: ['tarangire', 'ngorongoro', 'serengeti'],
-  kilimanjaro: ['kilimanjaro', 'culture'],
+  tarangire: ['tarangire', 'ngorongoro', 'serengeti', 'mikumi'],
+  kilimanjaro: ['kilimanjaro', 'maps', 'culture', 'arusha'],
   zanzibar: ['zanzibar', 'culture'],
-  culture: ['culture', 'kilimanjaro', 'tarangire'],
+  culture: ['culture', 'arusha', 'eyasi', 'kilimanjaro'],
+  arusha: ['arusha', 'culture', 'kilimanjaro'],
+  eyasi: ['eyasi', 'culture', 'ngorongoro'],
+  maps: ['maps', 'kilimanjaro'],
+  mikumi: ['mikumi', 'ruaha', 'selous', 'tarangire'],
+  ruaha: ['ruaha', 'selous', 'mikumi'],
+  selous: ['selous', 'ruaha', 'mikumi'],
 };
 
 const COVER_ALIASES = {
@@ -67,11 +76,26 @@ function takeUnused(kinds) {
   return null;
 }
 
+function asCardSrc(url) {
+  const src = publicMediaUrl(url);
+  if (!src) return src;
+  if (src.includes('/api/v1/media/') || src.startsWith('http') || src.startsWith('data:') || src.startsWith('blob:')) {
+    return src;
+  }
+  if (src.endsWith('-card.webp')) return src;
+  if (/\/images\/gallery\/[^/]+\.webp$/i.test(src)) return src.replace(/\.webp$/i, '-card.webp');
+  return src;
+}
+
 /**
- * One cover photo per safari/destination slug. Matching park first; never reused
- * as another cover. Related northern parks only if that park’s photos are gone.
+ * One cover photo per safari/destination slug. CMS-picked images always win.
+ * Matching park first; never reused as another cover unless the CMS chose it.
  */
-export function uniqueCoverFor(item) {
+export function uniqueCoverFor(item, options = {}) {
+  if (!options.force) {
+    const picked = pickedMediaUrl(item);
+    if (picked) return picked;
+  }
   const key = coverKey(item);
   if (!key) return galleryPhoto(galleryKindForText(item), 0);
   if (coverByKey.has(key)) return coverByKey.get(key);
@@ -89,7 +113,7 @@ export function uniqueCoverFor(item) {
 export function assignUniqueCovers(items) {
   for (const item of items || []) {
     if (!item) continue;
-    item.image = uniqueCoverFor(item);
+    item.image = uniqueCoverFor(item, { force: true });
   }
   return items;
 }
@@ -106,6 +130,8 @@ export function photoForText(text, index = 0) {
 }
 
 export function ensureGalleryUrl(url, hint, index = 0) {
+  const picked = publicMediaUrl(url) || pickedMediaUrl(hint);
+  if (picked) return picked;
   if (hint && typeof hint === 'object' && (hint.slug || hint.title || hint.name)) {
     return uniqueCoverFor(hint);
   }
@@ -121,12 +147,13 @@ export function ensureGalleryUrl(url, hint, index = 0) {
 }
 
 export function cardUrl(url, hint, index = 0) {
+  const picked = publicMediaUrl(url) || pickedMediaUrl(hint);
+  if (picked) return asCardSrc(picked);
   const full =
-    hint && typeof hint === 'object' && (hint.slug || hint.title || hint.name)
+    hint && typeof hint === 'object'
       ? uniqueCoverFor(hint)
       : ensureGalleryUrl(url, hint, index);
-  if (full.endsWith('-card.webp')) return full;
-  return full.replace(/\.webp$/i, '-card.webp');
+  return asCardSrc(full);
 }
 
 export function photoForTrip(trip, index = 0) {

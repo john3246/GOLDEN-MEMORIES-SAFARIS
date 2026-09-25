@@ -91,6 +91,20 @@ function lodgeCategory(item, doc = {}) {
   return lodgeCategoryLabel(doc.category);
 }
 
+function departureCard(item) {
+  const doc = item.draft || item.published || {};
+  return photoCard({
+    href: `#/departures/${item.id}`,
+    previewHref: `#/departures/${item.id}/preview`,
+    title: item.title,
+    image: cardImage(doc.hero_image?.url || doc.image),
+    kicker: doc.duration_label || doc.dates || 'Group Safari',
+    detail: shortText(doc.destination || doc.overview || doc.dates),
+    status: item.status,
+    featured: doc.featured,
+  });
+}
+
 function lodgeCard(item) {
   const doc = item.draft || item.published || {};
   return photoCard({
@@ -105,7 +119,7 @@ function lodgeCard(item) {
 }
 
 export function renderContentList(user, spec) {
-  const photo = spec.key === 'destinations' || spec.key === 'posts' || spec.key === 'lodges';
+  const photo = spec.key === 'destinations' || spec.key === 'posts' || spec.key === 'lodges' || spec.key === 'departures';
   return shell(
     user,
     spec.key,
@@ -175,7 +189,9 @@ export function initContentList(type) {
       const body =
         type === 'destinations' || type === 'posts' || type === 'lodges'
           ? photoSections(type, result.data, selected)
-          : packageCards(type, result.data);
+          : type === 'departures'
+            ? `<div class="cms-tour-grid">${result.data.map(departureCard).join('')}</div>`
+            : packageCards(type, result.data);
       mount.innerHTML = `
         ${body}
         <p class="cms-muted" style="margin-top:1rem">${result.meta?.total ?? result.data.length} items</p>
@@ -190,7 +206,7 @@ export function initContentList(type) {
   document.querySelector('#filter-category')?.addEventListener('change', refresh);
   document.querySelector('[data-create]')?.addEventListener('click', async () => {
     try {
-      const created = await api.createContent(type, { title: 'Untitled' });
+        const created = await api.createContent(type, { title: type === 'departures' ? 'New group safari' : 'Untitled' });
       notifySuccess('New item created.');
       window.location.hash = `#/${type}/${created.id}`;
     } catch (err) {

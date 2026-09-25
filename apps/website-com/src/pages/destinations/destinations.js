@@ -1,6 +1,7 @@
 import { safariCard } from '../../components/cards/safari-card.js';
 import { allTours } from '../tours/catalog.js';
 import { destinationHref } from './paths.js';
+import { getDestinationBySlug } from './catalog.js';
 import {
   destinationsHero,
   destinationsIntro,
@@ -55,20 +56,26 @@ export function renderDestinations() {
   const regionSections = destinationRegions
     .map((region, index) => {
       const parks = region.parks
-        .map(
-          (park) => `
+        .map((park) => {
+          const live = getDestinationBySlug(park.slug);
+          const chips = (live?.highlights || []).slice(0, 2)
+            .map((item) => `<span class="dest-card-chip">${item.title}</span>`)
+            .join('');
+          return `
             <a class="park-card" href="${destinationHref(park)}" aria-label="${park.name}">
               <div class="park-card-media">
                 <img src="${park.image}" alt="${park.name}" loading="lazy" width="800" height="520" />
               </div>
               <div class="park-card-body">
+                <p class="font-body text-xs font-bold uppercase tracking-[0.12em] text-gold-deep">${live?.region || region.name}</p>
                 <h3 class="font-display text-xl font-semibold text-black sm:text-2xl">${park.name}</h3>
                 <p class="mt-2 text-sm leading-relaxed text-ink/70">${park.blurb}</p>
+                ${chips ? `<p class="mt-3 flex flex-wrap gap-1.5">${chips}</p>` : ''}
                 <p class="mt-4 font-body text-xs font-bold uppercase tracking-[0.12em] text-gold-deep">View details</p>
               </div>
             </a>
-          `
-        )
+          `;
+        })
         .join('');
 
       const related = regionTours(region.id).slice(0, 4).map(safariCard).join('');

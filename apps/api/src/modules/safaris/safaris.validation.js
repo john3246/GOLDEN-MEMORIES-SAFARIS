@@ -6,12 +6,11 @@ import {
   parsePagination,
 } from '@gm-safaris/shared-validation';
 import { DEFAULT_SAFARI_SECTIONS, SAFARI_SECTION_TYPES, SafariStatus } from '@gm-safaris/shared-types';
-import { emptySafariDocument, normalizeSections } from '@gm-safaris/safari-ui';
+import { emptySafariDocument, normalizeSections, clampSeoTitle, safariPackageTitle } from '@gm-safaris/safari-ui';
 import { validationError } from '../../errors/index.js';
 
 const TITLE_MAX = 180;
 const TEXT_MAX = 20000;
-const SEO_TITLE_MAX = 70;
 const SEO_DESC_MAX = 320;
 
 export const WRITABLE_FIELDS = Object.freeze([
@@ -107,14 +106,17 @@ function faq(value) {
   }));
 }
 
-function seo(value) {
+function seo(value, fallbackTitle = '') {
   if (value === undefined) return undefined;
   if (!value || typeof value !== 'object') throw validationError('seo must be an object');
+  const title = fail(validateOptionalString(value.title, 'seo.title', TITLE_MAX));
+  const ogTitle = fail(validateOptionalString(value.og_title, 'seo.og_title', TITLE_MAX));
+  const clampedTitle = clampSeoTitle(title, fallbackTitle);
   return {
-    title: fail(validateOptionalString(value.title, 'seo.title', SEO_TITLE_MAX)),
+    title: clampedTitle,
     description: fail(validateOptionalString(value.description, 'seo.description', SEO_DESC_MAX)),
     canonical: fail(validateOptionalString(value.canonical, 'seo.canonical', 500)),
-    og_title: fail(validateOptionalString(value.og_title, 'seo.og_title', SEO_TITLE_MAX)),
+    og_title: clampSeoTitle(ogTitle, clampedTitle),
     og_description: fail(validateOptionalString(value.og_description, 'seo.og_description', SEO_DESC_MAX)),
     og_image: fail(validateOptionalString(value.og_image, 'seo.og_image', 2000)),
     robots: fail(validateOptionalString(value.robots, 'seo.robots', 80)) || 'index,follow',
@@ -141,7 +143,7 @@ export function validateSafariPayload(body = {}, options = {}) {
   const next = {};
 
   if (!partial || input.title !== undefined) {
-    next.title = fail(requireNonEmptyString(input.title, 'title', TITLE_MAX));
+    next.title = safariPackageTitle(fail(requireNonEmptyString(input.title, 'title', TITLE_MAX)));
   }
   if (input.slug !== undefined) {
     next.slug = fail(validateSlug(input.slug));
@@ -220,7 +222,7 @@ export function validateSafariPayload(body = {}, options = {}) {
       };
     }
   }
-  const seoValue = seo(input.seo);
+  const seoValue = seo(input.seo, next.title || input.title || '');
   if (seoValue) next.seo = seoValue;
   const sectionValue = sections(input.sections);
   if (sectionValue) next.sections = sectionValue;

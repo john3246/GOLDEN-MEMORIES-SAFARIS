@@ -1,4 +1,5 @@
 import { SafariStatus, normalizeLodgeCategory } from '@gm-safaris/shared-types';
+import { safariCompletenessErrors, normalizeGroupSafariDocument } from '@gm-safaris/safari-ui';
 import { notFound, validationError } from '../../errors/index.js';
 import { recordAudit } from '../audit/audit.service.js';
 import { readStore } from '../../cms-store/index.js';
@@ -6,6 +7,7 @@ import { CONTENT_TYPES, displayTitle, emptyDraft } from './types.js';
 import { contentRepository } from './content.repository.js';
 import { seedSiteContent } from './content.seed.js';
 import { syncBlogPost, removeBlogPost } from './blog.sync.js';
+import { syncGroupSafari, removeGroupSafari, deleteGroupSafariFromDb } from './departure.sync.js';
 
 function actorMeta(actor) {
   return { actorId: actor?.userId, actorEmail: actor?.email };
@@ -74,6 +76,7 @@ export const contentService = {
     if (!record) throw notFound('Content not found');
     if (type === 'posts') record.draft = emptyDraft('posts', record.draft || {});
     if (type === 'destinations') record.draft = emptyDraft('destinations', record.draft || {});
+    if (type === 'departures') record.draft = emptyDraft('departures', record.draft || {});
     return toAdmin(record);
   },
 
@@ -82,6 +85,7 @@ export const contentService = {
     if (type === 'lodges') incoming.category = normalizeLodgeCategory(incoming.category);
     const record = await contentRepository.create(type, { draft: emptyDraft(type, incoming), actor });
     if (type === 'posts') await syncBlogPost(record);
+    if (type === 'departures') await syncGroupSafari(record);
     await recordAudit({ ...actorMeta(actor), action: 'content.create', resource: type, resourceId: record.id });
     return toAdmin(record);
   },
@@ -99,6 +103,10 @@ export const contentService = {
           .filter(Boolean);
       }
     }
+    if (type === 'departures') {
+      const errors = safariCompletenessErrors(nextDraft);
+      if (errors.length) throw validationError(errors.join(' '));
+    }
     if (nextDraft.slug && nextDraft.slug !== record.slug) {
       if (await contentRepository.slugTaken(type, nextDraft.slug, id)) {
         throw validationError('slug is already in use', { field: 'slug' });
@@ -110,6 +118,7 @@ export const contentService = {
     record.updated_at = new Date().toISOString();
     await contentRepository.save(type, record);
     if (type === 'posts') await syncBlogPost(record);
+    if (type === 'departures') await syncGroupSafari(record);
     await recordAudit({ ...actorMeta(actor), action: 'content.update', resource: type, resourceId: id });
     return toAdmin(record);
   },
@@ -117,6 +126,11 @@ export const contentService = {
   async publish(type, id, actor) {
     const record = await contentRepository.findById(type, id);
     if (!record) throw notFound('Content not found');
+    if (type === 'departures') {
+      record.draft = normalizeGroupSafariDocument(record.draft || {});
+      const errors = safariCompletenessErrors(record.draft);
+      if (errors.length) throw validationError(errors.join(' '));
+    }
     record.published = { ...record.draft };
     record.status = SafariStatus.PUBLISHED;
     record.published_at = new Date().toISOString();
@@ -124,6 +138,7 @@ export const contentService = {
     record.updated_by = actor?.userId || null;
     await contentRepository.save(type, record);
     if (type === 'posts') await syncBlogPost(record);
+    if (type === 'departures') await syncGroupSafari(record);
     await recordAudit({ ...actorMeta(actor), action: 'content.publish', resource: type, resourceId: id });
     return toAdmin(record);
   },
@@ -136,6 +151,7 @@ export const contentService = {
     record.updated_by = actor?.userId || null;
     await contentRepository.save(type, record);
     if (type === 'posts') await syncBlogPost(record);
+    if (type === 'departures') await syncGroupSafari(record);
     await recordAudit({ ...actorMeta(actor), action: 'content.unpublish', resource: type, resourceId: id });
     return toAdmin(record);
   },
@@ -144,6 +160,7 @@ export const contentService = {
     const removed = await contentRepository.remove(type, id);
     if (!removed) throw notFound('Content not found');
     if (type === 'posts') await removeBlogPost(removed);
+    if (type === 'departures') await deleteGroupSafariFromDb(removed);
     await recordAudit({ ...actorMeta(actor), action: 'content.delete', resource: type, resourceId: id });
     return { id };
   },

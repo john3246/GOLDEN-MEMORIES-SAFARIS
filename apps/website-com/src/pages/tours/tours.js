@@ -35,12 +35,20 @@ export function renderTours(cmsPackages) {
       const price = item.price_from ?? item.price;
       if (!(Number(price) > 0)) continue;
       const gms = gmsTrips.find((trip) => trip.slug === item.slug);
+      const cmsImage = item.hero_image?.url || item.image || gms?.image;
       bySlug.set(item.slug, {
         slug: item.slug,
         title: safariPackageTitle(item.title),
         duration: item.duration_label || item.duration || gms?.duration || '',
         places: item.destination || gms?.places || '',
-        image: uniqueCoverFor(gms || item),
+        image: uniqueCoverFor({
+          ...(gms || {}),
+          ...item,
+          slug: item.slug,
+          title: item.title,
+          image: cmsImage,
+          hero_image: item.hero_image,
+        }),
         featured: item.featured,
         price_from: price,
         currency: item.currency || 'USD',

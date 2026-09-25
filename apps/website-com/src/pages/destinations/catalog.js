@@ -1,6 +1,7 @@
 import { galleryPhoto, assignUniqueCovers } from '../../media/gallery.js';
 import { media as GM } from '../home/content.js';
 import { allTours } from '../tours/catalog.js';
+import { lodges } from '../accommodations/content.js';
 
 /**
  * Park / place detail records. Facts distilled from Tanzania Odyssey park pages
@@ -705,6 +706,29 @@ export const destinationPlaces = [
   },
 ];
 
+export function destinationSlugsFromCopy(text, existing = []) {
+  const listed = (Array.isArray(existing) ? existing : []).map((slug) => String(slug || '').trim()).filter(Boolean);
+  if (listed.length) return listed;
+  const hay = String(text || '').toLowerCase();
+  if (!hay.trim()) return [];
+  return destinationPlaces
+    .filter((place) => {
+      if (place.slug === 'safari-from-zanzibar') {
+        return /safari from zanzibar|zanzibar safari|fly in from zanzibar/.test(hay);
+      }
+      const shortName = String(place.name || '')
+        .replace(/ National Park| Conservation Area| Archipelago/gi, '')
+        .trim()
+        .toLowerCase();
+      const keys = [place.slug.replace(/-/g, ' '), shortName, ...(place.match || [])];
+      return keys.some((key) => {
+        const needle = String(key || '').toLowerCase().trim();
+        return needle.length > 3 && hay.includes(needle);
+      });
+    })
+    .map((place) => place.slug);
+}
+
 export function allDestinations() {
   return destinationPlaces;
 }
@@ -728,13 +752,47 @@ export function relatedDestinations(place, count = 3) {
 }
 
 export function toursForDestination(place, count = 4) {
+  const all = allTours();
+  const explicit = (place.tourSlugs || []).map((slug) => all.find((tour) => tour.slug === slug)).filter(Boolean);
   const keys = place.match || [place.slug];
-  return allTours()
-    .filter((tour) => {
-      const hay = `${tour.title} ${tour.places || ''}`.toLowerCase();
-      return keys.some((key) => hay.includes(key));
-    })
-    .slice(0, count);
+  const rest = all.filter((tour) => {
+    if (explicit.includes(tour)) return false;
+    const hay = `${tour.title} ${tour.places || ''}`.toLowerCase();
+    return keys.some((key) => hay.includes(String(key).toLowerCase()));
+  });
+  return [...explicit, ...rest].slice(0, count);
+}
+
+const LODGE_REGION_KEYS = {
+  serengeti: ['serengeti'],
+  ngorongoro: ['ngorongoro', 'karatu'],
+  tarangire: ['tarangire'],
+  'lake-manyara': ['manyara'],
+  'arusha-national-park': ['arusha'],
+  kilimanjaro: ['kilimanjaro', 'moshi', 'arusha'],
+  'lake-eyasi': ['eyasi', 'karatu', 'ngorongoro'],
+  zanzibar: ['zanzibar', 'unguja', 'stone'],
+  'stone-town': ['zanzibar', 'stone'],
+  'safari-from-zanzibar': ['zanzibar'],
+  ruaha: ['ruaha'],
+  nyerere: ['nyerere', 'selous'],
+  mikumi: ['mikumi'],
+};
+
+export function lodgesForDestination(place, count = 6) {
+  const explicitIds = new Set(place.lodgeIds || []);
+  const keys = LODGE_REGION_KEYS[place.slug] || (place.match || [place.slug]).map((key) => String(key).toLowerCase());
+  const picked = [];
+  const rest = [];
+  for (const lodge of lodges) {
+    if (explicitIds.has(lodge.id) || explicitIds.has(lodge.name)) {
+      picked.push(lodge);
+      continue;
+    }
+    const hay = `${lodge.name} ${lodge.place || ''} ${lodge.region || ''}`.toLowerCase();
+    if (keys.some((key) => hay.includes(key))) rest.push(lodge);
+  }
+  return [...picked, ...rest].slice(0, count);
 }
 
 assignUniqueCovers(destinationPlaces);

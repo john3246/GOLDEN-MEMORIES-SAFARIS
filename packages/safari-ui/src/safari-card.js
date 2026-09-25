@@ -16,7 +16,7 @@ export function renderSafariCard(safari, href) {
       <a class="safari-card-media" href="${escapeHtml(link)}" tabindex="-1">
         ${
           tour.image
-            ? `<img src="${escapeHtml(tour.image)}" alt="" loading="lazy" width="800" height="1100" />`
+            ? `<img src="${escapeHtml(tour.image)}" alt="" loading="lazy" width="800" height="560" />`
             : `<div class="h-full min-h-[22rem] bg-mist"></div>`
         }
       </a>

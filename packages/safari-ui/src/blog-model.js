@@ -131,6 +131,7 @@ function normalizeBlock(block, index) {
     embed_url: asText(block?.embed_url),
     tour_slugs: asList(block?.tour_slugs),
     lodge_ids: asList(block?.lodge_ids),
+    destination_slugs: asList(block?.destination_slugs),
   };
 }
 
@@ -157,6 +158,7 @@ export function emptyBlogDocument(overrides = {}) {
     sections: DEFAULT_BLOG_SECTIONS.map((item) => ({ ...item })),
     featured_tour_slugs: [],
     featured_lodge_ids: [],
+    destination_slugs: [],
     cta_label: 'Plan this safari',
     cta_href: '/contact/',
     seo_title: '',
@@ -219,6 +221,7 @@ export function normalizeBlogDocument(input = {}) {
     sections: normalizeBlogSections(input.sections),
     featured_tour_slugs: asList(input.featured_tour_slugs || input.featuredTours),
     featured_lodge_ids: asList(input.featured_lodge_ids || input.featuredAccommodations),
+    destination_slugs: asList(input.destination_slugs || input.destinations),
     cta_label: asText(input.cta_label) || 'Plan this safari',
     cta_href: asText(input.cta_href) || '/contact/',
     seo_title: seoTitle,
@@ -249,7 +252,8 @@ export function blogDocumentHasBody(doc) {
         (block?.items || []).length ||
         (block?.images || []).length ||
         (block?.tour_slugs || []).length ||
-        (block?.lodge_ids || []).length
+        (block?.lodge_ids || []).length ||
+        (block?.destination_slugs || []).length
     ) ||
       (doc?.paragraphs || []).length ||
       doc?.excerpt

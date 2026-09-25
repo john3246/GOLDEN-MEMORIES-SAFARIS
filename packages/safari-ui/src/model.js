@@ -1,10 +1,34 @@
 import { DEFAULT_SAFARI_SECTIONS, SAFARI_SECTION_TYPES } from '@gm-safaris/shared-types';
 
-/** Safari package names use "4-Day", not "4 Days". Duration labels stay as "4 Days / 3 Nights". */
-export function safariPackageTitle(value) {
-  return String(value || '')
-    .replace(/\b(\d+)\s+Days\b/g, '$1-Day')
-    .replace(/\b(\d+)\s+Day\b/g, '$1-Day');
+export const SEO_TITLE_MAX = 70;
+
+/**
+ * User-facing package copy uses "4 Day", not "4-Day".
+ * Spaced dashes become commas. Slugs, URLs, and CSS keep their hyphens.
+ * Duration labels such as "4 Days / 3 Nights" are left as written.
+ */
+export function safariPackageTitle(value, options = {}) {
+  const commas = options.commas !== false;
+  let text = String(value || '')
+    .replace(/\b(\d+)-Days\b/gi, '$1 Days')
+    .replace(/\b(\d+)-Day\b/gi, '$1 Day');
+  if (commas) {
+    text = text
+      .replace(/(\S)-(\s)/g, '$1,$2')
+      .replace(/\s+[–—]\s+/g, ', ')
+      .replace(/\s+-\s+/g, ', ');
+  }
+  return text.replace(/\s{2,}/g, ' ').replace(/\s+,/g, ',').trim();
+}
+
+/** Google-safe title: at most 70 characters, cut on a word boundary. */
+export function clampSeoTitle(value, fallback = '') {
+  const text = safariPackageTitle(String(value || fallback || '')).trim();
+  if (!text) return '';
+  if (text.length <= SEO_TITLE_MAX) return text;
+  const slice = text.slice(0, SEO_TITLE_MAX);
+  const cut = slice.lastIndexOf(' ');
+  return (cut >= 40 ? slice.slice(0, cut) : slice).replace(/[,:;.\-]+$/g, '').trim();
 }
 
 /**
@@ -54,15 +78,25 @@ export function emptySafariDocument(overrides = {}) {
   };
   doc.title = safariPackageTitle(doc.title);
   if (doc.short_description) doc.short_description = safariPackageTitle(doc.short_description);
-  if (doc.description) doc.description = safariPackageTitle(doc.description);
+  if (doc.description) doc.description = safariPackageTitle(doc.description, { commas: false });
   if (doc.seo && typeof doc.seo === 'object') {
-    if (doc.seo.title) doc.seo.title = safariPackageTitle(doc.seo.title);
-    if (doc.seo.description) doc.seo.description = safariPackageTitle(doc.seo.description);
-    if (doc.seo.og_title) doc.seo.og_title = safariPackageTitle(doc.seo.og_title);
-    if (doc.seo.og_description) doc.seo.og_description = safariPackageTitle(doc.seo.og_description);
+    doc.seo.title = clampSeoTitle(doc.seo.title, doc.title);
+    if (doc.seo.description) doc.seo.description = safariPackageTitle(doc.seo.description, { commas: false });
+    doc.seo.og_title = clampSeoTitle(doc.seo.og_title, doc.seo.title);
+    if (doc.seo.og_description) doc.seo.og_description = safariPackageTitle(doc.seo.og_description, { commas: false });
   }
   if (doc.hero_image?.alt) {
     doc.hero_image = { ...doc.hero_image, alt: safariPackageTitle(doc.hero_image.alt) };
+  }
+  if (Array.isArray(doc.itinerary)) {
+    doc.itinerary = doc.itinerary.map((day) => {
+      if (!day || typeof day !== 'object') return day;
+      return {
+        ...day,
+        title: safariPackageTitle(day.title || ''),
+        description: safariPackageTitle(day.description || '', { commas: false }),
+      };
+    });
   }
   return doc;
 }
@@ -164,10 +198,96 @@ export function toSafariCardData(doc) {
     title: safariPackageTitle(doc.title || 'Untitled safari'),
     duration: doc.duration_label || (doc.duration ? `${doc.duration} Days` : ''),
     places: doc.destination || '',
-    image: hero?.url || '',
+    image: hero?.url || doc.image || '',
     featured: Boolean(doc.featured),
     activity: doc.difficulty || '',
     price_from: doc.price_from ?? doc.price,
     currency: doc.currency || 'USD',
   };
+}
+
+export function parseDurationDays(value) {
+  if (value == null || value === '') return null;
+  if (typeof value === 'number' && Number.isInteger(value) && value > 0) return value;
+  const text = String(value).trim();
+  if (/^\d+$/.test(text)) return Number(text);
+  const match = text.match(/\b(\d+)\s*days?\b/i);
+  return match ? Number(match[1]) : null;
+}
+
+function asStringList(value) {
+  if (Array.isArray(value)) {
+    return value
+      .map((item) => (typeof item === 'string' ? item : item?.text || item?.title || ''))
+      .map((item) => String(item).trim())
+      .filter(Boolean);
+  }
+  return String(value || '')
+    .split('\n')
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function mediaList(value) {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((item) => {
+      if (typeof item === 'string') return item.trim() ? { url: item.trim(), alt: '', caption: '' } : null;
+      const url = String(item?.url || '').trim();
+      return url ? { ...item, url } : null;
+    })
+    .filter(Boolean);
+}
+
+/**
+ * Group Safari uses the same itinerary, lodges, gallery, and SEO document as a
+ * private safari, plus dated departure fields (dates, start, end, spaces).
+ */
+export function normalizeGroupSafariDocument(raw = {}) {
+  const src = raw && typeof raw === 'object' ? raw : {};
+  const durationLabel =
+    String(src.duration_label || '').trim() ||
+    (typeof src.duration === 'string' && /day/i.test(src.duration) ? String(src.duration).trim() : '');
+  const durationDays = parseDurationDays(src.duration_days ?? src.duration) || parseDurationDays(durationLabel);
+  const priceValue = src.price_from === '' || src.price_from == null ? Number(src.price) : Number(src.price_from);
+  const overview = String(src.overview || src.short_description || '').trim();
+  const imageUrl =
+    (src.hero_image && typeof src.hero_image === 'object' && src.hero_image.url) || src.image || '';
+  const hero =
+    src.hero_image && typeof src.hero_image === 'object'
+      ? { ...src.hero_image, url: src.hero_image.url || imageUrl }
+      : imageUrl
+        ? { url: imageUrl, alt: src.title || '', caption: '' }
+        : null;
+  const itinerarySource = Array.isArray(src.itinerary) && src.itinerary.length ? src.itinerary : src.days;
+
+  return emptySafariDocument({
+    ...src,
+    product_type: 'join_safari',
+    dates: src.dates || src.dates_label || '',
+    start: src.start || src.start_date || '',
+    end: src.end || src.end_date || '',
+    spaces: src.spaces || src.spaces_label || '',
+    deposit: src.deposit || 'Join group',
+    overview,
+    image: imageUrl,
+    short_description: src.short_description || overview,
+    description: src.description || overview,
+    duration: durationDays,
+    duration_label: durationLabel || (durationDays ? `${durationDays} Days` : ''),
+    price: Number.isFinite(priceValue) && priceValue > 0 ? priceValue : null,
+    price_from: Number.isFinite(priceValue) && priceValue > 0 ? priceValue : null,
+    currency: src.currency || 'USD',
+    destination: src.destination || src.places || '',
+    hero_image: hero,
+    gallery: mediaList(src.gallery),
+    highlights: asStringList(src.highlights),
+    inclusions: asStringList(src.inclusions?.length ? src.inclusions : src.included),
+    exclusions: asStringList(src.exclusions?.length ? src.exclusions : src.excluded),
+    itinerary: normalizeItinerary(itinerarySource),
+  });
+}
+
+export function emptyGroupSafariDocument(overrides = {}) {
+  return normalizeGroupSafariDocument({ title: 'New group safari', ...overrides });
 }

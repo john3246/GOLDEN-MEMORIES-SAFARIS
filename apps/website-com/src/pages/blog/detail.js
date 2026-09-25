@@ -1,6 +1,6 @@
 import { articleCard } from '../../components/cards/article-card.js';
 import { articleBySlug, relatedArticles, topicLabel } from './content.js';
-import { featuredLodgesHtml, featuredToursHtml, lodgeEmbedHtml, tourEmbedHtml } from './embeds.js';
+import { destinationEmbedHtml, destinationBadgesHtml, featuredDestinationsHtml, featuredLodgesHtml, featuredToursHtml, lodgeEmbedHtml, tourEmbedHtml } from './embeds.js';
 import { site } from '../home/content.js';
 import { initBlogArticle, normalizeBlogDocument, renderBlogPage } from '@gm-safaris/safari-ui';
 
@@ -36,8 +36,11 @@ export function renderBlogArticle(slug) {
     site,
     embedTour: tourEmbedHtml,
     embedLodge: lodgeEmbedHtml,
+    embedDestination: destinationEmbedHtml,
     featuredToursHtml: featuredToursHtml(doc.featured_tour_slugs),
     featuredLodgesHtml: featuredLodgesHtml(doc.featured_lodge_ids),
+    featuredDestinationsHtml: featuredDestinationsHtml(doc.destination_slugs),
+    destinationBadgesHtml: destinationBadgesHtml(doc.destination_slugs),
   });
 }
 

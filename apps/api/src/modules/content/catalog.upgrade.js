@@ -1,4 +1,4 @@
-import { safariPackageTitle } from '@gm-safaris/safari-ui';
+import { safariPackageTitle, clampSeoTitle, DESTINATION_COORDINATES, normalizeGroupSafariDocument } from '@gm-safaris/safari-ui';
 import { updateStore } from '../../cms-store/index.js';
 import { emptyDraft } from './types.js';
 import { logger } from '../../logging/index.js';
@@ -13,14 +13,14 @@ function rewriteSafariDoc(doc) {
     ...doc,
     title: safariPackageTitle(doc.title),
     short_description: safariPackageTitle(doc.short_description),
-    description: safariPackageTitle(doc.description),
+    description: safariPackageTitle(doc.description, { commas: false }),
     seo: doc.seo
       ? {
           ...doc.seo,
-          title: safariPackageTitle(doc.seo.title),
-          description: safariPackageTitle(doc.seo.description),
-          og_title: safariPackageTitle(doc.seo.og_title),
-          og_description: safariPackageTitle(doc.seo.og_description),
+          title: clampSeoTitle(doc.seo.title, doc.title),
+          description: safariPackageTitle(doc.seo.description, { commas: false }),
+          og_title: clampSeoTitle(doc.seo.og_title, doc.seo.title || doc.title),
+          og_description: safariPackageTitle(doc.seo.og_description, { commas: false }),
         }
       : doc.seo,
     hero_image: doc.hero_image
@@ -34,17 +34,27 @@ function pickFilled(current, catalog, key) {
 }
 
 function destinationDraftFromPlace(place) {
+  const coords = DESTINATION_COORDINATES[place.slug] || {};
   return emptyDraft('destinations', {
     title: place.name,
     slug: place.slug,
     region: place.region || '',
+    country: place.country || 'Tanzania',
     kicker: place.kicker || '',
     tagline: place.tagline || '',
     blurb: place.tagline || place.blurb || '',
     location: place.location || '',
     cta: place.cta || 'Plan this safari',
     image: place.image || '',
+    image_alt: place.name || '',
     gallery: place.gallery || [],
+    lat: place.lat ?? coords.lat ?? '',
+    lng: place.lng ?? coords.lng ?? '',
+    climate: place.climate || '',
+    getting_there: place.gettingThere || place.getting_there || '',
+    airstrips: place.airstrips || [],
+    entry_fees: place.entryFees || place.entry_fees || '',
+    match: place.match || [place.slug],
     paragraphs: place.paragraphs || [],
     highlights: place.highlights || [],
     facts: place.facts || [],
@@ -90,9 +100,19 @@ function enrichDestination(doc, catalogDraft) {
     activities: pickFilled(current, catalogDraft, 'activities'),
     attractions: pickFilled(current, catalogDraft, 'attractions'),
     faqs: pickFilled(current, catalogDraft, 'faqs'),
+    climate: pickFilled(current, catalogDraft, 'climate'),
+    getting_there: pickFilled(current, catalogDraft, 'getting_there'),
+    airstrips: pickFilled(current, catalogDraft, 'airstrips'),
+    entry_fees: pickFilled(current, catalogDraft, 'entry_fees'),
+    lat: current.lat || catalogDraft.lat,
+    lng: current.lng || catalogDraft.lng,
+    country: pickFilled(current, catalogDraft, 'country'),
+    image_alt: pickFilled(current, catalogDraft, 'image_alt'),
     blocks: hasBlocks ? current.blocks : catalogDraft.blocks,
     seo_title: pickFilled(current, catalogDraft, 'seo_title'),
     seo_description: pickFilled(current, catalogDraft, 'seo_description'),
+    canonical_url: pickFilled(current, catalogDraft, 'canonical_url'),
+    og_image: pickFilled(current, catalogDraft, 'og_image'),
   });
 }
 
@@ -108,12 +128,50 @@ export async function upgradeCatalogCopy() {
   }
   const bySlug = new Map(catalogPlaces.map((place) => [place.slug, place]));
 
+  let joinTrips = [];
+  try {
+    const pkgs = await import('../../../../website-com/src/pages/join-safari/packages.js');
+    const content = await import('../../../../website-com/src/pages/join-safari/content.js');
+    joinTrips = [...(pkgs.openJoiningPackages || []), ...(content.joiningSafaris || [])];
+  } catch (err) {
+    logger.warn('Group safari catalog enrich skipped', { message: err instanceof Error ? err.message : String(err) });
+  }
+  const joinByKey = new Map();
+  for (const trip of joinTrips) {
+    if (trip.id) joinByKey.set(trip.id, trip);
+    if (trip.slug) joinByKey.set(trip.slug, trip);
+    if (trip.title) joinByKey.set(String(trip.title).toLowerCase(), trip);
+  }
+
+  function enrichDeparture(doc) {
+    const trip =
+      joinByKey.get(doc?.slug) ||
+      joinByKey.get(doc?.id) ||
+      joinByKey.get(String(doc?.title || '').toLowerCase());
+    return normalizeGroupSafariDocument({
+      ...doc,
+      days: doc?.itinerary?.length ? doc.itinerary : doc?.days?.length ? doc.days : trip?.days,
+      included: doc?.inclusions?.length ? doc.inclusions : doc?.included || trip?.included,
+      excluded: doc?.exclusions?.length ? doc.exclusions : doc?.excluded || trip?.excluded,
+      price_from: doc?.price_from || trip?.price_from,
+      destination: doc?.destination || trip?.places,
+      currency: doc?.currency || trip?.currency || 'USD',
+      dates: doc?.dates || trip?.datesLabel,
+      spaces: doc?.spaces || trip?.spaces,
+      overview: doc?.overview || trip?.overview,
+      image: doc?.image || doc?.hero_image?.url || trip?.image,
+      duration: doc?.duration_label || doc?.duration || trip?.duration,
+    });
+  }
+
   await updateStore((store) => {
-    for (const type of ['safaris', 'departures']) {
-      for (const record of store[type] || []) {
-        if (record.draft) record.draft = rewriteSafariDoc(record.draft);
-        if (record.published) record.published = rewriteSafariDoc(record.published);
-      }
+    for (const record of store.safaris || []) {
+      if (record.draft) record.draft = rewriteSafariDoc(record.draft);
+      if (record.published) record.published = rewriteSafariDoc(record.published);
+    }
+    for (const record of store.departures || []) {
+      if (record.draft) record.draft = enrichDeparture(record.draft);
+      if (record.published) record.published = enrichDeparture(record.published);
     }
     for (const record of store.pages || []) {
       if (record.draft?.title) record.draft.title = groupNav(record.draft.title);
