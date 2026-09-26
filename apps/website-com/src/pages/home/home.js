@@ -117,10 +117,10 @@ export function renderHome() {
         <div class="container-site relative flex min-h-[inherit] flex-col justify-center py-12 sm:py-16">
           <div class="hero-animate max-w-3xl">
             <p id="hero-brand" class="font-body text-sm font-bold uppercase tracking-[0.18em] text-gold sm:text-base">
-              Karibu Tanzania · Golden Memories Safaris
+              Golden Memories Safaris
             </p>
             <h1 class="home-hero-title mt-4 font-display font-semibold leading-[1.05] tracking-tight">
-              Tanzania safaris, Kilimanjaro climbs &amp; Zanzibar escapes
+              Karibu Tanzania
             </h1>
             <p class="mt-3 font-body text-sm font-semibold uppercase tracking-[0.16em] text-gold sm:text-base">
               ${site.tagline}

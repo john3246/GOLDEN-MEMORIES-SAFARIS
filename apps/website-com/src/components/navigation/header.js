@@ -8,6 +8,7 @@ import { cardUrl } from '../../media/gallery.js';
 import { openJoiningPackages } from '../../pages/join-safari/packages.js';
 import { joinHref } from '../../pages/join-safari/paths.js';
 import { kilimanjaroTreks } from '../../pages/kilimanjaro/packages.js';
+import { searchSite, renderSearchResults } from '../../services/search.js';
 
 function pagePath() {
   return window.location.pathname.replace(/\/+$/, '') || '/';
@@ -435,14 +436,15 @@ export function renderHeader() {
           </nav>
 
           <div class="header-actions">
-            <div class="header-search" data-header-search>
-              <form class="search-form" data-search-form>
-                <label class="sr-only" for="header-search">Search</label>
-                <input id="header-search" type="search" name="q" placeholder="Search" autocomplete="off" />
+          <div class="header-search" data-header-search>
+              <form class="search-form" data-search-form role="search" aria-label="Site search">
+                <label class="sr-only" for="header-search">Search safaris, destinations and more</label>
+                <input id="header-search" type="search" name="q" placeholder="Search safaris, parks, blog…" autocomplete="off" aria-autocomplete="list" aria-controls="header-search-results" />
               </form>
               <button type="button" class="search-btn" data-search-toggle aria-label="Search" aria-expanded="false">
                 ${ICONS.search}
               </button>
+              <div id="header-search-results" class="search-results-panel" data-search-results aria-live="polite" hidden></div>
             </div>
 
             <a class="nav-cta desktop-only" href="/booking/">Book Now</a>
@@ -465,11 +467,14 @@ export function renderHeader() {
 
       <div id="mobile-nav" class="mobile-nav" data-mobile-nav>
         <div class="container-site mobile-nav-inner">
-          <form class="mobile-search" data-mobile-search>
-            <label class="sr-only" for="mobile-search">Search trips</label>
-            <input id="mobile-search" type="search" name="q" placeholder="Search safaris" autocomplete="off" />
-            <button type="submit">Search</button>
-          </form>
+        <div class="mobile-search-wrap">
+            <form class="mobile-search" data-mobile-search role="search" aria-label="Site search">
+              <label class="sr-only" for="mobile-search">Search safaris, destinations and more</label>
+              <input id="mobile-search" type="search" name="q" placeholder="Search safaris, parks, blog…" autocomplete="off" aria-autocomplete="list" aria-controls="mobile-search-results" />
+              <button type="submit">Search</button>
+            </form>
+            <div id="mobile-search-results" class="search-results-panel" data-mobile-search-results aria-live="polite" hidden></div>
+          </div>
           <a class="mobile-nav-phone" href="${telHref(site.phone)}">${site.phone}</a>
           <a class="mobile-nav-phone" href="mailto:${site.email}">${site.email}</a>
           ${mobileLinks}
@@ -488,6 +493,100 @@ export function initHeader() {
   const searchToggle = document.querySelector('[data-search-toggle]');
   const searchForm = document.querySelector('[data-search-form]');
   const searchInput = searchForm?.querySelector('input');
+  const searchResultsPanel = document.querySelector('[data-search-results]');
+
+  const closeSearch = () => {
+    if (!searchWrap || !searchToggle) return;
+    searchWrap.classList.remove('is-open');
+    searchToggle.setAttribute('aria-expanded', 'false');
+    if (searchResultsPanel) { searchResultsPanel.hidden = true; searchResultsPanel.innerHTML = ''; }
+  };
+
+  const showSearchPanel = (html) => {
+    if (!searchResultsPanel) return;
+    searchResultsPanel.innerHTML = html;
+    searchResultsPanel.hidden = false;
+  };
+
+  if (searchWrap && searchToggle && searchInput) {
+    searchToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const open = searchWrap.classList.toggle('is-open');
+      searchToggle.setAttribute('aria-expanded', String(open));
+      if (open) searchInput.focus();
+      else if (searchResultsPanel) { searchResultsPanel.hidden = true; searchResultsPanel.innerHTML = ''; }
+    });
+  }
+
+  if (searchForm && searchInput) {
+    let debounceTimer = 0;
+
+    const runSearch = (query) => {
+      if (!query.trim()) { if (searchResultsPanel) { searchResultsPanel.hidden = true; searchResultsPanel.innerHTML = ''; } return; }
+      const results = searchSite(query, { limit: 8 });
+      showSearchPanel(renderSearchResults(results, query));
+    };
+
+    searchInput.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = window.setTimeout(() => runSearch(searchInput.value), 180);
+    });
+
+    searchForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const query = searchInput.value.trim();
+      if (!query) return;
+      const results = searchSite(query, { limit: 1 });
+      window.location.href = results.length ? results[0].href : `/tours/?q=${encodeURIComponent(query)}`;
+    });
+
+    searchInput.addEventListener('keydown', (event) => {
+      if (!searchResultsPanel || searchResultsPanel.hidden) return;
+      const items = [...searchResultsPanel.querySelectorAll('.search-result-item')];
+      if (!items.length) return;
+      if (event.key === 'ArrowDown') { event.preventDefault(); items[0].focus(); }
+      else if (event.key === 'Escape') { closeSearch(); }
+    });
+
+    if (searchResultsPanel) {
+      searchResultsPanel.addEventListener('keydown', (event) => {
+        const items = [...searchResultsPanel.querySelectorAll('.search-result-item')];
+        const idx = items.indexOf(document.activeElement);
+        if (event.key === 'ArrowDown' && idx < items.length - 1) { event.preventDefault(); items[idx + 1].focus(); }
+        else if (event.key === 'ArrowUp') { event.preventDefault(); if (idx > 0) items[idx - 1].focus(); else searchInput.focus(); }
+        else if (event.key === 'Escape') { closeSearch(); searchInput.focus(); }
+      });
+    }
+  }
+
+  // Mobile search – live results
+  const mobileSearch = document.querySelector('[data-mobile-search]');
+  const mobileSearchResults = document.querySelector('[data-mobile-search-results]');
+  if (mobileSearch) {
+    const mobileInput = mobileSearch.querySelector('input');
+    let mobileTimer = 0;
+
+    if (mobileInput && mobileSearchResults) {
+      mobileInput.addEventListener('input', () => {
+        clearTimeout(mobileTimer);
+        mobileTimer = window.setTimeout(() => {
+          const query = mobileInput.value.trim();
+          if (!query) { mobileSearchResults.hidden = true; mobileSearchResults.innerHTML = ''; return; }
+          mobileSearchResults.innerHTML = renderSearchResults(searchSite(query, { limit: 6 }), query);
+          mobileSearchResults.hidden = false;
+        }, 200);
+      });
+    }
+
+    mobileSearch.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const query = String(new FormData(mobileSearch).get('q') || '').trim();
+      if (!query) return;
+      const results = searchSite(query, { limit: 1 });
+      window.location.href = results.length ? results[0].href : `/tours/?q=${encodeURIComponent(query)}`;
+    });
+  }
+
 
   if (toggle && header) {
     const setNavOpen = (open) => {
@@ -594,47 +693,8 @@ export function initHeader() {
       });
     });
 
-  const closeSearch = () => {
-    if (!searchWrap || !searchToggle) return;
-    searchWrap.classList.remove('is-open');
-    searchToggle.setAttribute('aria-expanded', 'false');
-  };
 
-  if (searchWrap && searchToggle && searchInput) {
-    searchToggle.addEventListener('click', (event) => {
-      event.stopPropagation();
-      const open = searchWrap.classList.toggle('is-open');
-      searchToggle.setAttribute('aria-expanded', String(open));
-      if (open) searchInput.focus();
-    });
-  }
 
-  if (searchForm && searchInput) {
-    searchForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const query = searchInput.value.trim().toLowerCase();
-      if (!query) return;
-      const match =
-        navLinks.find((link) => link.label.toLowerCase().includes(query)) ||
-        allTours().find((trip) => trip.title.toLowerCase().includes(query));
-      if (match) window.location.href = match.href || tourHref(match);
-    });
-  }
-
-  const mobileSearch = document.querySelector('[data-mobile-search]');
-  if (mobileSearch) {
-    mobileSearch.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const query = String(new FormData(mobileSearch).get('q') || '')
-        .trim()
-        .toLowerCase();
-      if (!query) return;
-      const match =
-        navLinks.find((link) => link.label.toLowerCase().includes(query)) ||
-        allTours().find((trip) => trip.title.toLowerCase().includes(query));
-      if (match) window.location.href = match.href || tourHref(match);
-    });
-  }
 
   document.addEventListener('click', (event) => {
     if (!megas.some((item) => item.root.contains(event.target))) closeAllMegasNow();

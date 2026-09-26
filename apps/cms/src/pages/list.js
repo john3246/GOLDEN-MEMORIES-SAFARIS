@@ -28,6 +28,8 @@ function tourCard(item) {
     detail: item.destination || '',
     status: item.status,
     featured: item.featured,
+    itemId: item.id,
+    itemType: 'safaris',
   });
 }
 
@@ -147,5 +149,33 @@ export function initList() {
       mount.innerHTML = `<p class="cms-error">${err.message}</p>`;
     }
   });
+
+  // Quick publish / unpublish from the safari list card
+  mount.addEventListener('click', async (event) => {
+    const btn = event.target.closest('[data-quick-toggle]');
+    if (!btn) return;
+    event.preventDefault();
+    const id = btn.dataset.itemId;
+    const currentStatus = btn.dataset.currentStatus;
+    if (!id) return;
+    btn.disabled = true;
+    btn.textContent = '…';
+    try {
+      if (currentStatus === 'PUBLISHED') {
+        await api.action(id, 'unpublish');
+        notifySuccess('Unpublished — no longer visible on the public website.');
+      } else {
+        await api.action(id, 'publish');
+        notifySuccess('Published — now visible on the public website.');
+      }
+      await refresh();
+    } catch (err) {
+      notifyError(err.message);
+      btn.disabled = false;
+      btn.textContent = currentStatus === 'PUBLISHED' ? 'Unpublish' : 'Publish';
+    }
+  });
+
   refresh();
 }
+

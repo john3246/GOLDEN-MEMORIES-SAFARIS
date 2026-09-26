@@ -49,6 +49,8 @@ function destinationCard(item) {
     kicker: destinationCategory(item, doc),
     detail: shortText(doc.blurb),
     status: item.status,
+    itemId: item.id,
+    itemType: 'destinations',
   });
 }
 
@@ -62,6 +64,8 @@ function blogCard(item) {
     kicker: blogCategory(item, doc),
     detail: shortText(doc.excerpt || doc.date),
     status: item.status,
+    itemId: item.id,
+    itemType: 'posts',
   });
 }
 
@@ -102,6 +106,8 @@ function departureCard(item) {
     detail: shortText(doc.destination || doc.overview || doc.dates),
     status: item.status,
     featured: doc.featured,
+    itemId: item.id,
+    itemType: 'departures',
   });
 }
 
@@ -115,8 +121,11 @@ function lodgeCard(item) {
     kicker: lodgeCategory(item, doc),
     detail: shortText(doc.place || doc.blurb),
     status: item.status,
+    itemId: item.id,
+    itemType: 'lodges',
   });
 }
+
 
 export function renderContentList(user, spec) {
   const photo = spec.key === 'destinations' || spec.key === 'posts' || spec.key === 'lodges' || spec.key === 'departures';
@@ -214,5 +223,34 @@ export function initContentList(type) {
       mount.innerHTML = `<p class="cms-error">${err.message}</p>`;
     }
   });
+
+  // Quick publish / unpublish from the list card
+  mount.addEventListener('click', async (event) => {
+    const btn = event.target.closest('[data-quick-toggle]');
+    if (!btn) return;
+    event.preventDefault();
+    const id = btn.dataset.itemId;
+    const itemType = btn.dataset.itemType;
+    const currentStatus = btn.dataset.currentStatus;
+    if (!id || !itemType) return;
+    btn.disabled = true;
+    btn.textContent = '…';
+    try {
+      if (currentStatus === 'PUBLISHED') {
+        await api.unpublishContent(itemType, id);
+        notifySuccess('Unpublished — no longer visible on the public website.');
+      } else {
+        await api.publishContent(itemType, id);
+        notifySuccess('Published — now visible on the public website.');
+      }
+      await refresh();
+    } catch (err) {
+      notifyError(err.message);
+      btn.disabled = false;
+      btn.textContent = currentStatus === 'PUBLISHED' ? 'Unpublish' : 'Publish';
+    }
+  });
+
   refresh();
 }
+

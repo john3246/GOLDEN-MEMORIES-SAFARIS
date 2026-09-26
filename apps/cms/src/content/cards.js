@@ -21,7 +21,19 @@ export function shortText(value, max = 92) {
   return `${text.slice(0, max).replace(/\s+\S*$/, '')}…`;
 }
 
-export function photoCard({ href, previewHref, title, image, kicker, detail, status, featured }) {
+export function photoCard({ href, previewHref, title, image, kicker, detail, status, featured, itemId, itemType }) {
+  const isPublished = status === 'PUBLISHED';
+  const toggleBtn = itemId && itemType
+    ? `<button
+        class="safari-card-toggle cms-btn ${isPublished ? '' : 'cms-btn-navy'}"
+        type="button"
+        data-quick-toggle
+        data-item-id="${itemId}"
+        data-item-type="${itemType}"
+        data-current-status="${status || 'DRAFT'}"
+        title="${isPublished ? 'Unpublish — hide from the public website' : 'Publish — make visible on the public website'}"
+      >${isPublished ? 'Unpublish' : 'Publish'}</button>`
+    : '';
   return `
     <article class="safari-card">
       <a class="safari-card-media" href="${href}" tabindex="-1">
@@ -48,11 +60,15 @@ export function photoCard({ href, previewHref, title, image, kicker, detail, sta
         <div class="safari-card-bottom">
           ${kicker ? `<p class="safari-card-meta">${kicker}</p>` : ''}
           ${detail ? `<p class="safari-card-places">${detail}</p>` : ''}
-          <div class="cms-tour-status">${pill(status, featured)}</div>
+          <div class="cms-tour-status">
+            ${pill(status, featured)}
+            ${toggleBtn}
+          </div>
         </div>
       </div>
     </article>`;
 }
+
 
 export const TOUR_CATEGORIES = [
   { id: 'cultural', label: 'Cultural & historical', test: /cultur|hadzabe|eyasi|materuni|maasai|usambara|natron|lengai|wedding/i },
