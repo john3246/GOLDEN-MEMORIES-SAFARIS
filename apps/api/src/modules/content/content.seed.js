@@ -8,7 +8,7 @@ const DEFAULT_SETTINGS = {
   site: {
     name: 'Golden Memories Safaris',
     shortName: 'GM Safaris',
-    tagline: 'Your Path to Golden Memories begins here',
+    tagline: 'Your Path To Golden Memories Begins Here',
     phone: '+255 786 383 273',
     phoneAlt: '+255 754 750 070',
     email: 'info@gmsafaris.co.tz',
@@ -50,9 +50,9 @@ const DEFAULT_SETTINGS = {
     disallowPaths: '/cms/,/api/',
   },
   seo: {
-    defaultTitle: 'Golden Memories Safaris – Tanzania Safaris Experts',
+    defaultTitle: 'Golden Memories Safaris, Tanzania Safaris Experts',
     defaultDescription:
-      'Golden Memories Safaris — premier Tanzania wildlife safaris, Kilimanjaro treks, and Zanzibar beach holidays crafted by experts in Arusha.',
+      'Golden Memories Safaris, premier Tanzania wildlife safaris, Kilimanjaro treks, and Zanzibar beach holidays crafted by experts in Arusha.',
     defaultKeywords:
       'Tanzania safari, Kilimanjaro climb, Zanzibar beach, Serengeti, Ngorongoro, Golden Memories Safaris, Arusha tours',
     defaultImage: '/images/gallery/serengeti-01.webp',

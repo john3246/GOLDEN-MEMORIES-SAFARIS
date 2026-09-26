@@ -80,11 +80,11 @@ const extras = {
       ['Day 1', 'Arrive Arusha', 'Meet at Kilimanjaro Airport or your Arusha hotel. Briefing with your consultant and overnight in town.'],
       ['Day 2', 'Arusha to Tarangire', 'Drive to Tarangire for an afternoon game drive among baobabs and along the river.'],
       ['Day 3', 'Tarangire to Serengeti', 'Continue into the Serengeti, positioning the camp toward the herds for the season you travel.'],
-      ['Day 4', 'Serengeti game drives', 'Full day in the sector that holds the migration — south in calving months, west or north when the rivers run.'],
+      ['Day 4', 'Serengeti game drives', 'Full day in the sector that holds the migration, south in calving months, west or north when the rivers run.'],
       ['Day 5', 'Serengeti game drives', 'Second full day: dawn start, picnic on the plains, and time at a crossing point if the herds are moving.'],
       ['Day 6', 'Serengeti game drives', 'A third Serengeti day to stay with the wildlife rather than the road.'],
       ['Day 7', 'Serengeti to Ngorongoro', 'Morning drive, then transfer to the crater highlands for a rim overnight.'],
-      ['Day 8', 'Ngorongoro Crater', 'Full day on the crater floor — lion, elephant, buffalo, and a chance of rhino.'],
+      ['Day 8', 'Ngorongoro Crater', 'Full day on the crater floor, lion, elephant, buffalo, and a chance of rhino.'],
       ['Day 9', 'Highlands and return', 'Optional Maasai visit or a last highland walk, then begin the journey toward Arusha.'],
       ['Day 10', 'Arusha departure', 'Breakfast and transfer to the airport or your next chapter on the coast.'],
     ]),
@@ -95,12 +95,12 @@ const extras = {
     highlights: ['Ruaha predator country', 'Rufiji boat safari', 'Fly-in or drive options', 'Fewer vehicles on the road'],
     itinerary: days([
       ['Day 1', 'To Ruaha', 'Fly or drive to Ruaha National Park. Afternoon game drive along the Great Ruaha River.'],
-      ['Day 2', 'Ruaha', 'Full day in the park — baobab ridges, lion, elephant, and outstanding birdlife.'],
+      ['Day 2', 'Ruaha', 'Full day in the park, baobab ridges, lion, elephant, and outstanding birdlife.'],
       ['Day 3', 'Ruaha', 'Second full day. Walking or a longer circuit if camp and season allow.'],
       ['Day 4', 'Ruaha to Nyerere', 'Transfer to Nyerere National Park (Selous) by light aircraft or road as agreed.'],
       ['Day 5', 'Nyerere game drive', 'Morning and afternoon drives in the lakes and woodland of the reserve.'],
       ['Day 6', 'Rufiji boat safari', 'Boat on the Rufiji for hippo, crocodile, and kingfishers, with a game drive at either end of the day.'],
-      ['Day 7', 'Nyerere', 'A last full day in camp — walking, drives, or a second boat depending on water levels.'],
+      ['Day 7', 'Nyerere', 'A last full day in camp, walking, drives, or a second boat depending on water levels.'],
       ['Day 8', 'Departure', 'Return flight to Dar es Salaam, Zanzibar, or Arusha.'],
     ]),
   },
@@ -124,7 +124,7 @@ const extras = {
       ['Day 1', 'Arusha to Tarangire', 'Meet in Arusha and drive to Tarangire for an afternoon game drive.'],
       ['Day 2', 'Tarangire to Serengeti', 'Game drive as you travel west into the Serengeti.'],
       ['Day 3', 'Serengeti', 'Full day on the plains.'],
-      ['Day 4', 'Serengeti', 'Second Serengeti day — dawn drive and a slower afternoon.'],
+      ['Day 4', 'Serengeti', 'Second Serengeti day, dawn drive and a slower afternoon.'],
       ['Day 5', 'Serengeti to Ngorongoro', 'Transfer to the crater rim.'],
       ['Day 6', 'Ngorongoro Crater', 'Full day on the crater floor.'],
       ['Day 7', 'Return to Arusha', 'Drive to Arusha for departure or a coast connection.'],
@@ -132,7 +132,7 @@ const extras = {
   },
   'tarangire-elephant-safari': {
     overview:
-      'A short safari focused on Tarangire’s elephants and a Lake Manyara day under the Rift escarpment — ideal when time is tight.',
+      'A short safari focused on Tarangire’s elephants and a Lake Manyara day under the Rift escarpment, ideal when time is tight.',
     highlights: ['Tarangire elephants', 'Baobab landscapes', 'Lake Manyara forest', 'Short drive from Arusha'],
     itinerary: days([
       ['Day 1', 'Arusha to Tarangire', 'Afternoon game drive and overnight near the park.'],
@@ -148,7 +148,7 @@ const extras = {
     itinerary: days([
       ['Day 1', 'Arusha to Serengeti', 'Drive or fly into the Serengeti; afternoon game drive from camp.'],
       ['Day 2', 'Serengeti', 'Full day game drives.'],
-      ['Day 3', 'Serengeti', 'Second full day — kopjes, river lines, and resident game.'],
+      ['Day 3', 'Serengeti', 'Second full day, kopjes, river lines, and resident game.'],
       ['Day 4', 'Serengeti', 'A third plains day so the itinerary is not only a transfer.'],
       ['Day 5', 'Ngorongoro Crater', 'Leave the Serengeti for a crater-floor game drive and rim overnight.'],
       ['Day 6', 'Return to Arusha', 'Breakfast and transfer to Arusha.'],
@@ -156,7 +156,7 @@ const extras = {
   },
   'classic-tanzania-lodge-safari': {
     overview:
-      'Five lodge nights on the northern circuit: Manyara, Ngorongoro, and Tarangire — a classic first safari with comfortable rooms and private game drives.',
+      'Five lodge nights on the northern circuit: Manyara, Ngorongoro, and Tarangire, a classic first safari with comfortable rooms and private game drives.',
     highlights: ['Lodge safari', 'Three northern parks', 'Crater day', 'Arusha start and finish'],
     itinerary: days([
       ['Day 1', 'Arusha to Lake Manyara', 'Afternoon game drive under the escarpment.'],
@@ -171,7 +171,7 @@ const extras = {
       'A long, rewarding day from Arusha: descend into Ngorongoro Crater with a picnic lunch and return the same evening.',
     highlights: ['Crater floor game drive', 'Picnic in the caldera', 'Return to Arusha', 'Private vehicle'],
     itinerary: days([
-      ['Day 1', 'Arusha – Ngorongoro – Arusha', 'Early departure from Arusha, crater-floor game drive, picnic lunch, and return to your hotel in the evening.'],
+      ['Day 1', 'Arusha, Ngorongoro, Arusha', 'Early departure from Arusha, crater-floor game drive, picnic lunch, and return to your hotel in the evening.'],
     ]),
     included: ['Park fees', 'Private 4x4 and driver-guide', 'Picnic lunch', 'Bottled water'],
     excluded: ['Hotel in Arusha', 'Tips', 'Personal extras'],
@@ -188,7 +188,7 @@ const extras = {
   },
   'fly-in-fly-out-mikumi-national-park': {
     overview:
-      'A fly-in day in Mikumi’s open grassland — a practical taste of the southern savannah from the coast or Dar es Salaam.',
+      'A fly-in day in Mikumi’s open grassland, a practical taste of the southern savannah from the coast or Dar es Salaam.',
     highlights: ['Light-aircraft access', 'Open-grassland game drive', 'Back the same day', 'Southern circuit snapshot'],
     itinerary: days([
       ['Day 1', 'Fly to Mikumi', 'Morning flight, game drive, picnic, and return flight in the afternoon.'],
@@ -219,7 +219,7 @@ const extras = {
     highlights: ['Machame camp', 'Shira plateau', 'Barranco Wall', 'Barafu summit night'],
     itinerary: days([
       ['Day 1', 'Arrive', 'Briefing and overnight in Moshi or Arusha.'],
-      ['Day 2', 'Machame Gate to Machame Camp', 'Rainforest ascent.'],
+      ['Day 2', 'Machame Gate to Machame Camp', 'Rainforest ascent.', { elevation: '1,640m (5,380ft) to 2,850m (9,350ft)', hiking_time: '5-7 hours', vegetation_zone: 'Montane Rainforest', stay: 'Camping at Machame Camp' }],
       ['Day 3', 'Shira Camp', 'Onto the plateau with Kilimanjaro views.'],
       ['Day 4', 'Barranco Camp', 'Via Lava Tower, then down to Barranco.'],
       ['Day 5', 'Karanga to Barafu', 'Barranco Wall, then high camp.'],
@@ -231,7 +231,7 @@ const extras = {
   },
   '4-days-mt-meru-trekking-via-momella-gate': {
     overview:
-      'Mount Meru is Tanzania’s second peak and a serious trek in its own right — forest wildlife, a crater rim, and a sharp summit ridge via Momella Gate.',
+      'Mount Meru is Tanzania’s second peak and a serious trek in its own right, forest wildlife, a crater rim, and a sharp summit ridge via Momella Gate.',
     highlights: ['Arusha National Park', 'Momella Gate', 'Socialist Peak attempt', 'Wildlife on the trail'],
     itinerary: days([
       ['Day 1', 'Momella to Miriakamba', 'Enter Arusha National Park and trek to Miriakamba Hut.'],
@@ -248,7 +248,7 @@ const extras = {
     highlights: ['Beach lodge', 'Stone Town option', 'Spice tour option', 'Fits after a northern safari'],
     itinerary: days([
       ['Day 1', 'Arrive Zanzibar', 'Transfer from the airport or ferry to your beach hotel.'],
-      ['Day 2', 'Beach day', 'At leisure — snorkel, dhow, or simply the tide.'],
+      ['Day 2', 'Beach day', 'At leisure, snorkel, dhow, or simply the tide.'],
       ['Day 3', 'Spice or Stone Town', 'A guided half-day, then return to the beach.'],
       ['Day 4', 'Beach day', 'Free day on the east or north coast as booked.'],
       ['Day 5', 'Depart', 'Transfer to the airport for your international or safari flight.'],
@@ -268,7 +268,7 @@ const extras = {
   },
   '2-days-safari-from-zanzibar': {
     overview:
-      'Fly from Zanzibar for Tarangire and Ngorongoro, then return to the coast — a compact wildlife add-on when beach days come first.',
+      'Fly from Zanzibar for Tarangire and Ngorongoro, then return to the coast, a compact wildlife add-on when beach days come first.',
     highlights: ['Flights from Zanzibar', 'Tarangire', 'Ngorongoro Crater', 'Two-day circuit'],
     itinerary: days([
       ['Day 1', 'Zanzibar to Tarangire', 'Fly to the mainland, game drive in Tarangire, overnight at a lodge.'],
@@ -299,7 +299,7 @@ function withDefaults(tour) {
     ...tour,
     slug,
     title: safariPackageTitle(tour.title),
-    overview: extra.overview || tour.overview || `${tour.title} with Golden Memories Safaris — a private itinerary from Arusha, shaped around ${tour.places || 'Tanzania’s parks'}.`,
+    overview: extra.overview || tour.overview || `${tour.title} with Golden Memories Safaris, a private itinerary from Arusha, shaped around ${tour.places || 'Tanzania’s parks'}.`,
     highlights: extra.highlights || tour.highlights || [tour.places, tour.duration, tour.activity].filter(Boolean),
     itinerary: extra.itinerary || tour.itinerary || daysFromJoin(tour) || [{ day: 'Itinerary', title: tour.title, body: 'Share your dates and we will send a day-by-day plan for this package.' }],
     included: extra.included || tour.included || tour.inclusions || (isClimb ? climbIncluded : sharedIncluded),

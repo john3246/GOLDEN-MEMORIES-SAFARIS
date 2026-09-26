@@ -10,7 +10,7 @@ export const contactHero = {
 export const contactIntro = {
   kicker: 'Get in touch',
   title: 'Contact details',
-  body: 'Call, WhatsApp or email our team in Arusha, or use the form. Tell us your travel dates, the number of travellers and what you would like to see, and a consultant will reply personally — usually within one working day.',
+  body: 'Call, WhatsApp or email our team in Arusha, or use the form. Tell us your travel dates, the number of travellers and what you would like to see, and a consultant will reply personally, usually within one working day.',
 };
 
 export function getContactDetails() {
@@ -45,5 +45,5 @@ export const contactMap = {
 
 export const contactFormCopy = {
   title: 'Send us a message',
-  body: 'The more you tell us — dates, group size, budget, interests — the more useful our first reply will be.',
+  body: 'The more you tell us, dates, group size, budget, interests, the more useful our first reply will be.',
 };

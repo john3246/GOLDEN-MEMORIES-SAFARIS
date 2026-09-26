@@ -262,7 +262,7 @@ async function mount() {
     // The site bundle already carries every published tour — no extra request.
     let cmsSafari = cmsSafaris.find((item) => item.slug === slug) || null;
     let cmsRelated = cmsSafari ? cmsSafaris.filter((item) => item.slug !== slug).slice(0, 4) : [];
-    if (!cmsSafari && !cmsSafaris.length) {
+    if (!cmsSafari) {
       const { fetchPublishedSafariBySlug } = await import('./services/api/safaris.js');
       const wait = cmsTimeout();
       try {
@@ -272,7 +272,6 @@ async function mount() {
       } finally {
         wait.done();
       }
-      cmsRelated = [];
     }
     page = renderTourDetail(slug, cmsSafari, cmsRelated);
     applyTourMeta(slug, cmsSafari);
@@ -282,7 +281,8 @@ async function mount() {
   } else if (isToursListing()) {
     const { renderTours } = await import('./pages/tours/tours.js');
     const { initToursFilters } = await import('./pages/tours/filters.js');
-    page = renderTours();
+    const { cmsSafaris } = await import('./services/cms/overlay.js');
+    page = renderTours(cmsSafaris);
     afterPaint = async () => initToursFilters();
   } else {
     const { renderHome, initHomeHero } = await import('./pages/home/home.js');

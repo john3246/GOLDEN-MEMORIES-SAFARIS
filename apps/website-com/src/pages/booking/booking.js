@@ -74,7 +74,7 @@ function summaryHtml(item) {
 }
 
 /**
- * Booking page — safari is preselected from ?safari=slug.
+ * Booking page, safari is preselected from ?safari=slug.
  */
 export function renderBooking() {
   const selectedSlug = safariSlugFromQuery();
@@ -99,7 +99,7 @@ export function renderBooking() {
           <h1 id="booking-hero-title" class="mt-5 max-w-4xl font-display text-3xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
             ${current ? `Book ${current.title}` : 'Book your Tanzania safari'}
           </h1>
-          <p class="mt-4 max-w-2xl font-body text-base text-white/85 sm:text-lg">Tell us your dates and group size — we confirm lodges, park fees, and the vehicle from Arusha.</p>
+          <p class="mt-4 max-w-2xl font-body text-base text-white/85 sm:text-lg">Tell us your dates and group size, we confirm lodges, park fees, and the vehicle from Arusha.</p>
         </div>
       </section>
 
@@ -142,7 +142,7 @@ export function renderBooking() {
               </label>
               <div class="contact-form-full" data-child-details hidden>
                 <p class="contact-form-legend">Child details</p>
-                <p class="font-body text-sm font-medium normal-case tracking-normal text-ink/70">Name and age for each child — lodges and park fees change at about 12 years.</p>
+                <p class="font-body text-sm font-medium normal-case tracking-normal text-ink/70">Name and age for each child, lodges and park fees change at about 12 years.</p>
                 <div data-child-rows></div>
               </div>
               <label>
@@ -257,7 +257,7 @@ export function initBookingForm() {
       if (stamp) stamp.value = String(Date.now());
       showNote(
         note,
-        `Thank you — your booking request ${result.code || ''} has been received. We have emailed a copy to ${payload.email} and our reservations team will confirm availability and final details shortly.`
+        `Thank you, your booking request ${result.code || ''} has been received. We have emailed a copy to ${payload.email} and our reservations team will confirm availability and final details shortly.`
       );
     } catch (err) {
       if (!isNetworkError(err)) {

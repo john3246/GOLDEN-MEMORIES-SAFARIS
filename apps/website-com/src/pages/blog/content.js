@@ -53,7 +53,11 @@ export const blogTopics = [
   },
 ];
 
-export const blogArticles = [
+/**
+ * Original journal copy. Used only to seed the CMS on a fresh database —
+ * the public site never shows these directly.
+ */
+export const seedBlogArticles = [
   {
     slug: 'best-time-to-climb-kilimanjaro',
     topic: 'climbing',
@@ -65,7 +69,7 @@ export const blogArticles = [
     paragraphs: [
       'Most climbers aim for January to early March or June to October. Those windows are drier on the lower slopes, with clearer summit views and more stable trail conditions.',
       'April, May, and November bring heavier rain in the forest. The mountain is still climbable, but paths are muddier, views come and go, and you will want serious waterproofs. Some guests prefer these months for quieter camps.',
-      'December can be warm and busy around the holidays. Summit night is cold in every season — pack for that regardless of the month you choose.',
+      'December can be warm and busy around the holidays. Summit night is cold in every season, pack for that regardless of the month you choose.',
       'If you are pairing the trek with a northern safari, June to October also lines up with classic dry-season game viewing. Share your dates and we will say whether to trek first or safari first.',
     ],
   },
@@ -93,7 +97,7 @@ export const blogArticles = [
     paragraphs: [
       'Kilimanjaro is a long walk at altitude, not a technical climb. The work is in your legs, lungs, and patience. Start hill walking, stairs, or loaded day hikes at least eight to twelve weeks out.',
       'Broken-in boots, layered clothing, and a sleeping system rated for well below freezing on summit night matter more than brand-new kit. We send a packing list and can arrange hire in Arusha or Moshi.',
-      'On the trail the mantra is pole pole — slowly. Groups that rush the first days pay for it later. Drink more water than you think you need, eat even when appetite drops, and tell your guide how you feel.',
+      'On the trail the mantra is pole pole, slowly. Groups that rush the first days pay for it later. Drink more water than you think you need, eat even when appetite drops, and tell your guide how you feel.',
       'Travel insurance should cover trekking to 6,000 metres. We also brief you on Diamox, summit-night pacing, and when turning around is the right call.',
     ],
   },
@@ -105,7 +109,7 @@ export const blogArticles = [
     excerpt: 'What goes on your back, what the porters carry, and what you can hire in town.',
     image: GM.materuni,
     paragraphs: [
-      'You carry a daypack: water, layers, snacks, camera, and rain cover. Porters take the duffel with your sleeping bag, spare clothes, and the rest of camp life — keep that bag within the weight limit we confirm before the gate.',
+      'You carry a daypack: water, layers, snacks, camera, and rain cover. Porters take the duffel with your sleeping bag, spare clothes, and the rest of camp life, keep that bag within the weight limit we confirm before the gate.',
       'Essentials: waterproof jacket and trousers, insulating mid-layer, warm hat and gloves for summit night, sun hat, sunglasses, headlamp, and trekking poles. Softshell or fleece for wind on the crater rim.',
       'Leave cotton for town. Quick-dry shirts, two or three trekking trousers, and enough socks to finish the week with dry feet. A small personal first-aid kit sits alongside the crew’s medical bag.',
       'We check kit the evening before the climb. If something is missing, Moshi and Arusha hire shops usually have it. Do not buy a brand-new boot the night before the gate.',
@@ -120,7 +124,7 @@ export const blogArticles = [
     image: GM.northern,
     paragraphs: [
       'June to October is the classic dry season: grass is shorter, animals gather around water, and the northern circuit is at its most reliable for game viewing.',
-      'January to March is calving time on the southern Serengeti and Ndutu plains — short grass, predators, and newborn wildebeest. It is a different safari from a July river crossing, not a lesser one.',
+      'January to March is calving time on the southern Serengeti and Ndutu plains, short grass, predators, and newborn wildebeest. It is a different safari from a July river crossing, not a lesser one.',
       'April and May are greener and quieter, with more rain and some camps closing. Birdlife is excellent. If you like space on the road and can live with the odd storm, it can be a thoughtful time to travel.',
       'There is no single month that is “best” for every park. We match Tarangire, Serengeti, Ngorongoro, or the south to the dates you actually have.',
     ],
@@ -134,7 +138,7 @@ export const blogArticles = [
     image: GM.migration,
     paragraphs: [
       'A million-plus wildebeest, plus zebra and gazelle, move with the rain around the Serengeti–Mara ecosystem. It is a cycle, not a single event, and the front of the herd is not always where last year’s map said it would be.',
-      'Calving is typically December to March in the south. The long trek north builds through the western corridor in the middle of the year. River crossings on the Mara usually peak between July and October — weather and the herds decide the exact week.',
+      'Calving is typically December to March in the south. The long trek north builds through the western corridor in the middle of the year. River crossings on the Mara usually peak between July and October, weather and the herds decide the exact week.',
       'A good migration safari is about extra nights in the right sector, not a two-hour appointment at a riverbank. We place camps where the animals are using current reports, then stay flexible on the game-drive plan.',
       'If your dates miss the crossing, you still have Serengeti: resident cats, elephant, and the open grassland that makes the park famous. We will be honest about what the season can and cannot show you.',
     ],
@@ -148,7 +152,7 @@ export const blogArticles = [
     image: GM.tarangire,
     paragraphs: [
       'Pack light, muted colours. Early game drives are cold in the crater highlands; afternoons can be hot and dusty. A fleece or light down jacket earns its place even in the dry season.',
-      'Closed shoes for the vehicle, a sun hat, sunglasses, high-SPF sunscreen, and binoculars. A camera with a spare battery — charging is available at lodges, but not always between drives.',
+      'Closed shoes for the vehicle, a sun hat, sunglasses, high-SPF sunscreen, and binoculars. A camera with a spare battery, charging is available at lodges, but not always between drives.',
       'Malaria prophylaxis is a conversation with your doctor. We recommend travel insurance, any personal medication in original packaging, and a small kit for blisters and stomach upsets.',
       'Leave drones at home unless you have park permission. Soft bags beat hard suitcases on light aircraft. We send a full list with your confirmation.',
     ],
@@ -161,7 +165,7 @@ export const blogArticles = [
     excerpt: 'A locally owned company, park-wise driver-guides, and itineraries that are not copy-pasted.',
     image: GM.ngorongoroTourists,
     paragraphs: [
-      'Golden Memories Safaris is based in Njiro, Arusha — close to Kilimanjaro Airport, the northern parks, and the mountain trailheads. We are a Tanzanian team, not a foreign desk booking a local operator at the last minute.',
+      'Golden Memories Safaris is based in Njiro, Arusha, close to Kilimanjaro Airport, the northern parks, and the mountain trailheads. We are a Tanzanian team, not a foreign desk booking a local operator at the last minute.',
       'Your driver-guide is the person you will spend the most time with. We choose people who know the roads, the animals, and when to wait at a kopje instead of racing the next gate.',
       'Safari and trek plans are built around your dates, not a brochure that never changes. If you want a slower crater day, a migration focus, or a Kilimanjaro route with an extra night, we say so in the itinerary before you pay a deposit.',
       'Read more about the company on our About page, or write to us with the month you want to travel.',
@@ -175,10 +179,10 @@ export const blogArticles = [
     excerpt: 'eVisa, arrival visas, and the documents we ask you to keep with your passport.',
     image: GM.savanna,
     paragraphs: [
-      'Most visitors need a visa for Tanzania. Many nationalities can apply online for an eVisa before travel, or arrange a visa on arrival at Kilimanjaro International Airport and other main entry points. Rules change — check the official immigration site for your passport.',
+      'Most visitors need a visa for Tanzania. Many nationalities can apply online for an eVisa before travel, or arrange a visa on arrival at Kilimanjaro International Airport and other main entry points. Rules change, check the official immigration site for your passport.',
       'Have a passport valid for at least six months, a return or onward ticket, and proof of where you are staying. Yellow fever certificates are required if you are arriving from a country with risk of transmission.',
       'We are a tour operator, not an embassy. We share current joining notes with your itinerary, but you are responsible for entering the country legally. Start the visa process early in high season.',
-      'If you are combining Zanzibar with the mainland, you are still in the United Republic of Tanzania — you do not need a second visa for the island. Keep your entry stamp handy for domestic flights.',
+      'If you are combining Zanzibar with the mainland, you are still in the United Republic of Tanzania, you do not need a second visa for the island. Keep your entry stamp handy for domestic flights.',
     ],
   },
   {
@@ -192,7 +196,7 @@ export const blogArticles = [
       'Tanzania sits just south of the equator. Seasons are more about rain than about snow, except on Kilimanjaro. The long rains usually fall around March to May; shorter rains often arrive in November.',
       'The northern parks are generally driest from June to October. Days are warm, nights can be cold at Ngorongoro, and the light is excellent for photography. January and February are often clear and warm on the southern Serengeti plains.',
       'The coast is humid year-round. Zanzibar has its own rain pattern; beach days are still possible in green months, with the odd tropical shower.',
-      'Pack layers, not a single “safari outfit.” We design days around weather as well as wildlife — an early start on the crater floor, shade at midday, and a warm jacket for the drive back to the rim.',
+      'Pack layers, not a single “safari outfit.” We design days around weather as well as wildlife, an early start on the crater floor, shade at midday, and a warm jacket for the drive back to the rim.',
     ],
   },
   {
@@ -206,7 +210,7 @@ export const blogArticles = [
       'Zanzibar is the classic exhale after Serengeti dust. Fly from Arusha or Kilimanjaro to Unguja, transfer to a beach lodge, and let the tide set the pace.',
       'Stone Town is carved doors, waterfront lanes, and a history of trade that still shows in the architecture. A spice farm visit explains why cloves, nutmeg, and cinnamon still matter here.',
       'Beyond the main beaches: a dhow snorkel, Prison Island’s giant tortoises, or a simple day of swimming. If you want wildlife again, a short safari from Zanzibar to Tarangire and Ngorongoro is possible.',
-      'We book beach nights as part of a through-itinerary so you are not stitching flights together at midnight. Tell us how many idle days you want — two is a taste, five is a holiday.',
+      'We book beach nights as part of a through-itinerary so you are not stitching flights together at midnight. Tell us how many idle days you want, two is a taste, five is a holiday.',
     ],
   },
   {
@@ -217,10 +221,10 @@ export const blogArticles = [
     excerpt: 'Where lion, leopard, elephant, buffalo, and rhino are realistically seen on a northern circuit.',
     image: GM.ngorongoro,
     paragraphs: [
-      'The Big Five — lion, leopard, elephant, buffalo, and rhino — is a hunting-era list, not a scorecard. You can have an outstanding safari without ticking every name, and a rushed safari that ticks them and misses everything else.',
+      'The Big Five, lion, leopard, elephant, buffalo, and rhino, is a hunting-era list, not a scorecard. You can have an outstanding safari without ticking every name, and a rushed safari that ticks them and misses everything else.',
       'Ngorongoro Crater is one of the more reliable places in Tanzania to look for black rhino, along with dense concentrations of lion, buffalo, and elephant. Leopard is always a gift: more often Serengeti or Tarangire woodland than a guarantee.',
       'Tarangire is elephant country in the dry season. The Serengeti holds the cats and the great herds. We plan game drives for habitat, not for a posed list.',
-      'If seeing rhino or leopard is especially important, say so. We will be honest about odds and put you in the parks and seasons that help — without pretending wildlife keeps appointments.',
+      'If seeing rhino or leopard is especially important, say so. We will be honest about odds and put you in the parks and seasons that help, without pretending wildlife keeps appointments.',
     ],
   },
   {
@@ -234,18 +238,18 @@ export const blogArticles = [
       'Kilimanjaro is a trek through climate zones. The forest belt still holds colobus and blue monkeys, duiker, and a lot of birdlife. You hear more than you see once the trail steepens.',
       'Moorland brings giant senecios and lobelias. Above that, the alpine desert is sparse: the odd skink, a raven at camp, and very little else. Summit night is about rock, ice, and headlamps, not animals.',
       'That contrast is part of the story. Guests who safari after the climb often say the plains feel even more alive. Those who climb after a safari notice how quiet the mountain is.',
-      'Mount Meru, inside Arusha National Park, is the trek where wildlife and walking really mix — giraffe and buffalo on the lower trail, then a sharp crater rim. It is a serious peak in its own right.',
+      'Mount Meru, inside Arusha National Park, is the trek where wildlife and walking really mix, giraffe and buffalo on the lower trail, then a sharp crater rim. It is a serious peak in its own right.',
     ],
   },
   {
     slug: 'serengeti-or-ngorongoro',
     topic: 'safari',
     date: '8 September 2026',
-    title: 'Serengeti or Ngorongoro — how we choose',
+    title: 'Serengeti or Ngorongoro, how we choose',
     excerpt: 'Open plains versus a crater floor: both belong on most northern itineraries, for different reasons.',
     image: GM.ngorongoro,
     paragraphs: [
-      'The Serengeti is scale: kopjes, riverine woodland, and enough country that camp location matters more than the park name on the permit. Ngorongoro is concentration — a caldera you descend into, with a full-day crater drive and a highland night on the rim.',
+      'The Serengeti is scale: kopjes, riverine woodland, and enough country that camp location matters more than the park name on the permit. Ngorongoro is concentration, a caldera you descend into, with a full-day crater drive and a highland night on the rim.',
       'We almost never treat them as either/or. A classic circuit uses both: Serengeti nights for cats and space, then a crater day that often produces rhino, dense lion, and a picnic that guests remember for years.',
       'If time is short, two Serengeti nights and one crater day still work. If you only have a day from Arusha, the crater is the stronger single hit. If migration is the priority, we add Serengeti nights in the right sector and keep Ngorongoro as the bookend.',
       'Tell us the month and how many nights you have. We will say which park should get the extra night, not a generic “do both” that ignores the calendar.',
@@ -260,7 +264,7 @@ export const blogArticles = [
     image: GM.savanna,
     paragraphs: [
       'A four-day private safari from Arusha can cover Tarangire and Ngorongoro with a night in between. It is a real safari, not a sample day, but you will feel the road.',
-      'Six days lets Serengeti in: two nights on the plains, a crater day, and Tarangire without rushing every gate. Eight days is when we stop arguing with the clock — extra game-drive mornings, a slower transfer, or a second Serengeti sector.',
+      'Six days lets Serengeti in: two nights on the plains, a crater day, and Tarangire without rushing every gate. Eight days is when we stop arguing with the clock, extra game-drive mornings, a slower transfer, or a second Serengeti sector.',
       'Families and first-timers usually thank us for the sixth night. Photographers and migration travellers often want eight or more, plus a flight between airstrips if the herds are far north.',
       'We would rather cut a park than squeeze three parks into three days. Share your dates; we will draw the shortest itinerary that still feels like Tanzania.',
     ],
@@ -298,7 +302,7 @@ export const blogArticles = [
     topic: 'climbing',
     date: '16 August 2026',
     title: 'After Kilimanjaro: rest, safari, or the coast',
-    excerpt: 'Give the knees a night in town, then choose plains or ocean — not both on the same afternoon.',
+    excerpt: 'Give the knees a night in town, then choose plains or ocean, not both on the same afternoon.',
     image: GM.kilimanjaro,
     paragraphs: [
       'Summit night empties people. We plan a hotel night in Moshi or Arusha after the descent: a shower, a real bed, and a meal that is not freeze-dried.',
@@ -325,12 +329,18 @@ export const blogArticles = [
   ...zaraInspiredJournalArticles,
 ];
 
-for (const article of blogArticles) {
+for (const article of seedBlogArticles) {
   if (article.destination_slugs?.length) continue;
   article.destination_slugs = destinationSlugsFromCopy(
     `${article.title || ''} ${article.excerpt || ''} ${article.slug || ''} ${(article.paragraphs || []).join(' ')}`
   );
 }
+
+/**
+ * Articles shown on the website: filled only from posts PUBLISHED in the CMS
+ * (see services/cms/overlay.js). Unpublished or draft posts never appear.
+ */
+export const blogArticles = [];
 
 export function topicBySlug(slug) {
   return blogTopics.find((topic) => topic.slug === slug) || null;

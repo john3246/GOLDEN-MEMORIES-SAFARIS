@@ -16,7 +16,7 @@ export const kiliIntro = {
   image: '/images/gallery/kilimanjaro-19.webp',
   imageAlt: 'Trekkers on the Machame Route of Mount Kilimanjaro',
   paragraphs: [
-    'Climbing Mount Kilimanjaro — the highest free-standing mountain in the world — sits on the bucket list of many adventure travellers. Summiting Uhuru Peak is a unique wilderness experience: you walk from rainforest to alpine desert to a glacier rim, then watch sunrise over the continent.',
+    'Climbing Mount Kilimanjaro, the highest free-standing mountain in the world, sits on the bucket list of many adventure travellers. Summiting Uhuru Peak is a unique wilderness experience: you walk from rainforest to alpine desert to a glacier rim, then watch sunrise over the continent.',
     'The trails are well established and non-technical. What they ask of you is fitness, patience, and time to acclimatise. Even when the days are hard, reaching the roof of Africa with a dedicated Tanzanian crew is a once-in-a-lifetime reward.',
     'Golden Memories Safaris runs climbs with experienced mountain guides, cooks, and porters from Arusha and Moshi. We match the route to your dates, pace, and whether you prefer mountain huts or tents.',
   ],
@@ -27,7 +27,7 @@ export const kiliRoutes = [
     name: 'Marangu Route',
     slug: '6-day-mount-kilimanjaro-climbing-adventure-via-marangu-route',
     image: uniqueCoverFor({ slug: '6-day-mount-kilimanjaro-climbing-adventure-via-marangu-route', title: 'Marangu Route', places: 'Kilimanjaro' }),
-    body: 'A gradual ascent on the “Coca-Cola” trail, with overnight in mountain huts. You pass rainforest, moorland, and alpine desert — a classic, less strenuous profile for first-time trekkers who want a structured hut-to-hut climb.',
+    body: 'A gradual ascent on the “Coca-Cola” trail, with overnight in mountain huts. You pass rainforest, moorland, and alpine desert, a classic, less strenuous profile for first-time trekkers who want a structured hut-to-hut climb.',
   },
   {
     name: 'Machame Route',
@@ -39,7 +39,7 @@ export const kiliRoutes = [
     name: 'Lemosho Route',
     slug: '8-day-mount-kilimanjaro-trekking-adventure-via-lemosho-route',
     image: uniqueCoverFor({ slug: '8-day-mount-kilimanjaro-trekking-adventure-via-lemosho-route', title: 'Lemosho Route', places: 'Kilimanjaro' }),
-    body: 'A quieter western start through forest and onto the Shira Plateau, then the Barranco Wall. Excellent acclimatisation and fewer crowds in the first days — a favourite when you can spare eight days.',
+    body: 'A quieter western start through forest and onto the Shira Plateau, then the Barranco Wall. Excellent acclimatisation and fewer crowds in the first days, a favourite when you can spare eight days.',
   },
   {
     name: 'Rongai Route',

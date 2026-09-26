@@ -2,7 +2,7 @@
  * One-time copy clean-up (runs once per database, see bootstrap/cms.js).
  *
  * Only touches text that is still exactly the original placeholder/seed
- * wording — anything an editor has already changed is left alone.
+ * wording, anything an editor has already changed is left alone.
  */
 import { SafariStatus } from '@gm-safaris/shared-types';
 import { SEO_ROUTES, DEFAULT_KEYWORDS } from '@gm-safaris/safari-ui';
@@ -46,11 +46,11 @@ const PAGE_EXCERPTS = {
   },
   'join-safari': {
     old: ['Small-group dates you can join.'],
-    next: 'Fixed-date, small-group safaris — share the vehicle and the cost with other travellers.',
+    next: 'Fixed-date, small-group safaris, share the vehicle and the cost with other travellers.',
   },
   destinations: {
     old: ['Northern Circuit, coast, and southern parks.'],
-    next: 'Serengeti, Ngorongoro, Tarangire, Kilimanjaro, Zanzibar and the southern parks — when to go and what to see.',
+    next: 'Serengeti, Ngorongoro, Tarangire, Kilimanjaro, Zanzibar and the southern parks, when to go and what to see.',
   },
   blog: {
     old: ['Practical Tanzania travel articles.'],
@@ -58,9 +58,9 @@ const PAGE_EXCERPTS = {
   },
 };
 
-const OLD_SEO_TITLE = 'Golden Memories Safaris – Tanzania Safaris Experts';
+const OLD_SEO_TITLE = 'Golden Memories Safaris, Tanzania Safaris Experts';
 const OLD_SEO_DESCRIPTION =
-  'Golden Memories Safaris — premier Tanzania wildlife safaris, Kilimanjaro treks, and Zanzibar beach holidays crafted by experts in Arusha.';
+  'Golden Memories Safaris, premier Tanzania wildlife safaris, Kilimanjaro treks, and Zanzibar beach holidays crafted by experts in Arusha.';
 
 function applyToDoc(doc, fn) {
   if (doc && typeof doc === 'object') fn(doc);

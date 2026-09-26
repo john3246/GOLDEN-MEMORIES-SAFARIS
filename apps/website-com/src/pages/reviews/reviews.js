@@ -24,7 +24,7 @@ function safeHref(value) {
 function stars(rating) {
   const value = Math.max(0, Math.min(5, Number(rating) || 0));
   const full = Math.round(value);
-  return `<span class="review-stars" role="img" aria-label="${value.toFixed(1)} out of 5 stars">${'★'.repeat(full)}<span class="review-stars-off">${'★'.repeat(5 - full)}</span></span>`;
+  return `<span class="review-stars" role="img" aria-label="${value.toFixed(1)} out of 5 stars">${'★'.repeat(full)}<span class="review-stars-off">${'★'.repeat(5, full)}</span></span>`;
 }
 
 function formatDate(value) {
@@ -114,7 +114,7 @@ export function renderReviews() {
         <div class="container-site relative flex min-h-[11rem] flex-col justify-end py-8 sm:min-h-[13rem] lg:min-h-[14rem]">
           <p class="font-body text-xs font-semibold uppercase tracking-[0.12em] text-white/80"><a href="/">Home</a> <span aria-hidden="true">›</span> Reviews</p>
           <h1 id="reviews-hero-title" class="mt-2 max-w-3xl font-display text-3xl font-semibold tracking-tight sm:text-4xl">Guest reviews</h1>
-          <p class="mt-2 max-w-2xl text-sm text-white/85 sm:text-base">Honest feedback from travellers who explored Tanzania with our guides — collected from Tripadvisor, Google, SafariBookings and our own guests.</p>
+          <p class="mt-2 max-w-2xl text-sm text-white/85 sm:text-base">Honest feedback from travellers who explored Tanzania with our guides, collected from Tripadvisor, Google, SafariBookings and our own guests.</p>
         </div>
       </section>
       ${sourceBadges()}
@@ -125,7 +125,7 @@ export function renderReviews() {
           <div class="mt-6 grid gap-4 md:grid-cols-2">${cards}</div>
           <div class="mt-10 max-w-2xl">
             <h2 class="section-title !text-2xl">Travelled with us?</h2>
-            <p class="mt-3 text-base text-ink/75">Your review helps other travellers choose with confidence — and tells our guides and drivers that their work mattered. Thank you for taking a moment to share it.</p>
+            <p class="mt-3 text-base text-ink/75">Your review helps other travellers choose with confidence, and tells our guides and drivers that their work mattered. Thank you for taking a moment to share it.</p>
             <div class="mt-5 flex flex-wrap gap-3">${writeLinks}<a class="btn-navy !rounded-none" href="/contact/">Plan your safari</a></div>
           </div>
         </div>

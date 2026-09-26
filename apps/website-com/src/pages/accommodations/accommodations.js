@@ -106,7 +106,7 @@ export function renderAccommodations() {
         <div class="container-site relative flex min-h-[11rem] flex-col justify-end py-8 sm:min-h-[13rem] lg:min-h-[14rem]">
           <p class="font-body text-xs font-semibold uppercase tracking-[0.12em] text-white/80">Home <span aria-hidden="true">›</span> Accommodations</p>
           <h1 id="stay-hero-title" class="mt-2 max-w-3xl font-display text-3xl font-semibold tracking-tight sm:text-4xl">Safari lodges and camps</h1>
-          <p class="mt-2 max-w-2xl text-sm text-white/85 sm:text-base">We match mid-range, luxury, and premium-luxury lodges to your circuit, season, and budget — confirmed to your dates from Arusha.</p>
+          <p class="mt-2 max-w-2xl text-sm text-white/85 sm:text-base">We match mid-range, luxury, and premium-luxury lodges to your circuit, season, and budget, confirmed to your dates from Arusha.</p>
         </div>
       </section>
       <section class="bg-mist py-8 sm:py-10">

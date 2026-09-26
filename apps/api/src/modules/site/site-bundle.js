@@ -57,7 +57,35 @@ function postSummary(post) {
 
 function toPublicSafari(record) {
   if (record.status !== SafariStatus.PUBLISHED || !record.published) return null;
-  return { id: record.id, slug: record.published.slug || record.slug, ...record.published };
+  const doc = record.published;
+  const isMountain = doc.tour_type === 'mountain' || /kilimanjaro|meru|climb|trek|machame|marangu|lemosho|umbwe|rongai/i.test(`${doc.title || ''} ${doc.destination || ''}`);
+  const tourType = isMountain ? 'mountain' : (doc.tour_type || 'safari');
+  const inclusions = doc.inclusions || doc.included || [];
+  const exclusions = doc.exclusions || doc.excluded || [];
+  const destination = doc.destination || doc.places || (isMountain ? 'Kilimanjaro' : 'Tanzania');
+  const overview = doc.description || doc.short_description || doc.overview || '';
+  const activity = doc.difficulty || (isMountain ? 'Kilimanjaro trekking' : 'Private Safari');
+
+  return {
+    ...doc,
+    id: record.id,
+    slug: doc.slug || record.slug,
+    tour_type: tourType,
+    style: tourType,
+    destination,
+    places: destination,
+    difficulty: activity,
+    activity,
+    overview,
+    short_description: doc.short_description || overview,
+    description: doc.description || overview,
+    price_from: doc.price_from ?? doc.price,
+    inclusions,
+    included: inclusions,
+    exclusions,
+    excluded: exclusions,
+    image: doc.hero_image?.url || doc.image || '',
+  };
 }
 
 async function build() {

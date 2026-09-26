@@ -269,7 +269,7 @@ const legacyGmsTrips = [
   {
     "slug": "4-day-affordable-private-tanzania-safari-tarangire-serengeti-ngorongoro-crater-adventure",
     "sourceSlug": "4-day-affordable-private-tanzania-safari-tarangire-serengeti-ngorongoro-crater-adventure",
-    "title": "4-Day Affordable Private Tanzania Safari – Tarangire, Serengeti & Ngorongoro Crater Adventure",
+    "title": "4-Day Affordable Private Tanzania Safari, Tarangire, Serengeti & Ngorongoro Crater Adventure",
     "duration": "4 Days / 3 Nights",
     "activity": "Wildlife Safari",
     "places": "Tarangire · Serengeti · Ngorongoro",
@@ -283,7 +283,7 @@ const legacyGmsTrips = [
   {
     "slug": "6-day-luxury-great-migration-safari-serengeti-river-crossing-exclusive-experience",
     "sourceSlug": "6-day-luxury-great-migration-safari-serengeti-river-crossing-exclusive-experience",
-    "title": "6-Day Luxury Great Migration Safari – Serengeti River Crossing Exclusive Experience",
+    "title": "6-Day Luxury Great Migration Safari, Serengeti River Crossing Exclusive Experience",
     "duration": "6 Days / 5 Nights",
     "activity": "Luxury Safari",
     "places": "Serengeti",

@@ -1,5 +1,5 @@
 /**
- * Home page content — photos from the local GMS gallery only.
+ * Home page content, photos from the local GMS gallery only.
  */
 
 import { galleryPhoto } from '../../media/gallery.js';
@@ -37,7 +37,7 @@ export const media = GM;
 export const site = {
   name: 'Golden Memories Safaris',
   shortName: 'GM Safaris',
-  tagline: 'Your path to golden memories begins here',
+  tagline: 'Your Path To Golden Memories Begins Here',
   phone: '+255 786 383 273',
   phoneAlt: '+255 754 750 070',
   email: 'info@gmsafaris.co.tz',
@@ -166,7 +166,7 @@ export const testimonials = [];
 
 export const whyBook = {
   title: 'Local experts, private safaris',
-  body: 'Golden Memories Safaris is a locally owned tour operator based in Arusha. We plan private and small-group safaris, Kilimanjaro climbs and Zanzibar stays around your dates, budget and pace — with professional driver-guides, well-maintained 4x4 vehicles, carefully chosen lodges and one clear price that shows exactly what is included.',
+  body: 'Golden Memories Safaris is a locally owned tour operator based in Arusha. We plan private and small-group safaris, Kilimanjaro climbs and Zanzibar stays around your dates, budget and pace, with professional driver-guides, well-maintained 4x4 vehicles, carefully chosen lodges and one clear price that shows exactly what is included.',
   slides: [
     { src: GM.ngorongoro, alt: 'Ngorongoro Crater wildlife viewing' },
     { src: GM.northern, alt: 'Serengeti safari wildlife adventure' },

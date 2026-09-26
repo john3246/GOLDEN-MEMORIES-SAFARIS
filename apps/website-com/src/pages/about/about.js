@@ -10,7 +10,7 @@ import {
 } from './content.js';
 
 /**
- * About page — live GM copy and photos, current site header/footer and gold/black layout.
+ * About page, live GM copy and photos, current site header/footer and gold/black layout.
  */
 export function renderAbout() {
   const principles = aboutPrinciples
@@ -85,7 +85,7 @@ export function renderAbout() {
           <h1 id="about-hero-title" class="mt-5 max-w-4xl font-display text-3xl font-semibold leading-[1.1] tracking-tight sm:text-5xl lg:text-6xl">
             ${aboutHero.title}
           </h1>
-          <p class="mt-4 font-body text-sm font-semibold uppercase tracking-[0.16em] text-gold">${aboutHero.motto}</p>
+          <p class="mt-4 font-display text-lg sm:text-xl font-normal text-gold italic">${aboutHero.motto}</p>
           <a class="btn-navy mt-8 !rounded-none" href="/contact/">${aboutHero.cta}</a>
         </div>
       </section>

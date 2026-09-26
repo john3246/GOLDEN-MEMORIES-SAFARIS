@@ -102,7 +102,7 @@ async function loadWebsiteCatalog() {
   ]);
   return {
     destinations: destinationsMod.destinationPlaces || [],
-    posts: blogMod.blogArticles || [],
+    posts: blogMod.seedBlogArticles || [],
     lodges: lodgesMod.lodges || [],
     departures: [...(joinMod.joiningSafaris || []), ...(joinMod.openJoiningPackages || [])],
     faqs: [

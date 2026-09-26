@@ -15,7 +15,7 @@ export const safariIntro = {
   image: GM.ngorongoroTourists,
   imageAlt: 'Guests viewing wildlife from a safari vehicle in Tanzania',
   paragraphs: [
-    'Golden Memories Safaris designs private Tanzania wildlife itineraries from our base in Arusha — northern-circuit classics, quieter southern parks, and combinations that end on the coast.',
+    'Golden Memories Safaris designs private Tanzania wildlife itineraries from our base in Arusha, northern-circuit classics, quieter southern parks, and combinations that end on the coast.',
     'Each safari package is built around game drives, trusted lodges or camps, and the pace you want: migration season in the Serengeti, crater floors at Ngorongoro, elephant country in Tarangire, or wilder days in Ruaha and Nyerere.',
     'Tell us your dates and travel style. Our consultants will match parks, nights, and vehicle setup so the journey feels considered from the first transfer to the last sundowner.',
   ],
@@ -73,7 +73,7 @@ export const safariFaqs = [
   },
   {
     q: 'How much does a Tanzania safari cost?',
-    a: 'Each package on this page shows a published rate per person, based on two travellers sharing. That figure includes park fees, lodges, meals, and the private 4x4 listed on the itinerary. Solo supplements, peak-season lodges, or extra activities can change the final invoice — we confirm the number before you pay.',
+    a: 'Each package on this page shows a published rate per person, based on two travellers sharing. That figure includes park fees, lodges, meals, and the private 4x4 listed on the itinerary. Solo supplements, peak-season lodges, or extra activities can change the final invoice, we confirm the number before you pay.',
   },
   {
     q: 'What kind of wildlife can I expect to see?',

@@ -37,6 +37,7 @@ export function clampSeoTitle(value, fallback = '') {
  */
 export function emptySafariDocument(overrides = {}) {
   const doc = {
+    tour_type: 'safari',
     title: '',
     slug: '',
     short_description: '',
@@ -137,16 +138,29 @@ export function enabledSections(doc) {
 
 export function normalizeItineraryDay(day, index = 0) {
   if (!day || typeof day !== 'object') {
-    return { day: `Day ${index + 1}`, title: '', description: '', body: '' };
+    return { day: `Day ${index + 1}`, day_number: index, title: '', description: '', body: '' };
   }
   const text = String(day.description || day.body || '').trim();
+  const accName = day.accommodation_name || day.accommodation || day.stay || '';
+  const accImage = day.accommodation_image || (typeof day.image === 'string' && !day.image.includes('gallery') ? day.image : '');
+  const dayNum = typeof day.day_number === 'number' ? day.day_number : (String(day.day).match(/\d+/)?.[0] ? Number(String(day.day).match(/\d+/)[0]) : index);
+
   return {
     ...day,
+    day_number: dayNum,
     day: day.day || `Day ${index + 1}`,
     title: day.title || '',
     description: text,
     body: text,
-    accommodation: day.accommodation || day.stay || '',
+    accommodation: accName,
+    accommodation_name: accName,
+    accommodation_image: accImage,
+    meals: day.meals_included || day.meals || '',
+    meals_included: day.meals_included || day.meals || '',
+    elevation: day.elevation || '',
+    hiking_time: day.hiking_time || '',
+    vegetation_zone: day.vegetation_zone || '',
+    terrain: day.terrain || '',
   };
 }
 
@@ -174,8 +188,10 @@ export function safariCompletenessErrors(doc = {}) {
   }
 
   const itinerary = Array.isArray(doc.itinerary) ? doc.itinerary : [];
+  const hasDayZero = itinerary.some((d) => String(d?.day || '').trim().toLowerCase() === 'day 0' || d?.day_number === 0);
+  const expectedDays = hasDayZero ? [days, days + 1] : [days];
   if (Number.isInteger(days) && days >= 1) {
-    if (itinerary.length !== days) {
+    if (!expectedDays.includes(itinerary.length)) {
       errors.push(
         `The itinerary must have exactly ${days} day${days === 1 ? '' : 's'} to match the duration. You currently have ${itinerary.length}.`
       );

@@ -73,7 +73,7 @@ function factBar(place) {
 }
 
 /**
- * Individual park / place page — live GM destination copy in our gold/black layout.
+ * Individual park / place page, live GM destination copy in our gold/black layout.
  * @param {string} slug
  */
 export function renderDestinationDetail(slug) {
@@ -240,25 +240,27 @@ export function renderDestinationDetail(slug) {
         <div class="container-site">${factBar(place)}</div>
       </section>
 
-      <section class="bg-gold py-8 sm:py-10" id="overview" aria-labelledby="dest-about-title">
-        <div class="container-site grid items-start gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(18rem,0.8fr)] lg:gap-16">
-          <div class="reveal bg-white p-6 sm:p-10">
-            <p class="section-kicker">About this destination</p>
-            <h2 id="dest-about-title" class="section-title">Overview &amp; Highlights</h2>
-            ${
-              place.blocks?.length
-                ? renderDestinationBlocks(place.blocks)
-                : (place.paragraphs || []).map((p) => `<p class="mt-5 font-body text-base leading-relaxed text-ink/75">${p}</p>`).join('')
-            }
+            <section class="bg-gold py-3 sm:py-4" id="overview" aria-labelledby="dest-about-title">
+        <div class="container-site">
+          <div class="grid items-stretch overflow-hidden bg-white lg:grid-cols-[minmax(0,1.45fr)_minmax(19rem,0.85fr)]">
+            <div class="flex h-full flex-col p-5 sm:p-7 lg:p-8 reveal">
+              <p class="section-kicker">About this destination</p>
+              <h2 id="dest-about-title" class="section-title">Overview &amp; Highlights</h2>
+              ${
+                place.blocks?.length
+                  ? renderDestinationBlocks(place.blocks)
+                  : (place.paragraphs || []).map((p) => `<p class="mt-5 font-body text-base leading-relaxed text-ink/75">${p}</p>`).join('')
+              }
+            </div>
+            <aside class="safari-aside border-t border-black/10 lg:border-l lg:border-t-0 dest-sticky-cta reveal">
+              <p class="section-kicker">Plan a custom safari</p>
+              <h2 class="font-display text-2xl font-semibold text-black">Ask the Arusha team</h2>
+              <dl class="mt-6 space-y-3 font-body text-sm">${facts}</dl>
+              <p class="mt-6 text-sm text-ink/70"><span class="font-bold text-black">Location. </span>${place.location}</p>
+              <a class="btn-navy mt-8 w-full !rounded-none" href="/contact/">Plan a custom safari</a>
+              <p class="mt-3 text-center text-xs text-ink/55">Nights, lodges, and park order, matched to your dates.</p>
+            </aside>
           </div>
-          <aside class="reveal safari-aside dest-sticky-cta">
-            <p class="section-kicker">Plan a custom safari</p>
-            <h2 class="font-display text-2xl font-semibold text-black">Ask the Arusha team</h2>
-            <dl class="mt-6 space-y-3 font-body text-sm">${facts}</dl>
-            <p class="mt-6 text-sm text-ink/70"><span class="font-bold text-black">Location. </span>${place.location}</p>
-            <a class="btn-navy mt-8 w-full !rounded-none" href="/contact/">Plan a custom safari</a>
-            <p class="mt-3 text-center text-xs text-ink/55">Nights, lodges, and park order — matched to your dates.</p>
-          </aside>
         </div>
       </section>
 
@@ -431,7 +433,7 @@ export function renderDestinationDetail(slug) {
             <h2 id="dest-cta-title" class="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
               Ready to explore ${place.name}?
             </h2>
-            <p class="mt-3 text-ink/80">Our team is here to help you plan the perfect experience — nights, lodges, and the parks that sit next door.</p>
+            <p class="mt-3 text-ink/80">Our team is here to help you plan the perfect experience, nights, lodges, and the parks that sit next door.</p>
           </div>
           <a class="reveal btn-navy !rounded-none shrink-0" href="/contact/">Talk to an expert</a>
         </div>
@@ -509,7 +511,7 @@ export function initDestinationDetail() {
   if (links.length && 'IntersectionObserver' in window) {
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio, a.intersectionRatio)[0];
         if (!visible) return;
         const id = `#${visible.target.id}`;
         links.forEach((link) => link.classList.toggle('is-active', link.getAttribute('href') === id));

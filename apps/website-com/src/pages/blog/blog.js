@@ -246,10 +246,10 @@ export function renderBlog(topicSlug = '') {
             <h2 id="blog-latest-title" class="section-title">Safari stories</h2>
           </div>
           ${filterBar()}
-          <div class="reveal mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          ${featured ? `<div class="reveal mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             ${cards}
           </div>
-          <p class="blog-empty" data-blog-empty hidden>No articles match that search.</p>
+          <p class="blog-empty" data-blog-empty hidden>No articles match that search.</p>` : '<p class="blog-empty mt-10">New safari stories are coming soon. Please check back shortly.</p>'}
         </div>
       </section>
 

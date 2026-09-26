@@ -15,6 +15,7 @@ const SEO_DESC_MAX = 320;
 
 export const WRITABLE_FIELDS = Object.freeze([
   'title',
+  'tour_type',
   'slug',
   'short_description',
   'description',
@@ -87,12 +88,20 @@ function itinerary(value) {
       title: fail(validateOptionalString(day.title, `itinerary[${index}].title`, 180)),
       description: fail(validateOptionalString(day.description || day.body, `itinerary[${index}].description`, 8000)),
       activities: stringList(day.activities || [], `itinerary[${index}].activities`, 20, 200) || [],
-      accommodation: fail(validateOptionalString(day.accommodation || day.stay, `itinerary[${index}].accommodation`, 400)),
-      meals: fail(validateOptionalString(day.meals, `itinerary[${index}].meals`, 200)),
+      day_number: typeof day.day_number === 'number' ? day.day_number : (String(day.day).match(/\d+/)?.[0] ? Number(String(day.day).match(/\d+/)[0]) : index),
+      accommodation: fail(validateOptionalString(day.accommodation_name || day.accommodation || day.stay, `itinerary[${index}].accommodation`, 400)),
+      accommodation_name: fail(validateOptionalString(day.accommodation_name || day.accommodation || day.stay, `itinerary[${index}].accommodation_name`, 400)),
+      accommodation_image: fail(validateOptionalString(day.accommodation_image, `itinerary[${index}].accommodation_image`, 2000)),
+      meals: fail(validateOptionalString(day.meals_included || day.meals, `itinerary[${index}].meals`, 200)),
+      meals_included: fail(validateOptionalString(day.meals_included || day.meals, `itinerary[${index}].meals_included`, 200)),
       transport: fail(validateOptionalString(day.transport, `itinerary[${index}].transport`, 200)),
-      distance: fail(validateOptionalString(day.distance, `itinerary[${index}].distance`, 80)),
-      viewing: fail(validateOptionalString(day.viewing, `itinerary[${index}].viewing`, 80)),
+      distance: fail(validateOptionalString(day.distance || day.distance_km, `itinerary[${index}].distance`, 80)),
+      viewing: fail(validateOptionalString(day.viewing || day.game_viewing, `itinerary[${index}].viewing`, 80)),
       image: fail(validateOptionalString(day.image, `itinerary[${index}].image`, 2000)),
+      elevation: fail(validateOptionalString(day.elevation, `itinerary[${index}].elevation`, 200)),
+      hiking_time: fail(validateOptionalString(day.hiking_time, `itinerary[${index}].hiking_time`, 100)),
+      vegetation_zone: fail(validateOptionalString(day.vegetation_zone, `itinerary[${index}].vegetation_zone`, 150)),
+      terrain: fail(validateOptionalString(day.terrain || day.terrain_or_highlight, `itinerary[${index}].terrain`, 200)),
     };
   });
 }
@@ -144,6 +153,9 @@ export function validateSafariPayload(body = {}, options = {}) {
 
   if (!partial || input.title !== undefined) {
     next.title = safariPackageTitle(fail(requireNonEmptyString(input.title, 'title', TITLE_MAX)));
+  }
+  if (input.tour_type !== undefined) {
+    next.tour_type = fail(validateOptionalString(input.tour_type, 'tour_type', 40)) || 'safari';
   }
   if (input.slug !== undefined) {
     next.slug = fail(validateSlug(input.slug));

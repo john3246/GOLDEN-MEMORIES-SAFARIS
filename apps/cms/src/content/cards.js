@@ -23,52 +23,39 @@ export function shortText(value, max = 92) {
 
 export function photoCard({ href, previewHref, title, image, kicker, detail, status, featured, itemId, itemType }) {
   const isPublished = status === 'PUBLISHED';
-  const toggleBtn = itemId && itemType
-    ? `<button
-        class="safari-card-toggle cms-btn ${isPublished ? '' : 'cms-btn-navy'}"
-        type="button"
-        data-quick-toggle
-        data-item-id="${itemId}"
-        data-item-type="${itemType}"
-        data-current-status="${status || 'DRAFT'}"
-        title="${isPublished ? 'Unpublish — hide from the public website' : 'Publish — make visible on the public website'}"
-      >${isPublished ? 'Unpublish' : 'Publish'}</button>`
+  const toggleBtn = (itemId && itemType)
+    ? `<button class="cms-card-btn ${isPublished ? 'cms-card-btn-unpublish' : 'cms-card-btn-publish'}" type="button" data-quick-toggle data-item-id="${itemId}" data-item-type="${itemType}" data-current-status="${status || 'DRAFT'}" title="${isPublished ? 'Unpublish' : 'Publish'}">${isPublished ? 'Unpublish' : 'Publish'}</button>`
     : '';
+
+  const safeTitle = String(title || '').replace(/"/g, '&quot;');
+
   return `
-    <article class="safari-card">
-      <a class="safari-card-media" href="${href}" tabindex="-1">
-        <img src="${image}" alt="" loading="lazy" decoding="async" width="800" height="560" data-fallback="/images/gallery/serengeti-01-card.webp" />
-      </a>
-      <div class="safari-card-overlay">
-        <div class="safari-card-top">
-          <h3 class="safari-card-title"><a href="${href}">${title}</a></h3>
-          <div class="safari-card-links">
-            <a class="safari-card-more" href="${href}">
-              <span class="safari-card-more-icon" aria-hidden="true">→</span>
-              Edit
-            </a>
-            ${
-              previewHref
-                ? `<a class="safari-card-more" href="${previewHref}">
-              <span class="safari-card-more-icon" aria-hidden="true">↗</span>
-              Preview
-            </a>`
-                : ''
-            }
-          </div>
+    <article class="cms-safari-card-v2">
+      <div class="cms-card-header">
+        <a href="${href}" tabindex="-1" class="cms-card-img-link">
+          <img src="${image}" alt="${safeTitle}" loading="lazy" decoding="async" onerror="if(this.dataset.fallback) { this.src=this.dataset.fallback; this.removeAttribute('data-fallback'); }" data-fallback="/images/gallery/serengeti-01-card.webp" />
+        </a>
+        <div class="cms-card-badge-tl">${kicker ? `<span class="cms-card-pill-kicker">${kicker}</span>` : ''}</div>
+        <div class="cms-card-badge-tr">
+          <span class="cms-card-pill-status ${isPublished ? 'is-live' : 'is-draft'}">${status || 'DRAFT'}</span>
+          ${featured ? `<span class="cms-card-pill-featured">★ Featured</span>` : ''}
         </div>
-        <div class="safari-card-bottom">
-          ${kicker ? `<p class="safari-card-meta">${kicker}</p>` : ''}
-          ${detail ? `<p class="safari-card-places">${detail}</p>` : ''}
-          <div class="cms-tour-status">
-            ${pill(status, featured)}
+      </div>
+      <div class="cms-card-body">
+        <h3 class="cms-card-title"><a href="${href}">${title}</a></h3>
+        ${detail ? `<p class="cms-card-route">${detail}</p>` : ''}
+        <div class="cms-card-footer">
+          <div class="cms-card-actions">
+            <a class="cms-card-btn" href="${href}">Edit</a>
+            ${previewHref ? `<a class="cms-card-btn" href="${previewHref}">Preview</a>` : ''}
+          </div>
+          <div class="cms-card-controls">
             ${toggleBtn}
           </div>
         </div>
       </div>
     </article>`;
 }
-
 
 export const TOUR_CATEGORIES = [
   { id: 'cultural', label: 'Cultural & historical', test: /cultur|hadzabe|eyasi|materuni|maasai|usambara|natron|lengai|wedding/i },

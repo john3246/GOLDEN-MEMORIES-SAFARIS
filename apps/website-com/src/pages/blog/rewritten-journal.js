@@ -14,7 +14,7 @@ export const rewrittenJournalArticles = [
     image: GM.ngorongoroTourists,
     paragraphs: [
       'A first safari is tiring in a good way: early starts, new light, and more animals than you can photograph. We plan a hotel night in Arusha after Kilimanjaro Airport so you are not climbing into a 4x4 still wearing the long-haul flight.',
-      'Keep the first full day simple. Tarangire or a crater descent beats stacking three parks before you have learned how a game-drive morning works. Your driver-guide sets the rhythm — toilet stops, binocular time, and when to sit still at a sighting.',
+      'Keep the first full day simple. Tarangire or a crater descent beats stacking three parks before you have learned how a game-drive morning works. Your driver-guide sets the rhythm, toilet stops, binocular time, and when to sit still at a sighting.',
       'Dust, sun, and cold crater dawns all show up in the same week. Neutral clothes, a warm layer, and closed shoes do more than a new khaki wardrobe. We send a packing note with the confirmation, including malaria advice to take to your own doctor.',
       'Write to us with the month you can travel and who is in the vehicle. We will say whether six days is enough, or whether you should protect an extra Serengeti night instead of adding a fourth park.',
     ],
@@ -28,7 +28,7 @@ export const rewrittenJournalArticles = [
     image: GM.northern,
     paragraphs: [
       'Seven days from Arusha is enough for a real northern circuit if we do not pretend you can “do everything.” A shape we like: Tarangire, two or three Serengeti nights, and a Ngorongoro crater day, with hotel bookends in town.',
-      'If the calendar puts wildebeest in the far north, we would rather fly one leg than spend two days on the road. If the herds are on the southern plains, driving the circuit still earns its keep — those hours are game viewing, not dead transfer.',
+      'If the calendar puts wildebeest in the far north, we would rather fly one leg than spend two days on the road. If the herds are on the southern plains, driving the circuit still earns its keep, those hours are game viewing, not dead transfer.',
       'A southern week looks different: Nyerere (Selous) for water and wild dog country, or Ruaha for baobabs, lion, and space. Those parks sit closer to Dar es Salaam flights, which can suit a beach finish on Zanzibar without a long northern road.',
       'Tell us whether the week must include the crater, the migration, or a swim at the end. We cut parks before we cut sleep.',
     ],
@@ -44,7 +44,7 @@ export const rewrittenJournalArticles = [
       'Most couples who write to us want both: animals in the morning light and a few idle days in the Indian Ocean. We almost always put safari first. Dust, early starts, and park gates belong at the beginning; swimming belongs at the end.',
       'A private 4x4 is the honeymoon difference. You stop for a long elephant sighting, skip a crowded picnic site, and are not sharing the last row with strangers. Tent or lodge is taste: canvas close to the grass, or a more solid room after a long flight.',
       'On the island, decide whether you need all-tide swimming (north-west Unguja) or quieter east-coast sand. Stone Town is one night of doors and rooftops, not a beach. Pemba or Mafia only if you want diving more than a simple rest.',
-      'Eight to twelve days is the range that usually feels generous. Shorter than that, we shorten the safari rather than the beach — or the other way around, if wildlife is the whole point. Share your dates; we will draw one itinerary, not two glued together.',
+      'Eight to twelve days is the range that usually feels generous. Shorter than that, we shorten the safari rather than the beach, or the other way around, if wildlife is the whole point. Share your dates; we will draw one itinerary, not two glued together.',
     ],
   },
   {
@@ -68,7 +68,7 @@ export const rewrittenJournalArticles = [
     excerpt: 'Dense wildlife on a caldera floor, a busy midday, and how we time a descent from Arusha.',
     image: GM.ngorongoro,
     paragraphs: [
-      'The crater is a collapsed volcano with a lake, grassland, and forest on the floor. In one day you can see lion, buffalo, elephant, hippo, and — if you are fortunate — black rhino. That concentration is why we still put it on most northern itineraries.',
+      'The crater is a collapsed volcano with a lake, grassland, and forest on the floor. In one day you can see lion, buffalo, elephant, hippo, and, if you are fortunate, black rhino. That concentration is why we still put it on most northern itineraries.',
       'It is also a small stage. Vehicles gather at sightings, picnic sites fill, and the descent and ascent eat clock. We enter early, take a proper loop, and do not promise a second crater day unless you have a specific reason.',
       'Nights belong on the rim, not the floor. It is cold at dawn even in the dry season. Some camps sit further into the conservation area; those cost more in driving but give you Maasai highland country, not only the tourist road.',
       'If you hate crowds, we still use the crater as a bookend and give extra nights to Serengeti or Tarangire. Skipping it entirely makes sense only when time is very short or rhino is not on your list. Say so and we will plan around it.',
@@ -79,7 +79,7 @@ export const rewrittenJournalArticles = [
     topic: 'safari',
     date: '12 September 2026',
     title: 'Walking safaris in Tanzania: when we add them',
-    excerpt: 'Tracks, wind, and armed rangers — a different hour from the roof hatch.',
+    excerpt: 'Tracks, wind, and armed rangers, a different hour from the roof hatch.',
     image: GM.savanna,
     paragraphs: [
       'A walk is not a substitute for a game drive. You cover less ground and you will not chase a cheetah. You do learn how animals use a drainage line, and you notice dung, birds, and the smell of crushed grass that you miss from a vehicle.',
@@ -107,7 +107,7 @@ export const rewrittenJournalArticles = [
     topic: 'wildlife',
     date: '10 September 2026',
     title: 'Wildebeest calving on the southern Serengeti plains',
-    excerpt: 'Short grass, newborns, and predators — a migration chapter that is not a river crossing.',
+    excerpt: 'Short grass, newborns, and predators, a migration chapter that is not a river crossing.',
     image: GM.migration,
     paragraphs: [
       'From roughly December to March the southern Serengeti and Ndutu plains hold the herds for calving. The grass is short, the light is clean, and lion, cheetah, and hyena work the same country as the wildebeest.',
@@ -124,7 +124,7 @@ export const rewrittenJournalArticles = [
     excerpt: 'July to October in the north, no appointment on the bank, extra nights if this is the goal.',
     image: GM.migration,
     paragraphs: [
-      'Crossings happen when the herds decide to move, not when a brochure says Tuesday. In a typical year the northern Serengeti sees the drama between July and October. Crocodiles, steep banks, and hesitation make the spectacle — and also the waiting.',
+      'Crossings happen when the herds decide to move, not when a brochure says Tuesday. In a typical year the northern Serengeti sees the drama between July and October. Crocodiles, steep banks, and hesitation make the spectacle, and also the waiting.',
       'We put you in the Kogatende area with spare mornings. One crossing can take hours to develop; some days the animals drink and turn around. A two-night dash from the crater is how people miss it and feel cheated.',
       'Flights into the north save road days when the herds are up there. Bag weight is strict. We would rather you pack a soft duffel than arrive late because a suitcase missed the Cessna.',
       'If your dates fall outside the crossing window, we say so. The Serengeti is still worth the journey for resident cats and space. We will not sell a “guaranteed crossing.”',
@@ -135,7 +135,7 @@ export const rewrittenJournalArticles = [
     topic: 'wildlife',
     date: '8 September 2026',
     title: 'Where the migration usually is, month by month',
-    excerpt: 'A working calendar we adjust with current reports — not a promise for your exact week.',
+    excerpt: 'A working calendar we adjust with current reports, not a promise for your exact week.',
     image: GM.migration,
     paragraphs: [
       'January to March: southern plains and Ndutu, calving, short grass. April and May: herds drift west and north as the long rains green the western corridor; roads can be heavy. June: groups mass toward the Grumeti and western woodlands.',
@@ -149,7 +149,7 @@ export const rewrittenJournalArticles = [
     topic: 'wildlife',
     date: '7 September 2026',
     title: 'Wildlife you only meet in Tanzania',
-    excerpt: 'From giraffe subspecies to island colobus — the animals that make this country specific.',
+    excerpt: 'From giraffe subspecies to island colobus, the animals that make this country specific.',
     image: GM.tarangire,
     paragraphs: [
       'Guests come for lion and elephant. We also point out what is Tanzanian in a quieter way: Masai giraffe on the northern circuit, the red colobus of Zanzibar’s Jozani forest, and the Udzungwa and Usambara mountains, which hold birds and primates you will not see on a Serengeti game drive.',
@@ -162,7 +162,7 @@ export const rewrittenJournalArticles = [
     topic: 'wildlife',
     date: '6 September 2026',
     title: 'Where we look for lions on a Tanzania safari',
-    excerpt: 'Crater floor, Serengeti prides, and Ruaha’s reputation — odds, not a checklist.',
+    excerpt: 'Crater floor, Serengeti prides, and Ruaha’s reputation, odds, not a checklist.',
     image: GM.northern,
     paragraphs: [
       'Lions use whatever cover and prey the season offers. On the crater floor you often find them in the open, used to vehicles. In the Serengeti they lie up on kopjes in the heat and hunt when the light goes gold.',
@@ -236,7 +236,7 @@ export const rewrittenJournalArticles = [
     image: GM.dayTrip,
     paragraphs: [
       'A safari quote is mostly three things: park and concession fees, the vehicle and guide, and the bed. Fees are set by the authorities and move. Lodges cost more in July than in April. Flying between airstrips is a fourth line when we use it.',
-      'Join-safari seats look cheaper because you share the car. Private trips cost more and buy the day. Children, single rooms, and Christmas dates change the maths. We show the pieces so you can see where to save — fewer parks, shoulder season, or a simpler camp — without hiding a park fee.',
+      'Join-safari seats look cheaper because you share the car. Private trips cost more and buy the day. Children, single rooms, and Christmas dates change the maths. We show the pieces so you can see where to save, fewer parks, shoulder season, or a simpler camp, without hiding a park fee.',
       'International flights, visas, tips, drinks, and some activities sit outside the package unless we say otherwise. Light-aircraft baggage limits are not a surprise we spring at the airstrip.',
       'Ask for a quote with your month and party size. We would rather send a clear number than a headline “from” that only works for two people in November.',
     ],
@@ -246,7 +246,7 @@ export const rewrittenJournalArticles = [
     topic: 'safari',
     date: '28 August 2026',
     title: 'Nyerere and Ruaha: the southern parks we send people to',
-    excerpt: 'Rivers and wild dog in one; baobabs and lion in the other — and how they pair with Zanzibar.',
+    excerpt: 'Rivers and wild dog in one; baobabs and lion in the other, and how they pair with Zanzibar.',
     image: GM.southern,
     paragraphs: [
       'Nyerere National Park (the former Selous) is water and woodland: boats on the lakes, walks where allowed, and a wild dog population that keeps guides talking. It sits closer to Dar, which can make a beach add-on simpler than a northern road safari.',
@@ -288,7 +288,7 @@ export const rewrittenJournalArticles = [
     topic: 'islands',
     date: '24 August 2026',
     title: 'Stone Town before the beach: one night that earns its keep',
-    excerpt: 'Doors, waterfront, and spice history — then transfer to sand when you have had enough lanes.',
+    excerpt: 'Doors, waterfront, and spice history, then transfer to sand when you have had enough lanes.',
     image: GM.spice,
     paragraphs: [
       'Stone Town is a stone-and-coral city of alleys, carved doors, and a harbour that has seen dhows for centuries. It is humid, busy, and worth an evening rooftop even if you came only to swim.',
@@ -302,10 +302,10 @@ export const rewrittenJournalArticles = [
     topic: 'about-tanzania',
     date: '23 August 2026',
     title: 'Culture at the table: Swahili, ugali, and a respectful village visit',
-    excerpt: 'What we eat on the road, and how a cultural stop should feel — not a performance.',
+    excerpt: 'What we eat on the road, and how a cultural stop should feel, not a performance.',
     image: GM.cultureTeam,
     paragraphs: [
-      'Swahili is the welcome. A few words — mambo, asante, pole pole — go a long way with the crew. English is widely spoken in lodges; markets and village visits are kinder when you try.',
+      'Swahili is the welcome. A few words, mambo, asante, pole pole, go a long way with the crew. English is widely spoken in lodges; markets and village visits are kinder when you try.',
       'On the plate: ugali, nyama choma, pilau, fresh mango, and Zanzibar spices. Safari lodges serve international menus because guests need calories; ask for local dishes if you want them. Street food is for town days, with the usual care about water and unpeeled fruit.',
       'A Maasai or Hadzabe visit should be arranged so the community is paid and the stop is not a zoo. We brief you on photographs and gifts. If you would rather spend the hour with elephants, we skip it.',
       'Our tagline is “Your Culture or Ours.” That is an invitation to share a meal and a story, not to costume you for a picture.',
@@ -320,7 +320,7 @@ export const rewrittenJournalArticles = [
     image: GM.cultureTeam,
     paragraphs: [
       'Arusha is where we live and where most northern trips begin. After Kilimanjaro Airport you want a shower and a bed more than a city tour. We still like a slow morning: coffee, a craft market if you have energy, or Arusha National Park if you landed early and cannot sit still.',
-      'Mount Meru hangs over town. On a clear day it reminds you the “safari” has already started. Njiro, where our office sits, is residential and practical — good for last-minute kit, not for nightlife.',
+      'Mount Meru hangs over town. On a clear day it reminds you the “safari” has already started. Njiro, where our office sits, is residential and practical, good for last-minute kit, not for nightlife.',
       'We can arrange a cultural or coffee stop on the way toward Moshi or the northern parks. We will not fill a rest day with five attractions because a blog said you must.',
       'If you have a spare afternoon on the way home, say so. Otherwise we protect sleep. The crater will still be there at dawn.',
     ],
@@ -333,7 +333,7 @@ export const rewrittenJournalArticles = [
     excerpt: 'On the road between the crater highlands and the Serengeti, if the clock allows.',
     image: GM.savanna,
     paragraphs: [
-      'Olduvai (Oldupai) Gorge sits on the usual driving line toward the Serengeti. It is a paleoanthropology site — early stone tools and hominin fossils — not a game-drive loop. A guided museum stop of an hour or two is enough for most guests.',
+      'Olduvai (Oldupai) Gorge sits on the usual driving line toward the Serengeti. It is a paleoanthropology site, early stone tools and hominin fossils, not a game-drive loop. A guided museum stop of an hour or two is enough for most guests.',
       'We add it when the transfer day has slack and someone in the vehicle cares about human origins. We skip it when the migration is moving and you would rather spend the light on the plains.',
       'There is a fee, a bit of sun, and not much shade. Bring water and the same hat you use on safari.',
       'Ask when you book. It is an easy yes or no on the itinerary, not a surprise roadside stall.',
@@ -372,7 +372,7 @@ export const rewrittenJournalArticles = [
     topic: 'safari',
     date: '7 August 2026',
     title: 'Three itineraries we actually draw from Arusha',
-    excerpt: 'A first-timer’s north, a migration focus, and a safari-and-beach finish — starting points, not brochures.',
+    excerpt: 'A first-timer’s north, a migration focus, and a safari-and-beach finish, starting points, not brochures.',
     image: GM.safariPackages,
     paragraphs: [
       'Classic north, eight days: Arusha rest, Tarangire, Serengeti, Ngorongoro crater, back to town. Driving, private 4x4, lodges mixed with one tented night if you want canvas. This is the trip we send most first-timers on.',
@@ -392,7 +392,7 @@ export const rewrittenJournalArticles = [
       'Lodges and our invoices are usually in US dollars. Bring notes that are recent and undamaged; old bills get refused. Tanzanian shillings help in markets, taxis, and small restaurants in Arusha or Stone Town.',
       'Cards work in larger hotels and some town ATMs. Bush camps may be cash-only for drinks and curios. We say so in the joining notes. Do not rely on an ATM at Naabi Hill.',
       'Tipping is customary, not a surprise levy. We suggest ranges for driver-guides, porters on Kilimanjaro, and lodge staff, in cash at the end. You are free to give more or less; we will not collect a mandatory “tip jar” into a black box.',
-      'Keep a copy of your passport and a card in a separate pouch. Phones and cameras stay in the vehicle’s dry box when we say so — dust is expensive.',
+      'Keep a copy of your passport and a card in a separate pouch. Phones and cameras stay in the vehicle’s dry box when we say so, dust is expensive.',
     ],
   },
   {
@@ -419,7 +419,7 @@ export const rewrittenJournalArticles = [
     paragraphs: [
       'The core is still a wildlife safari. Around it: Kilimanjaro or Meru if you want a trek, Zanzibar or Mafia if you want salt water, and a cultural visit if you want conversation more than another picnic site.',
       'Hot air balloons over the Serengeti, a night in a mobile camp, a boat in Nyerere, or chimpanzee tracking in the west are extras with their own cost and weather risk. We add them when they are the reason you came, not as decoration.',
-      'Day trips from Arusha — Materuni waterfall, a coffee farm, Lake Manyara — suit short stays or the afternoon after you land. They are not a substitute for two nights in the Serengeti.',
+      'Day trips from Arusha, Materuni waterfall, a coffee farm, Lake Manyara, suit short stays or the afternoon after you land. They are not a substitute for two nights in the Serengeti.',
       'Start with how many days you have. We will say what fits, and what should wait for the next ticket.',
     ],
   },
@@ -428,7 +428,7 @@ export const rewrittenJournalArticles = [
     topic: 'about-tanzania',
     date: '24 June 2026',
     title: 'Mosquitoes, tsetse, and the medical chat we cannot skip',
-    excerpt: 'Repellent, clothing, and why your doctor — not a blog — chooses malaria tablets.',
+    excerpt: 'Repellent, clothing, and why your doctor, not a blog, chooses malaria tablets.',
     image: GM.manyara,
     paragraphs: [
       'Malaria is present in much of Tanzania, including safari circuits and the coast. Prophylaxis is a conversation with a travel clinic. We are guides, not prescribers. Start that visit early; some tablets need a run-in.',
@@ -456,12 +456,12 @@ export const rewrittenJournalArticles = [
     topic: 'about-tanzania',
     date: '12 June 2026',
     title: 'Tanzania in brief, for people about to pack',
-    excerpt: 'Equator, Swahili, parks, and the mountain — the facts that actually affect a trip.',
+    excerpt: 'Equator, Swahili, parks, and the mountain, the facts that actually affect a trip.',
     image: GM.hero,
     paragraphs: [
       'Tanzania sits just south of the equator, on the Indian Ocean, with Kilimanjaro as Africa’s highest peak. The commercial capital is Dar es Salaam; the safari capital we work from is Arusha. Zanzibar is part of the same United Republic.',
       'English and Swahili will get you through a lodge. The shilling is the local currency; safari quotes often run in dollars. Plugs are typically British-style; a spare camera battery still earns its place.',
-      'More than a third of the land is under some form of protection — parks, reserves, conservation areas. That is why a week can feel like several countries.',
+      'More than a third of the land is under some form of protection, parks, reserves, conservation areas. That is why a week can feel like several countries.',
       'The rest is for the itinerary: your dates, your knees, and whether you want canvas or a swimming pool. We will not quiz you on independence year at the airport.',
     ],
   },

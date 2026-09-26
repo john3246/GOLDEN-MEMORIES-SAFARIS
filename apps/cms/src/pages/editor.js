@@ -156,7 +156,8 @@ function lodgePicker(selected, lodges) {
   return `<p class="cms-hint">Pick lodges for this itinerary. Their photos appear on the public tour page.</p><div class="cms-lodge-grid">${cards || '<p class="cms-muted">Publish lodges under Accommodations first.</p>'}</div>`;
 }
 
-function itineraryEditor(days) {
+function itineraryEditor(days, tourType = 'safari') {
+  const isMountain = tourType === 'mountain';
   const blocks = (days || [])
     .map(
       (day, index) => `
@@ -172,13 +173,34 @@ function itineraryEditor(days) {
           ${field('Day label', `day.${index}.day`, day.day)}
           ${field('Title', `day.${index}.title`, day.title)}
         </div>
-        ${field('Description', `day.${index}.description`, day.description, 'textarea')}
-        ${field('Activities', `day.${index}.activities`, lines(day.activities), 'textarea', 'One activity per line.')}
+        ${isMountain 
+          ? `
+            <div class="cms-grid-2">
+              ${field('Elevation', `day.${index}.elevation`, day.elevation, 'text', 'e.g., 1,640m to 2,743m')}
+              ${field('Hiking time', `day.${index}.hiking_time`, day.hiking_time, 'text', 'e.g., 4-5 hours')}
+            </div>
+            <div class="cms-grid-2">
+              ${field('Vegetation zone', `day.${index}.vegetation_zone`, day.vegetation_zone, 'text', 'e.g., Montane Rainforest')}
+              ${field('Distance', `day.${index}.distance`, day.distance, 'text', 'e.g., 10 km')}
+            </div>
+            ${field('Terrain / Highlights', `day.${index}.terrain`, day.terrain)}
+            `
+          : `
+            <div class="cms-grid-2">
+              ${field('Game viewing', `day.${index}.viewing`, day.viewing)}
+              ${field('Transport', `day.${index}.transport`, day.transport)}
+            </div>
+            ${field('Distance', `day.${index}.distance`, day.distance, 'text', 'e.g., 140 km')}
+            `
+        }
         <div class="cms-grid-2">
-          ${field('Accommodation', `day.${index}.accommodation`, day.accommodation)}
-          ${field('Meals', `day.${index}.meals`, day.meals)}
+          ${field('Meals', `day.${index}.meals`, day.meals_included || day.meals)}
+          ${field('Accommodation Name', `day.${index}.accommodation_name`, day.accommodation_name || day.accommodation || day.stay)}
         </div>
         ${imageField('Day photo', `day.${index}.image`, day.image)}
+        ${imageField('Accommodation Image', `day.${index}.accommodation_image`, day.accommodation_image || (typeof day.image === 'string' && !day.image.includes('gallery') ? day.image : ''))}
+        ${field('Activities (one per line)', `day.${index}.activities`, (day.activities || []).join('\n'), 'textarea')}
+        ${field('Description', `day.${index}.description`, day.description || day.body, 'textarea')}
       </article>`
     )
     .join('');
@@ -211,10 +233,10 @@ function renderFields(doc, lodges = [], groupFields = false) {
       `
       ${field('Title', 'title', doc.title)}
       ${field('Slug', 'slug', doc.slug, 'text', 'URL path, for example 4-days-serengeti-ngorongoro.')}
-      ${field('Short description', 'short_description', doc.short_description, 'textarea')}
-      ${field('Full description', 'description', doc.description, 'textarea')}
+      ${field('Short description', 'short_description', doc.short_description || doc.overview, 'textarea')}
+      ${field('Full description', 'description', doc.description || doc.overview || doc.short_description, 'textarea')}
       <div class="cms-grid-2">
-        ${field('Destination', 'destination', doc.destination)}
+        ${field('Destination', 'destination', doc.destination || doc.places)}
         ${field('Style / difficulty', 'difficulty', doc.difficulty)}
       </div>
     `,
@@ -224,9 +246,17 @@ function renderFields(doc, lodges = [], groupFields = false) {
       'Duration, price and facts',
       `
       <div class="cms-grid-3">
-        ${field('Duration (days)', 'duration', doc.duration, 'number', 'Must match the number of itinerary days.')}
+        
+          <div class="cms-field">
+            <label class="cms-label" for="tour_type">Tour type</label>
+            <select id="tour_type" name="tour_type" data-tour-type-select class="cms-input" style="background:#fff; border:1px solid #ccc; padding:0.4rem; width:100%; border-radius:4px;">
+              <option value="safari" ${doc.tour_type !== 'mountain' ? 'selected' : ''}>Safari / Game Drive</option>
+              <option value="mountain" ${doc.tour_type === 'mountain' ? 'selected' : ''}>Mountain Trekking</option>
+            </select>
+          </div>
+          ${field('Duration (days)', 'duration', doc.duration, 'number', 'Must match the number of itinerary days.')}
         ${field('Duration label', 'duration_label', doc.duration_label)}
-        ${field('Price per person', 'price_from', doc.price_from, 'number', 'Required. Shown on the website. Based on two travellers sharing unless you set a different minimum.')}
+        ${field('Price per person', 'price_from', doc.price_from ?? doc.price, 'number', 'Required. Shown on the website. Based on two travellers sharing unless you set a different minimum.')}
         ${field('Currency', 'currency', doc.currency || 'USD')}
         ${field('Best season', 'best_season', doc.best_season)}
         ${field('Display order', 'display_order', doc.display_order, 'number')}
@@ -250,8 +280,8 @@ function renderFields(doc, lodges = [], groupFields = false) {
       'Highlights, inclusions and copy',
       `
       ${field('Highlights', 'highlights', lines(doc.highlights), 'textarea', 'One highlight per line.')}
-      ${field('Inclusions', 'inclusions', lines(doc.inclusions), 'textarea', 'One item per line.')}
-      ${field('Exclusions', 'exclusions', lines(doc.exclusions), 'textarea', 'One item per line.')}
+      ${field('Inclusions', 'inclusions', lines(doc.inclusions?.length ? doc.inclusions : doc.included), 'textarea', 'One item per line.')}
+      ${field('Exclusions', 'exclusions', lines(doc.exclusions?.length ? doc.exclusions : doc.excluded), 'textarea', 'One item per line.')}
       ${field('Accommodation notes', 'accommodation', doc.accommodation, 'textarea')}
       ${field('Transport notes', 'transport_information', doc.transport_information, 'textarea')}
       ${field('FAQs', 'faq', (doc.faq || []).map((i) => `${i.q || ''}||${i.a || ''}`).join('\n'), 'textarea', 'One FAQ per line, written as Question||Answer.')}
@@ -259,7 +289,7 @@ function renderFields(doc, lodges = [], groupFields = false) {
     `
     )}
     ${group('Lodges on this tour', lodgePicker(doc.lodge_ids, lodges), true)}
-    ${group('Itinerary', itineraryEditor(doc.itinerary), true)}
+    ${group('Itinerary', itineraryEditor(doc.itinerary, doc.tour_type), true)}
     ${group(
       'Search and sharing',
       `
@@ -298,9 +328,19 @@ function collect(form, current) {
       title: form[`day.${index}.title`]?.value,
       description: form[`day.${index}.description`]?.value,
       activities: readList(form, `day.${index}.activities`),
-      accommodation: form[`day.${index}.accommodation`]?.value,
+      accommodation: form[`day.${index}.accommodation_name`]?.value || form[`day.${index}.accommodation`]?.value,
+      accommodation_name: form[`day.${index}.accommodation_name`]?.value || form[`day.${index}.accommodation`]?.value,
       meals: form[`day.${index}.meals`]?.value,
+      meals_included: form[`day.${index}.meals`]?.value,
       image: form[`day.${index}.image`]?.value,
+      accommodation_image: form[`day.${index}.accommodation_image`]?.value,
+      transport: form[`day.${index}.transport`]?.value,
+      distance: form[`day.${index}.distance`]?.value,
+      viewing: form[`day.${index}.viewing`]?.value,
+      elevation: form[`day.${index}.elevation`]?.value,
+      hiking_time: form[`day.${index}.hiking_time`]?.value,
+      vegetation_zone: form[`day.${index}.vegetation_zone`]?.value,
+      terrain: form[`day.${index}.terrain`]?.value,
     });
   });
 
@@ -312,7 +352,8 @@ function collect(form, current) {
   }));
 
   return {
-    title: safariPackageTitle(form.title?.value),
+      title: safariPackageTitle(form.title?.value),
+      tour_type: form.tour_type?.value,
     slug: form.slug?.value,
     short_description: safariPackageTitle(form.short_description?.value),
     description: form.description?.value,
@@ -331,7 +372,10 @@ function collect(form, current) {
     gallery: readList(form, 'gallery').map((url) => ({ url, alt: '', caption: '' })),
     highlights: readList(form, 'highlights'),
     inclusions: readList(form, 'inclusions'),
+    included: readList(form, 'inclusions'),
     exclusions: readList(form, 'exclusions'),
+    excluded: readList(form, 'exclusions'),
+    places: form.destination?.value || '',
     accommodation: form.accommodation?.value,
     transport_information: form.transport_information?.value,
     faq: readList(form, 'faq').map((line) => {
@@ -404,7 +448,28 @@ export async function initEditor(id, kind = 'safaris') {
 
   async function load() {
     record = await spec.load(id);
-    current = spec.empty({ ...record.draft, slug: record.slug });
+    const draft = record.draft || {};
+    const published = record.published || {};
+    const merged = { ...published, ...draft, slug: record.slug };
+    if (!merged.inclusions?.length && (merged.included?.length || published.inclusions?.length || published.included?.length)) {
+      merged.inclusions = merged.inclusions?.length ? merged.inclusions : (merged.included || published.inclusions || published.included || []);
+    }
+    if (!merged.exclusions?.length && (merged.excluded?.length || published.exclusions?.length || published.excluded?.length)) {
+      merged.exclusions = merged.exclusions?.length ? merged.exclusions : (merged.excluded || published.exclusions || published.excluded || []);
+    }
+    if (!merged.destination && (merged.places || published.destination || published.places)) {
+      merged.destination = merged.destination || merged.places || published.destination || published.places;
+    }
+    if (!merged.short_description && (merged.overview || published.short_description || published.overview)) {
+      merged.short_description = merged.short_description || merged.overview || published.short_description || published.overview;
+    }
+    if (!merged.description && (merged.overview || published.description || published.overview)) {
+      merged.description = merged.description || merged.overview || published.description || published.overview;
+    }
+    if (!merged.price_from && (merged.price || published.price_from || published.price)) {
+      merged.price_from = merged.price_from ?? merged.price ?? published.price_from ?? published.price;
+    }
+    current = spec.empty(merged);
     try {
       const listed = await api.listContent('lodges');
       lodgeOptions = listed.data || [];
@@ -431,7 +496,14 @@ export async function initEditor(id, kind = 'safaris') {
       current = { ...current, ...collect(form, current) };
       paintReady(current);
     });
-    form?.addEventListener('change', () => {
+    
+    form?.querySelector('[data-tour-type-select]')?.addEventListener('change', (e) => {
+      current = { ...current, ...collect(form, current), tour_type: e.target.value };
+      paintForm();
+      paintReady(current);
+      bindForm();
+    });
+form?.addEventListener('change', () => {
       current = { ...current, ...collect(form, current) };
       paintReady(current);
     });

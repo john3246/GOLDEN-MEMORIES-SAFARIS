@@ -41,7 +41,7 @@ export const zaraInspiredJournalArticles = [
       {
         heading: 'Choose days before you choose a famous name',
         quote: 'An extra night on the mountain is worth more than a shorter “easy” route.',
-        text: 'Marangu has huts. Machame and Lemosho are camping. Rongai comes in from the north. Umbwe is steep. Northern Circuit is the long western loop. We match route to your dates, knees, and appetite for crowds — then we add a day if the calendar is tight.',
+        text: 'Marangu has huts. Machame and Lemosho are camping. Rongai comes in from the north. Umbwe is steep. Northern Circuit is the long western loop. We match route to your dates, knees, and appetite for crowds, then we add a day if the calendar is tight.',
       },
       {
         heading: 'What success actually means',
@@ -67,7 +67,7 @@ export const zaraInspiredJournalArticles = [
       },
       {
         heading: 'How the itinerary helps',
-        text: 'Climb high, sleep lower where the route allows — Lava Tower then Barranco is the classic example. Seven or eight days beat five or six for most first-timers. We would rather you reach Stella Point feeling well than race a hut schedule.',
+        text: 'Climb high, sleep lower where the route allows, Lava Tower then Barranco is the classic example. Seven or eight days beat five or six for most first-timers. We would rather you reach Stella Point feeling well than race a hut schedule.',
       },
       {
         heading: 'Insurance and honesty',
@@ -137,7 +137,7 @@ export const zaraInspiredJournalArticles = [
     sections: [
       {
         heading: 'You walk through seasons in a week',
-        text: 'The lower trail is farm and forest: humid, muddy in the rains, colobus if you look up. Moorland brings giant groundsels and a colder night. Alpine desert is dust, sun, and wind. The crater rim and Uhuru Peak are arctic — whatever month you chose in Arusha.',
+        text: 'The lower trail is farm and forest: humid, muddy in the rains, colobus if you look up. Moorland brings giant groundsels and a colder night. Alpine desert is dust, sun, and wind. The crater rim and Uhuru Peak are arctic, whatever month you chose in Arusha.',
       },
       {
         heading: 'When the mountain is driest',
@@ -193,7 +193,7 @@ export const zaraInspiredJournalArticles = [
       },
       {
         heading: 'Why guests like it',
-        text: 'The first days are less crowded than Machame Gate. The plateau is open and photogenic. You still get Barranco Wall and a proper acclimatisation bump at Lava Tower. It is camping throughout — if you want huts, that is Marangu.',
+        text: 'The first days are less crowded than Machame Gate. The plateau is open and photogenic. You still get Barranco Wall and a proper acclimatisation bump at Lava Tower. It is camping throughout, if you want huts, that is Marangu.',
       },
       {
         heading: 'What it asks of you',
@@ -219,7 +219,7 @@ export const zaraInspiredJournalArticles = [
       },
       {
         heading: 'How we take it',
-        text: 'Early start, one person in front who knows the holds, no racing, and a pause if a descending group needs the same rock. Poles go on your pack. If you dislike exposure, say so — we still use this trail on Machame and Lemosho because the camp below is the right height to sleep.',
+        text: 'Early start, one person in front who knows the holds, no racing, and a pause if a descending group needs the same rock. Poles go on your pack. If you dislike exposure, say so, we still use this trail on Machame and Lemosho because the camp below is the right height to sleep.',
       },
       {
         heading: 'After the wall',
@@ -268,7 +268,7 @@ export const zaraInspiredJournalArticles = [
       },
       {
         heading: 'What we book',
-        text: 'Six-day Machame only when you are already a strong hiker and understand the trade. Seven-day Machame or eight-day Lemosho for most of our private climbs. Marangu at six days if you specifically want huts — not five.',
+        text: 'Six-day Machame only when you are already a strong hiker and understand the trade. Seven-day Machame or eight-day Lemosho for most of our private climbs. Marangu at six days if you specifically want huts, not five.',
       },
       {
         heading: 'Add the town nights',
@@ -307,7 +307,7 @@ export const zaraInspiredJournalArticles = [
     topic: 'climbing',
     date: '13 September 2026',
     title: 'How we ask you to train for Kilimanjaro',
-    excerpt: 'Hills, a loaded pack, back-to-back days — not a last-minute gym burst.',
+    excerpt: 'Hills, a loaded pack, back-to-back days, not a last-minute gym burst.',
     image: GM.materuni,
     sections: [
       {
@@ -386,7 +386,7 @@ export const zaraInspiredJournalArticles = [
     sections: [
       {
         heading: 'Joining a group',
-        text: 'Fixed departures put you with other trekkers on the same route. You share tents, meals, and the morning start. It works when you are flexible about company and you accept the group’s slowest comfortable pace — which is usually the right pace anyway.',
+        text: 'Fixed departures put you with other trekkers on the same route. You share tents, meals, and the morning start. It works when you are flexible about company and you accept the group’s slowest comfortable pace, which is usually the right pace anyway.',
       },
       {
         heading: 'Going private',
@@ -416,7 +416,7 @@ export const zaraInspiredJournalArticles = [
       },
       {
         heading: 'A better family week',
-        text: 'Many of our families climb with the adults only, while younger ones stay with a relative in Arusha — or everyone safaris together. We will say which option fits your ages rather than selling a cute story.',
+        text: 'Many of our families climb with the adults only, while younger ones stay with a relative in Arusha, or everyone safaris together. We will say which option fits your ages rather than selling a cute story.',
       },
     ],
   }),
@@ -683,7 +683,7 @@ export const zaraInspiredJournalArticles = [
     topic: 'about-tanzania',
     date: '5 September 2026',
     title: 'Places in Tanzania we actually send people',
-    excerpt: 'Parks, mountain, island, and the town we start from — a short list with reasons.',
+    excerpt: 'Parks, mountain, island, and the town we start from, a short list with reasons.',
     image: GM.hero,
     sections: [
       {
@@ -709,7 +709,7 @@ export const zaraInspiredJournalArticles = [
     topic: 'safari',
     date: '5 September 2026',
     title: 'How to choose a Tanzania safari package',
-    excerpt: 'Private or join, camping or lodge, driving or flying — four questions we ask before we quote.',
+    excerpt: 'Private or join, camping or lodge, driving or flying, four questions we ask before we quote.',
     image: GM.tarangire,
     sections: [
       {
@@ -735,7 +735,7 @@ export const zaraInspiredJournalArticles = [
     topic: 'safari',
     date: '4 September 2026',
     title: 'Why we still think Tanzania belongs on a first Africa list',
-    excerpt: 'A crater, a grassland the size of a country, a mountain, and a beach — in one visa.',
+    excerpt: 'A crater, a grassland the size of a country, a mountain, and a beach, in one visa.',
     image: GM.ngorongoro,
     sections: [
       {
@@ -779,7 +779,7 @@ export const zaraInspiredJournalArticles = [
     topic: 'islands',
     date: '3 September 2026',
     title: 'Best time to visit Zanzibar after a safari',
-    excerpt: 'Dry, hot, and humid in different months — plus the tide question most guests forget.',
+    excerpt: 'Dry, hot, and humid in different months, plus the tide question most guests forget.',
     image: GM.zanzibarBeach,
     sections: [
       {
@@ -828,7 +828,7 @@ export const zaraInspiredJournalArticles = [
     sections: [
       {
         heading: 'Where you might see them',
-        text: 'Reefs off Unguja, conservation projects that brief you properly, and — if we send you further — Mafia’s marine park. Encounters are wild. We do not guarantee a turtle on a Tuesday.',
+        text: 'Reefs off Unguja, conservation projects that brief you properly, and, if we send you further, Mafia’s marine park. Encounters are wild. We do not guarantee a turtle on a Tuesday.',
       },
       {
         heading: 'How to behave',
@@ -845,12 +845,12 @@ export const zaraInspiredJournalArticles = [
     topic: 'about-tanzania',
     date: '2 September 2026',
     title: 'Swahili on safari: greetings that actually get used',
-    excerpt: 'Mambo, asante, pole pole — enough to be polite without performing a phrasebook.',
+    excerpt: 'Mambo, asante, pole pole, enough to be polite without performing a phrasebook.',
     image: GM.cultureTeam,
     sections: [
       {
         heading: 'Start here',
-        text: 'Habibari or mambo for hello, poa or nzuri for a reply, asante for thank you, karibu when someone welcomes you, lala salama at night. Pole pole — slowly — is the mountain and the vehicle. Your guide will smile if you try and will not exam you if you forget.',
+        text: 'Habibari or mambo for hello, poa or nzuri for a reply, asante for thank you, karibu when someone welcomes you, lala salama at night. Pole pole, slowly, is the mountain and the vehicle. Your guide will smile if you try and will not exam you if you forget.',
       },
       {
         heading: 'Hakuna matata',
@@ -911,7 +911,7 @@ export const zaraInspiredJournalArticles = [
     topic: 'safari',
     date: '31 August 2026',
     title: 'Family safari days that still feel like a holiday',
-    excerpt: 'Short drives, a swim, a cultural hour, and one crater descent — not a hero schedule.',
+    excerpt: 'Short drives, a swim, a cultural hour, and one crater descent, not a hero schedule.',
     image: GM.ngorongoroTourists,
     sections: [
       {

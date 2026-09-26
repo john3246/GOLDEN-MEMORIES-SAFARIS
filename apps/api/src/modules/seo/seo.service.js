@@ -27,16 +27,14 @@ async function websiteCatalog() {
       return null;
     }
   };
-  const [tours, destinations, blog, join] = await Promise.all([
+  const [tours, destinations, join] = await Promise.all([
     safe(() => import('../../../../website-com/src/pages/tours/catalog.js')),
     safe(() => import('../../../../website-com/src/pages/destinations/catalog.js')),
-    safe(() => import('../../../../website-com/src/pages/blog/content.js')),
     safe(() => import('../../../../website-com/src/pages/join-safari/catalog.js')),
   ]);
   catalogCache = {
     tours: tours?.allTours?.() || [],
     destinations: destinations?.destinationPlaces || [],
-    posts: blog?.blogArticles || [],
     joinSlugs: join?.allJoinSlugs?.() || [],
     joinPackages: join?.allJoinPackages?.() || [],
   };
@@ -293,7 +291,8 @@ export async function metaForPath(pathname) {
   }
 
   if (section === 'blog') {
-    const post = bySlug(store.posts, slug) || catalog.posts.find((row) => row.slug === slug);
+    // Only CMS-published posts — drafts and unpublished posts stay hidden.
+    const post = bySlug(store.posts, slug);
     if (!post) return null;
     const title = post.seo_title && post.seo_title !== post.title ? post.seo_title : withBrand(post.title);
     const description = post.seo_description || post.excerpt || '';

@@ -23,7 +23,7 @@ function regionTours(regionId) {
 }
 
 /**
- * Destinations page — regions and parks, same header/footer language as Safaris.
+ * Destinations page, regions and parks, same header/footer language as Safaris.
  */
 export function renderDestinations() {
   const regionNav = destinationRegions

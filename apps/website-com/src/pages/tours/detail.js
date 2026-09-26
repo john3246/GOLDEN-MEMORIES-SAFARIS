@@ -55,21 +55,26 @@ function dayImage(item, tour, used) {
 }
 
 function dayFacts(item, tour, index, total) {
-  const isClimb = /kilimanjaro|meru|machame|marangu|trekking|climb|mountain/i.test(
+  const isMountain = tour.tour_type === 'mountain' || /kilimanjaro|meru|machame|marangu|trekking|climb|mountain/i.test(
     `${tour.title} ${tour.activity || ''}`
   );
   const last = index === total - 1;
-  const facts = [
-    item.distance ? ['Duration', item.distance] : null,
-    item.viewing !== null
-      ? ['Game viewing', item.viewing || (isClimb ? null : last ? 'Morning game drive' : '6–7 hours')]
-      : null,
-    ['Transport', item.transport || (isClimb ? 'On foot with mountain crew' : '4x4 safari vehicle')],
-    ['Meals included', item.meals || (last ? 'Breakfast' : 'Breakfast, lunch & dinner')],
-    ['Accommodation', item.stay || (last ? 'Own arrangements / onward transfer' : isClimb ? 'Mountain hut or camp' : 'Lodge or camp as confirmed')],
-  ].filter((row) => row && row[1]);
+  const mealsDef = last ? 'Breakfast' : 'Breakfast, lunch & dinner';
 
-  return facts;
+  if (isMountain) {
+    return [
+      item.elevation ? ['Elevation', item.elevation] : null,
+      item.hiking_time ? ['Walking Time', item.hiking_time] : null,
+      item.vegetation_zone ? ['Vegetation Zone', item.vegetation_zone] : null,
+      ['Meals Included', item.meals_included || item.meals || mealsDef],
+    ].filter((row) => row && row[1]);
+  }
+
+  return [
+    ['Transport', item.transport || tour.transport_information || '4x4 safari vehicle with pop-up roof'],
+    ['Game viewing', item.viewing || (last ? 'Morning game drive' : '6–7 hours game drives')],
+    ['Meals included', item.meals_included || item.meals || mealsDef],
+  ].filter((row) => row && row[1]);
 }
 
 /**
@@ -103,6 +108,9 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
   const book = bookingHref(tour);
   const cover = uniqueCoverFor(tour);
   const used = new Set([cover]);
+  const isMountain = tour.tour_type === 'mountain' || /kilimanjaro|meru|climb|trek|machame|marangu|lemosho|umbwe|rongai/i.test(`${tour.title || ''} ${tour.activity || ''}`);
+  const fallbackImage = isMountain ? '/images/gallery/kilimanjaro-02.webp' : '/images/accommodations/tukaone-camp.webp';
+
   const days = tour.itinerary
     .map((item, index) => {
       const facts = dayFacts(item, tour, index, tour.itinerary.length)
@@ -116,6 +124,29 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
         )
         .join('');
 
+      const accName = item.accommodation_name || item.accommodation || item.stay || (index === tour.itinerary.length - 1 ? '' : isMountain ? 'Mountain Camp or Hut' : 'Lodge or camp as confirmed');
+      const accImage = item.accommodation_image || (typeof item.image === 'string' && !item.image.includes('gallery') ? item.image : '') || fallbackImage;
+
+      const accCard = accName ? `
+        <div class="mt-4 mb-3">
+          <span class="text-xs uppercase tracking-wider text-amber-500 font-semibold">
+            Accommodation
+          </span>
+          <p class="text-white font-medium text-base mt-0.5">
+            ${accName}
+          </p>
+        </div>
+        <div class="w-full h-64 md:h-72 rounded-2xl overflow-hidden border border-white/10 relative group bg-black/20">
+          <img
+            src="${accImage}"
+            alt="${accName}"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+            onerror="this.onerror=null; this.src='${fallbackImage}';"
+          />
+        </div>
+      ` : '';
+
       return `
         <article class="safari-day">
           <div class="safari-day-media">
@@ -124,18 +155,23 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
           <div class="safari-day-copy">
             <p class="safari-day-label">${item.day}</p>
             <h3 class="safari-day-title">${item.title}</h3>
-            <p class="safari-day-body">${item.body}</p>
+            <p class="safari-day-body">${item.body || item.description || ''}</p>
             ${facts ? `<dl class="safari-day-facts">${facts}</dl>` : ''}
+            ${accCard}
           </div>
         </article>
       `;
     })
     .join('');
 
-  const highlights = tour.highlights.map((item) => `<li>${item}</li>`).join('');
-  const included = tour.included.map((item) => `<li>${item}</li>`).join('');
-  const excluded = tour.excluded.map((item) => `<li>${item}</li>`).join('');
+  const highlights = (tour.highlights || []).map((item) => `<li>${item}</li>`).join('');
+  const includedList = tour.included || tour.inclusions || [];
+  const excludedList = tour.excluded || tour.exclusions || [];
+  const included = (Array.isArray(includedList) ? includedList : []).map((item) => `<li>${item}</li>`).join('');
+  const excluded = (Array.isArray(excludedList) ? excludedList : []).map((item) => `<li>${item}</li>`).join('');
   const related = relatedTours(tour, 4).map(safariCard).join('');
+  const places = tour.places || tour.destination || '';
+  const overview = tour.overview || tour.description || tour.short_description || '';
 
   return `
     <main id="main">
@@ -155,7 +191,7 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
             ${tour.title}
           </h1>
           <p class="mt-4 font-body text-sm font-semibold uppercase tracking-[0.12em] text-white/85">
-            ${tour.duration}${tour.places ? ` · ${tour.places}` : ''}
+            ${tour.duration}${places ? ` · ${places}` : ''}
           </p>
           <a class="btn-navy mt-8 !rounded-none" href="${book}">Book this safari</a>
         </div>
@@ -177,7 +213,7 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
             <div class="flex h-full flex-col p-5 sm:p-7 lg:p-8">
               <p class="section-kicker">Overview</p>
               <h2 id="tour-overview-title" class="section-title">About this itinerary</h2>
-              <p class="mt-4 font-body text-base leading-relaxed text-ink/75">${tour.overview}</p>
+              <p class="mt-4 font-body text-base leading-relaxed text-ink/75">${overview}</p>
               <h3 class="mt-6 font-body text-xs font-bold uppercase tracking-[0.14em] text-gold-deep">Highlights</h3>
               <ul class="safari-bullets mt-3 columns-1 gap-x-8 sm:columns-2">${highlights}</ul>
             </div>
@@ -190,10 +226,10 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
                   <dd class="font-bold text-black">${tour.duration}</dd>
                 </div>
                 ${
-                  tour.places
+                  places
                     ? `<div class="flex justify-between gap-4 border-b border-black/10 pb-3">
                   <dt class="text-ink/55">Places</dt>
-                  <dd class="text-right font-bold text-black">${tour.places}</dd>
+                  <dd class="text-right font-bold text-black">${places}</dd>
                 </div>`
                     : ''
                 }
@@ -219,7 +255,7 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
           <div class="reveal max-w-3xl">
             <p class="section-kicker !text-gold">Itinerary</p>
             <h2 id="itinerary-title" class="section-title !text-white">${tour.duration} — day to day</h2>
-            <p class="mt-3 text-white/75">Each day is paced for game drives, transfers, and a proper night in camp or lodge — the same shape as a classic Tanzania circuit.</p>
+            <p class="mt-3 text-white/75">Each day is paced for game drives, transfers, and a proper night in camp or lodge, the same shape as a classic Tanzania circuit.</p>
           </div>
           <div class="safari-itinerary reveal mt-6">
             ${days}
@@ -258,7 +294,7 @@ export function renderTourDetail(slug, cmsSafari = null, cmsRelated = []) {
             <h2 id="tour-cta-title" class="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
               Ready to travel this route?
             </h2>
-            <p class="mt-3 max-w-xl text-ink/80">Share your dates and group size — we will confirm lodges, park fees, and the vehicle setup.</p>
+            <p class="mt-3 max-w-xl text-ink/80">Share your dates and group size, we will confirm lodges, park fees, and the vehicle setup.</p>
           </div>
           <a class="reveal btn-navy !rounded-none shrink-0" href="${book}">Book this safari</a>
         </div>
@@ -279,5 +315,5 @@ export function applyTourMeta(slug, cmsSafari = null) {
   }
   document.title = `${tour.title} | Golden Memories Safaris`;
   const description = document.querySelector('meta[name="description"]');
-  if (description) description.setAttribute('content', tour.overview);
+  if (description) description.setAttribute('content', tour.overview || tour.description || tour.short_description || '');
 }

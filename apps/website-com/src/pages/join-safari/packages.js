@@ -40,7 +40,7 @@ export const openJoiningPackages = [
     ],
     overview:
       'A three-day shared safari from Arusha covering Tarangire, Ngorongoro Crater, and Lake Manyara. You travel in a shared 4x4 with a professional English-speaking guide and stay two nights in lodge accommodation.',
-    cta: 'Ask to join this 2026–2027 group safari — USD 800 per person.',
+    cta: 'Ask to join this 2026–2027 group safari, USD 800 per person.',
     highlights: [
       'Three Northern Circuit parks',
       'Shared 4x4 and professional guide',
@@ -105,7 +105,7 @@ export const openJoiningPackages = [
     ],
     overview:
       'A four-day joining safari from Arusha: Tarangire, two nights in the Serengeti, and a Ngorongoro Crater game drive before you return to town. Shared 4x4, professional guide, and budget lodge or public-campsite nights as listed.',
-    cta: 'Ask to join this 2026–2027 group safari — USD 1,000 per person.',
+    cta: 'Ask to join this 2026–2027 group safari, USD 1,000 per person.',
     highlights: [
       'Two nights in the Serengeti',
       'Tarangire and Ngorongoro Crater',
@@ -175,7 +175,7 @@ export const openJoiningPackages = [
     ],
     overview:
       'Five days on the Northern Circuit with public-campsite nights: Tarangire, two nights in the Serengeti, a crater-rim night at Simba, then Ngorongoro Crater before Arusha. Shared 4x4 and a professional English-speaking guide.',
-    cta: 'Ask to join this 2026–2027 group safari — USD 1,250 per person.',
+    cta: 'Ask to join this 2026–2027 group safari, USD 1,250 per person.',
     highlights: [
       'Two nights camping in the Serengeti',
       'Ngorongoro crater-rim night',
@@ -250,7 +250,7 @@ export const openJoiningPackages = [
     ],
     overview:
       'A short joining safari for travellers who want Serengeti and Ngorongoro without a private vehicle. Two nights in the Serengeti, a full day on the plains, then the crater before you return to Arusha.',
-    cta: 'Ask to join this 2026–2027 group safari — USD 750 per person.',
+    cta: 'Ask to join this 2026–2027 group safari, USD 750 per person.',
     highlights: [
       'Two nights in the Serengeti',
       'Ngorongoro Crater game drive',
@@ -314,7 +314,7 @@ export const openJoiningPackages = [
     ],
     overview:
       'Two days from Arusha for travellers with limited time: a full day in Tarangire, one lodge night, then Ngorongoro Crater before the evening drop-off in town.',
-    cta: 'Ask to join this 2026–2027 group safari — USD 500 per person.',
+    cta: 'Ask to join this 2026–2027 group safari, USD 500 per person.',
     highlights: [
       'Tarangire and Ngorongoro in two days',
       'One night lodge accommodation',
@@ -372,8 +372,8 @@ export const openJoiningPackages = [
       { label: 'Crater floor', detail: 'Picnic lunch' },
     ],
     overview:
-      'A one-day joining safari from Arusha into Ngorongoro Crater. Shared 4x4, professional English-speaking guide, picnic lunch, and evening drop-off in town — no overnight required.',
-    cta: 'Ask to join this 2026–2027 day trip — USD 250 per person.',
+      'A one-day joining safari from Arusha into Ngorongoro Crater. Shared 4x4, professional English-speaking guide, picnic lunch, and evening drop-off in town, no overnight required.',
+    cta: 'Ask to join this 2026–2027 day trip, USD 250 per person.',
     highlights: [
       'Ngorongoro Crater game drive',
       'Shared 4x4 and professional guide',

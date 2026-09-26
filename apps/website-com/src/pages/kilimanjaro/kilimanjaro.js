@@ -11,7 +11,7 @@ import {
 } from './content.js';
 
 /**
- * Kilimanjaro climbing page — Zara-style structure, GM tour and park cards.
+ * Kilimanjaro climbing page, Zara-style structure, GM tour and park cards.
  */
 export function renderKilimanjaro() {
   const pricedClimbs = climbPackages.filter((item) => Number(item.price_from || item.price) > 0);
@@ -110,7 +110,7 @@ export function renderKilimanjaro() {
             <p class="section-kicker">Choose your trail</p>
             <h2 id="kili-routes-title" class="section-title">Extraordinary Kilimanjaro route options</h2>
             <p class="mt-4 text-ink/70">
-              Join our guiding team on the routes that make Kilimanjaro famous — from hut-to-hut Marangu to the camping days of Machame and the quieter west.
+              Join our guiding team on the routes that make Kilimanjaro famous, from hut-to-hut Marangu to the camping days of Machame and the quieter west.
             </p>
           </div>
           <div class="reveal mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

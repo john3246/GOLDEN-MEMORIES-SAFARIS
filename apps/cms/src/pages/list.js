@@ -24,7 +24,7 @@ function tourCard(item) {
     previewHref: `#/safaris/${item.id}/preview`,
     title: safariPackageTitle(item.title),
     image: cardImage(item.hero_image?.url),
-    kicker: durationLabel(item),
+    kicker: item.tour_type === 'mountain' ? `🏔️ Mountain Trek • ${durationLabel(item)}` : durationLabel(item),
     detail: item.destination || '',
     status: item.status,
     featured: item.featured,
@@ -47,45 +47,24 @@ export function renderList(user) {
         </div>
         <button class="cms-btn cms-btn-gold" type="button" data-create>New safari</button>
       </div>
-      <div class="cms-filters cms-panel">
-        <div class="cms-field">
-          <label class="cms-label" for="filter-q">Search</label>
-          <input id="filter-q" placeholder="Title or slug" />
+      <div class="cms-filters cms-panel !flex-row !flex-wrap !items-center !gap-4">
+        <div class="flex items-center gap-2 mr-auto" id="category-tabs">
+          <button type="button" class="cms-btn cms-btn-navy" data-category="">All</button>
+          <button type="button" class="cms-btn" data-category="Wildlife safari tours">Wildlife Safaris</button>
+          <button type="button" class="cms-btn" data-category="Mountain climbing & treks">Mountain Trekking</button>
+          <button type="button" class="cms-btn" data-category="Zanzibar & beach">Zanzibar & Coastal</button>
         </div>
-        <div class="cms-field">
-          <label class="cms-label" for="filter-status">Status</label>
+        <div class="cms-field !mb-0 !w-auto">
+          <input id="filter-q" placeholder="Search tours..." style="min-width: 250px" />
+        </div>
+        <div class="cms-field !mb-0 !w-auto">
           <select id="filter-status">
             <option value="">All statuses</option>
-            <option>DRAFT</option>
             <option>PUBLISHED</option>
-            <option>UNPUBLISHED</option>
-            <option>ARCHIVED</option>
+            <option>DRAFT</option>
           </select>
         </div>
-        <div class="cms-field">
-          <label class="cms-label" for="filter-category">Category</label>
-          <select id="filter-category">
-            <option value="">All categories</option>
-          </select>
-        </div>
-        <div class="cms-field">
-          <label class="cms-label" for="filter-featured">Featured</label>
-          <select id="filter-featured">
-            <option value="">Any</option>
-            <option value="true">Featured</option>
-            <option value="false">Not featured</option>
-          </select>
-        </div>
-        <div class="cms-field">
-          <label class="cms-label" for="filter-sort">Sort</label>
-          <select id="filter-sort">
-            <option value="newest">Newest</option>
-            <option value="oldest">Oldest</option>
-            <option value="display_order">Display order</option>
-            <option value="updated">Recently updated</option>
-          </select>
-        </div>
-        <button class="cms-btn cms-btn-navy" type="button" data-refresh>Apply</button>
+        <button class="cms-btn cms-btn-navy" type="button" data-refresh style="display:none">Apply</button>
       </div>
       <div id="safari-table">Loading…</div>
     </section>
@@ -102,12 +81,32 @@ export function initList() {
     sessionStorage.removeItem('gm_cms_search');
   }
 
-  async function refresh() {
+  
+  let selectedCategory = '';
+  document.querySelectorAll('#category-tabs button').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      document.querySelectorAll('#category-tabs button').forEach(b => {
+        b.classList.remove('cms-btn-navy');
+      });
+      e.target.classList.add('cms-btn-navy');
+      selectedCategory = e.target.dataset.category;
+      refresh();
+    });
+  });
+
+  const searchInput = document.querySelector('#filter-q');
+  let searchTimer;
+  searchInput?.addEventListener('input', () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(refresh, 300);
+  });
+
+  document.querySelector('#filter-status')?.addEventListener('change', refresh);
+
+    async function refresh() {
     const params = {
       q: document.querySelector('#filter-q')?.value,
       status: document.querySelector('#filter-status')?.value,
-      featured: document.querySelector('#filter-featured')?.value,
-      sort: document.querySelector('#filter-sort')?.value,
       limit: 200,
     };
     try {
@@ -117,16 +116,13 @@ export function initList() {
         return;
       }
       const allSections = groupedSections(result.data, tourCategory, TOUR_ORDER);
-      const selected = document.querySelector('#filter-category')?.value || '';
+      const selected = selectedCategory;
       const sections = allSections.filter(([label]) => !selected || label === selected);
-      const select = document.querySelector('#filter-category');
-      if (select) {
-        const current = select.value;
-        select.innerHTML = `<option value="">All categories</option>${categoryOptions(allSections)
-          .map((item) => `<option value="${item.label}">${item.label} (${item.count})</option>`)
-          .join('')}`;
-        if (current && allSections.some(([label]) => label === current)) select.value = current;
-      }
+      
+      // Update All count
+      const allBtn = document.querySelector('#category-tabs button[data-category=""]');
+      if (allBtn && !selectedCategory) allBtn.textContent = `All (${result.meta.total})`;
+      
       mount.innerHTML = `
         ${renderGroupedCards(sections, tourCard)}
         <p class="cms-muted" style="margin-top:1rem">${result.meta.total} packages</p>
@@ -138,7 +134,7 @@ export function initList() {
   }
 
   document.querySelector('[data-refresh]')?.addEventListener('click', refresh);
-  document.querySelector('#filter-category')?.addEventListener('change', refresh);
+  
   document.querySelector('[data-create]')?.addEventListener('click', async () => {
     try {
       const created = await api.createSafari({ title: 'New safari package' });

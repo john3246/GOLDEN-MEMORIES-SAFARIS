@@ -8,44 +8,42 @@ import { renderSafariFilters } from './filters.js';
 import { safariHero, safariIntro, whySafari, safariFaqs } from './content.js';
 
 /**
- * Safari listing — filter/sort board aligned to serengetiwakandatours.com/safaris
+ * Safari listing, filter/sort board aligned to serengetiwakandatours.com/safaris
  * @param {Array<Record<string, unknown>>} [cmsPackages]
  */
 export function renderTours(cmsPackages) {
   const quotes = reviewQuotes({ limit: 4, match: /safari|serengeti|ngorongoro|tarangire|guide/i });
   const style = new URLSearchParams(window.location.search).get('style') || '';
   const styleMeta = styleBySlug(style);
-  const catalog = allTours();
-  const bySlug = new Map(catalog.map((item) => [item.slug, item]));
-  if (Array.isArray(cmsPackages)) {
-    for (const item of cmsPackages) {
-      const price = item.price_from ?? item.price;
-      if (!(Number(price) > 0)) continue;
-      const gms = gmsTrips.find((trip) => trip.slug === item.slug);
-      const cmsImage = item.hero_image?.url || item.image || gms?.image;
-      bySlug.set(item.slug, {
-        slug: item.slug,
-        title: safariPackageTitle(item.title),
-        duration: item.duration_label || item.duration || gms?.duration || '',
-        places: item.destination || gms?.places || '',
-        image: uniqueCoverFor({
-          ...(gms || {}),
-          ...item,
+  let sourced = [];
+  if (Array.isArray(cmsPackages) && cmsPackages.length > 0) {
+    sourced = cmsPackages
+      .filter((item) => Number(item.price_from ?? item.price ?? 1) > 0)
+      .map((item) => {
+        const isClimb = item.tour_type === 'mountain' || /kilimanjaro|meru|climb|trek|machame|marangu|lemosho|umbwe|rongai/i.test(`${item.title || ''} ${item.destination || ''}`);
+        const cmsImage = item.hero_image?.url || item.image;
+        return {
           slug: item.slug,
-          title: item.title,
-          image: cmsImage,
-          hero_image: item.hero_image,
-        }),
-        featured: item.featured,
-        price_from: price,
-        currency: item.currency || 'USD',
-        minimum_people: item.minimum_people,
-        activity: gms?.activity,
-        style: gms?.style,
+          title: safariPackageTitle(item.title),
+          duration: item.duration_label || (item.duration ? `${item.duration} Days` : ''),
+          places: item.destination || (isClimb ? 'Kilimanjaro' : 'Tanzania'),
+          image: uniqueCoverFor({
+            ...item,
+            image: cmsImage,
+          }),
+          featured: Boolean(item.featured),
+          price_from: item.price_from ?? item.price,
+          currency: item.currency || 'USD',
+          minimum_people: item.minimum_people || 1,
+          activity: isClimb ? 'Kilimanjaro trekking' : item.activity || 'Private Safari',
+          style: isClimb ? 'mountain' : item.style || 'safari',
+          tour_type: isClimb ? 'mountain' : item.tour_type || 'safari',
+        };
       });
-    }
+  } else {
+    const catalog = allTours();
+    sourced = catalog.filter((tour) => Number(tour.price_from || tour.price) > 0);
   }
-  const sourced = [...bySlug.values()].filter((tour) => Number(tour.price_from || tour.price) > 0);
   const packageGrid = sourced
     .map((item) =>
       tourCard({
@@ -96,7 +94,7 @@ export function renderTours(cmsPackages) {
             ${styleMeta ? styleMeta.label : 'Tanzania safari tours and safari packages'}
           </h1>
           <p class="mt-2 max-w-2xl text-sm leading-relaxed text-white/85 sm:text-base">
-            ${sourced.length} priced safari packages across the Northern Circuit and joining group safaris — published per person.
+            ${sourced.length} priced safari packages across the Northern Circuit and joining group safaris, published per person.
           </p>
         </div>
       </section>
@@ -187,7 +185,7 @@ export function renderTours(cmsPackages) {
               Can’t find the right safari?
             </h2>
             <p class="mt-2 max-w-xl text-white/80">
-              Tell us your dates and pace — our Arusha team will tailor a private itinerary.
+              Tell us your dates and pace, our Arusha team will tailor a private itinerary.
             </p>
           </div>
           <a class="reveal btn-gold !rounded-none shrink-0" href="/contact/">Talk to an expert</a>

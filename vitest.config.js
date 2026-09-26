@@ -9,6 +9,8 @@ export default defineConfig({
       CMS_SEED_SAFARIS: 'false',
       CMS_SYNC_POSTGRES: 'false',
       BCRYPT_ROUNDS: '4',
+      CMS_ADMIN_EMAIL: 'info@gms.co.tz',
+      CMS_ADMIN_PASSWORD: '1234gms',
     },
     coverage: {
       provider: 'v8',

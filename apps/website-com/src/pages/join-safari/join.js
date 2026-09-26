@@ -26,7 +26,7 @@ function renderDepartureList(year, monthIndex) {
 }
 
 /**
- * Join-group safari listing — overlay cards, calendar, and booking CTA.
+ * Join-group safari listing, overlay cards, calendar, and booking CTA.
  */
 export function renderJoinSafari() {
   const selected = defaultSelectedIso();
@@ -88,7 +88,7 @@ export function renderJoinSafari() {
           <div class="reveal mx-auto max-w-3xl text-center">
             <p class="section-kicker">2026–2027 joining packages</p>
             <h2 id="join-packages-title" class="section-title">Group safaris with published prices</h2>
-            <p class="mt-4 text-ink/75">Shared 4x4, professional guide, and Northern Circuit parks — open a package for the full day-by-day itinerary.</p>
+            <p class="mt-4 text-ink/75">Shared 4x4, professional guide, and Northern Circuit parks, open a package for the full day-by-day itinerary.</p>
           </div>
           <div class="reveal mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             ${openJoiningPackages.map(joinCard).join('')}
@@ -145,7 +145,7 @@ export function renderJoinSafari() {
           <div class="reveal">
             <p class="section-kicker">Group or private</p>
             <h2 id="join-faq-title" class="section-title">Joining safari questions</h2>
-            <p class="mt-4 text-ink/70">Fixed dates and a shared vehicle — or a private safari on your own calendar.</p>
+            <p class="mt-4 text-ink/70">Fixed dates and a shared vehicle, or a private safari on your own calendar.</p>
           </div>
           <div class="reveal space-y-3">${faqs}</div>
         </div>
@@ -156,7 +156,7 @@ export function renderJoinSafari() {
           <div class="reveal">
             <p class="section-kicker">Reserve a seat</p>
             <h2 id="join-book-title" class="section-title">Book a joining safari</h2>
-            <p class="mt-4 max-w-xl font-body text-base leading-relaxed text-ink/75">Open a package for the full itinerary, then book — the form arrives with that safari already selected.</p>
+            <p class="mt-4 max-w-xl font-body text-base leading-relaxed text-ink/75">Open a package for the full itinerary, then book, the form arrives with that safari already selected.</p>
           </div>
           <a class="reveal btn-navy !rounded-none shrink-0" href="/booking/?safari=${encodeURIComponent(openJoiningPackages[0]?.slug || trip.slug || '')}">Go to booking form</a>
         </div>

@@ -117,12 +117,12 @@ export function initToursFilters() {
       const pb = Number(b.dataset.price || 0);
       const da = Number(a.dataset.days || 0);
       const db = Number(b.dataset.days || 0);
-      if (sort === 'price-asc') return pa - pb || da - db;
-      if (sort === 'price-desc') return pb - pa || da - db;
-      if (sort === 'duration-asc') return da - db || pa - pb;
-      if (sort === 'duration-desc') return db - da || pa - pb;
+      if (sort === 'price-asc') return pa, pb || da, db;
+      if (sort === 'price-desc') return pb, pa || da, db;
+      if (sort === 'duration-asc') return da, db || pa, pb;
+      if (sort === 'duration-desc') return db, da || pa, pb;
       const fa = Number(b.dataset.featured) - Number(a.dataset.featured);
-      return fa || da - db;
+      return fa || da, db;
     });
     visible.forEach((card) => grid.appendChild(card));
 

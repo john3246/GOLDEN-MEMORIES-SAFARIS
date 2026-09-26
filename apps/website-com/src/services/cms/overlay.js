@@ -2,7 +2,8 @@ import { gmsTrips } from '../../pages/tours/gms-trips.js';
 import { openJoiningPackages } from '../../pages/join-safari/packages.js';
 import { joiningSafaris, joinFaqs } from '../../pages/join-safari/content.js';
 import { kilimanjaroTreks } from '../../pages/kilimanjaro/packages.js';
-import { navLinks, site, testimonials, utilityLinks, featuredTours } from '../../pages/home/content.js';
+import { navLinks, site, testimonials, utilityLinks, featuredTours, dayTrips, zanzibar } from '../../pages/home/content.js';
+import { safariPackages } from '../../pages/tours/content.js';
 import { lodges } from '../../pages/accommodations/content.js';
 import { blogArticles } from '../../pages/blog/content.js';
 import { destinationPlaces, destinationSlugsFromCopy } from '../../pages/destinations/catalog.js';
@@ -67,13 +68,79 @@ function applyCmsImage(item, url) {
   }
 }
 
-function overlaySafariImages(safaris) {
+function overlaySafaris(safaris) {
   for (const safari of safaris || []) {
     const src = publicMediaUrl(safari.hero_image?.url || safari.image);
-    if (!src) continue;
-    for (const list of [featuredTours, gmsTrips, kilimanjaroTreks]) {
+    const inclusions = safari.inclusions?.length ? safari.inclusions : (safari.included || []);
+    const exclusions = safari.exclusions?.length ? safari.exclusions : (safari.excluded || []);
+    const overview = safari.description || safari.short_description || safari.overview || '';
+    const destination = safari.destination || safari.places || '';
+    const priceFrom = safari.price_from ?? safari.price;
+
+    for (const list of [featuredTours, gmsTrips, kilimanjaroTreks, safariPackages, dayTrips, zanzibar]) {
       const found = (list || []).find((trip) => trip.slug === safari.slug || trip.id === safari.slug);
-      if (found) applyCmsImage(found, src);
+      if (found) {
+        if (src) applyCmsImage(found, src);
+        if (safari.title) found.title = safariPackageTitle(safari.title);
+        if (overview) {
+          found.overview = overview;
+          found.description = overview;
+          found.body = overview;
+        }
+        if (destination) {
+          found.destination = destination;
+          found.places = destination;
+        }
+        if (priceFrom) {
+          found.price_from = priceFrom;
+          found.price = priceFrom;
+        }
+        if (safari.duration_label || safari.duration) {
+          found.duration = safari.duration_label || (safari.duration ? `${safari.duration} Days` : found.duration);
+        }
+        if (safari.highlights?.length) found.highlights = safari.highlights;
+        if (inclusions.length) {
+          found.inclusions = inclusions;
+          found.included = inclusions;
+        }
+        if (exclusions.length) {
+          found.exclusions = exclusions;
+          found.excluded = exclusions;
+        }
+        if (safari.itinerary?.length) {
+          found.itinerary = safari.itinerary;
+          found.days = safari.itinerary;
+        }
+        if (safari.tour_type) {
+          found.tour_type = safari.tour_type;
+          found.style = safari.tour_type;
+        }
+        if (safari.difficulty) found.difficulty = safari.difficulty;
+      }
+    }
+
+    const inGms = gmsTrips.find((trip) => trip.slug === safari.slug || trip.id === safari.slug);
+    if (!inGms) {
+      gmsTrips.push({
+        slug: safari.slug,
+        title: safariPackageTitle(safari.title),
+        duration: safari.duration_label || (safari.duration ? `${safari.duration} Days` : ''),
+        activity: safari.tour_type === 'mountain' ? 'Mountain Trek' : 'Wildlife Safari',
+        places: destination,
+        destination,
+        overview,
+        description: overview,
+        image: src || uniqueCoverFor(safari),
+        style: safari.tour_type || 'wildlife',
+        tour_type: safari.tour_type || 'safari',
+        price_from: priceFrom,
+        highlights: safari.highlights || [],
+        included: inclusions,
+        inclusions,
+        excluded: exclusions,
+        exclusions,
+        itinerary: safari.itinerary || [],
+      });
     }
   }
 }
@@ -342,7 +409,7 @@ export async function hydrateFromCms() {
       }
     }
 
-    overlaySafariImages(safaris);
+    overlaySafaris(safaris);
 
     for (const trip of joiningSafaris) {
       if (cmsDepartureImages.has(trip.id) || cmsDepartureImages.has(trip.slug)) {

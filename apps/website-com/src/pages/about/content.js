@@ -3,7 +3,7 @@ import { media as GM } from '../home/content.js';
 export const aboutHero = {
   kicker: 'Our story',
   title: 'About Golden Memories Safaris',
-  motto: 'Your path to golden memories begins here',
+  motto: 'Your Path To Golden Memories Begins Here',
   cta: 'Get in touch',
   image: GM.hero,
 };
@@ -14,8 +14,8 @@ export const aboutStory = {
   image: GM.ngorongoroTourists,
   imageAlt: 'Golden Memories Safaris guests on a game drive in the Ngorongoro Crater',
   paragraphs: [
-    'Golden Memories Safaris is a 100% Tanzanian-owned tour operator based in Njiro, Arusha — the starting point for the Serengeti, the Ngorongoro Crater, Tarangire and Mount Kilimanjaro. Our guides and planners grew up in this country, and it shows in the way we route a safari, time a game drive and choose where you sleep.',
-    'We started the company to offer something simple: well-planned, honestly priced trips that let travellers experience Tanzania properly — its wildlife, its landscapes and its people — without the stress of arranging permits, lodges and transfers themselves.',
+    'Golden Memories Safaris is a 100% Tanzanian-owned tour operator based in Njiro, Arusha, the starting point for the Serengeti, the Ngorongoro Crater, Tarangire and Mount Kilimanjaro. Our guides and planners grew up in this country, and it shows in the way we route a safari, time a game drive and choose where you sleep.',
+    'We started the company to offer something simple: well-planned, honestly priced trips that let travellers experience Tanzania properly, its wildlife, its landscapes and its people, without the stress of arranging permits, lodges and transfers themselves.',
     'Every itinerary is built around you. We listen to how you like to travel, recommend the parks and season that suit your interests, and look after every detail from airport pick-up to your last evening in Arusha or on Zanzibar.',
   ],
 };
@@ -23,22 +23,22 @@ export const aboutStory = {
 export const aboutPrinciples = [
   {
     title: 'Our Mission',
-    body: "To create personal, well-organised journeys that connect our guests with Tanzania's wildlife, landscapes and cultures — delivered safely, responsibly and with genuine Tanzanian hospitality.",
+    body: "To create personal, well-organised journeys that connect our guests with Tanzania's wildlife, landscapes and cultures, delivered safely, responsibly and with genuine Tanzanian hospitality.",
   },
   {
     title: 'Our Vision',
-    body: 'To be the Tanzanian safari company travellers recommend to their friends — known for honest advice, excellent guiding and tourism that benefits local communities and conservation.',
+    body: 'To be the Tanzanian safari company travellers recommend to their friends, known for honest advice, excellent guiding and tourism that benefits local communities and conservation.',
   },
 ];
 
 export const aboutAdvantages = [
   {
     title: 'Passionate Local Experts',
-    body: 'Our driver-guides are trained professionals who know animal behaviour, birdlife and the parks season by season — and enjoy sharing that knowledge with you.',
+    body: 'Our driver-guides are trained professionals who know animal behaviour, birdlife and the parks season by season, and enjoy sharing that knowledge with you.',
   },
   {
     title: 'Tailor-Made Adventures',
-    body: 'Every trip is planned around your interests, pace, budget and travel dates. Change the lodges, add a day or combine a safari with Kilimanjaro or Zanzibar — it is your itinerary.',
+    body: 'Every trip is planned around your interests, pace, budget and travel dates. Change the lodges, add a day or combine a safari with Kilimanjaro or Zanzibar, it is your itinerary.',
   },
   {
     title: 'Commitment to Sustainability',
@@ -50,7 +50,7 @@ export const aboutAdvantages = [
   },
   {
     title: 'Transparent & Fair Pricing',
-    body: 'Your quote lists exactly what is included and what is not. No hidden fees, no surprises on arrival — just a fair price for a well-run trip.',
+    body: 'Your quote lists exactly what is included and what is not. No hidden fees, no surprises on arrival, just a fair price for a well-run trip.',
   },
   {
     title: '24/7 Dedicated Support',
@@ -73,7 +73,7 @@ export const aboutTeam = [
   {
     name: 'Operations & Guest Relations Team',
     role: 'Safari Planning & Logistics',
-    body: 'Our operations team handles every practical detail — lodge reservations, park permits, airport transfers and dietary requirements — and keeps in touch with you in English, Italian, French or Swedish from your first enquiry to your departure.',
+    body: 'Our operations team handles every practical detail, lodge reservations, park permits, airport transfers and dietary requirements, and keeps in touch with you in English, Italian, French or Swedish from your first enquiry to your departure.',
     tags: ['Multilingual Support', '24/7 Availability'],
     image: GM.dayTrip,
     imageAlt: 'Golden Memories Safaris operations and guest relations team in Arusha',
@@ -81,7 +81,7 @@ export const aboutTeam = [
   {
     name: 'Professional Driver-Guides',
     role: 'Wildlife & Wilderness Experts',
-    body: "Our driver-guides are the heart of every safari. They hold professional guiding qualifications, read animal behaviour and birdlife expertly, and many grew up near the parks — so you hear the stories behind the landscape, not just the names of the animals.",
+    body: "Our driver-guides are the heart of every safari. They hold professional guiding qualifications, read animal behaviour and birdlife expertly, and many grew up near the parks, so you hear the stories behind the landscape, not just the names of the animals.",
     tags: ['Wildlife Tracking', 'Birding'],
     image: GM.northern,
     imageAlt: 'Professional safari driver-guides at Golden Memories Safaris',
@@ -117,5 +117,5 @@ export const aboutCredentials = [
 
 export const aboutCta = {
   title: 'Ready to plan your trip?',
-  body: 'Whether you are dreaming of the Serengeti migration, the summit of Kilimanjaro or a few quiet days on Zanzibar, tell us what you have in mind. We will reply with honest advice and a tailor-made itinerary — no obligation.',
+  body: 'Whether you are dreaming of the Serengeti migration, the summit of Kilimanjaro or a few quiet days on Zanzibar, tell us what you have in mind. We will reply with honest advice and a tailor-made itinerary, no obligation.',
 };

@@ -2,7 +2,8 @@ import { SafariStatus } from '@gm-safaris/shared-types';
 import { config } from '../../config/index.js';
 import { updateStore } from '../../cms-store/index.js';
 import { safarisRepository } from './safaris.repository.js';
-import { PDF_PACKAGES, toSafariDocument } from './pdf-packages.js';
+import { toSafariDocument } from './pdf-packages.js';
+import { allTours } from '../../../../website-com/src/pages/tours/catalog.js';
 
 function toDraft(item) {
   const draft = toSafariDocument(item);
@@ -19,8 +20,17 @@ export async function seedSafariPackages() {
   if (!config.cms.seedSafaris && process.env.CMS_SEED_SAFARIS !== 'true') return;
 
   const now = new Date().toISOString();
-  for (const item of PDF_PACKAGES) {
+  const toursToSeed = typeof allTours === 'function' ? allTours() : [];
+  for (const item of toursToSeed) {
     const draft = toDraft(item);
+    if (item.tour_type) {
+      draft.tour_type = item.tour_type;
+    }
+    if (/kilimanjaro|meru/i.test(item.title)) {
+      draft.tour_type = 'mountain';
+    } else if (/zanzibar/i.test(item.title) || /zanzibar/i.test(item.places)) {
+      draft.tour_type = 'beach';
+    }
     // Never overwrite a tour that already exists — editors may have changed it.
     if (await safarisRepository.findBySlug(item.slug, { includeUnpublished: true })) continue;
     const record = await safarisRepository.create({ draft, actor: { userId: 'seed' } });

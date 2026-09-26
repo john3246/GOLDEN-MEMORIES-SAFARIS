@@ -29,8 +29,7 @@ function dayFacts(item) {
     ['Date', item.dateLabel],
     item.viewing && item.viewing !== '—' ? ['Game viewing', item.viewing] : null,
     ['Transport', item.transport || 'Shared 4x4 safari vehicle'],
-    ['Meals included', item.meals],
-    ['Accommodation', item.stay],
+    ['Meals included', item.meals || item.meals_included],
   ]
     .filter((row) => row && row[1])
     .map(
@@ -45,7 +44,7 @@ function dayFacts(item) {
 }
 
 /**
- * Join-group safari detail — same shape as a private safari page, data from the joining package.
+ * Join-group safari detail, same shape as a private safari page, data from the joining package.
  * @param {string} slug
  */
 export function renderJoinDetail(slug) {
@@ -70,6 +69,29 @@ export function renderJoinDetail(slug) {
   const days = (pkg.itinerary || [])
     .map((item) => {
       const facts = dayFacts(item);
+      const accName = item.accommodation_name || item.accommodation || item.stay || 'Lodge or camp as confirmed';
+      const fallbackImage = '/images/accommodations/tukaone-camp.webp';
+      const accImage = item.accommodation_image || (typeof item.image === 'string' && !item.image.includes('gallery') ? item.image : '') || fallbackImage;
+      const accCard = accName ? `
+        <div class="mt-4 mb-3">
+          <span class="text-xs uppercase tracking-wider text-amber-500 font-semibold">
+            Accommodation
+          </span>
+          <p class="text-white font-medium text-base mt-0.5">
+            ${accName}
+          </p>
+        </div>
+        <div class="w-full h-64 md:h-72 rounded-2xl overflow-hidden border border-white/10 relative group bg-black/20">
+          <img
+            src="${accImage}"
+            alt="${accName}"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+            onerror="this.onerror=null; this.src='${fallbackImage}';"
+          />
+        </div>
+      ` : '';
+
       return `
         <article class="safari-day">
           <div class="safari-day-media">
@@ -80,6 +102,7 @@ export function renderJoinDetail(slug) {
             <h3 class="safari-day-title">${item.title}</h3>
             <p class="safari-day-body">${item.body}</p>
             ${facts ? `<dl class="safari-day-facts">${facts}</dl>` : ''}
+            ${accCard}
           </div>
         </article>
       `;
@@ -126,51 +149,52 @@ export function renderJoinDetail(slug) {
         </div>
       </nav>
 
-      <section class="bg-gold py-8 sm:py-10" aria-labelledby="join-overview-title">
-        <div class="container-site grid items-start gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(18rem,0.8fr)] lg:gap-16">
-          <div class="reveal bg-white p-6 sm:p-10">
-            <p class="section-kicker">Overview</p>
-            <h2 id="join-overview-title" class="section-title">About this itinerary</h2>
-            <p class="mt-5 font-body text-base leading-relaxed text-ink/75">${pkg.overview}</p>
+            <section class="bg-gold py-3 sm:py-4" aria-labelledby="join-overview-title">
+        <div class="container-site">
+          <div class="grid items-stretch overflow-hidden bg-white lg:grid-cols-[minmax(0,1.45fr)_minmax(19rem,0.85fr)]">
+            <div class="flex h-full flex-col p-5 sm:p-7 lg:p-8 reveal">
+              <p class="section-kicker">Overview</p>
+              <h2 id="join-overview-title" class="section-title">About this itinerary</h2>
+              <p class="mt-4 font-body text-base leading-relaxed text-ink/75">${pkg.overview}</p>
+            </div>
+            <aside class="safari-aside border-t border-black/10 lg:border-l lg:border-t-0 reveal">
+              <p class="section-kicker">At a glance</p>
+              <h2 class="font-display text-2xl font-semibold text-black">Join this group</h2>
+              <dl class="mt-5 space-y-3 font-body text-sm">
+                <div class="flex justify-between gap-4 border-b border-black/10 pb-3">
+                  <dt class="text-ink/55">Duration</dt>
+                  <dd class="text-right font-bold text-black">${pkg.duration}</dd>
+                </div>
+                ${
+                  pkg.places
+                    ? `
+                  <div class="flex justify-between gap-4 border-b border-black/10 pb-3">
+                    <dt class="text-ink/55">Places</dt>
+                    <dd class="text-right font-bold text-black">${pkg.places}</dd>
+                  </div>
+                `
+                    : ''
+                }
+                <div class="flex justify-between gap-4 border-b border-black/10 pb-3">
+                  <dt class="text-ink/55">Spaces</dt>
+                  <dd class="text-right font-bold text-black">${pkg.spaces || 'Shared vehicle / Lodge nights'}</dd>
+                </div>
+                ${
+                  price
+                    ? `
+                  <div class="flex justify-between gap-4 border-b border-black/10 pb-3">
+                    <dt class="text-ink/55">Price per person</dt>
+                    <dd class="text-right font-bold text-black">${price.perPerson}</dd>
+                  </div>
+                `
+                    : ''
+                }
+              </dl>
+              <div class="mt-auto pt-5">
+                <a class="btn-navy w-full !rounded-none" href="${book}">Book this safari</a>
+              </div>
+            </aside>
           </div>
-
-          <aside class="reveal safari-aside">
-            <p class="section-kicker">At a glance</p>
-            <h2 class="font-display text-2xl font-semibold text-black">Join this group</h2>
-            <dl class="mt-6 space-y-3 font-body text-sm">
-              <div class="flex justify-between gap-4 border-b border-black/10 pb-3">
-                <dt class="text-ink/55">Duration</dt>
-                <dd class="font-bold text-black">${pkg.duration}</dd>
-              </div>
-              ${
-                pkg.places
-                  ? `<div class="flex justify-between gap-4 border-b border-black/10 pb-3">
-                <dt class="text-ink/55">Places</dt>
-                <dd class="text-right font-bold text-black">${pkg.places}</dd>
-              </div>`
-                  : ''
-              }
-              <div class="flex justify-between gap-4 border-b border-black/10 pb-3">
-                <dt class="text-ink/55">Dates</dt>
-                <dd class="text-right font-bold text-black">${pkg.datesLabel || 'Open 2026–2027'}</dd>
-              </div>
-              ${
-                price
-                  ? `<div class="flex justify-between gap-4 border-b border-black/10 pb-3">
-                <dt class="text-ink/55">From</dt>
-                <dd class="font-bold text-black">${price.perPerson}</dd>
-              </div>`
-                  : ''
-              }
-              <div class="flex justify-between gap-4 border-b border-black/10 pb-3">
-                <dt class="text-ink/55">Style</dt>
-                <dd class="font-bold text-black">${pkg.activity || 'Shared group safari'}</dd>
-              </div>
-            </dl>
-            ${highlights ? `<h3 class="mt-8 font-body text-xs font-bold uppercase tracking-[0.14em] text-gold-deep">Highlights</h3>
-            <ul class="safari-bullets mt-3">${highlights}</ul>` : ''}
-            <a class="btn-navy mt-8 w-full !rounded-none" href="${book}">Book this safari</a>
-          </aside>
         </div>
       </section>
 
@@ -234,7 +258,7 @@ export function renderJoinDetail(slug) {
             <h2 id="join-cta-title" class="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
               Ready to join this group?
             </h2>
-            <p class="mt-3 max-w-xl text-ink/80">This safari is already selected on the booking form — add your dates and group size and we will confirm a seat.</p>
+            <p class="mt-3 max-w-xl text-ink/80">This safari is already selected on the booking form, add your dates and group size and we will confirm a seat.</p>
           </div>
           <a class="reveal btn-navy !rounded-none shrink-0" href="${book}">Book this safari</a>
         </div>

@@ -4,7 +4,7 @@ import { submitInquiry } from '../../services/api/cms.js';
 import { addSpamGuards, spamFields, setBusy, showNote, isNetworkError, focusField } from '../../components/forms/form-helpers.js';
 
 /**
- * Contact page — live GM copy, map, and form fields with current site UI.
+ * Contact page, live GM copy, map, and form fields with current site UI.
  */
 export function renderContact() {
   const details = getContactDetails()

@@ -6,7 +6,7 @@ export { openJoiningPackages };
 export const joinHero = {
   kicker: 'Scheduled group departure',
   title: 'Join a Group Safari',
-  subtitle: 'Fixed dates, a small group and an experienced local guide — share the vehicle and the cost, not the experience.',
+  subtitle: 'Fixed dates, a small group and an experienced local guide, share the vehicle and the cost, not the experience.',
   cta: 'View open departures',
   image: galleryPhoto('serengeti', 8),
 };
@@ -46,7 +46,7 @@ export const joiningSafaris = [
     ],
     overview:
       'Experience one of Africa’s most spectacular wildlife events as thousands of wildebeest give birth across the Ndutu plains. Witness breathtaking predator action, endless wildlife, and unforgettable landscapes.',
-    cta: 'Seats are limited to keep the group small — reserve yours early.',
+    cta: 'Seats are limited to keep the group small, reserve yours early.',
     highlights: [
       'Great Wildebeest Calving Season',
       'Ngorongoro Crater Game Drive',
@@ -73,8 +73,8 @@ export const joiningSafaris = [
         day: 'Day 2',
         dateLabel: 'February 16, 2027',
         title: 'Ngorongoro Crater to Ndutu',
-        body: 'Drive from Arusha to the breathtaking Ngorongoro Crater for a game drive, then continue to Ndutu. Overnight at Ang’ata Migration Camp – Ndutu.',
-        stay: 'Ang’ata Migration Camp – Ndutu',
+        body: 'Drive from Arusha to the breathtaking Ngorongoro Crater for a game drive, then continue to Ndutu. Overnight at Ang’ata Migration Camp, Ndutu.',
+        stay: 'Ang’ata Migration Camp, Ndutu',
         viewing: 'Crater game drive',
         transport: '4x4 safari vehicle',
         meals: 'Breakfast, lunch & dinner',
@@ -86,7 +86,7 @@ export const joiningSafaris = [
         dateLabel: 'February 17, 2027',
         title: 'Full day in Ndutu',
         body: 'Full-day game drive in Ndutu, following the Great Migration and witnessing the calving season. Overnight at Ang’ata Migration Camp.',
-        stay: 'Ang’ata Migration Camp – Ndutu',
+        stay: 'Ang’ata Migration Camp, Ndutu',
         viewing: 'Full-day game drive',
         transport: '4x4 safari vehicle',
         meals: 'Breakfast, lunch & dinner',
@@ -98,7 +98,7 @@ export const joiningSafaris = [
         dateLabel: 'February 18, 2027',
         title: 'Ndutu predator country',
         body: 'Another full day exploring Ndutu, renowned for its abundant wildlife and thrilling predator encounters. Overnight at Ang’ata Migration Camp.',
-        stay: 'Ang’ata Migration Camp – Ndutu',
+        stay: 'Ang’ata Migration Camp, Ndutu',
         viewing: 'Full-day game drive',
         transport: '4x4 safari vehicle',
         meals: 'Breakfast, lunch & dinner',
@@ -121,7 +121,7 @@ export const joiningSafaris = [
         day: 'Day 6',
         dateLabel: 'February 20, 2027',
         title: 'Departure',
-        body: 'Departure from Arusha — airport transfer or onward travel as arranged.',
+        body: 'Departure from Arusha, airport transfer or onward travel as arranged.',
         stay: 'Own arrangements / onward transfer',
         viewing: '—',
         transport: 'Transfer',
@@ -178,7 +178,7 @@ export const joinIntro = {
 export const joinFaqs = [
   {
     q: 'How is a joining safari different from a private safari?',
-    a: 'A joining safari has fixed dates, a shared vehicle, and a published itinerary. A private safari is only your party — you choose the start date, pace, and lodges. Both use the same guiding standard.',
+    a: 'A joining safari has fixed dates, a shared vehicle, and a published itinerary. A private safari is only your party, you choose the start date, pace, and lodges. Both use the same guiding standard.',
   },
   {
     q: 'What if February 2027 does not fit my travel dates?',

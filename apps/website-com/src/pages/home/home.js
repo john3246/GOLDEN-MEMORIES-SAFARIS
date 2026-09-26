@@ -26,7 +26,7 @@ export function renderHome() {
   const safariGrid = featuredTours.filter(hasTourPrice).map(tourCard).join('');
   const dayTripGrid = dayTrips.filter(hasTourPrice).map(tourCard).join('');
   const climbGrid = kilimanjaro.filter((tour) => tour.featured && hasTourPrice(tour)).map(tourCard).join('');
-  const beachGrid = zanzibar.filter(hasTourPrice).map(tourCard).join('');
+  const beachGrid = zanzibar.slice(0, 3).map(tourCard).join('');
   const whySlides = whyUsSlideshow(whyBook.slides);
   const esc = (value) =>
     String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -87,8 +87,8 @@ export function renderHome() {
 
   return `
     <main id="main">
-      <!-- Hero: brand + one headline + one sentence + CTA group + looping video -->
-      <section class="home-hero relative isolate overflow-hidden text-white" aria-labelledby="hero-brand">
+      <!-- Hero: one headline + one tagline + CTA group + looping video -->
+      <section class="home-hero relative isolate overflow-hidden text-white" aria-labelledby="home-hero-title">
         <div class="home-hero-media" aria-hidden="true">
           <img
             class="home-hero-poster"
@@ -116,13 +116,10 @@ export function renderHome() {
 
         <div class="container-site relative flex min-h-[inherit] flex-col justify-center py-12 sm:py-16">
           <div class="hero-animate max-w-3xl">
-            <p id="hero-brand" class="font-body text-sm font-bold uppercase tracking-[0.18em] text-gold sm:text-base">
-              Golden Memories Safaris
-            </p>
-            <h1 class="home-hero-title mt-4 font-display font-semibold leading-[1.05] tracking-tight">
+            <h1 id="home-hero-title" class="home-hero-title font-display font-semibold leading-[1.05] tracking-tight">
               Karibu Tanzania
             </h1>
-            <p class="mt-3 font-body text-sm font-semibold uppercase tracking-[0.16em] text-gold sm:text-base">
+            <p class="mt-3 font-display text-lg sm:text-xl font-normal text-gold italic">
               ${site.tagline}
             </p>
             <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -161,7 +158,7 @@ export function renderHome() {
               The Northern Circuit for the classic Big Five, the south for wilderness without the crowds, and the coast for white sand and Swahili history.
             </p>
           </div>
-          <div class="reveal mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5" data-destinations>
+          <div class="reveal mt-6 grid max-w-6xl mx-auto justify-items-center gap-6 sm:grid-cols-2 lg:grid-cols-3" data-destinations>
             ${destinationGrid}
           </div>
         </div>
@@ -274,7 +271,7 @@ export function initHomeHero() {
   const conn = navigator.connection || {};
   const slow = conn.saveData || /(^|-)2g$/.test(conn.effectiveType || '');
   // Skip the 4 MB background video for reduced-motion users, data-saver /
-  // 2G connections and small phones — the poster image stays.
+  // 2G connections and small phones, the poster image stays.
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || slow || window.innerWidth < 640) {
     video.remove();
     return;

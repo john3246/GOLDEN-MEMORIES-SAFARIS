@@ -11,12 +11,12 @@ export const destinationsHero = {
 };
 
 export const destinationsIntro = {
-  title: 'Parks, mountains, lakes, and the coast — each region a different chapter',
+  title: 'Parks, mountains, lakes, and the coast, each region a different chapter',
   image: GM.ngorongoro,
   imageAlt: 'Ngorongoro Crater wildlife country in northern Tanzania',
   paragraphs: [
     'Tanzania is home to some of Africa’s most iconic landscapes: the Serengeti plains, the Ngorongoro Crater, Kilimanjaro, and the beaches of Zanzibar. Each destination offers a distinct pace, wildlife, and way of travelling.',
-    'Golden Memories Safaris plans private itineraries from Arusha so parks sit in a sensible order — enough nights in the right places, without rushing the game drives or the last transfer.',
+    'Golden Memories Safaris plans private itineraries from Arusha so parks sit in a sensible order, enough nights in the right places, without rushing the game drives or the last transfer.',
     'Browse the regions below, then tell us your dates. We will match the circuit to the season, from migration months in the north to quieter days in the south.',
   ],
 };
@@ -47,7 +47,7 @@ export const destinationRegions = [
       {
         slug: 'serengeti',
         name: 'Serengeti National Park',
-        blurb: 'Four regions, two million wildebeest, and the highest predator densities in Africa — camp location must match the month.',
+        blurb: 'Four regions, two million wildebeest, and the highest predator densities in Africa, camp location must match the month.',
         image: GM.northern,
       },
       {
@@ -65,25 +65,25 @@ export const destinationRegions = [
       {
         slug: 'lake-manyara',
         name: 'Lake Manyara National Park',
-        blurb: 'Rift escarpment and soda lake — a scenic half-day for tree lions and flamingos, not a heavyweight game park.',
+        blurb: 'Rift escarpment and soda lake, a scenic half-day for tree lions and flamingos, not a heavyweight game park.',
         image: GM.manyara,
       },
       {
         slug: 'arusha-national-park',
         name: 'Arusha National Park',
-        blurb: 'Quiet day from town: Meru, colobus, walking and canoeing. Beautiful, few predators — not a Serengeti substitute.',
+        blurb: 'Quiet day from town: Meru, colobus, walking and canoeing. Beautiful, few predators, not a Serengeti substitute.',
         image: GM.meru,
       },
       {
         slug: 'kilimanjaro',
         name: 'Mount Kilimanjaro',
-        blurb: '5,895 m free-standing volcano. Altitude, not ropes, is the test — then add the northern parks.',
+        blurb: '5,895 m free-standing volcano. Altitude, not ropes, is the test, then add the northern parks.',
         image: GM.kilimanjaro,
       },
       {
         slug: 'lake-eyasi',
         name: 'Lake Eyasi',
-        blurb: 'Rift salt lake and Hadzabe country — walking and cultural time the national parks do not allow.',
+        blurb: 'Rift salt lake and Hadzabe country, walking and cultural time the national parks do not allow.',
         image: GM.lakeEyasi,
       },
     ],
@@ -98,7 +98,7 @@ export const destinationRegions = [
       {
         slug: 'zanzibar',
         name: 'Zanzibar Archipelago',
-        blurb: 'Spice-island history, north vs east beaches, reefs and Jozani — the usual last chapter after the parks.',
+        blurb: 'Spice-island history, north vs east beaches, reefs and Jozani, the usual last chapter after the parks.',
         image: GM.zanzibarBeach,
       },
       {
@@ -137,7 +137,7 @@ export const destinationRegions = [
       {
         slug: 'mikumi',
         name: 'Mikumi National Park',
-        blurb: 'Mkata floodplain on the Dar road — a pocket grassland day, not a week-long Serengeti.',
+        blurb: 'Mkata floodplain on the Dar road, a pocket grassland day, not a week-long Serengeti.',
         image: GM.dayTrip,
       },
     ],
