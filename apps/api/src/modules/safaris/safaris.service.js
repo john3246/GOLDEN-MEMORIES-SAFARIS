@@ -1,8 +1,10 @@
-import { createId, slugify } from '@gm-safaris/shared-utils';
+import { slugify } from '@gm-safaris/shared-utils';
 import { SafariStatus } from '@gm-safaris/shared-types';
 import { emptySafariDocument, safariCompletenessErrors } from '@gm-safaris/safari-ui';
 import { notFound, forbidden, validationError } from '../../errors/index.js';
 import { recordAudit } from '../audit/audit.service.js';
+import { emitEvent } from '../webhooks/webhooks.service.js';
+import { invalidateSiteBundle } from '../site/site-bundle.js';
 import { mediaService } from '../media/media.service.js';
 import { safarisRepository } from './safaris.repository.js';
 import { validateSafariPayload, parseAdminQuery, parsePublicQuery } from './safaris.validation.js';
@@ -154,7 +156,13 @@ export const safarisService = {
     const record = await safarisRepository.findById(id);
     if (!record) throw notFound('Safari package not found.');
     const revisions = await safarisRepository.revisionsFor(id);
-    return toAdminSafari(record, revisions);
+    return {
+      ...toAdminSafari(record, revisions),
+      publishWarnings: safariCompletenessErrors(record.draft || {}),
+      hasUnpublishedChanges:
+        record.status === SafariStatus.PUBLISHED &&
+        JSON.stringify({ ...(record.published || {}), slug: undefined }) !== JSON.stringify({ ...(record.draft || {}), slug: undefined }),
+    };
   },
 
   async preview(id) {
@@ -199,7 +207,8 @@ export const safarisService = {
       record.slug = payload.slug;
     }
     record.draft = emptySafariDocument({ ...record.draft, ...payload, slug: record.slug });
-    requireReadyDraft(record.draft);
+    // Drafts can always be saved; completeness (price, duration, itinerary)
+    // is only enforced when publishing. Missing items come back as warnings.
     record.updated_by = actor?.userId || null;
     record.updated_at = new Date().toISOString();
     await safarisRepository.save(record);
@@ -239,6 +248,8 @@ export const safarisService = {
       resourceId: id,
       metadata: { slug: record.slug },
     });
+    invalidateSiteBundle();
+    emitEvent('safari.published', { id, slug: record.slug, title: record.published.title, published: record.published });
     return this.getAdmin(id);
   },
 
@@ -260,6 +271,8 @@ export const safarisService = {
       resourceId: id,
       metadata: { slug: record.slug },
     });
+    invalidateSiteBundle();
+    emitEvent('safari.unpublished', { id, slug: record.slug });
     return this.getAdmin(id);
   },
 
@@ -333,7 +346,7 @@ export const safarisService = {
   },
 
   async remove(id, actor) {
-    if (actor?.role !== 'Admin') throw forbidden('Only administrators can delete Safari packages');
+    if (!['Admin', 'Super Admin'].includes(actor?.role)) throw forbidden('Only administrators can delete safari packages');
     const record = await safarisRepository.remove(id);
     if (!record) throw notFound('Safari package not found.');
     await removeSafari(record);

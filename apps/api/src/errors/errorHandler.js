@@ -24,6 +24,17 @@ export function errorHandler(err, req, res, _next) {
     });
   }
 
+  if (err && (err.type === 'entity.parse.failed' || err.type === 'entity.too.large')) {
+    return res.status(err.type === 'entity.too.large' ? 413 : 400).json({
+      success: false,
+      error: {
+        code: ErrorCodes.VALIDATION_ERROR,
+        message: err.type === 'entity.too.large' ? 'The request is too large' : 'The request body is not valid JSON',
+        ...(requestId ? { requestId } : {}),
+      },
+    });
+  }
+
   if (err instanceof AppError) {
     if (err.statusCode >= 500) {
       logger.error(err.message, {

@@ -1,5 +1,6 @@
 import { api } from '../api/client.js';
 import { shell } from './shell.js';
+import { esc } from '../components/escape.js';
 
 export function renderClients(user) {
   return shell(
@@ -10,8 +11,8 @@ export function renderClients(user) {
       <div class="cms-page-head">
         <div>
           <p class="cms-kicker">Access</p>
-          <h1>API clients</h1>
-          <p class="cms-lead">Issue hashed, revocable keys for the sister site. The key can read published tours, destinations, blogs, joining safaris, and the rest of the public website. The secret is shown once.</p>
+          <h1>API keys</h1>
+          <p class="cms-lead">Keys that let other websites (such as gmsafaris.co.tz) or partners READ your published tours, destinations, blog and settings through the external API. Keys are stored hashed and can be revoked at any time; each key is shown only once. To SEND data to other systems, use Integrations &amp; webhooks.</p>
         </div>
       </div>
       <form id="client-form" class="cms-panel cms-form-stack">
@@ -39,13 +40,13 @@ export async function initClients() {
           .map(
             (item) => `
             <article class="cms-client-card">
-              <h3>${item.name}</h3>
+              <h3>${esc(item.name)}</h3>
               <div>${item.revokedAt ? '<span class="cms-pill">Revoked</span>' : '<span class="cms-pill is-live">Active</span>'}</div>
               <p class="cms-meta-row">
-                <span>${item.prefix}</span>
-                <span>${(item.scopes || []).join(', ')}</span>
+                <span>${esc(item.prefix)}</span>
+                <span>${esc((item.scopes || []).join(', '))}</span>
               </p>
-              ${item.revokedAt ? '' : `<button class="cms-btn cms-btn-danger" style="margin-top:0.75rem" data-revoke="${item.id}">Revoke</button>`}
+              ${item.revokedAt ? '' : `<button class="cms-btn cms-btn-danger" style="margin-top:0.75rem" data-revoke="${esc(item.id)}">Revoke</button>`}
             </article>`
           )
           .join('')}</div>`

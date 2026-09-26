@@ -6,9 +6,11 @@ import { loadConfig } from '@gm-safaris/shared-config';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const monorepoRoot = path.resolve(__dirname, '../../../../');
 
+// Values already set in the environment (Render dashboard, `SERVE_PUBLIC=true npm start`,
+// test runners) win over .env, so one .env works for every way of starting the API.
 dotenv.config({
   path: path.join(monorepoRoot, '.env'),
-  override: process.env.NODE_ENV !== 'production',
+  override: false,
 });
 
 /** @type {ReturnType<typeof loadConfig>} */

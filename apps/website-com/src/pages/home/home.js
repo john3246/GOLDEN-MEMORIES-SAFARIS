@@ -15,6 +15,7 @@ import {
 import { joiningSafaris } from '../join-safari/content.js';
 import { openJoiningPackages } from '../join-safari/packages.js';
 import { hasTourPrice } from '../tours/catalog.js';
+import { reviewData } from '../../services/cms/overlay.js';
 
 /**
  * Home landing page body (below header).
@@ -27,14 +28,27 @@ export function renderHome() {
   const climbGrid = kilimanjaro.filter((tour) => tour.featured && hasTourPrice(tour)).map(tourCard).join('');
   const beachGrid = zanzibar.filter(hasTourPrice).map(tourCard).join('');
   const whySlides = whyUsSlideshow(whyBook.slides);
-  const quotes = testimonials
+  const esc = (value) =>
+    String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const realReviews = (reviewData.reviews || [])
+    .filter((row) => row.text && (row.rating || 5) >= 4)
+    .sort((a, b) => Number(b.featured) - Number(a.featured))
+    .slice(0, 4)
+    .map((row) => ({
+      quote: row.text.length > 320 ? `${row.text.slice(0, 317).trim()}…` : row.text,
+      name: row.author,
+      detail: [row.country, { google: 'Google review', tripadvisor: 'Tripadvisor review', safaribookings: 'SafariBookings review' }[row.source]]
+        .filter(Boolean)
+        .join(' · '),
+    }));
+  const quotes = (realReviews.length ? realReviews : testimonials)
     .map(
       (t) => `
       <blockquote class="quote-card bg-white p-6 sm:p-8">
-        <p class="font-display text-base italic leading-relaxed text-ink/80 sm:text-lg">“${t.quote}”</p>
+        <p class="font-display text-base italic leading-relaxed text-ink/80 sm:text-lg">“${esc(t.quote)}”</p>
         <footer class="mt-5">
-          <cite class="not-italic font-body text-sm font-bold uppercase tracking-[0.1em] text-navy">${t.name}</cite>
-          <p class="mt-1 text-sm text-ink/55">${t.detail}</p>
+          <cite class="not-italic font-body text-sm font-bold uppercase tracking-[0.1em] text-navy">${esc(t.name)}</cite>
+          <p class="mt-1 text-sm text-ink/55">${esc(t.detail)}</p>
         </footer>
       </blockquote>
     `
@@ -88,14 +102,13 @@ export function renderHome() {
           <video
             class="home-hero-video"
             data-home-hero-video
-            autoplay
             muted
             loop
             playsinline
-            preload="auto"
+            preload="none"
             poster="${pageImages.heroPoster}"
+            data-video-src="${pageImages.heroVideo}"
           >
-            <source src="${pageImages.heroVideo}" type="video/mp4" />
           </video>
         </div>
         <div class="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/55 to-ink/25"></div>
@@ -104,18 +117,18 @@ export function renderHome() {
         <div class="container-site relative flex min-h-[inherit] flex-col justify-center py-12 sm:py-16">
           <div class="hero-animate max-w-3xl">
             <p id="hero-brand" class="font-body text-sm font-bold uppercase tracking-[0.18em] text-gold sm:text-base">
-              Golden Memories Safaris
+              Karibu Tanzania · Golden Memories Safaris
             </p>
             <h1 class="home-hero-title mt-4 font-display font-semibold leading-[1.05] tracking-tight">
-              Karibu Tanzania
+              Tanzania safaris, Kilimanjaro climbs &amp; Zanzibar escapes
             </h1>
             <p class="mt-3 font-body text-sm font-semibold uppercase tracking-[0.16em] text-gold sm:text-base">
               ${site.tagline}
             </p>
             <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <a class="btn-gold" href="/booking/">Book now</a>
-              <a class="btn-light !border-white/40 !bg-white/95" href="/tours/">Tanzania safaris</a>
-              <a class="btn-light !border-white/40 !bg-white/95" href="/kilimanjaro/">Kilimanjaro trek</a>
+              <a class="btn-gold" href="/contact/">Plan my trip</a>
+              <a class="btn-light !border-white/40 !bg-white/95" href="/tours/">View safari packages</a>
+              <a class="btn-light !border-white/40 !bg-white/95" href="/kilimanjaro/">Climb Kilimanjaro</a>
             </div>
           </div>
         </div>
@@ -130,7 +143,7 @@ export function renderHome() {
             <p class="mt-4 font-body text-base leading-relaxed text-ink/75">
               ${whyBook.body}
             </p>
-            <a class="btn-navy mt-6 !rounded-none" href="/about/">Read more</a>
+            <a class="btn-navy mt-6 !rounded-none" href="/about/">Meet the team</a>
           </div>
           <div class="reveal order-1 lg:order-2">
             ${whySlides}
@@ -145,7 +158,7 @@ export function renderHome() {
             <p class="section-kicker">Discover</p>
             <h2 id="destinations-title" class="section-title">Explore Tanzania by region</h2>
             <p class="mt-3 text-ink/70">
-              From the northern circuit to the coast, south, and west — choose where your story begins.
+              The Northern Circuit for the classic Big Five, the south for wilderness without the crowds, and the coast for white sand and Swahili history.
             </p>
           </div>
           <div class="reveal mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5" data-destinations>
@@ -180,7 +193,7 @@ export function renderHome() {
           <div class="reveal max-w-2xl">
             <p class="section-kicker">Day trips</p>
             <h2 id="daytrips-title" class="section-title">Things to do in Tanzania</h2>
-            <p class="mt-3 text-ink/70">Short adventures when you want the highlights in a single day.</p>
+            <p class="mt-3 text-ink/70">Short on time? These guided day trips from Arusha, Moshi and Zanzibar fit a full experience into one day.</p>
           </div>
           <div class="reveal mt-6 grid gap-4 md:grid-cols-3">
             ${dayTripGrid}
@@ -204,7 +217,7 @@ export function renderHome() {
           <div class="reveal max-w-2xl">
             <p class="section-kicker !text-gold">Mountain climbing &amp; treks</p>
             <h2 id="kili-title" class="section-title !text-white">Climb Kilimanjaro</h2>
-            <p class="mt-4 text-white/80">Guided trekking packages for summit seekers — Marangu, Machame, Lemosho, Umbwe, Rongai, and the Northern Circuit.</p>
+            <p class="mt-4 text-white/80">Fully supported climbs on the Marangu, Machame, Lemosho, Rongai, Umbwe and Northern Circuit routes, with experienced mountain guides and itineraries built for acclimatisation.</p>
             <a class="btn-gold mt-6 !rounded-none" href="/kilimanjaro/">Kilimanjaro climbing</a>
           </div>
             ${climbGrid ? `<div class="reveal mt-6 grid gap-4 md:grid-cols-3">${climbGrid}</div>` : ''}
@@ -216,7 +229,7 @@ export function renderHome() {
           <div class="reveal max-w-2xl">
             <p class="section-kicker">Beach vacations</p>
             <h2 id="zanzibar-title" class="section-title">Explore Zanzibar Island</h2>
-            <p class="mt-3 text-ink/70">Spice tours, Stone Town, and beach days after the safari dust settles.</p>
+            <p class="mt-3 text-ink/70">End your safari on the Indian Ocean: spice farms, the lanes of Stone Town and quiet beaches on Zanzibar.</p>
             <a class="btn-navy mt-6 !rounded-none" href="/destinations/zanzibar/">View Zanzibar</a>
           </div>
           ${beachGrid ? `<div class="reveal mt-6 grid gap-4 md:grid-cols-3">${beachGrid}</div>` : ''}
@@ -227,15 +240,13 @@ export function renderHome() {
       <section class="bg-mist py-8 sm:py-10" aria-labelledby="testimonials-title">
         <div class="container-site">
           <div class="reveal mx-auto max-w-2xl text-center">
-            <p class="section-kicker">Testimonies</p>
-            <h2 id="testimonials-title" class="section-title">Stories from the trail</h2>
+            <p class="section-kicker">Guest reviews</p>
+            <h2 id="testimonials-title" class="section-title">What our travellers say</h2>
             <p class="mt-3 text-ink/70">
-              We are rated 5/5 by customers — a commitment we renew on every journey.
+              Independent reviews from Tripadvisor, Google and SafariBookings. <a class="underline" href="/reviews/">Read all reviews</a>.
             </p>
           </div>
-          <div class="reveal mt-6 grid gap-4 md:grid-cols-2">
-            ${quotes}
-          </div>
+          ${quotes ? `<div class="reveal mt-6 grid gap-4 md:grid-cols-2">${quotes}</div>` : `<div class="reveal mt-6 text-center"><a class="btn-navy !rounded-none" href="/reviews/">Read our guest reviews</a></div>`}
         </div>
       </section>
 
@@ -244,13 +255,13 @@ export function renderHome() {
         <div class="container-site flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
           <div class="reveal">
             <h2 id="plan-title" class="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
-              Let’s plan your dream trip together
+              Start planning your Tanzania trip
             </h2>
             <p class="mt-3 max-w-xl text-ink/80">
-              Tell us your dates, pace, and style — our Arusha team will craft your Tanzania itinerary.
+              Share your dates, group size and interests. A travel consultant in Arusha will reply with a tailor-made itinerary and a clear, all-inclusive price.
             </p>
           </div>
-          <a class="reveal btn-navy !rounded-none shrink-0" href="/contact/">Start planning</a>
+          <a class="reveal btn-navy !rounded-none shrink-0" href="/contact/">Request a free quote</a>
         </div>
       </section>
     </main>
@@ -260,13 +271,23 @@ export function renderHome() {
 export function initHomeHero() {
   const video = document.querySelector('[data-home-hero-video]');
   if (!video) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const conn = navigator.connection || {};
+  const slow = conn.saveData || /(^|-)2g$/.test(conn.effectiveType || '');
+  // Skip the 4 MB background video for reduced-motion users, data-saver /
+  // 2G connections and small phones — the poster image stays.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || slow || window.innerWidth < 640) {
     video.remove();
     return;
   }
   video.muted = true;
   video.defaultMuted = true;
   video.playsInline = true;
+  // Only now start downloading the video (after the page is painted).
+  if (!video.currentSrc && video.dataset.videoSrc) {
+    video.src = video.dataset.videoSrc;
+    video.preload = 'auto';
+    video.load();
+  }
   const play = () => {
     const start = video.play();
     if (start && typeof start.catch === 'function') start.catch(() => {});

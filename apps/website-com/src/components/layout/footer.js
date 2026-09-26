@@ -17,7 +17,7 @@ export function renderFooter() {
           </p>
           <p class="mt-3 font-body text-xs font-bold uppercase tracking-[0.14em] text-gold">${site.tagline}</p>
           <p class="mt-4 max-w-xs text-sm leading-relaxed text-white/70">
-            Premier Tanzania safari experiences — wildlife, Kilimanjaro, and Zanzibar — crafted by local experts in Arusha.
+            Private safaris, Kilimanjaro climbs and Zanzibar holidays, planned by a locally owned team in Arusha.
           </p>
         </div>
 
@@ -59,8 +59,9 @@ export function renderFooter() {
         <div class="container-site flex flex-col gap-3 py-5 text-xs text-white/55 sm:flex-row sm:items-center sm:justify-between">
           <p>Copyright ${new Date().getFullYear()}, Golden Memories Safaris. All rights reserved.</p>
           <div class="flex gap-4">
-            <a class="hover:text-gold" href="#">Terms of Services</a>
-            <a class="hover:text-gold" href="#">Privacy Policy</a>
+            <a class="hover:text-gold" href="/contact/">Contact</a>
+            <a class="hover:text-gold" href="/reviews/">Reviews</a>
+            <a class="hover:text-gold" href="/sitemap.xml">Sitemap</a>
           </div>
         </div>
       </div>

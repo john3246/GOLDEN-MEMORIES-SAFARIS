@@ -488,9 +488,11 @@ export async function initBlogEditor(id) {
       current = collect(document.querySelector('#blog-form'), current);
       record = await api.saveContent('posts', id, current);
       current = normalizeBlogDocument(record.draft);
-      status.textContent = `Draft saved · ${record.status} · ${current.read_time} min read`;
+      status.textContent = record.status === 'PUBLISHED'
+        ? `Draft saved · ${current.read_time} min read · click Publish to update the live article`
+        : `Draft saved · ${record.status} · ${current.read_time} min read`;
       error.hidden = true;
-      notifySuccess('Article draft saved.');
+      notifySuccess(record.status === 'PUBLISHED' ? 'Draft saved. Click Publish to put the changes live.' : 'Article draft saved.');
     } catch (err) {
       showError(err);
     }

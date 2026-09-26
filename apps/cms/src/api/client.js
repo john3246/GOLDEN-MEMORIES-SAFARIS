@@ -36,16 +36,44 @@ function apiMessageFromBody(status, text) {
   return { ok: false, body: {}, message: `Request failed (${status})` };
 }
 
+let redirectingToLogin = false;
+
+function handleExpiredSession(status, code) {
+  if (status !== 401 || redirectingToLogin) return;
+  if (!sessionStorage.getItem(TOKEN_KEY)) return;
+  redirectingToLogin = true;
+  sessionStorage.removeItem(TOKEN_KEY);
+  sessionStorage.removeItem(USER_KEY);
+  sessionStorage.setItem('gm_cms_notice', code === 'UNAUTHORIZED' ? 'Your session ended. Please sign in again.' : 'Please sign in again.');
+  window.location.hash = '#/login';
+  window.setTimeout(() => {
+    redirectingToLogin = false;
+    window.dispatchEvent(new HashChangeEvent('hashchange'));
+  }, 0);
+}
+
 async function parse(res) {
   const text = await res.text();
   const parsed = apiMessageFromBody(res.status, text);
   if (!res.ok || !parsed.ok) {
+    const isLogin = /\/auth\/(login|forgot|reset)$/.test(new URL(res.url, window.location.href).pathname);
+    if (!isLogin) handleExpiredSession(res.status, parsed.code);
     const error = new Error(parsed.message);
     error.status = res.status;
     error.code = parsed.code;
+    error.field = parsed.body?.error?.details?.field;
     throw error;
   }
   return parsed.body;
+}
+
+async function call(method, path, body) {
+  const res = await fetch(`${API_BASE}${path}`, {
+    method,
+    headers: headers(body !== undefined ? { json: true } : {}),
+    ...(body !== undefined ? { body: JSON.stringify(body) } : {}),
+  });
+  return parse(res);
 }
 
 export const api = {
@@ -195,11 +223,10 @@ export const api = {
     form.append('file', file);
     form.append('alt', alt);
     form.append('caption', caption);
-    const token = sessionStorage.getItem(TOKEN_KEY);
     const body = await parse(
       await fetch(`${API_BASE}/api/v1/admin/media`, {
         method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
+        headers: headers(),
         body: form,
       })
     );
@@ -370,15 +397,13 @@ export const api = {
     return body;
   },
 
-  async updateInquiry(id, status) {
-    const body = await parse(
-      await fetch(`${API_BASE}/api/v1/admin/inquiries/${id}`, {
-        method: 'PATCH',
-        headers: headers({ json: true }),
-        body: JSON.stringify({ status }),
-      })
-    );
-    return body.data;
+  async updateInquiry(id, statusOrPatch) {
+    const patch = typeof statusOrPatch === 'string' ? { status: statusOrPatch } : statusOrPatch;
+    return (await call('PATCH', `/api/v1/admin/inquiries/${id}`, patch)).data;
+  },
+
+  async deleteInquiry(id) {
+    return (await call('DELETE', `/api/v1/admin/inquiries/${id}`)).data;
   },
 
   async listBookings() {
@@ -443,5 +468,91 @@ export const api = {
       })
     );
     return body.data;
+  },
+
+  async deleteUser(id) {
+    return (await call('DELETE', `/api/v1/admin/users/${id}`)).data;
+  },
+
+  async updateMe(payload) {
+    const data = (await call('PATCH', '/api/v1/admin/users/me', payload)).data;
+    if (data?.user) this.setSession(this.token(), data.user);
+    return data;
+  },
+
+  async notifications() {
+    return (await call('GET', '/api/v1/admin/notifications')).data;
+  },
+
+  async markNotificationsRead(ids) {
+    return (await call('POST', '/api/v1/admin/notifications/read', { ids })).data;
+  },
+
+  async systemStatus() {
+    return (await call('GET', '/api/v1/admin/system')).data;
+  },
+
+  async verifyEmail() {
+    return (await call('POST', '/api/v1/admin/system/verify-email', {})).data;
+  },
+
+  async webhookEvents() {
+    return (await call('GET', '/api/v1/admin/webhooks/events')).data;
+  },
+
+  async listWebhooks() {
+    return (await call('GET', '/api/v1/admin/webhooks')).data;
+  },
+
+  async createWebhook(payload) {
+    return (await call('POST', '/api/v1/admin/webhooks', payload)).data;
+  },
+
+  async updateWebhook(id, payload) {
+    return (await call('PATCH', `/api/v1/admin/webhooks/${id}`, payload)).data;
+  },
+
+  async deleteWebhook(id) {
+    return (await call('DELETE', `/api/v1/admin/webhooks/${id}`)).data;
+  },
+
+  async testWebhook(id) {
+    return (await call('POST', `/api/v1/admin/webhooks/${id}/test`, {})).data;
+  },
+
+  async webhookDeliveries(id) {
+    return (await call('GET', id ? `/api/v1/admin/webhooks/${id}/deliveries` : '/api/v1/admin/webhooks/deliveries')).data;
+  },
+
+  async retryDelivery(deliveryId) {
+    return (await call('POST', `/api/v1/admin/webhooks/deliveries/${deliveryId}/retry`, {})).data;
+  },
+
+  async reviewsAdmin() {
+    return (await call('GET', '/api/v1/admin/reviews')).data;
+  },
+
+  async createReview(payload) {
+    return (await call('POST', '/api/v1/admin/reviews', payload)).data;
+  },
+
+  async importReviews(payload) {
+    return (await call('POST', '/api/v1/admin/reviews/import', payload)).data;
+  },
+
+  async syncReviews(source) {
+    return (await call('POST', '/api/v1/admin/reviews/sync', source ? { source } : {})).data;
+  },
+
+  async saveReviewSettings(payload) {
+    return (await call('PUT', '/api/v1/admin/reviews/settings', payload)).data;
+  },
+
+  async updateReview(id, payload) {
+    return (await call('PATCH', `/api/v1/admin/reviews/${id}`, payload)).data;
+  },
+
+  async deleteReview(id) {
+    return (await call('DELETE', `/api/v1/admin/reviews/${id}`)).data;
   },
 };

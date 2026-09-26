@@ -3,6 +3,7 @@ export { requestLogger } from './requestLogger.js';
 export {
   authRateLimiter,
   publicRateLimiter,
+  formRateLimiter,
   adminRateLimiter,
   externalApiRateLimiter,
   createTestRateLimiter,

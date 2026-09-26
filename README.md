@@ -12,50 +12,34 @@ Production-oriented tourism platform for **GM Safaris**.
 
 The sister site [gmsafaris.co.tz](https://www.gmsafaris.co.tz/) is maintained separately. It consumes **published** content only through the versioned external API (`/api/v1/external`). It must never access PostgreSQL, Redis, the CMS, or internal credentials.
 
-## Safari CMS (first content module)
+## Quick start (local)
+
+Full Windows guide: [docs/LOCAL-SETUP.md](docs/LOCAL-SETUP.md)
 
 ```bash
-cp .env.example .env
+cp .env.example .env        # then fill in DATABASE_*, JWT_SECRET, APP_ENCRYPTION_KEY, SMTP_*
 npm install
-npm run dev:api
-npm run dev:cms
+npm run db:setup            # first time only (needs PGADMIN_PASSWORD)
+npm run local               # website http://localhost:3000 · CMS http://localhost:3000/cms/
+# or, with live reload:
+npm run dev                 # API :3000 · website :4173 · CMS :5173
 ```
 
-- API: http://localhost:3000 (`GET /health`, docs at `/api/v1/docs`)
-- CMS: http://localhost:5173 (default admin `info@gms.co.tz` / `1234gms`)
-- Public Safari API: `GET /api/v1/safaris`
-- Setup notes: [docs/cms/safari-cms.md](docs/cms/safari-cms.md)
+- All CMS content, staff users, bookings, inquiries, reviews and uploaded photos are stored in **PostgreSQL**.
+  Existing `apps/api/data/cms/store.json` content is imported automatically on first start.
+- Migrations in `database/migrations` are applied automatically at startup (or `npm run db:migrate`).
+- Locked out of the CMS: `npm run cms:reset-admin`.
 
-## Current phase
-
-**Phase 2 — Database architecture** (schema in `database/migrations`). The CMS still uses the file store until Phase 3 wires the PostgreSQL pool.
-
-Previous: Phase 1 — Project foundation.
-
-## Prerequisites
-
-- Node.js ≥ 20
-- npm ≥ 10
-- PostgreSQL 16+ (Phase 2+)
-- Redis 7+ (Phase 3+)
-
-## Quick start (foundation)
-
-```bash
-cp .env.example .env
-npm install
-npm run dev:api
-```
-
-Health check: `GET http://localhost:3000/health`
-
-External API (requires `EXTERNAL_API_KEYS` in `.env` or a CMS-issued key):
+External API (read-only, for gmsafaris.co.tz): issue a key in **CMS → API keys**, then
 
 ```bash
 curl -H "X-Api-Key: your_key" http://localhost:3000/api/v1/external/catalog
 ```
 
-Sister-site contract: [docs/api/external-api.md](docs/api/external-api.md).
+Sister-site contract: [docs/api/external-api.md](docs/api/external-api.md) ·
+Outgoing webhooks: [docs/api/webhooks.md](docs/api/webhooks.md) ·
+Reviews: [docs/cms/reviews.md](docs/cms/reviews.md) ·
+Domains & email: [docs/deployment/domains-and-email.md](docs/deployment/domains-and-email.md)
 
 ## Workspace layout
 
@@ -79,24 +63,26 @@ External consumer contract (for the `.co.tz` developer): [docs/api/external-api.
 
 | Command | Purpose |
 |---------|---------|
-| `npm run dev:api` | Run API with `--watch` |
-| `npm run dev:cms` | Safari CMS UI (Vite, port 5173) |
-| `npm run dev:website` | Public website |
-| `npm run db:up` | Start local Postgres (Docker) |
-| `npm run db:migrate` | Apply SQL migrations + seeds (`psql`) |
-| `npm run lint` | ESLint |
-| `npm run format` | Prettier |
+| `npm run local` | Build, then serve website + CMS + API on http://localhost:3000 (like production) |
+| `npm run dev` | API + website + CMS with live reload |
+| `npm run db:setup` | Create the local database/user and apply migrations |
+| `npm run db:migrate` | Apply new SQL migrations (no psql needed) |
+| `npm run cms:reset-admin` | Reset the owner account from `.env` |
+| `npm run build:render` / `npm start` | Production build / start |
 | `npm test` | Vitest |
+| `npm run lint` | ESLint |
 
-## Security baseline (Phase 1)
+## Security
 
 - No secrets in Git (`.env` gitignored; `.env.example` committed)
-- Helmet security headers
-- Explicit CORS allowlists
-- Rate limiting per surface
-- External API key gate (read-only routes only)
-- Centralized error handler (no stack traces in production)
-- Request correlation IDs
+- Every admin request needs a valid session; disabled users / role changes / password changes take effect immediately
+- Role-based access (Super Admin, Admin, Manager, Editor, Viewer), login lockout after 5 failed attempts, strong-password policy
+- Content-Security-Policy, HSTS (production), frame and referrer protection
+- Public forms: HTML stripped, honeypot + timing spam checks, per-visitor rate limits
+- Uploaded files are verified as real images and re-encoded; SVG/HTML uploads are rejected
+- Secrets saved from the CMS (SMTP, webhook, review API keys) are encrypted at rest
+- Outgoing webhooks are HMAC-signed and cannot target private/internal addresses
+- External API key gate (read-only routes only); centralized error handler (no stack traces in production)
 
 ## Implementation order
 

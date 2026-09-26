@@ -147,7 +147,7 @@ export function renderBookingDetail(user, id) {
 
 export async function initOperations(kind) {
   const mount = document.querySelector('#ops-table');
-  const error = document.querySelector('#ops-error');
+  const _error = document.querySelector('#ops-error');
   let rows = [];
 
   function bookingFilters() {

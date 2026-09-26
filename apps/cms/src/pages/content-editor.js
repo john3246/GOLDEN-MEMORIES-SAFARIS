@@ -106,8 +106,11 @@ export async function initContentEditor(type, id, spec) {
     error.hidden = true;
     try {
       current = await api.saveContent(type, id, readForm());
-      status.textContent = `Saved draft · ${current.status}`;
-      notifySuccess('Draft saved.');
+      const live = current.status === 'PUBLISHED';
+      status.textContent = live
+        ? 'Draft saved · click Publish to update the live website'
+        : `Saved draft · ${current.status}`;
+      notifySuccess(live ? 'Draft saved. Click Publish to put the changes live.' : 'Draft saved.');
     } catch (err) {
       showError(err.message);
     }

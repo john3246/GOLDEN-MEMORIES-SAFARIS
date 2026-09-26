@@ -1,49 +1,95 @@
 import crypto from 'node:crypto';
-import { validationError, unauthorized } from '../../errors/index.js';
+import { validationError, unauthorized, AppError } from '../../errors/index.js';
 import { requireNonEmptyString } from '@gm-safaris/shared-validation';
-import { LOCAL_CMS_USER } from '../../security/requireAuth.js';
 import { usersRepository } from '../users/users.repository.js';
 import { hashPassword, verifyPassword } from '../../security/password.js';
+import { passwordProblems } from '../../security/password-policy.js';
 import { signAccessToken } from '../../security/jwt.js';
+import { invalidateAuthCache } from '../../security/requireAuth.js';
 import { recordAudit } from '../audit/audit.service.js';
 import { sendSiteMail, loadMailSettings } from '../settings/mailer.js';
 import { passwordResetEmail, cmsSiteUrl } from '../settings/email-templates.js';
 
+const MAX_FAILED = 5;
+const LOCK_MINUTES = 15;
+// Constant-time-ish path for unknown emails so login timing does not reveal accounts.
+const DUMMY_HASH = '$2b$12$Sn.UL1zQYwLlms1NCjp2Bu3U6KX8oyPOVLPHFZNk2TMP8rzAAULlu';
+
+function tooManyAttempts(until) {
+  const minutes = Math.max(1, Math.ceil((Date.parse(until) - Date.now()) / 60000));
+  return new AppError(
+    'ACCOUNT_LOCKED',
+    `Too many failed sign-in attempts. Try again in ${minutes} minute${minutes === 1 ? '' : 's'} or reset your password.`,
+    429
+  );
+}
+
 export const authService = {
-  async login(email, password) {
+  async login(email, password, context = {}) {
     const emailResult = requireNonEmptyString(email, 'email', 180);
     const passwordResult = requireNonEmptyString(password, 'password', 200);
-    if (!emailResult.ok) throw validationError(emailResult.message);
-    if (!passwordResult.ok) throw validationError(passwordResult.message);
+    if (!emailResult.ok) throw validationError('Enter your email address');
+    if (!passwordResult.ok) throw validationError('Enter your password');
 
     const user = await usersRepository.findByEmail(emailResult.value);
-    if (!user || !(await verifyPassword(passwordResult.value, user.passwordHash))) {
+    if (!user) {
+      await verifyPassword(passwordResult.value, DUMMY_HASH);
+      throw unauthorized('Invalid email or password');
+    }
+    if (user.lockedUntil && Date.parse(user.lockedUntil) > Date.now()) {
+      throw tooManyAttempts(user.lockedUntil);
+    }
+
+    const ok = await verifyPassword(passwordResult.value, user.passwordHash);
+    if (!ok) {
+      const failed = Number(user.failedLoginCount || 0) + 1;
+      const locked = failed >= MAX_FAILED ? new Date(Date.now() + LOCK_MINUTES * 60000).toISOString() : null;
+      await usersRepository.save({ ...user, failedLoginCount: locked ? 0 : failed, lockedUntil: locked });
+      await recordAudit({
+        actorId: user.id,
+        actorEmail: user.email,
+        action: locked ? 'auth.locked' : 'auth.login_failed',
+        resource: 'user',
+        resourceId: user.id,
+        metadata: { ip: context.ip || null },
+      });
+      if (locked) throw tooManyAttempts(locked);
       throw unauthorized('Invalid email or password');
     }
     if (user.status === 'disabled') {
-      throw unauthorized('This account is disabled');
+      throw unauthorized('This account is disabled. Ask a Super Admin to re-activate it.');
     }
 
-    const token = signAccessToken(user);
+    const saved = await usersRepository.save({
+      ...user,
+      failedLoginCount: 0,
+      lockedUntil: null,
+      lastLoginAt: new Date().toISOString(),
+    });
+    invalidateAuthCache(user.id);
+    const token = signAccessToken(saved || user);
     await recordAudit({
       actorId: user.id,
       actorEmail: user.email,
       action: 'auth.login',
       resource: 'user',
       resourceId: user.id,
+      metadata: { ip: context.ip || null },
     });
 
     return {
       token,
-      user: usersRepository.toPublic(user),
+      user: usersRepository.toPublic(saved || user),
+      // The CMS asks the user to choose a stronger password right away.
+      passwordWeak: passwordProblems(passwordResult.value, { email: user.email, name: user.name }).length > 0,
     };
   },
 
   async forgotPassword(email) {
     const emailResult = requireNonEmptyString(email, 'email', 180);
-    if (!emailResult.ok) throw validationError(emailResult.message);
+    if (!emailResult.ok) throw validationError('Enter your email address');
     const user = await usersRepository.findByEmail(emailResult.value);
-    if (user) {
+    if (user && user.status !== 'disabled') {
       const token = crypto.randomBytes(32).toString('hex');
       const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
       const expiresAt = new Date(Date.now() + 60 * 60 * 1000).toISOString();
@@ -65,21 +111,22 @@ export const authService = {
         resourceId: user.id,
       });
     }
+    // Same answer whether or not the account exists.
     return { ok: true };
   },
 
   async resetPassword(token, password) {
     const tokenResult = requireNonEmptyString(token, 'token', 200);
     const passwordResult = requireNonEmptyString(password, 'password', 200);
-    if (!tokenResult.ok) throw validationError(tokenResult.message);
-    if (!passwordResult.ok) throw validationError(passwordResult.message);
-    if (passwordResult.value.length < 8) {
-      throw validationError('Password must be at least 8 characters');
-    }
+    if (!tokenResult.ok) throw validationError('This reset link is invalid or has expired');
+    if (!passwordResult.ok) throw validationError('Enter a new password');
     const tokenHash = crypto.createHash('sha256').update(tokenResult.value).digest('hex');
     const user = await usersRepository.findByResetTokenHash(tokenHash);
     if (!user) throw validationError('This reset link is invalid or has expired');
+    const problems = passwordProblems(passwordResult.value, { email: user.email, name: user.name });
+    if (problems.length) throw validationError(problems[0], { field: 'password' });
     await usersRepository.updatePassword(user.id, await hashPassword(passwordResult.value));
+    invalidateAuthCache(user.id);
     await recordAudit({
       actorId: user.id,
       actorEmail: user.email,
@@ -91,14 +138,6 @@ export const authService = {
   },
 
   async me(userId) {
-    if (userId === LOCAL_CMS_USER.userId) {
-      return {
-        id: LOCAL_CMS_USER.userId,
-        email: LOCAL_CMS_USER.email,
-        name: LOCAL_CMS_USER.name,
-        role: LOCAL_CMS_USER.role,
-      };
-    }
     const user = await usersRepository.findById(userId);
     if (!user) throw unauthorized('Session is no longer valid');
     return usersRepository.toPublic(user);

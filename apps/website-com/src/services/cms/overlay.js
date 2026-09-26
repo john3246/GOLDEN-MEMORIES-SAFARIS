@@ -12,12 +12,17 @@ import { safariFaqs } from '../../pages/tours/content.js';
 import { kiliFaqs } from '../../pages/kilimanjaro/content.js';
 import { assignUniqueCovers, uniqueCoverFor } from '../../media/gallery.js';
 import { destinationForWebsite, safariPackageTitle, normalizeLodgeCategory, normalizeBlogDocument, blogDocumentHasBody, normalizeGroupSafariDocument, publicMediaUrl } from '@gm-safaris/safari-ui';
-import { fetchPublicSettings, fetchPublishedContent, fetchPublishedContentBySlug } from '../api/cms.js';
-import { fetchPublishedSafaris } from '../api/safaris.js';
+import { fetchSiteBundle, fetchPublishedContentBySlug } from '../api/cms.js';
 
 assignUniqueCovers(featuredTours);
 
 let pagesBySlug = new Map();
+
+/** Guest reviews + ratings from Google / TripAdvisor / SafariBookings (filled by hydrateFromCms). */
+export const reviewData = { reviews: [], summary: {}, links: {} };
+
+/** Published CMS tours from the site bundle (used by tour detail pages). */
+export const cmsSafaris = [];
 
 function replace(list, next) {
   list.splice(0, list.length, ...next);
@@ -209,6 +214,9 @@ function upsertJoinList(list, mapped) {
     list.splice(index, 1, {
       ...existing,
       ...mapped,
+      // Keep the public URL stable: the website slug wins, the CMS slug becomes an alias.
+      slug: existing.slug || mapped.slug,
+      cmsSlug: mapped.slug,
       days: mapped.days?.length ? mapped.days : existing.days,
       itinerary: mapped.itinerary?.length ? mapped.itinerary : existing.itinerary,
       included: mapped.included?.length ? mapped.included : existing.included,
@@ -235,21 +243,25 @@ export function seoForPath(pathname) {
  * Local copy remains the fallback if the API is down or empty.
  */
 export async function hydrateFromCms() {
-  const wait = timedFetch(8000);
+  const wait = timedFetch(6000);
   try {
-    const [settings, menus, reviews, cmsLodges, posts, destinations, departures, pages, faqs, safaris] =
-      await Promise.all([
-        fetchPublicSettings(wait.signal).catch(() => null),
-        fetchPublishedContent('menus').catch(() => []),
-        fetchPublishedContent('testimonials', wait.signal).catch(() => []),
-        fetchPublishedContent('lodges', wait.signal).catch(() => []),
-        fetchPublishedContent('posts').catch(() => []),
-        fetchPublishedContent('destinations').catch(() => []),
-        fetchPublishedContent('departures', wait.signal).catch(() => []),
-        fetchPublishedContent('pages', wait.signal).catch(() => []),
-        fetchPublishedContent('faqs', wait.signal).catch(() => []),
-        fetchPublishedSafaris({ limit: 200, sort: 'display_order' }, wait.signal).catch(() => []),
-      ]);
+    const bundle = await fetchSiteBundle(wait.signal);
+    const {
+      settings,
+      menus,
+      testimonials: reviews,
+      lodges: cmsLodges,
+      posts,
+      destinations,
+      departures,
+      pages,
+      faqs,
+      safaris,
+    } = bundle || {};
+    reviewData.reviews = bundle?.reviews || [];
+    reviewData.summary = bundle?.reviewSummary || {};
+    reviewData.links = bundle?.reviewLinks || {};
+    replace(cmsSafaris, safaris || []);
 
     if (settings?.site) {
       Object.assign(site, settings.site);

@@ -334,9 +334,11 @@ export async function initDestinationEditor(id) {
       current = collect(document.querySelector('#destination-form'), current);
       record = await api.saveContent('destinations', id, current);
       current = normalizeDestinationDocument(record.draft);
-      status.textContent = `Draft saved · ${record.status}`;
+      status.textContent = record.status === 'PUBLISHED'
+        ? 'Draft saved · click Publish to update the live page'
+        : `Draft saved · ${record.status}`;
       error.hidden = true;
-      notifySuccess('Destination draft saved.');
+      notifySuccess(record.status === 'PUBLISHED' ? 'Draft saved. Click Publish to put the changes live.' : 'Destination draft saved.');
     } catch (err) {
       showError(err);
     }

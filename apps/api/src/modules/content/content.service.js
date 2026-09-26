@@ -5,16 +5,21 @@ import { recordAudit } from '../audit/audit.service.js';
 import { readStore } from '../../cms-store/index.js';
 import { CONTENT_TYPES, displayTitle, emptyDraft } from './types.js';
 import { contentRepository } from './content.repository.js';
-import { seedSiteContent } from './content.seed.js';
 import { syncBlogPost, removeBlogPost } from './blog.sync.js';
-import { syncGroupSafari, removeGroupSafari, deleteGroupSafariFromDb } from './departure.sync.js';
+import { syncGroupSafari, deleteGroupSafariFromDb } from './departure.sync.js';
+import { emitEvent } from '../webhooks/webhooks.service.js';
+import { invalidateSiteBundle } from '../site/site-bundle.js';
 
 function actorMeta(actor) {
   return { actorId: actor?.userId, actorEmail: actor?.email };
 }
 
 function toAdmin(record) {
+  const warnings = record.type === 'departures' ? safariCompletenessErrors(record.draft || {}) : [];
   return {
+    publishWarnings: warnings,
+    hasUnpublishedChanges:
+      record.status === SafariStatus.PUBLISHED && JSON.stringify(record.published || {}) !== JSON.stringify(record.draft || {}),
     id: record.id,
     type: record.type,
     slug: record.slug,
@@ -103,10 +108,6 @@ export const contentService = {
           .filter(Boolean);
       }
     }
-    if (type === 'departures') {
-      const errors = safariCompletenessErrors(nextDraft);
-      if (errors.length) throw validationError(errors.join(' '));
-    }
     if (nextDraft.slug && nextDraft.slug !== record.slug) {
       if (await contentRepository.slugTaken(type, nextDraft.slug, id)) {
         throw validationError('slug is already in use', { field: 'slug' });
@@ -140,6 +141,8 @@ export const contentService = {
     if (type === 'posts') await syncBlogPost(record);
     if (type === 'departures') await syncGroupSafari(record);
     await recordAudit({ ...actorMeta(actor), action: 'content.publish', resource: type, resourceId: id });
+    invalidateSiteBundle();
+    emitEvent('content.published', { type, id, slug: record.slug, title: displayTitle(record), published: record.published });
     return toAdmin(record);
   },
 
@@ -153,6 +156,8 @@ export const contentService = {
     if (type === 'posts') await syncBlogPost(record);
     if (type === 'departures') await syncGroupSafari(record);
     await recordAudit({ ...actorMeta(actor), action: 'content.unpublish', resource: type, resourceId: id });
+    invalidateSiteBundle();
+    emitEvent('content.unpublished', { type, id, slug: record.slug, title: displayTitle(record) });
     return toAdmin(record);
   },
 
@@ -162,11 +167,11 @@ export const contentService = {
     if (type === 'posts') await removeBlogPost(removed);
     if (type === 'departures') await deleteGroupSafariFromDb(removed);
     await recordAudit({ ...actorMeta(actor), action: 'content.delete', resource: type, resourceId: id });
+    invalidateSiteBundle();
     return { id };
   },
 
   async overview() {
-    await seedSiteContent();
     const store = await readStore();
     const safaris = store.safaris || [];
     const publishedSafaris = safaris.filter((item) => item.status === SafariStatus.PUBLISHED);

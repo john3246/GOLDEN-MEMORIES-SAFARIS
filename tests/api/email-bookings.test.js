@@ -52,10 +52,10 @@ describe('email, bookings, and password reset', () => {
       travellers: '2',
     });
     expect(res.status).toBe(201);
-    expect(res.body.data.code).toMatch(/^BK-/);
-    expect(mailOutbox.some((item) => item.to === 'amina@example.com' && /Booking received/i.test(item.subject))).toBe(true);
+    expect(res.body.data.code).toMatch(/^GMS-\d{6}-[A-Z0-9]{4}$/);
+    expect(mailOutbox.some((item) => item.to === 'amina@example.com' && /booking request/i.test(item.subject))).toBe(true);
     expect(mailOutbox.some((item) => /New booking/i.test(item.subject))).toBe(true);
-    const list = await send(app, 'GET', '/api/v1/admin/bookings');
+    const list = await send(app, 'GET', '/api/v1/admin/bookings', undefined, auth(await login(app)));
     expect(list.body.data[0].email).toBe('amina@example.com');
     expect(list.body.data[0].travelDate).toBe('2026-10-01');
     expect(list.body.data[0].adults).toBe(2);
@@ -76,7 +76,7 @@ describe('email, bookings, and password reset', () => {
       ],
     });
     expect(res.status).toBe(201);
-    const list = await send(app, 'GET', '/api/v1/admin/bookings');
+    const list = await send(app, 'GET', '/api/v1/admin/bookings', undefined, auth(await login(app)));
     const row = list.body.data[0];
     expect(row.children).toBe(2);
     expect(row.adults).toBe(2);
@@ -98,7 +98,7 @@ describe('email, bookings, and password reset', () => {
     resetMailOutbox();
     const first = await sendDueBookingReminders();
     expect(first.sent).toBe(1);
-    expect(mailOutbox.some((item) => /tomorrow/i.test(item.subject) && item.to === 'johan@example.com')).toBe(true);
+    expect(mailOutbox.some((item) => /starts soon/i.test(item.subject) && item.to === 'johan@example.com')).toBe(true);
     const second = await sendDueBookingReminders();
     expect(second.sent).toBe(0);
   });
@@ -106,7 +106,7 @@ describe('email, bookings, and password reset', () => {
   it('resets a CMS password from the emailed link', async () => {
     const forgot = await send(app, 'POST', '/api/v1/admin/auth/forgot', { email: adminEmail });
     expect(forgot.status).toBe(200);
-    const mail = mailOutbox.find((item) => /Reset your CMS password/i.test(item.subject));
+    const mail = mailOutbox.find((item) => /Reset your .*CMS password/i.test(item.subject));
     expect(mail).toBeTruthy();
     const token = mail.text.match(/token=([a-f0-9]+)/)?.[1];
     expect(token).toBeTruthy();
@@ -122,7 +122,25 @@ describe('email, bookings, and password reset', () => {
     const token = await login(app);
     const res = await send(app, 'POST', '/api/v1/admin/settings/test-email', { to: 'ops@gmsafaris.com' }, auth(token));
     expect(res.status).toBe(200);
-    expect(mailOutbox.some((item) => item.to === 'ops@gmsafaris.com' && /SMTP test/i.test(item.subject))).toBe(true);
+    expect(mailOutbox.some((item) => item.to === 'ops@gmsafaris.com' && /Test email/i.test(item.subject))).toBe(true);
+  });
+
+  it('blocks admin endpoints without a session', async () => {
+    const res = await send(app, 'GET', '/api/v1/admin/bookings');
+    expect(res.status).toBe(401);
+  });
+
+  it('strips HTML from public inquiries and notifies staff', async () => {
+    const res = await send(app, 'POST', '/api/v1/inquiries', {
+      name: '<img src=x onerror=alert(1)>Mary',
+      email: 'mary@example.com',
+      message: 'Hi <script>alert(1)</script>, we would like a 5 day safari.',
+    });
+    expect(res.status).toBe(201);
+    const list = await send(app, 'GET', '/api/v1/admin/inquiries', undefined, auth(await login(app)));
+    expect(list.body.data[0].name).toBe('Mary');
+    expect(list.body.data[0].message).not.toMatch(/<script/i);
+    expect(mailOutbox.some((item) => /New website inquiry/i.test(item.subject))).toBe(true);
   });
 
   it('never returns the SMTP password to the CMS', async () => {

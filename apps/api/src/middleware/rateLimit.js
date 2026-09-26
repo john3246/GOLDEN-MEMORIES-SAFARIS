@@ -23,17 +23,37 @@ export const authRateLimiter = rateLimit({
   handler: jsonRateLimitHandler,
 });
 
+// Public READ endpoints. One page view used to fire ~10 API calls, so the old
+// limit (100/min per IP) blanked CMS content for anyone browsing a few pages.
+// Reads are cheap and cached; forms have their own strict limiter below.
 export const publicRateLimiter = rateLimit({
   windowMs: config.rateLimits.public.windowMs,
-  max: relax ? 10_000 : config.rateLimits.public.max,
+  max: relax ? 10_000 : Math.max(config.rateLimits.public.max, 600),
   standardHeaders: true,
   legacyHeaders: false,
   handler: jsonRateLimitHandler,
 });
 
+/** Contact / enquiry / booking forms: 8 submissions per 10 minutes per IP. */
+export const formRateLimiter = rateLimit({
+  windowMs: 10 * 60 * 1000,
+  max: relax ? 10_000 : Number(process.env.RATE_LIMIT_FORMS_MAX || 8),
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler(req, res) {
+    res.status(429).json({
+      success: false,
+      error: {
+        code: ErrorCodes.RATE_LIMITED,
+        message: 'You have sent several messages in a short time. Please wait a few minutes, or email or WhatsApp us directly.',
+      },
+    });
+  },
+});
+
 export const adminRateLimiter = rateLimit({
   windowMs: config.rateLimits.admin.windowMs,
-  max: relax ? 10_000 : config.rateLimits.admin.max,
+  max: relax ? 10_000 : Math.max(config.rateLimits.admin.max, 600),
   standardHeaders: true,
   legacyHeaders: false,
   handler: jsonRateLimitHandler,

@@ -19,7 +19,7 @@ import { blogArticles, blogTopics } from '../apps/website-com/src/pages/blog/con
 import { reviewList } from '../apps/website-com/src/pages/reviews/content.js';
 import { aboutTeam, aboutCredentials } from '../apps/website-com/src/pages/about/content.js';
 
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const _root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 function dollar(value) {
   const text = String(value);

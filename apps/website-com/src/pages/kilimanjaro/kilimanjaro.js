@@ -1,3 +1,4 @@
+import { reviewQuotes } from '../../components/cards/review-quotes.js';
 import { tourCard } from '../../components/cards/tour-card.js';
 import { tourHref } from '../tours/paths.js';
 import {
@@ -6,7 +7,6 @@ import {
   kiliFaqs,
   kiliHero,
   kiliIntro,
-  kiliQuotes,
   kiliRoutes,
 } from './content.js';
 
@@ -37,19 +37,7 @@ export function renderKilimanjaro() {
 
   const packageGrid = pricedClimbs.map(tourCard).join('');
 
-  const quotes = kiliQuotes
-    .map(
-      (t) => `
-        <blockquote class="quote-card bg-white p-6 sm:p-8">
-          <p class="font-display text-base italic leading-relaxed text-ink/80 sm:text-lg">“${t.quote}”</p>
-          <footer class="mt-5">
-            <cite class="not-italic font-body text-sm font-bold uppercase tracking-[0.1em] text-black">${t.name}</cite>
-            <p class="mt-1 text-sm text-ink/55">${t.detail}</p>
-          </footer>
-        </blockquote>
-      `
-    )
-    .join('');
+  const quotes = reviewQuotes({ limit: 4, match: /kilimanjaro|summit|uhuru|machame|lemosho|marangu|trek|climb/i });
 
   const faqs = kiliFaqs
     .map(
@@ -166,7 +154,7 @@ export function renderKilimanjaro() {
             <h2 id="kili-quotes-title" class="section-title">Stories from the mountain</h2>
           </div>
           <div class="reveal mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            ${quotes}
+            ${quotes || '<p class="text-ink/70 md:col-span-2"><a class="underline" href="/reviews/">Read our guest reviews from Tripadvisor, Google and SafariBookings</a></p>'}
           </div>
         </div>
       </section>

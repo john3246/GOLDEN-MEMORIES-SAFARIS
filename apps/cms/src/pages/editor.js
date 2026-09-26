@@ -486,12 +486,18 @@ export async function initEditor(id, kind = 'safaris') {
     try {
       const form = document.querySelector('#safari-form');
       current = spec.empty({ ...current, ...collect(form, current) });
-      requireReady(current);
       record = await spec.save(id, current);
       current = spec.empty({ ...record.draft, slug: record.slug });
-      status.textContent = `Draft saved · ${record.status}`;
+      const live = record.status === 'PUBLISHED';
+      status.textContent = live
+        ? 'Draft saved · the live page still shows the last published version — click Publish to update it'
+        : `Draft saved · ${record.status}`;
       error.hidden = true;
-      notifySuccess(spec.saved);
+      notifySuccess(live ? `${spec.saved} Click Publish to put the changes live.` : spec.saved);
+      if (record.publishWarnings?.length) {
+        error.hidden = false;
+        error.textContent = `Before publishing: ${record.publishWarnings.join(' ')}`;
+      }
       paintReady(current);
     } catch (err) {
       showError(err);

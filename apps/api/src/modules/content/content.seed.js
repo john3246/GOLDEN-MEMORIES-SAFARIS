@@ -14,7 +14,9 @@ const DEFAULT_SETTINGS = {
     email: 'info@gmsafaris.co.tz',
     address: 'Njiro, Arusha, Tanzania',
     websiteUrl: 'https://www.gmsafaris.com',
+    tanzaniaUrl: 'https://www.gmsafaris.co.tz',
     cmsUrl: '',
+    apiUrl: '',
     socials: [
       { label: 'Facebook', href: 'https://www.facebook.com/' },
       { label: 'X', href: 'https://x.com/' },
@@ -32,10 +34,28 @@ const DEFAULT_SETTINGS = {
     smtpPass: '',
     smtpSecure: false,
   },
+  emailTemplates: {
+    bookingGuest: { subject: '', intro: '' },
+    bookingAdmin: { subject: '', intro: '' },
+    bookingReminder: { subject: '', intro: '' },
+    inquiryGuest: { subject: '', intro: '' },
+    inquiryAdmin: { subject: '', intro: '' },
+    passwordReset: { subject: '', intro: '' },
+  },
+  security: {
+    hsts: true,
+    frameguard: 'deny',
+    referrerPolicy: 'strict-origin-when-cross-origin',
+    indexPublicPages: true,
+    disallowPaths: '/cms/,/api/',
+  },
   seo: {
     defaultTitle: 'Golden Memories Safaris – Tanzania Safaris Experts',
     defaultDescription:
       'Golden Memories Safaris — premier Tanzania wildlife safaris, Kilimanjaro treks, and Zanzibar beach holidays crafted by experts in Arusha.',
+    defaultKeywords:
+      'Tanzania safari, Kilimanjaro climb, Zanzibar beach, Serengeti, Ngorongoro, Golden Memories Safaris, Arusha tours',
+    defaultImage: '/images/gallery/serengeti-01.webp',
   },
 };
 
@@ -72,7 +92,15 @@ function publishedRecord(type, draft, at) {
 export async function seedSiteContent() {
   const at = new Date().toISOString();
   await updateStore((store) => {
-    store.settings = store.settings || { ...DEFAULT_SETTINGS };
+    store.settings = {
+      ...DEFAULT_SETTINGS,
+      ...(store.settings || {}),
+      site: { ...DEFAULT_SETTINGS.site, ...(store.settings?.site || {}) },
+      email: { ...DEFAULT_SETTINGS.email, ...(store.settings?.email || {}) },
+      seo: { ...DEFAULT_SETTINGS.seo, ...(store.settings?.seo || {}) },
+      security: { ...DEFAULT_SETTINGS.security, ...(store.settings?.security || {}) },
+      emailTemplates: { ...DEFAULT_SETTINGS.emailTemplates, ...(store.settings?.emailTemplates || {}) },
+    };
     if (!store.pages?.length) {
       store.pages = PAGES.map((page) => publishedRecord('pages', page, at));
     }
@@ -100,8 +128,6 @@ export async function seedSiteContent() {
     }
     store.meta = { ...(store.meta || {}), seededSite: true };
   });
-  const { seedWebsiteCatalog } = await import('./site-catalog.seed.js');
-  await seedWebsiteCatalog();
 }
 
 export { DEFAULT_SETTINGS, CONTENT_TYPES };

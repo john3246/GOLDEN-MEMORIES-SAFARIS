@@ -4,7 +4,7 @@ import {
   PUBLIC_PUBLISH_STATUSES,
   ExternalPermission,
 } from '@gm-safaris/shared-types';
-import { parsePagination, validateSlug, validatePublishStatus, validateSafariStatus } from '@gm-safaris/shared-validation';
+import { parsePagination, validateSlug, validateSafariStatus } from '@gm-safaris/shared-validation';
 import { createRequestId, pick, omit } from '@gm-safaris/shared-utils';
 import { loadConfig } from '@gm-safaris/shared-config';
 

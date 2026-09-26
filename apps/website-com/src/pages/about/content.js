@@ -2,70 +2,70 @@ import { media as GM } from '../home/content.js';
 
 export const aboutHero = {
   kicker: 'Our story',
-    title: 'About Golden Memories Safaris',
-  motto: 'Your Path to Golden Memories begins here',
+  title: 'About Golden Memories Safaris',
+  motto: 'Your path to golden memories begins here',
   cta: 'Get in touch',
   image: GM.hero,
 };
 
 export const aboutStory = {
   kicker: 'Our story',
-  title: 'Karibu! Welcome to Our World',
+  title: 'A Tanzanian company, built on local knowledge',
   image: GM.ngorongoroTourists,
-  imageAlt: 'Founders or team members of Golden Memories Safaris in Tanzania',
+  imageAlt: 'Golden Memories Safaris guests on a game drive in the Ngorongoro Crater',
   paragraphs: [
-    "Golden Memories Safaris isn't just a company; it's a dream realized, rooted in the heart of Tanzania. We are a 100% locally owned and operated tour company based in Arusha, born from a lifelong passion for the incredible wildlife, diverse cultures, and breathtaking landscapes of our homeland.",
-    'Having grown up exploring the vast plains of the Serengeti, listening to the whispers of the Ngorongoro Crater, and understanding the rhythms of the wild, we wanted to share these authentic experiences with the world. Our journey began with a simple goal: to craft personalized, high-quality safaris that create more than just vacations – they create truly golden, lifelong memories.',
-    "Today, we are proud to be a trusted partner for travelers seeking genuine Tanzanian adventures. We combine our deep local knowledge with international standards of service to ensure your safari is seamless, safe, and simply unforgettable.",
+    'Golden Memories Safaris is a 100% Tanzanian-owned tour operator based in Njiro, Arusha — the starting point for the Serengeti, the Ngorongoro Crater, Tarangire and Mount Kilimanjaro. Our guides and planners grew up in this country, and it shows in the way we route a safari, time a game drive and choose where you sleep.',
+    'We started the company to offer something simple: well-planned, honestly priced trips that let travellers experience Tanzania properly — its wildlife, its landscapes and its people — without the stress of arranging permits, lodges and transfers themselves.',
+    'Every itinerary is built around you. We listen to how you like to travel, recommend the parks and season that suit your interests, and look after every detail from airport pick-up to your last evening in Arusha or on Zanzibar.',
   ],
 };
 
 export const aboutPrinciples = [
   {
     title: 'Our Mission',
-    body: "To curate and deliver exceptional, personalized safari experiences that deeply connect our guests with Tanzania's natural wonders and rich culture, while upholding the highest standards of service, safety, and responsible tourism.",
+    body: "To create personal, well-organised journeys that connect our guests with Tanzania's wildlife, landscapes and cultures — delivered safely, responsibly and with genuine Tanzanian hospitality.",
   },
   {
     title: 'Our Vision',
-    body: 'To be Tanzania\'s most cherished safari operator, renowned for creating authentic "Golden Memories," fostering sustainable tourism, and inspiring a global appreciation for our country\'s unique heritage.',
+    body: 'To be the Tanzanian safari company travellers recommend to their friends — known for honest advice, excellent guiding and tourism that benefits local communities and conservation.',
   },
 ];
 
 export const aboutAdvantages = [
   {
     title: 'Passionate Local Experts',
-    body: "Our guides aren't just drivers; they're certified professionals, wildlife enthusiasts, and proud Tanzanians eager to share their knowledge and love for their country.",
+    body: 'Our driver-guides are trained professionals who know animal behaviour, birdlife and the parks season by season — and enjoy sharing that knowledge with you.',
   },
   {
     title: 'Tailor-Made Adventures',
-    body: 'Your dream, your safari. We meticulously craft itineraries based on your interests, pace, budget, and travel style – no two trips are exactly alike.',
+    body: 'Every trip is planned around your interests, pace, budget and travel dates. Change the lodges, add a day or combine a safari with Kilimanjaro or Zanzibar — it is your itinerary.',
   },
   {
     title: 'Commitment to Sustainability',
-    body: 'We practice responsible tourism, supporting conservation initiatives, respecting local cultures, and minimizing our environmental footprint.',
+    body: 'We follow park rules, keep a respectful distance from wildlife, work with local suppliers and reduce single-use plastic on every trip.',
   },
   {
     title: 'Reliable & Comfortable Fleet',
-    body: 'Travel in comfort and safety with our well-maintained 4x4 safari vehicles, equipped with charging ports, refrigerators, and pop-up roofs for optimal viewing.',
+    body: 'Our 4x4 Land Cruisers are serviced regularly and fitted with pop-up roofs for photography, charging points and a fridge for cold drinks on long game drives.',
   },
   {
     title: 'Transparent & Fair Pricing',
-    body: 'We offer competitive rates with clear inclusions and exclusions. Experience exceptional value without hidden costs or compromising quality.',
+    body: 'Your quote lists exactly what is included and what is not. No hidden fees, no surprises on arrival — just a fair price for a well-run trip.',
   },
   {
     title: '24/7 Dedicated Support',
-    body: "From your first email until you're safely home, our friendly team is available around the clock to assist you with any queries or needs.",
+    body: 'From your first email until you are home again, our Arusha team is on call by phone and WhatsApp throughout your trip.',
   },
 ];
 
 export const aboutTeamIntro =
-  'Our team of passionate Tanzanian travel experts brings decades of combined experience in wildlife, hospitality, and safari logistics. Every member shares one mission: creating your perfect African adventure.';
+  'Behind every trip is a small team of Tanzanian guides, planners and operations staff with long experience in wildlife tourism, hospitality and safari logistics.';
 
 export const aboutTeam = [
   {
     name: 'Erlend G.',
     role: 'Founder & Lead Safari Guide',
-    body: "With years of experience exploring Tanzania's national parks, Erlend founded Golden Memories Safaris to share his deep love for the wild. A certified guide with expert knowledge of the Serengeti ecosystem, Ngorongoro Crater, and off-the-beaten-path destinations, he personally ensures every safari exceeds expectations.",
+    body: "Erlend founded Golden Memories Safaris after years of guiding in Tanzania's national parks. He knows the Serengeti ecosystem, the Ngorongoro Crater and the quieter corners of the country well, and stays closely involved in planning and quality control for every safari.",
     tags: ['Certified Safari Guide', 'Serengeti Specialist'],
     image: GM.cultureTeam,
     imageAlt: 'Erlend G., Founder & Lead Safari Guide at Golden Memories Safaris',
@@ -73,7 +73,7 @@ export const aboutTeam = [
   {
     name: 'Operations & Guest Relations Team',
     role: 'Safari Planning & Logistics',
-    body: 'Our dedicated operations team handles every detail of your safari, from accommodation bookings and park permits to airport transfers and dietary requirements. Fluent in English, Italian, French, and Swedish, they ensure seamless communication from your first inquiry to your farewell.',
+    body: 'Our operations team handles every practical detail — lodge reservations, park permits, airport transfers and dietary requirements — and keeps in touch with you in English, Italian, French or Swedish from your first enquiry to your departure.',
     tags: ['Multilingual Support', '24/7 Availability'],
     image: GM.dayTrip,
     imageAlt: 'Golden Memories Safaris operations and guest relations team in Arusha',
@@ -81,8 +81,8 @@ export const aboutTeam = [
   {
     name: 'Professional Driver-Guides',
     role: 'Wildlife & Wilderness Experts',
-    body: "Our driver-guides are the heart of the safari experience. Each holds professional guiding certifications, with specialized knowledge in animal behavior, bird identification, and Tanzania's ecology. Many have grown up in communities surrounding the national parks, offering authentic insights no guidebook can provide.",
-    tags: ['Wildlife Tracking', '5-Star Rated'],
+    body: "Our driver-guides are the heart of every safari. They hold professional guiding qualifications, read animal behaviour and birdlife expertly, and many grew up near the parks — so you hear the stories behind the landscape, not just the names of the animals.",
+    tags: ['Wildlife Tracking', 'Birding'],
     image: GM.northern,
     imageAlt: 'Professional safari driver-guides at Golden Memories Safaris',
   },
@@ -103,7 +103,7 @@ export const aboutCredentials = [
   },
   {
     title: 'TripAdvisor Listed',
-    body: 'Featured on TripAdvisor with genuine traveler reviews. We encourage all guests to share their experiences, helping future travelers make informed decisions.',
+    body: 'Listed on Tripadvisor with genuine traveller reviews. We ask every guest for honest feedback and use it to keep improving.',
   },
   {
     title: 'Licensed & Insured',
@@ -116,6 +116,6 @@ export const aboutCredentials = [
 ];
 
 export const aboutCta = {
-  title: 'Ready to Create Your Own Golden Memories?',
-  body: "Let our local expertise and passion for Tanzania guide you on an adventure of a lifetime. Whether you dream of the vast Serengeti plains, the heights of Kilimanjaro, or the spice-scented breezes of Zanzibar, we're here to make it happen. Contact us today to start planning!",
+  title: 'Ready to plan your trip?',
+  body: 'Whether you are dreaming of the Serengeti migration, the summit of Kilimanjaro or a few quiet days on Zanzibar, tell us what you have in mind. We will reply with honest advice and a tailor-made itinerary — no obligation.',
 };

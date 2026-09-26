@@ -18,6 +18,10 @@ import { renderSettings, initSettings } from './pages/settings.js';
 import { renderOperations, initOperations, renderBookingDetail, initBookingDetail } from './pages/operations.js';
 import { renderUsers, initUsers } from './pages/users.js';
 import { initShell } from './pages/shell.js';
+import { renderReviews, initReviews } from './pages/reviews.js';
+import { renderIntegrations, initIntegrations } from './pages/integrations.js';
+import { renderProfile, initProfile } from './pages/profile.js';
+import { renderSystem, initSystem } from './pages/system.js';
 
 function route() {
   const raw = window.location.hash.replace(/^#/, '') || '/dashboard';
@@ -43,6 +47,10 @@ function route() {
   if (hash === '/inquiries') return { name: 'ops', kind: 'inquiries' };
   if (hash === '/customers') return { name: 'ops', kind: 'customers' };
   if (hash === '/users') return { name: 'users' };
+  if (hash === '/reviews') return { name: 'reviews' };
+  if (hash === '/integrations') return { name: 'integrations' };
+  if (hash === '/profile') return { name: 'profile' };
+  if (hash === '/system') return { name: 'system' };
   if (safariPreview) return { name: 'preview', type: 'safaris', id: safariPreview[1] };
   if (safari) return { name: 'editor', id: safari[1] };
   if (hash === '/safaris') return { name: 'list' };
@@ -101,7 +109,7 @@ async function mount() {
     return;
   }
 
-  const adminOnly = ['clients', 'activity', 'settings', 'users'];
+  const adminOnly = ['clients', 'activity', 'settings', 'users', 'integrations', 'system'];
   if (adminOnly.includes(current.name) && !isStaffAdmin(user)) {
     window.location.hash = '#/dashboard';
     return;
@@ -147,6 +155,19 @@ async function mount() {
     app.innerHTML = renderSettings(user);
     readyChrome();
     await initSettings();
+    return;
+  }
+  const simplePages = {
+    reviews: [renderReviews, initReviews],
+    integrations: [renderIntegrations, initIntegrations],
+    profile: [renderProfile, initProfile],
+    system: [renderSystem, initSystem],
+  };
+  if (simplePages[current.name]) {
+    const [render, init] = simplePages[current.name];
+    app.innerHTML = render(user);
+    readyChrome();
+    await init();
     return;
   }
   if (current.name === 'users') {
@@ -207,5 +228,19 @@ async function mount() {
 window.addEventListener('hashchange', () => {
   mount();
 });
+
+// Replace broken thumbnails with a neutral placeholder (no inline handlers — CSP friendly).
+document.addEventListener(
+  'error',
+  (event) => {
+    const img = event.target;
+    if (!(img instanceof HTMLImageElement) || img.dataset.fallbackApplied) return;
+    img.dataset.fallbackApplied = '1';
+    img.classList.add('is-broken');
+    const fallback = img.getAttribute('data-fallback');
+    if (fallback) img.src = fallback;
+  },
+  true
+);
 
 mount();

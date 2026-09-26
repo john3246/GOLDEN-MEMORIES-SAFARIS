@@ -15,8 +15,10 @@ export const CONTENT_TYPES = Object.freeze({
       { name: 'hero_image', label: 'Hero photo', type: 'image' },
       { name: 'excerpt', label: 'Excerpt', type: 'textarea' },
       { name: 'body', label: 'Body', type: 'textarea' },
-      { name: 'seo_title', label: 'SEO title', type: 'text' },
-      { name: 'seo_description', label: 'SEO description', type: 'textarea' },
+      { name: 'seo_title', label: 'SEO title (shown in Google, max 60 characters)', type: 'text' },
+      { name: 'seo_description', label: 'SEO description (max 160 characters)', type: 'textarea' },
+      { name: 'seo_keywords', label: 'SEO keywords (comma-separated)', type: 'textarea' },
+      { name: 'og_image', label: 'Share image (WhatsApp / Facebook preview)', type: 'image' },
     ],
   },
   destinations: {
@@ -88,8 +90,8 @@ export const CONTENT_TYPES = Object.freeze({
     createTitle: 'New review',
     fields: [
       { name: 'title', label: 'Guest name', type: 'text' },
-      { name: 'detail', label: 'Trip / location', type: 'text' },
-      { name: 'quote', label: 'Quote', type: 'textarea' },
+      { name: 'detail', label: 'Country or trip (e.g. "United Kingdom · 7-day safari")', type: 'text' },
+      { name: 'quote', label: 'What they said', type: 'textarea' },
       { name: 'image', label: 'Guest photo', type: 'image' },
     ],
   },

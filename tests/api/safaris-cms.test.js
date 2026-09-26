@@ -195,7 +195,7 @@ describe('Safari CMS', () => {
     expect(ok.status).toBe(200);
     expect(ok.body.data.title).toBe('Public Key Safari');
 
-    const draft = await send(app, 'POST', '/api/v1/admin/safaris', { title: 'Hidden Draft', slug: 'hidden-draft' }, auth(admin));
+    await send(app, 'POST', '/api/v1/admin/safaris', { title: 'Hidden Draft', slug: 'hidden-draft' }, auth(admin));
     const leak = await send(app, 'GET', '/api/v1/external/safaris/slug/hidden-draft', undefined, { 'X-Api-Key': apiKey });
     expect(leak.status).toBe(404);
 
@@ -228,14 +228,14 @@ describe('Safari CMS', () => {
     expect(revoked.status).toBe(401);
   });
 
-  it('rejects drafts and publishes that have no price or a mismatched itinerary', async () => {
+  it('saves incomplete drafts with warnings but refuses to publish them', async () => {
     const token = await login(app, adminEmail, adminPassword);
     const created = await send(app, 'POST', '/api/v1/admin/safaris', { title: 'Incomplete Safari' }, auth(token));
     const id = created.body.data.id;
 
     const noPrice = await send(app, 'PATCH', `/api/v1/admin/safaris/${id}`, { duration: 2, itinerary: [{ title: 'Day one' }, { title: 'Day two' }] }, auth(token));
-    expect(noPrice.status).toBe(400);
-    expect(noPrice.body.error.message).toMatch(/price/i);
+    expect(noPrice.status).toBe(200);
+    expect(noPrice.body.data.publishWarnings.join(' ')).toMatch(/price/i);
 
     const mismatch = await send(
       app,
@@ -244,8 +244,8 @@ describe('Safari CMS', () => {
       { price_from: 1500, duration: 3, itinerary: [{ title: 'Day one' }] },
       auth(token)
     );
-    expect(mismatch.status).toBe(400);
-    expect(mismatch.body.error.message).toMatch(/exactly 3 days/i);
+    expect(mismatch.status).toBe(200);
+    expect(mismatch.body.data.publishWarnings.join(' ')).toMatch(/exactly 3 days/i);
 
     const unpublished = await send(app, 'POST', `/api/v1/admin/safaris/${id}/publish`, {}, auth(token));
     expect(unpublished.status).toBe(400);

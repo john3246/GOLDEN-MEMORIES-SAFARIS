@@ -21,14 +21,10 @@ export async function seedSafariPackages() {
   const now = new Date().toISOString();
   for (const item of PDF_PACKAGES) {
     const draft = toDraft(item);
-    let record = await safarisRepository.findBySlug(item.slug, { includeUnpublished: true });
-    if (!record) {
-      record = await safarisRepository.create({ draft, actor: { userId: 'seed' } });
-    } else {
-      record.draft = draft;
-      record.slug = item.slug;
-      record.updated_at = now;
-    }
+    // Never overwrite a tour that already exists — editors may have changed it.
+    if (await safarisRepository.findBySlug(item.slug, { includeUnpublished: true })) continue;
+    const record = await safarisRepository.create({ draft, actor: { userId: 'seed' } });
+    record.updated_at = now;
     record.status = SafariStatus.PUBLISHED;
     record.published = { ...draft };
     record.published_at = record.published_at || now;

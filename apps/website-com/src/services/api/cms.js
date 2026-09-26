@@ -1,15 +1,12 @@
 const API_BASE =
   import.meta.env.VITE_API_BASE_URL || (import.meta.env.PROD ? '' : 'http://localhost:3000');
 
-function freshUrl(path) {
-  const sep = String(path).includes('?') ? '&' : '?';
-  return `${API_BASE}${path}${sep}_=${Date.now()}`;
-}
-
 async function getJson(path, signal) {
-  const res = await fetch(freshUrl(path), {
-    cache: 'no-store',
-    headers: { Accept: 'application/json', 'Cache-Control': 'no-cache' },
+  // "no-cache" = always ask the server, but reuse the cached copy when it
+  // answers 304 Not Modified (fast, and CMS edits still show immediately).
+  const res = await fetch(`${API_BASE}${path}`, {
+    cache: 'no-cache',
+    headers: { Accept: 'application/json' },
     ...(signal ? { signal } : {}),
   });
   const body = await res.json().catch(() => ({}));
@@ -40,28 +37,51 @@ export async function fetchPublishedContentBySlug(type, slug, signal) {
   }
 }
 
-export async function submitInquiry(payload) {
-  const res = await fetch(`${API_BASE}/api/v1/inquiries`, {
-    method: 'POST',
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
+async function postJson(path, payload, fallbackMessage) {
+  let res;
+  try {
+    res = await fetch(`${API_BASE}${path}`, {
+      method: 'POST',
+      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+  } catch {
+    const err = new Error('We could not reach our server.');
+    err.status = 0;
+    throw err;
+  }
   const body = await res.json().catch(() => ({}));
   if (!res.ok || body.success === false) {
-    throw new Error(body.error?.message || 'Unable to send the inquiry');
+    const err = new Error(body.error?.message || fallbackMessage);
+    err.status = res.status;
+    err.field = body.error?.details?.field;
+    throw err;
   }
   return body.data;
 }
 
+export async function submitInquiry(payload) {
+  return postJson('/api/v1/inquiries', payload, 'Unable to send your message');
+}
+
 export async function submitBooking(payload) {
-  const res = await fetch(`${API_BASE}/api/v1/bookings`, {
-    method: 'POST',
-    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-  const body = await res.json().catch(() => ({}));
-  if (!res.ok || body.success === false) {
-    throw new Error(body.error?.message || 'Unable to send the booking');
+  return postJson('/api/v1/bookings', payload, 'Unable to send your booking request');
+}
+
+let bundlePromise = null;
+
+/** Everything the site needs from the CMS in one cached request. */
+export function fetchSiteBundle(signal) {
+  if (!bundlePromise) {
+    bundlePromise = getJson('/api/v1/site-bundle', signal).catch((err) => {
+      bundlePromise = null;
+      throw err;
+    });
   }
-  return body.data;
+  return bundlePromise;
+}
+
+export async function fetchPublicReviews(params = {}, signal) {
+  const query = new URLSearchParams(Object.entries(params).filter(([, v]) => v !== '' && v != null));
+  return getJson(`/api/v1/reviews?${query}`, signal);
 }

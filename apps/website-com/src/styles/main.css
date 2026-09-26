@@ -2063,3 +2063,147 @@
     }
   }
 }
+
+/* Reviews page: independent ratings + source badges */
+.review-sources {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1rem;
+}
+
+.review-source {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fff;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+a.review-source[href]:hover {
+  border-color: #c4a455;
+  transform: translateY(-2px);
+}
+
+.review-source-name {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8f6f28;
+}
+
+.review-source strong {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.review-source-count {
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.review-stars {
+  color: #c4a455;
+  letter-spacing: 0.08em;
+}
+
+.review-stars-off {
+  color: rgba(0, 0, 0, 0.15);
+}
+
+.review-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.review-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  background: #f4f1ea;
+  color: #5c574e;
+}
+
+.review-badge-tripadvisor {
+  background: #e6f6ef;
+  color: #00664a;
+}
+
+.review-badge-google {
+  background: #e8f0fe;
+  color: #1a56c4;
+}
+
+.review-badge-safaribookings {
+  background: #fff4e0;
+  color: #8a5a00;
+}
+
+.review-title {
+  margin: 0 0 0.5rem;
+  font-weight: 800;
+}
+
+.review-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #8f6f28;
+  text-decoration: underline;
+}
+
+/* Form feedback */
+.form-note-success {
+  padding: 0.85rem 1rem;
+  background: #e8f5ee;
+  border-left: 3px solid #1f6b45;
+  color: #134a30;
+}
+
+.form-note-error {
+  padding: 0.85rem 1rem;
+  background: #fbeaea;
+  border-left: 3px solid #8a2f2f;
+  color: #6d2020;
+}
+
+.contact-form [aria-invalid='true'] {
+  border-color: #8a2f2f !important;
+  box-shadow: 0 0 0 2px rgba(138, 47, 47, 0.15);
+}
+
+.contact-form button[disabled] {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+/* Server-rendered summary shown to crawlers / before JavaScript runs */
+.seo-prerender {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 4rem 1.25rem;
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+.seo-prerender h1 {
+  font-size: 2rem;
+  margin: 0 0 1rem;
+}
+
+.seo-prerender nav a {
+  color: #8f6f28;
+}
+
+img.img-fallback {
+  object-fit: cover;
+}

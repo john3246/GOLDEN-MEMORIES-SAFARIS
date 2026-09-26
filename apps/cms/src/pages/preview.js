@@ -32,7 +32,7 @@ function publicUrl(type, slug) {
   return `gmsafaris.com/`;
 }
 
-function listPreview(type, id) {
+function listPreview(type, _id) {
   if (type === 'safaris') return '#/safaris';
   return `#/${type}`;
 }

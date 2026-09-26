@@ -12,9 +12,10 @@ export function signAccessToken(user) {
       email: user.email,
       role: user.role,
       name: user.name || '',
+      tv: Number(user.tokenVersion || 0),
     },
     config.auth.jwtSecret,
-    { expiresIn: config.auth.jwtExpiresIn }
+    { expiresIn: config.auth.jwtExpiresIn, algorithm: 'HS256' }
   );
 }
 
@@ -23,7 +24,7 @@ export function signAccessToken(user) {
  */
 export function verifyAccessToken(token) {
   try {
-    return jwt.verify(token, config.auth.jwtSecret);
+    return jwt.verify(token, config.auth.jwtSecret, { algorithms: ['HS256'] });
   } catch {
     throw unauthorized('Invalid or expired session');
   }

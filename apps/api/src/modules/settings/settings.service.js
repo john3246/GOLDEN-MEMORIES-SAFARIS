@@ -20,6 +20,12 @@ function publicEmail(stored, live) {
 
 function publicSettings(settings, live) {
   const next = JSON.parse(JSON.stringify(settings || DEFAULT_SETTINGS));
+  delete next.emailSecret;
+  if (next.reviews) {
+    for (const key of ['google', 'tripadvisor']) {
+      if (next.reviews[key]) next.reviews[key].apiKey = next.reviews[key].apiKey ? MASK : '';
+    }
+  }
   next.email = publicEmail(next.email, live);
   return next;
 }
@@ -68,12 +74,15 @@ export const settingsService = {
         email.smtpUser = current.email?.smtpUser || '';
         email.smtpSecure = current.email?.smtpSecure || false;
       }
+      const { emailSecret: _ignored, reviews: _reviews, ...safeBody } = body || {};
       store.settings = {
         ...current,
-        ...body,
+        ...safeBody,
         site: { ...(current.site || {}), ...(body.site || {}) },
         email,
         seo: { ...(current.seo || {}), ...(body.seo || {}) },
+        security: { ...(current.security || {}), ...(body.security || {}) },
+        emailTemplates: { ...(current.emailTemplates || {}), ...(body.emailTemplates || {}) },
         updated_at: new Date().toISOString(),
         updated_by: actor?.userId || null,
       };

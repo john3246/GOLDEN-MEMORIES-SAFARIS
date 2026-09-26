@@ -1,11 +1,11 @@
 ﻿import { Router } from 'express';
 import { SafariScope } from '@gm-safaris/shared-types';
 import { requireAuth, requireScope } from '../../security/requireAuth.js';
-import { publicRateLimiter } from '../../middleware/index.js';
+import { formRateLimiter } from '../../middleware/index.js';
 import { bookingsService } from './bookings.service.js';
 
 export const publicBookingRoutes = Router();
-publicBookingRoutes.use(publicRateLimiter);
+publicBookingRoutes.use(formRateLimiter);
 publicBookingRoutes.post('/', async (req, res, next) => {
   try {
     const data = await bookingsService.createPublic(req.body || {});

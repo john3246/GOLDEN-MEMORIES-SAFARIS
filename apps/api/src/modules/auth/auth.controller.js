@@ -3,7 +3,7 @@ import { authService } from './auth.service.js';
 export const authController = {
   async login(req, res, next) {
     try {
-      const data = await authService.login(req.body?.email, req.body?.password);
+      const data = await authService.login(req.body?.email, req.body?.password, { ip: req.ip });
       res.json({ success: true, data });
     } catch (err) {
       next(err);

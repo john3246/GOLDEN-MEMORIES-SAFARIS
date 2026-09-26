@@ -1,3 +1,4 @@
+import { brandTitle, safariPackageTitle } from '@gm-safaris/safari-ui';
 import { joinCard } from '../../components/cards/join-card.js';
 import { isGalleryUrl, uniquePhoto, uniqueCoverFor, galleryKindForText } from '../../media/gallery.js';
 import { safariPrice, publicMediaUrl } from '@gm-safaris/safari-ui';
@@ -244,11 +245,8 @@ export function renderJoinDetail(slug) {
 
 export function applyJoinMeta(slug) {
   const pkg = getJoinPackageBySlug(slug);
-  if (!pkg) {
-    document.title = 'Joining safari | Golden Memories Safaris';
-    return;
-  }
-  document.title = `${pkg.title} | Golden Memories Safaris`;
+  if (!pkg) return;
+  document.title = brandTitle(`${safariPackageTitle(pkg.title).replace(/\s*\(joining safari\)/i, '')} | Group Safari`);
   const description = document.querySelector('meta[name="description"]');
   if (description) description.setAttribute('content', pkg.overview || pkg.title);
 }

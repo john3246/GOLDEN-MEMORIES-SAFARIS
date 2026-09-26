@@ -1,4 +1,5 @@
 import express from 'express';
+import compression from 'compression';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { config } from './config/index.js';
@@ -13,6 +14,7 @@ import {
   externalCors,
   cmsCors,
   websiteCors,
+  canonicalHostRedirect,
 } from './security/index.js';
 import { errorHandler, notFoundHandler } from './errors/index.js';
 import { healthRoutes } from './health/index.js';
@@ -26,6 +28,12 @@ import { publicSettingsRoutes, adminSettingsRoutes } from './modules/settings/in
 import { publicEnquiryRoutes, adminEnquiryRoutes } from './modules/enquiries/index.js';
 import { publicBookingRoutes, adminBookingRoutes, adminCustomerRoutes } from './modules/bookings/index.js';
 import { adminUserRoutes } from './modules/users/index.js';
+import { adminWebhookRoutes } from './modules/webhooks/index.js';
+import { publicReviewRoutes, adminReviewRoutes } from './modules/reviews/index.js';
+import { adminNotificationRoutes } from './modules/notifications/index.js';
+import { publicSiteRoutes } from './modules/site/site-bundle.js';
+import { adminSystemRoutes } from './modules/system/index.js';
+import { servePublicSite as serveSite } from './modules/site/public-site.js';
 import { docsRoutes } from './docs/docs.routes.js';
 import { readStore } from './cms-store/index.js';
 import { requireAuth, requireStaffAdmin } from './security/requireAuth.js';
@@ -38,29 +46,7 @@ export function publicSiteDir() {
 }
 
 export function servePublicSite(app, publicDir = publicSiteDir()) {
-  const cmsIndex = path.join(publicDir, 'cms', 'index.html');
-
-  // Express matches /cms and /cms/ as the same route unless we check req.path.
-  // Redirecting /cms/ to /cms/ is what caused ERR_TOO_MANY_REDIRECTS on Render.
-  app.use((req, res, next) => {
-    if (req.method !== 'GET' && req.method !== 'HEAD') return next();
-    const pathname = req.path;
-    if (pathname === '/cms') {
-      res.redirect(301, '/cms/');
-      return;
-    }
-    if (pathname === '/tours/cms' || pathname === '/tours/cms/') {
-      res.redirect(301, '/cms/');
-      return;
-    }
-    next();
-  });
-  app.use(express.static(publicDir, { index: 'index.html', fallthrough: true, maxAge: '7d' }));
-  app.use('/cms', (_req, res, next) => {
-    res.sendFile(cmsIndex, (err) => {
-      if (err) next(err);
-    });
-  });
+  serveSite(app, publicDir);
 }
 
 /**
@@ -71,11 +57,13 @@ export function createApp() {
   const app = express();
 
   app.disable('x-powered-by');
-  app.set('trust proxy', 1);
+  app.set('trust proxy', config.isProduction || process.env.RENDER ? 1 : 'loopback');
 
+  app.use(canonicalHostRedirect());
   app.use(requestIdMiddleware);
   app.use(securityHeaders());
-  app.use(express.json({ limit: '1mb' }));
+  app.use(compression({ threshold: 1024 }));
+  app.use(express.json({ limit: '2mb' }));
   app.use(express.urlencoded({ extended: false, limit: '1mb' }));
   app.use(requestLogger);
 
@@ -83,10 +71,12 @@ export function createApp() {
 
   app.use('/api/v1/docs', publicRateLimiter, docsRoutes);
 
+  app.use('/api/v1/site-bundle', websiteCors(), publicSiteRoutes);
   app.use('/api/v1/safaris', websiteCors(), publicSafariRoutes);
   app.use('/api/v1/media', websiteCors(), publicMediaRoutes);
   app.use('/api/v1/content', websiteCors(), publicContentRoutes);
   app.use('/api/v1/settings', websiteCors(), publicSettingsRoutes);
+  app.use('/api/v1/reviews', websiteCors(), publicReviewRoutes);
   app.use('/api/v1/inquiries', websiteCors(), publicEnquiryRoutes);
   app.use('/api/v1/bookings', websiteCors(), publicBookingRoutes);
 
@@ -95,33 +85,38 @@ export function createApp() {
   const admin = express.Router();
   admin.use(cmsCors());
   admin.use(adminRateLimiter);
+  admin.use((_req, res, next) => {
+    res.setHeader('Cache-Control', 'no-store');
+    next();
+  });
   admin.use('/auth', authRoutes);
   admin.use('/safaris', adminSafariRoutes);
   admin.use('/media', adminMediaRoutes);
   admin.use('/api-clients', apiClientRoutes);
+  admin.use('/webhooks', adminWebhookRoutes);
   admin.use('/content', adminContentRoutes);
   admin.use('/settings', adminSettingsRoutes);
   admin.use('/inquiries', adminEnquiryRoutes);
   admin.use('/bookings', adminBookingRoutes);
   admin.use('/customers', adminCustomerRoutes);
+  admin.use('/reviews', adminReviewRoutes);
+  admin.use('/notifications', adminNotificationRoutes);
   admin.use('/users', adminUserRoutes);
-  admin.get('/audit', requireAuth, requireStaffAdmin(), async (_req, res, next) => {
+  admin.use('/system', adminSystemRoutes);
+  admin.get('/audit', requireAuth, requireStaffAdmin(), async (req, res, next) => {
     try {
       const store = await readStore();
+      const limit = Math.min(Number(req.query.limit) || 200, 1000);
       res.json({
         success: true,
-        data: store.auditLogs.slice(0, 100),
-        meta: { page: 1, limit: 100, total: store.auditLogs.length },
+        data: store.auditLogs.slice(0, limit),
+        meta: { page: 1, limit, total: store.auditLogs.length },
       });
     } catch (err) {
       next(err);
     }
   });
   app.use('/api/v1/admin', admin);
-
-  if (config.servePublic) {
-    servePublicSite(app);
-  }
 
   app.get('/api/v1', (_req, res) => {
     res.json({
@@ -132,9 +127,11 @@ export function createApp() {
         surfaces: {
           health: '/health',
           docs: '/api/v1/docs',
+          siteBundle: '/api/v1/site-bundle',
           safaris: '/api/v1/safaris',
           content: '/api/v1/content',
           settings: '/api/v1/settings',
+          reviews: '/api/v1/reviews',
           inquiries: '/api/v1/inquiries',
           bookings: '/api/v1/bookings',
           external: '/api/v1/external',
@@ -143,6 +140,10 @@ export function createApp() {
       },
     });
   });
+
+  if (config.servePublic) {
+    servePublicSite(app);
+  }
 
   app.use(notFoundHandler);
   app.use(errorHandler);

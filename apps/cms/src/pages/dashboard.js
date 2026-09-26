@@ -2,6 +2,7 @@ import { api } from '../api/client.js';
 import { shell } from './shell.js';
 import { apiOrigin, siteHref } from './site.js';
 import { isStaffAdmin } from '../auth/roles.js';
+import { esc, safeUrl } from '../components/escape.js';
 
 function pill(status) {
   const kind = /confirm/i.test(status)
@@ -9,7 +10,7 @@ function pill(status) {
     : /pending|draft|new/i.test(status)
       ? 'is-draft'
       : '';
-  return `<span class="cms-pill ${kind}">${status || '—'}</span>`;
+  return `<span class="cms-pill ${kind}">${esc(status || '—')}</span>`;
 }
 
 function money(value) {
@@ -55,7 +56,7 @@ export function renderDashboard(user) {
       <article class="cms-welcome">
         <img class="cms-welcome-bg" src="/images/gallery/serengeti-01.webp" alt="" width="2000" height="900" />
         <div class="cms-welcome-copy">
-          <h1>Welcome back, ${nice}!</h1>
+          <h1>Welcome back, ${esc(nice)}!</h1>
           <p>Manage your entire website from one place. Keep content fresh, engage your audience, and grow the safari business.</p>
           <p class="cms-welcome-date">${stamp}</p>
         </div>
@@ -149,14 +150,14 @@ export async function initDashboard() {
       bookings.innerHTML = `<table class="cms-table"><thead><tr><th>ID</th><th>Guest</th><th>Tour</th><th>Date</th><th>Status</th><th>Amount</th></tr></thead><tbody>${data.recentBookings
         .map(
           (row) =>
-            `<tr><td><a href="#/bookings/${row.id}">${row.code || row.id.slice(0, 8)}</a></td><td>${row.customerName}</td><td>${row.safariTitle}</td><td>${row.travelDate || '—'}</td><td>${pill(row.status)}</td><td>${money(row.amount)}</td></tr>`
+            `<tr><td><a href="#/bookings/${esc(row.id)}">${esc(row.code || String(row.id).slice(0, 8))}</a></td><td>${esc(row.customerName)}</td><td>${esc(row.safariTitle)}</td><td>${esc(row.travelDate || '—')}</td><td>${pill(row.status)}</td><td>${money(row.amount)}</td></tr>`
         )
         .join('')}</tbody></table>`;
     } else if ((data.recentSafaris || []).length) {
       bookings.innerHTML = `<table class="cms-table"><thead><tr><th>Tour package</th><th>Status</th><th>Updated</th></tr></thead><tbody>${data.recentSafaris
         .map(
           (row) =>
-            `<tr><td><a href="#/safaris/${row.id}">${row.title}</a></td><td>${pill(row.status)}</td><td>${when(row.updated_at)}</td></tr>`
+            `<tr><td><a href="#/safaris/${esc(row.id)}">${esc(row.title)}</a></td><td>${pill(row.status)}</td><td>${when(row.updated_at)}</td></tr>`
         )
         .join('')}</tbody></table>`;
     } else {
@@ -168,7 +169,7 @@ export async function initDashboard() {
       ? `<table class="cms-table"><thead><tr><th>Name</th><th>Subject</th><th>Date</th><th>Status</th></tr></thead><tbody>${data.recentInquiries
           .map(
             (row) =>
-              `<tr><td>${row.name}</td><td>${row.subject || 'Inquiry'}</td><td>${when(row.created_at)}</td><td>${pill(row.status)}</td></tr>`
+              `<tr><td><a href="#/inquiries">${esc(row.name)}</a></td><td>${esc(row.subject || 'Inquiry')}</td><td>${when(row.created_at)}</td><td>${pill(row.status)}</td></tr>`
           )
           .join('')}</tbody></table>`
       : '<p class="cms-muted">No inquiries yet. The public contact form writes them here.</p>';
@@ -179,7 +180,7 @@ export async function initDashboard() {
       .map(([key, value]) => {
         const max = Math.max(1, ...Object.values(byType).map((item) => item.total || 0));
         const width = Math.round(((value.total || 0) / max) * 100);
-        return `<div class="cms-bar"><span>${TYPE_LABELS[key] || key}</span><i style="width:${width}%"></i><em>${value.published}/${value.total}</em></div>`;
+        return `<div class="cms-bar"><span>${esc(TYPE_LABELS[key] || key)}</span><i style="width:${width}%"></i><em>${value.published}/${value.total}</em></div>`;
       })
       .join('');
     chart.innerHTML = bars || '<p class="cms-muted">Publish pages, posts, and destinations to fill this chart.</p>';
@@ -188,7 +189,7 @@ export async function initDashboard() {
     media.innerHTML = (data.latestMedia || []).length
       ? data.latestMedia
           .slice(0, 4)
-          .map((item) => `<figure><img src="${item.url || item.storagePath || ''}" alt="${item.alt || ''}" /><figcaption>${item.alt || item.filename || 'Media'}</figcaption></figure>`)
+          .map((item) => `<figure><img src="${safeUrl(item.url || (item.id ? `/api/v1/media/${item.id}/file` : ''))}" alt="${esc(item.alt || '')}" loading="lazy" /><figcaption>${esc(item.alt || item.filename || 'Media')}</figcaption></figure>`)
           .join('')
       : '<p class="cms-muted">Upload photos in the media library.</p>';
 
@@ -206,7 +207,7 @@ export async function initDashboard() {
       ? `<table class="cms-table"><thead><tr><th>Date</th><th>Guest</th><th>Tour</th><th>Status</th></tr></thead><tbody>${data.upcomingBookings
           .map(
             (row) =>
-              `<tr><td>${row.travelDate || '—'}</td><td><a href="#/bookings/${row.id}">${row.customerName}</a></td><td>${row.safariTitle}</td><td>${pill(row.status)}</td></tr>`
+              `<tr><td>${esc(row.travelDate || '—')}</td><td><a href="#/bookings/${esc(row.id)}">${esc(row.customerName)}</a></td><td>${esc(row.safariTitle)}</td><td>${pill(row.status)}</td></tr>`
           )
           .join('')}</tbody></table>`
       : '<p class="cms-muted">No upcoming travel dates recorded.</p>';
@@ -216,7 +217,7 @@ export async function initDashboard() {
       ? `<table class="cms-table"><thead><tr><th>Title</th><th>Type</th><th>Updated</th><th>Status</th></tr></thead><tbody>${data.drafts
           .map(
             (row) =>
-              `<tr><td><a href="${row.href}">${row.title}</a></td><td>${row.type}</td><td>${when(row.updated_at)}</td><td>${pill(row.status)}</td></tr>`
+              `<tr><td><a href="${esc(row.href)}">${esc(row.title)}</a></td><td>${esc(row.type)}</td><td>${when(row.updated_at)}</td><td>${pill(row.status)}</td></tr>`
           )
           .join('')}</tbody></table>`
       : '<p class="cms-muted">Everything published is live.</p>';

@@ -1,6 +1,7 @@
 import { api } from '../api/client.js';
 import { shell } from './shell.js';
 import { notifyError, notifySuccess } from '../components/toast.js';
+import { esc, safeUrl } from '../components/escape.js';
 
 export function renderMedia(user) {
   return shell(
@@ -12,13 +13,14 @@ export function renderMedia(user) {
         <div>
           <p class="cms-kicker">Library</p>
           <h1>Media</h1>
-          <p class="cms-lead">Every image used on tours, destinations, blog, lodges, and the project gallery — plus files you upload here. Delete a photo to remove it from the library, disk, and any content still using it.</p>
+          <p class="cms-lead">Every photo used on tours, destinations, the blog, lodges and pages, plus the files you upload. Uploads are resized and converted to fast-loading WebP automatically and saved in the database, so they survive server updates. Check <strong>Needs attention</strong> for missing or broken photos.</p>
         </div>
       </div>
       <form id="media-form" class="cms-panel cms-form-stack">
         <div class="cms-field">
-          <label class="cms-label" for="media-file">Upload file</label>
-          <input id="media-file" type="file" name="file" accept="image/jpeg,image/png,image/webp,image/gif" />
+          <label class="cms-label" for="media-file">Upload photos (you can pick several)</label>
+          <input id="media-file" type="file" name="file" multiple accept="image/jpeg,image/png,image/webp,image/gif" />
+          <p class="cms-hint">JPG, PNG, WebP or GIF, up to 10 MB each. Large photos are resized to 2000 px.</p>
         </div>
         <div class="cms-field">
           <label class="cms-label" for="media-url">Or paste image URL</label>
@@ -34,7 +36,7 @@ export function renderMedia(user) {
             <input id="media-caption" name="caption" placeholder="Optional caption" />
           </div>
         </div>
-        <button class="cms-btn cms-btn-gold" type="submit">Add media</button>
+        <button class="cms-btn cms-btn-gold" type="submit" data-media-submit>Add media</button>
       </form>
       <p class="cms-error" id="media-error" hidden></p>
       <div id="media-tabs" class="cms-media-tabs"></div>
@@ -54,17 +56,19 @@ function renderGrid(items) {
   return items
     .map((item) => {
       const canDelete = item.deletable !== false;
+      const label = item.alt || item.filename || 'image';
       return `
-        <figure class="cms-media-card">
-          <button class="cms-media-thumb" type="button" data-media-open="${encodeURIComponent(item.url)}" aria-label="Open ${item.alt || item.filename || 'image'}">
-            <img src="${item.url}" alt="${item.alt || ''}" loading="lazy" decoding="async" draggable="false" />
+        <figure class="cms-media-card${item.problem ? ' has-problem' : ''}">
+          <button class="cms-media-thumb" type="button" data-media-open="${esc(encodeURIComponent(item.url))}" aria-label="Open ${esc(label)}">
+            <img src="${safeUrl(item.url)}" alt="${esc(item.alt || '')}" loading="lazy" decoding="async" draggable="false" />
           </button>
           <figcaption>
-            <strong>${item.alt || item.filename}</strong>
-            <span>${(item.usedOn || []).join(' · ') || item.source}</span>
+            <strong>${esc(label)}</strong>
+            <span>${esc((item.usedOn || []).join(' · ') || item.source || '')}</span>
+            ${item.problem ? `<span class="cms-error" style="display:block;margin:0.35rem 0 0">${esc(item.problem)}</span>` : ''}
             ${
               canDelete
-                ? `<button class="cms-btn cms-btn-danger cms-media-delete" type="button" data-media-delete data-media-id="${item.id || ''}" data-media-url="${encodeURIComponent(item.url || '')}">Delete</button>`
+                ? `<button class="cms-btn cms-btn-danger cms-media-delete" type="button" data-media-delete data-media-id="${esc(item.id || '')}" data-media-url="${esc(encodeURIComponent(item.url || ''))}">${item.source === 'upload' ? 'Delete' : 'Remove from site'}</button>`
                 : ''
             }
           </figcaption>
@@ -87,7 +91,7 @@ export async function initMedia() {
     tabs.innerHTML = library.groups
       .map(
         (item) =>
-          `<button class="cms-media-tab${item.id === active ? ' is-active' : ''}" type="button" data-media-group="${item.id}">${item.label} <em>${item.count}</em></button>`
+          `<button class="cms-media-tab${item.id === active ? ' is-active' : ''}${item.id === 'problems' ? ' is-warning' : ''}" type="button" data-media-group="${esc(item.id)}">${esc(item.label)} <em>${Number(item.count) || 0}</em></button>`
       )
       .join('');
     count.textContent = group ? `${group.count} files in ${group.label.toLowerCase()}` : '';
@@ -122,7 +126,7 @@ export async function initMedia() {
     if (remove) {
       event.preventDefault();
       const label = remove.closest('figure')?.querySelector('strong')?.textContent || 'this photo';
-      if (!window.confirm(`Delete ${label}? It will be removed from the library and from any tours, destinations, or articles using it.`)) {
+      if (!window.confirm(`Remove "${label}"? It will be taken off every tour, destination, article or page that uses it.`)) {
         return;
       }
       try {
@@ -154,18 +158,48 @@ export async function initMedia() {
     event.preventDefault();
     error.hidden = true;
     const form = event.currentTarget;
-    const file = form.file.files[0];
+    const files = [...(form.file.files || [])];
+    const button = form.querySelector('[data-media-submit]');
+    if (!files.length && !form.url.value.trim()) {
+      notifyError('Choose a photo or paste an image address first.');
+      return;
+    }
+    if (button) button.disabled = true;
+    let done = 0;
+    const failed = [];
     try {
-      if (file) await api.uploadMedia(file, form.alt.value, form.caption.value);
-      else await api.addMediaUrl(form.url.value, form.alt.value, form.caption.value);
+      if (files.length) {
+        for (const file of files) {
+          if (button) button.textContent = `Uploading ${done + 1} of ${files.length}…`;
+          try {
+            await api.uploadMedia(file, form.alt.value || file.name.replace(/\.[^.]+$/, '').replace(/[-_]+/g, ' '), form.caption.value);
+            done += 1;
+          } catch (err) {
+            failed.push(`${file.name}: ${err.message}`);
+          }
+        }
+      } else {
+        await api.addMediaUrl(form.url.value.trim(), form.alt.value, form.caption.value);
+        done = 1;
+      }
       form.reset();
       active = 'uploads';
       await refresh();
-      notifySuccess('Media uploaded.');
+      if (done) notifySuccess(done === 1 ? 'Photo added.' : `${done} photos uploaded.`);
+      if (failed.length) {
+        error.hidden = false;
+        error.textContent = failed.join(' · ');
+        notifyError(`${failed.length} photo(s) could not be uploaded.`);
+      }
     } catch (err) {
       error.hidden = false;
       error.textContent = err.message;
       notifyError(err.message);
+    } finally {
+      if (button) {
+        button.disabled = false;
+        button.textContent = 'Add media';
+      }
     }
   });
 

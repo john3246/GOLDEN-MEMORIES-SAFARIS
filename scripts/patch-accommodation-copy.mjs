@@ -76,7 +76,7 @@ function decode(value) {
     .trim();
 }
 
-function isJunk(blurb) {
+function _isJunk(blurb) {
   const text = decode(blurb);
   return (
     !text ||

@@ -1,6 +1,7 @@
 import { site } from '../home/content.js';
 import { galleryPhoto } from '../../media/gallery.js';
 import { submitBooking } from '../../services/api/cms.js';
+import { addSpamGuards, spamFields, setBusy, showNote, isNetworkError, focusField } from '../../components/forms/form-helpers.js';
 import { safariPrice } from '@gm-safaris/safari-ui';
 import { allTours } from '../tours/catalog.js';
 import { allJoinPackages, isJoinPackage } from '../join-safari/catalog.js';
@@ -211,8 +212,10 @@ export function initBookingForm() {
   paintChildren();
 
   if (!form) return;
+  addSpamGuards(form);
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
+    if (form.getAttribute('aria-busy') === 'true') return;
     const data = new FormData(form);
     const safari = selectedSafari(String(data.get('safari') || ''));
     const note = form.querySelector('[data-booking-note]');
@@ -240,18 +243,28 @@ export function initBookingForm() {
       ]
         .filter(Boolean)
         .join('\n'),
+      ...spamFields(form),
     };
+    form.setAttribute('aria-busy', 'true');
+    setBusy(form, true);
     try {
       const result = await submitBooking(payload);
       form.reset();
       if (select && safari?.slug) select.value = safari.slug;
       paintSummary();
       paintChildren();
-      if (note) {
-        note.hidden = false;
-        note.textContent = `Thank you. Booking ${result.code || ''} is with the Arusha team — you will receive a confirmation email, and a reminder within 24 hours of travel.`;
+      const stamp = form.querySelector('[name="_ts"]');
+      if (stamp) stamp.value = String(Date.now());
+      showNote(
+        note,
+        `Thank you — your booking request ${result.code || ''} has been received. We have emailed a copy to ${payload.email} and our reservations team will confirm availability and final details shortly.`
+      );
+    } catch (err) {
+      if (!isNetworkError(err)) {
+        showNote(note, err.message, 'error');
+        focusField(form, err.field);
+        return;
       }
-    } catch {
       window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(`Booking request: ${payload.safari}`)}&body=${encodeURIComponent(
         [
           `Name: ${payload.name}`,
@@ -265,10 +278,14 @@ export function initBookingForm() {
           payload.notes,
         ].join('\n')
       )}`;
-      if (note) {
-        note.hidden = false;
-        note.textContent = 'Thank you. Your email app should open with the booking request.';
-      }
+      showNote(
+        note,
+        `Our booking system is temporarily unavailable, so we have opened your email app with the request ready to send to ${site.email}.`,
+        'error'
+      );
+    } finally {
+      form.removeAttribute('aria-busy');
+      setBusy(form, false);
     }
   });
 }

@@ -1,7 +1,7 @@
 import { escapeAttr, escapeHtml } from './escape.js';
 import { MONTH_SHORT } from './destination-model.js';
 
-export function destinationMapSrc(lat, lng, zoom = 8) {
+export function destinationMapSrc(lat, lng, _zoom = 8) {
   const y = Number(lat);
   const x = Number(lng);
   if (!Number.isFinite(y) || !Number.isFinite(x)) return '';

@@ -25,21 +25,30 @@ export default [
       },
     },
     rules: {
-      'no-unused-vars': ['error', { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' }],
+      'no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_', varsIgnorePattern: '^_', ignoreRestSiblings: true },
+      ],
       'no-console': ['warn', { allow: ['warn', 'error'] }],
-      eqeqeq: ['error', 'always'],
+      // `x == null` is the idiomatic "null or undefined" check.
+      eqeqeq: ['error', 'always', { null: 'ignore' }],
       'no-var': 'error',
       'prefer-const': 'error',
     },
   },
   {
-    files: ['apps/website-com/**/*.{js,mjs}', 'apps/cms/**/*.{js,mjs}'],
+    // Shared UI package runs in the browser and in Node (guards with typeof document).
+    files: ['apps/website-com/**/*.{js,mjs}', 'apps/cms/**/*.{js,mjs}', 'packages/safari-ui/**/*.js'],
     languageOptions: {
       globals: {
         ...globals.browser,
         ...globals.es2024,
       },
     },
+  },
+  {
+    files: ['scripts/**/*.{js,mjs}'],
+    rules: { 'no-console': 'off' },
   },
   {
     files: ['tests/**/*.{js,mjs}', '**/*.test.js', '**/*.spec.js'],

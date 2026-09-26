@@ -35,7 +35,7 @@ export function allJoinPackages() {
 }
 
 export function getJoinPackageBySlug(slug) {
-  return allJoinPackages().find((pkg) => pkg.slug === slug || pkg.id === slug) || null;
+  return allJoinPackages().find((pkg) => pkg.slug === slug || pkg.id === slug || pkg.cmsSlug === slug) || null;
 }
 
 export function relatedJoinPackages(pkg, count = 4) {

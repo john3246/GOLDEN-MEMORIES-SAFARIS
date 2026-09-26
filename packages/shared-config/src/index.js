@@ -59,6 +59,35 @@ function envList(env, name, fallback = []) {
     .filter(Boolean);
 }
 
+const WEAK_SECRETS = new Set([
+  'change_me_to_a_long_random_secret_at_least_32_chars',
+  'set_JWT_SECRET_in_render_at_least_32_chars',
+  'dev_only_jwt_secret_change_in_production_32',
+]);
+
+function strongSecret(value) {
+  const secret = String(value || '');
+  return secret.length >= 32 && !WEAK_SECRETS.has(secret);
+}
+
+let ephemeralSecret = '';
+
+/**
+ * Never fall back to a well-known signing key: anyone could forge CMS sessions.
+ * Without a strong JWT_SECRET we use a random per-process key (sessions end on
+ * restart) and the API logs a warning.
+ */
+function resolveJwtSecret(env, isProduction) {
+  if (strongSecret(env.JWT_SECRET)) return String(env.JWT_SECRET);
+  if (!isProduction && env.JWT_SECRET) return String(env.JWT_SECRET);
+  if (!ephemeralSecret) {
+    const bytes = new Uint8Array(48);
+    globalThis.crypto.getRandomValues(bytes);
+    ephemeralSecret = Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
+  }
+  return ephemeralSecret;
+}
+
 /**
  * @param {NodeJS.ProcessEnv | Record<string, string | undefined>} [env]
  */
@@ -83,6 +112,7 @@ export function loadConfig(env = process.env) {
       ssl: envBool(env, 'DATABASE_SSL', false),
       poolMin: envInt(env, 'DATABASE_POOL_MIN', 2),
       poolMax: envInt(env, 'DATABASE_POOL_MAX', 10),
+      autoMigrate: envBool(env, 'DATABASE_AUTO_MIGRATE', true),
     }),
 
     redis: Object.freeze({
@@ -95,13 +125,8 @@ export function loadConfig(env = process.env) {
     }),
 
     auth: Object.freeze({
-      jwtSecret: envString(
-        env,
-        'JWT_SECRET',
-        isProduction
-          ? 'set_JWT_SECRET_in_render_at_least_32_chars'
-          : 'dev_only_jwt_secret_change_in_production_32'
-      ),
+      jwtSecret: resolveJwtSecret(env, isProduction),
+      jwtSecretIsEphemeral: !strongSecret(env.JWT_SECRET),
       jwtExpiresIn: envString(env, 'JWT_EXPIRES_IN', '8h'),
       bcryptRounds: envInt(env, 'BCRYPT_ROUNDS', 12),
       sessionCookieSecure: envBool(env, 'SESSION_COOKIE_SECURE', isProduction),

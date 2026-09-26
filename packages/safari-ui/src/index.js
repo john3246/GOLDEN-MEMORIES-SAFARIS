@@ -56,3 +56,4 @@ export { renderSafariPage, applySafariMeta } from './safari-page.js';
 export { renderSafariCard } from './safari-card.js';
 export { editAttr, wrapSection } from './edit.js';
 export { normalizeLodgeCategory, lodgeCategoryLabel } from '@gm-safaris/shared-types';
+export { SITE_NAME, DEFAULT_KEYWORDS, SEO_ROUTES, seoRouteKey, clampText, keywordsText, brandTitle } from './seo-defaults.js';

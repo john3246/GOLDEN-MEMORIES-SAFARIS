@@ -34,6 +34,10 @@ docsRoutes.get('/', (_req, res) => {
       <li><code>GET /api/v1/safaris</code> — public published packages</li>
       <li><code>/api/v1/admin/safaris</code> — CMS JWT + RBAC</li>
       <li><code>/api/v1/external</code> — third-party API key: tours, destinations, blogs, joining safaris, pages, menus, FAQs, lodges, reviews, settings</li>
+      <li><code>GET /api/v1/site-bundle</code> — everything the public website needs in one cached response (ETag)</li>
+      <li><code>GET /api/v1/reviews</code> — published guest reviews + ratings from Google, TripAdvisor and SafariBookings</li>
+      <li><code>POST /api/v1/inquiries</code>, <code>POST /api/v1/bookings</code> — website forms (rate limited, spam-filtered)</li>
+      <li>Outgoing webhooks — signed JSON messages sent to your other systems; see <code>docs/api/webhooks.md</code></li>
     </ul>
   </body>
 </html>`);

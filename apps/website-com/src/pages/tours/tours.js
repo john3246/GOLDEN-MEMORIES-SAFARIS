@@ -1,31 +1,18 @@
 import { tourCard } from '../../components/cards/tour-card.js';
 import { uniqueCoverFor } from '../../media/gallery.js';
 import { safariPackageTitle } from '@gm-safaris/safari-ui';
-import { testimonials as homeQuotes } from '../home/content.js';
+import { reviewQuotes } from '../../components/cards/review-quotes.js';
 import { allTours } from './catalog.js';
 import { gmsTrips, styleBySlug } from './gms-trips.js';
 import { renderSafariFilters } from './filters.js';
-import { safariHero, safariIntro, whySafari, safariFaqs, testimonials } from './content.js';
-
-const quotes = (testimonials.length ? testimonials : homeQuotes)
-  .map(
-    (t) => `
-      <blockquote class="quote-card bg-white p-5 sm:p-6">
-        <p class="font-display text-base italic leading-relaxed text-ink/80">“${t.quote}”</p>
-        <footer class="mt-4">
-          <cite class="not-italic font-body text-sm font-bold uppercase tracking-[0.1em] text-black">${t.name}</cite>
-          <p class="mt-1 text-sm text-ink/55">${t.detail}</p>
-        </footer>
-      </blockquote>
-    `
-  )
-  .join('');
+import { safariHero, safariIntro, whySafari, safariFaqs } from './content.js';
 
 /**
  * Safari listing — filter/sort board aligned to serengetiwakandatours.com/safaris
  * @param {Array<Record<string, unknown>>} [cmsPackages]
  */
 export function renderTours(cmsPackages) {
+  const quotes = reviewQuotes({ limit: 4, match: /safari|serengeti|ngorongoro|tarangire|guide/i });
   const style = new URLSearchParams(window.location.search).get('style') || '';
   const styleMeta = styleBySlug(style);
   const catalog = allTours();
@@ -176,7 +163,7 @@ export function renderTours(cmsPackages) {
             <h2 id="safari-quotes-title" class="section-title">What our clients say</h2>
           </div>
           <div class="reveal mt-8 grid gap-5 md:grid-cols-2">
-            ${quotes}
+            ${quotes || '<p class="text-ink/70 md:col-span-2"><a class="underline" href="/reviews/">Read our guest reviews from Tripadvisor, Google and SafariBookings</a></p>'}
           </div>
         </div>
       </section>

@@ -26,4 +26,5 @@ export { contentService } from './content.service.js';
 export { seedSiteContent } from './content.seed.js';
 export { upgradeBlogDocuments } from './blog.upgrade.js';
 export { upgradeCatalogCopy } from './catalog.upgrade.js';
+export { populatePostgresFromStore } from './catalog.sync.js';
 export const moduleStatus = 'active';

@@ -8,6 +8,9 @@
     "packages/*"
   ],
   "scripts": {
+    "setup": "npm install && node scripts/db-setup.mjs",
+    "dev": "node scripts/dev-all.mjs",
+    "local": "node scripts/local.mjs",
     "dev:api": "npm run dev -w @gm-safaris/api",
     "start:api": "npm run start -w @gm-safaris/api",
     "dev:cms": "npm run dev -w @gm-safaris/cms",
@@ -25,7 +28,9 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "db:up": "docker compose -f infrastructure/docker/docker-compose.yml up -d postgres",
-    "db:migrate": "node scripts/db-migrate.mjs"
+    "db:migrate": "node scripts/db-migrate.mjs",
+    "db:setup": "node scripts/db-setup.mjs",
+    "cms:reset-admin": "node scripts/reset-admin.mjs"
   },
   "engines": {
     "node": ">=20.0.0"

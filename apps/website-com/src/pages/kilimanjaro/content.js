@@ -1,5 +1,4 @@
 import { uniqueCoverFor } from '../../media/gallery.js';
-import { testimonials as homeQuotes } from '../home/content.js';
 import { kilimanjaroTreks as climbPackages } from './packages.js';
 
 export { climbPackages };
@@ -90,12 +89,5 @@ export const kiliFaqs = [
   },
 ];
 
-export const kiliQuotes = [
-  ...homeQuotes,
-  {
-    quote:
-      'Pole pole, good food, and a crew that knew exactly when to push and when to wait. Standing on Uhuru Peak felt earned — and carefully looked after.',
-    name: 'Summit group',
-    detail: 'Machame Route',
-  },
-];
+// Guest quotes on the Kilimanjaro page come from imported reviews / CMS testimonials.
+export const kiliQuotes = [];

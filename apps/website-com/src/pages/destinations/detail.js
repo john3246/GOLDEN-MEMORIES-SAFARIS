@@ -1,3 +1,4 @@
+import { brandTitle } from '@gm-safaris/safari-ui';
 import { safariCard } from '../../components/cards/safari-card.js';
 import { articleCard } from '../../components/cards/article-card.js';
 import {
@@ -457,11 +458,9 @@ function upsertMeta(selector, attr, value) {
 
 export function applyDestinationMeta(slug) {
   const place = getDestinationBySlug(slug);
-  if (!place) {
-    document.title = 'Destination | Golden Memories Safaris';
-    return;
-  }
-  const title = `${place.seo_title || place.name} Safari - Tanzania - Golden Memories Safaris`;
+  if (!place) return;
+  const shortName = String(place.name || '').replace(/ National Park| Conservation Area/, '');
+  const title = place.seo_title && place.seo_title !== place.name ? place.seo_title : brandTitle(`${shortName} Safari Guide & Best Time to Visit`);
   const description = place.seo_description || place.tagline || place.paragraphs?.[0] || '';
   const url = destinationCanonical(place);
   const image = place.og_image || place.image || '';

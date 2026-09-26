@@ -1,6 +1,7 @@
 import { site } from '../home/content.js';
 import { contactHero, contactIntro, getContactDetails, contactMap, contactFormCopy } from './content.js';
 import { submitInquiry } from '../../services/api/cms.js';
+import { addSpamGuards, spamFields, setBusy, showNote, isNetworkError, focusField } from '../../components/forms/form-helpers.js';
 
 /**
  * Contact page — live GM copy, map, and form fields with current site UI.
@@ -122,27 +123,40 @@ export function renderContact() {
 export function initContactForm() {
   const form = document.querySelector('[data-contact-form]');
   if (!form) return;
+  addSpamGuards(form);
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
+    if (form.getAttribute('aria-busy') === 'true') return;
     const data = new FormData(form);
     const note = form.querySelector('[data-contact-note]');
     const payload = {
-      name: String(data.get('name') || ''),
-      email: String(data.get('email') || ''),
-      phone: String(data.get('phone') || ''),
-      country: String(data.get('country') || ''),
-      subject: String(data.get('subject') || 'Safari inquiry'),
-      message: String(data.get('message') || ''),
+      name: String(data.get('name') || '').trim(),
+      email: String(data.get('email') || '').trim(),
+      phone: String(data.get('phone') || '').trim(),
+      country: String(data.get('country') || '').trim(),
+      subject: String(data.get('subject') || 'Safari inquiry').trim(),
+      message: String(data.get('message') || '').trim(),
+      source: 'contact',
+      page: window.location.pathname,
+      ...spamFields(form),
     };
+    form.setAttribute('aria-busy', 'true');
+    setBusy(form, true);
     try {
       await submitInquiry(payload);
       form.reset();
-      if (note) {
-        note.hidden = false;
-        note.textContent = 'Thank you. Your message is with our Arusha team — we aim to reply within 24 hours.';
+      form.querySelector('[name="_ts"]').value = String(Date.now());
+      showNote(
+        note,
+        `Thank you, ${payload.name.split(' ')[0] || 'and welcome'}. Your message is with our Arusha team and a copy is on its way to ${payload.email}. We reply personally, usually within one working day.`
+      );
+    } catch (err) {
+      if (!isNetworkError(err)) {
+        showNote(note, err.message, 'error');
+        focusField(form, err.field);
+        return;
       }
-    } catch {
       const body = [
         `Name: ${payload.name}`,
         `Email: ${payload.email}`,
@@ -151,11 +165,15 @@ export function initContactForm() {
         '',
         payload.message,
       ].join('\n');
+      showNote(
+        note,
+        `Our booking system is temporarily unavailable, so we have opened your email app with the message ready to send to ${site.email}. You can also WhatsApp us on ${site.phone}.`,
+        'error'
+      );
       window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(body)}`;
-      if (note) {
-        note.hidden = false;
-        note.textContent = 'Thank you. Your email app should open with the message. We aim to reply within 24 hours.';
-      }
+    } finally {
+      form.removeAttribute('aria-busy');
+      setBusy(form, false);
     }
   });
 }

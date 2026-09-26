@@ -132,8 +132,8 @@ export function monthGuideFromSeasons(seasons = []) {
     }
     const tokens = monthTokens(hay).map((token) => MONTH_INDEX[token]);
     if (!tokens.length) continue;
-    let start = tokens[0];
-    let end = tokens[tokens.length - 1];
+    const start = tokens[0];
+    const end = tokens[tokens.length - 1];
     if (start > end) {
       for (let i = start; i < 12; i += 1) {
         months[i].active = true;

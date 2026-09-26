@@ -6,7 +6,7 @@ export { openJoiningPackages };
 export const joinHero = {
   kicker: 'Scheduled group departure',
   title: 'Join a Group Safari',
-  subtitle: 'Share a vehicle, a camp, and the calving plains — a set date, a small group, and a local guide.',
+  subtitle: 'Fixed dates, a small group and an experienced local guide — share the vehicle and the cost, not the experience.',
   cta: 'View open departures',
   image: galleryPhoto('serengeti', 8),
 };
@@ -46,7 +46,7 @@ export const joiningSafaris = [
     ],
     overview:
       'Experience one of Africa’s most spectacular wildlife events as thousands of wildebeest give birth across the Ndutu plains. Witness breathtaking predator action, endless wildlife, and unforgettable landscapes.',
-    cta: 'Book your spot now—spaces are limited for this unforgettable calving season adventure.',
+    cta: 'Seats are limited to keep the group small — reserve yours early.',
     highlights: [
       'Great Wildebeest Calving Season',
       'Ngorongoro Crater Game Drive',

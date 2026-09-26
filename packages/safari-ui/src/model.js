@@ -28,7 +28,7 @@ export function clampSeoTitle(value, fallback = '') {
   if (text.length <= SEO_TITLE_MAX) return text;
   const slice = text.slice(0, SEO_TITLE_MAX);
   const cut = slice.lastIndexOf(' ');
-  return (cut >= 40 ? slice.slice(0, cut) : slice).replace(/[,:;.\-]+$/g, '').trim();
+  return (cut >= 40 ? slice.slice(0, cut) : slice).replace(/[,:;.-]+$/g, '').trim();
 }
 
 /**

@@ -37,7 +37,7 @@ export const media = GM;
 export const site = {
   name: 'Golden Memories Safaris',
   shortName: 'GM Safaris',
-    tagline: 'Your Path to Golden Memories begins here',
+  tagline: 'Your path to golden memories begins here',
   phone: '+255 786 383 273',
   phoneAlt: '+255 754 750 070',
   email: 'info@gmsafaris.co.tz',
@@ -71,21 +71,21 @@ export const destinations = [
     name: 'Northern Tanzania',
     slug: 'northern-tanzania',
     trips: 76,
-    blurb: 'Serengeti, Ngorongoro, Tarangire, and Kilimanjaro country.',
+    blurb: 'Serengeti, Ngorongoro Crater, Tarangire and Kilimanjaro: the classic safari and trekking region.',
     image: GM.northern,
   },
   {
     name: 'The Coast',
     slug: 'the-coast',
     trips: 9,
-    blurb: 'Zanzibar spice routes, Stone Town, and Indian Ocean beaches.',
+    blurb: 'Zanzibar’s beaches, spice farms and UNESCO-listed Stone Town on the Indian Ocean.',
     image: GM.coast,
   },
   {
     name: 'Southern Tanzania',
     slug: 'southern-tanzania',
     trips: 3,
-    blurb: 'Wild Ruaha, Selous/Nyerere, and quieter game country.',
+    blurb: 'Ruaha and Nyerere (Selous): big wilderness, walking and boat safaris, few other vehicles.',
     image: GM.southern,
   },
 ];
@@ -157,24 +157,16 @@ export const zanzibar = [
   },
 ];
 
-export const testimonials = [
-  {
-    quote:
-      'An unforgettable safari — professional guides, thoughtful pacing, and wildlife moments we will never forget.',
-    name: 'Traveler review',
-    detail: 'Rated 5/5 by served clients',
-  },
-  {
-    quote:
-      'From Serengeti game drives to our Zanzibar stay, Golden Memories made every day feel carefully planned.',
-    name: 'Family safari',
-    detail: 'Northern Circuit + Coast',
-  },
-];
+/**
+ * Real guest reviews are imported from Tripadvisor, Google and SafariBookings
+ * (CMS → Guest reviews) and published testimonials come from the CMS. No
+ * placeholder quotes are shown to visitors.
+ */
+export const testimonials = [];
 
 export const whyBook = {
-  title: 'Professional Safari Experts',
-  body: 'Golden Memories Safaris is a premier tour operator based in Tanzania, specializing in creating unforgettable wildlife experiences. Our team of expert guides and travel consultants are dedicated to providing authentic safari adventures that showcase Tanzania’s breathtaking landscapes and incredible wildlife.',
+  title: 'Local experts, private safaris',
+  body: 'Golden Memories Safaris is a locally owned tour operator based in Arusha. We plan private and small-group safaris, Kilimanjaro climbs and Zanzibar stays around your dates, budget and pace — with professional driver-guides, well-maintained 4x4 vehicles, carefully chosen lodges and one clear price that shows exactly what is included.',
   slides: [
     { src: GM.ngorongoro, alt: 'Ngorongoro Crater wildlife viewing' },
     { src: GM.northern, alt: 'Serengeti safari wildlife adventure' },

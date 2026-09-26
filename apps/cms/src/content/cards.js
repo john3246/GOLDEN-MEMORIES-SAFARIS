@@ -25,7 +25,7 @@ export function photoCard({ href, previewHref, title, image, kicker, detail, sta
   return `
     <article class="safari-card">
       <a class="safari-card-media" href="${href}" tabindex="-1">
-        <img src="${image}" alt="" loading="lazy" decoding="async" width="800" height="560" onerror="this.onerror=null;this.src='/images/gallery/serengeti-01-card.webp'" />
+        <img src="${image}" alt="" loading="lazy" decoding="async" width="800" height="560" data-fallback="/images/gallery/serengeti-01-card.webp" />
       </a>
       <div class="safari-card-overlay">
         <div class="safari-card-top">

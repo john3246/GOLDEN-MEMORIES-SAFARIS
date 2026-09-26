@@ -4,14 +4,19 @@ import fs from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { createId } from '@gm-safaris/shared-utils';
 import { readStore, updateStore } from '../../cms-store/index.js';
-import { config } from '../../config/index.js';
 import { notFound, validationError } from '../../errors/index.js';
-import { compressUpload } from './compress.js';
+import { processImage } from './compress.js';
 import { GALLERY_FOLDERS } from '@gm-safaris/safari-ui';
+import {
+  findOnDisk,
+  writeUpload,
+  saveBlob,
+  loadBlob,
+  deleteStoredFile,
+  mimeForFile,
+} from './media.storage.js';
 
 const PUBLIC_IMAGES = path.resolve(fileURLToPath(new URL('../../../../website-com/public/images', import.meta.url)));
-const GALLERY_DIR = path.join(PUBLIC_IMAGES, 'gallery');
-const COUNTS_FILE = path.resolve(fileURLToPath(new URL('../../../../../packages/safari-ui/src/gallery-kind.js', import.meta.url)));
 const FOLDER_ORDER = ['maps', 'arusha', 'eyasi', 'serengeti', 'ngorongoro', 'tarangire', 'mikumi', 'ruaha', 'selous', 'kilimanjaro', 'zanzibar', 'culture'];
 
 const PUBLIC_FIELDS = ['id', 'url', 'alt', 'caption', 'mimeType', 'width', 'height', 'filename', 'createdAt'];
@@ -95,16 +100,6 @@ function mediaUrls(item) {
   return urls;
 }
 
-function publicFileFromUrl(url) {
-  const clean = String(url || '').split('?')[0];
-  const match = clean.match(/^\/images\/(.+)$/i);
-  if (!match) return null;
-  const full = path.resolve(PUBLIC_IMAGES, match[1]);
-  const relative = path.relative(PUBLIC_IMAGES, full);
-  if (!relative || relative.startsWith('..') || path.isAbsolute(relative)) return null;
-  return full;
-}
-
 function rewriteValue(value, urls, remaps) {
   if (value == null) return value;
   if (typeof value === 'string') {
@@ -130,49 +125,6 @@ function rewriteValue(value, urls, remaps) {
   return value;
 }
 
-async function unlinkPublicImage(url) {
-  const file = publicFileFromUrl(url);
-  if (!file) return;
-  await fs.unlink(file).catch(() => undefined);
-  if (/\.webp$/i.test(file) && !/-card\.webp$/i.test(file)) {
-    await fs.unlink(file.replace(/\.webp$/i, '-card.webp')).catch(() => undefined);
-  }
-}
-
-async function compactGalleryPrefix(prefix) {
-  const names = (await fs.readdir(GALLERY_DIR).catch(() => []))
-    .filter((name) => new RegExp(`^${prefix}-\\d+\\.webp$`, 'i').test(name))
-    .sort();
-  const remaps = new Map();
-  const planned = names.map((name, index) => ({
-    from: name,
-    to: `${prefix}-${String(index + 1).padStart(2, '0')}.webp`,
-  }));
-  for (const row of planned) {
-    if (row.from === row.to) continue;
-    await fs.rename(path.join(GALLERY_DIR, row.from), path.join(GALLERY_DIR, `${row.from}.tmp`));
-    await fs
-      .rename(path.join(GALLERY_DIR, row.from.replace(/\.webp$/i, '-card.webp')), path.join(GALLERY_DIR, `${row.from}.tmp-card`))
-      .catch(() => undefined);
-  }
-  for (const row of planned) {
-    if (row.from === row.to) continue;
-    await fs.rename(path.join(GALLERY_DIR, `${row.from}.tmp`), path.join(GALLERY_DIR, row.to));
-    await fs
-      .rename(path.join(GALLERY_DIR, `${row.from}.tmp-card`), path.join(GALLERY_DIR, row.to.replace(/\.webp$/i, '-card.webp')))
-      .catch(() => undefined);
-    remaps.set(`/images/gallery/${row.from}`, `/images/gallery/${row.to}`);
-  }
-  return { remaps, count: names.length };
-}
-
-async function writeGalleryCount(prefix, count) {
-  const source = await fs.readFile(COUNTS_FILE, 'utf8');
-  const next = source.replace(new RegExp(`(${prefix}:\\s*)\\d+`), `$1${count}`);
-  if (next === source) return;
-  await fs.writeFile(COUNTS_FILE, next);
-}
-
 export const mediaService = {
   async list() {
     const items = await mediaRepository.list();
@@ -195,7 +147,7 @@ export const mediaService = {
       return FOLDER_ORDER.find((key) => name.includes(key)) || '';
     }
 
-    function add(url, alt, usedOn, source = 'content', extra = {}) {
+    let add = function add(url, alt, usedOn, source = 'content', extra = {}) {
       const clean = String(url || '').split('?')[0].trim();
       if (!clean) return;
       if (!/^(\/|https?:)/i.test(clean)) return;
@@ -222,7 +174,16 @@ export const mediaService = {
       if (!existing.label) existing.label = prettyLabel(filename);
       if (!existing.folder && folder) existing.folder = folder;
       items.set(key, existing);
-    }
+    };
+
+    const hidden = new Set((store.meta?.hiddenImages || []).map((url) => String(url).split('?')[0]));
+    const addVisible = add;
+    // eslint-disable-next-line no-func-assign
+    add = (url, ...rest) => {
+      const clean = String(url || '').split('?')[0].trim();
+      if (hidden.has(clean) || hidden.has(clean.replace(/-card\.webp$/i, '.webp'))) return;
+      addVisible(url, ...rest);
+    };
 
     for (const item of store.media || []) {
       const url = item.externalUrl || `/api/v1/media/${item.id}/file`;
@@ -285,6 +246,17 @@ export const mediaService = {
     }
 
     const list = [...items.values()].sort((a, b) => a.filename.localeCompare(b.filename));
+    for (const item of list) {
+      if (item.url.startsWith('/images/')) {
+        const file = path.resolve(PUBLIC_IMAGES, item.url.replace(/^\/images\//, ''));
+        try {
+          const stat = await fs.stat(file);
+          if (stat.size < 2048) item.problem = 'Image file is almost empty — replace it';
+        } catch {
+          item.problem = 'Missing file — this photo shows as broken on the website';
+        }
+      }
+    }
     const folderLabels = GALLERY_FOLDERS;
     const groups = [
       { id: 'all', label: 'All photos', items: list },
@@ -300,6 +272,7 @@ export const mediaService = {
       { id: 'blog', label: 'Used on blog', items: list.filter((item) => item.usedOn.includes('Blog')) },
       { id: 'lodges', label: 'Used on lodges', items: list.filter((item) => item.usedOn.includes('Lodges')) },
       { id: 'pages', label: 'Used on pages', items: list.filter((item) => item.usedOn.includes('Pages')) },
+      { id: 'problems', label: 'Needs attention', items: list.filter((item) => item.problem) },
     ].map((group) => ({ ...group, count: group.items.length }))
       .filter((group) => group.id === 'all' || group.count > 0);
 
@@ -313,24 +286,27 @@ export const mediaService = {
   },
 
   async createFromUpload({ file, alt, caption, actor }) {
-    if (!file) throw validationError('An image file is required');
-    if (!config.media.allowedMimeTypes.includes(file.mimetype)) {
-      throw validationError('Unsupported image type');
-    }
-    const stored = await compressUpload(file);
-    const item = await mediaRepository.create({
-      filename: stored.filename,
-      originalName: file.originalname,
-      mimeType: stored.mimetype || file.mimetype,
-      size: stored.size || file.size,
-      width: stored.width || null,
-      height: stored.height || null,
-      storagePath: stored.path,
-      alt: alt || '',
-      caption: caption || '',
+    if (!file?.buffer?.length) throw validationError('Choose an image file to upload');
+    const processed = await processImage(file.buffer);
+    const id = createId();
+    const filename = `${id}${processed.ext}`;
+    await writeUpload(filename, processed.buffer);
+    const record = {
+      id,
+      filename,
+      originalName: String(file.originalname || filename).slice(0, 200),
+      mimeType: processed.mimeType,
+      size: processed.buffer.length,
+      width: processed.width,
+      height: processed.height,
+      storagePath: filename,
+      alt: String(alt || '').slice(0, 300),
+      caption: String(caption || '').slice(0, 500),
       visibility: 'public',
       createdBy: actor?.userId || null,
-    });
+    };
+    await saveBlob(record, processed.buffer);
+    const item = await mediaRepository.create(record);
     await import('../audit/audit.service.js').then(({ recordAudit }) =>
       recordAudit({
         actorId: actor?.userId,
@@ -338,7 +314,7 @@ export const mediaService = {
         action: 'media.uploaded',
         resource: 'media',
         resourceId: item.id,
-        metadata: { mimeType: item.mimeType },
+        metadata: { mimeType: item.mimeType, size: item.size },
       })
     );
     return toPublic(item);
@@ -348,11 +324,11 @@ export const mediaService = {
     if (!url || typeof url !== 'string') throw validationError('url is required');
     try {
       const parsed = new URL(url);
-      if (!['http:', 'https:'].includes(parsed.protocol)) {
+      if (parsed.protocol !== 'https:') {
         throw new Error('bad protocol');
       }
     } catch {
-      throw validationError('url must be an absolute http(s) URL');
+      throw validationError('Paste a full https:// image address');
     }
     const item = await mediaRepository.create({
       filename: path.basename(new URL(url).pathname) || 'remote-image',
@@ -360,7 +336,7 @@ export const mediaService = {
       alt: alt || '',
       caption: caption || '',
       visibility: 'public',
-      mimeType: 'image/jpeg',
+      mimeType: mimeForFile(new URL(url).pathname, 'image/jpeg'),
       createdBy: actor?.userId || null,
     });
     return toPublic(item);
@@ -399,7 +375,7 @@ export const mediaService = {
     if (item) for (const value of mediaUrls(item)) urls.add(value);
     if (cleanUrl) urls.add(cleanUrl);
 
-    if (/\/images\/logo\.webp$/i.test(cleanUrl)) {
+    if (/\/images\/logo(-150)?\.webp$/i.test(cleanUrl)) {
       throw validationError('The site logo cannot be deleted.');
     }
     if (!item && !cleanUrl) throw validationError('Choose a photo to delete.');
@@ -407,27 +383,22 @@ export const mediaService = {
       throw notFound('Media not found');
     }
 
-    if (cleanUrl.startsWith('/images/')) {
-      await unlinkPublicImage(cleanUrl);
-    }
     if (item) {
       await mediaRepository.remove(item.id);
-      if (item.storagePath) await fs.unlink(item.storagePath).catch(() => undefined);
+      await deleteStoredFile(item);
     }
 
-    let remaps = new Map();
-    const galleryMatch = [...urls]
-      .map((value) => String(value).match(/^\/images\/gallery\/([a-z]+)-\d+\.webp$/i))
-      .find(Boolean);
-    if (galleryMatch) {
-      const compacted = await compactGalleryPrefix(galleryMatch[1].toLowerCase());
-      remaps = compacted.remaps;
-      await writeGalleryCount(galleryMatch[1].toLowerCase(), compacted.count);
-    }
-
+    // Project-gallery photos ship with the website build, and other pages point
+    // at them by file name. Deleting or renumbering the files broke those pages,
+    // so they are hidden from the library and removed from CMS content instead.
     await updateStore((store) => {
-      for (const key of ['safaris', 'destinations', 'posts', 'lodges', 'pages', 'departures']) {
-        store[key] = rewriteValue(store[key], urls, remaps);
+      for (const key of ['safaris', 'destinations', 'posts', 'lodges', 'pages', 'departures', 'testimonials']) {
+        store[key] = rewriteValue(store[key], urls, new Map());
+      }
+      if (cleanUrl.startsWith('/images/')) {
+        const hidden = new Set(store.meta?.hiddenImages || []);
+        hidden.add(cleanUrl);
+        store.meta = { ...(store.meta || {}), hiddenImages: [...hidden] };
       }
     });
 
@@ -454,8 +425,17 @@ export const mediaService = {
     if (item.externalUrl) {
       return { redirect: item.externalUrl };
     }
-    if (!item.storagePath) throw notFound('Media file is missing');
-    return { filePath: item.storagePath, mimeType: item.mimeType, filename: item.originalName || item.filename };
+    const onDisk = findOnDisk(item);
+    if (onDisk) {
+      return { filePath: onDisk, mimeType: mimeForFile(onDisk, item.mimeType), etag: `"${item.id}-${item.size || 0}"` };
+    }
+    const blob = await loadBlob(item.id);
+    if (blob) {
+      // Re-create the disk cache after a redeploy.
+      writeUpload(item.filename || blob.filename, blob.bytes).catch(() => undefined);
+      return { buffer: blob.bytes, mimeType: blob.mime_type || mimeForFile(blob.filename), etag: `"${item.id}-${blob.bytes.length}"` };
+    }
+    throw notFound('This photo file is missing. Upload it again in the CMS media library.');
   },
 };
 

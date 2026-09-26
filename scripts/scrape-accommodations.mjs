@@ -628,7 +628,7 @@ function localPath(name) {
   return path.join(destDir, name);
 }
 
-function copyLocalFallbacks(lodge, needed) {
+function _copyLocalFallbacks(lodge, needed) {
   const urls = [];
   for (const file of lodge.local || []) {
     if (urls.length >= needed) break;

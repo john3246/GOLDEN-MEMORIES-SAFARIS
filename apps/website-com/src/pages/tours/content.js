@@ -5,13 +5,13 @@ export { testimonials };
 
 export const safariHero = {
   kicker: 'Wildlife tour',
-  title: 'Tanzania Safari Tours And Safari Packages',
+  title: 'Tanzania safari tours & packages',
   cta: 'Talk to an expert',
   image: GM.savanna,
 };
 
 export const safariIntro = {
-  title: 'Explore Tanzania Safari Packages And Discover Iconic Destinations',
+  title: 'Private safaris across Tanzania’s most celebrated parks',
   image: GM.ngorongoroTourists,
   imageAlt: 'Guests viewing wildlife from a safari vehicle in Tanzania',
   paragraphs: [

@@ -20,7 +20,12 @@ const EMPTY = () => ({
   inquiries: [],
   bookings: [],
   customers: [],
+  reviews: [],
+  webhooks: [],
+  webhookDeliveries: [],
+  notifications: [],
   settings: null,
+  reviewSummary: null,
   meta: { seededUsers: false, seededSafaris: false, seededSite: false },
 });
 
@@ -28,6 +33,11 @@ let dataDir = config.cms.dataDir;
 let cache = null;
 let cacheMtime = 0;
 let writeChain = Promise.resolve();
+let revision = 0;
+
+export function fileStoreRevision() {
+  return revision;
+}
 
 export function getCmsDataDir() {
   return dataDir;
@@ -45,6 +55,29 @@ function filePath() {
 
 async function ensureDir() {
   await fs.mkdir(dataDir, { recursive: true });
+}
+
+/** Remove half-written store.json.<pid>.tmp files left by crashed writes. */
+export async function cleanStaleTempFiles() {
+  try {
+    const names = await fs.readdir(dataDir);
+    await Promise.all(
+      names
+        .filter((name) => /^store\.json\.\d+\.tmp$/.test(name) && name !== `store.json.${process.pid}.tmp`)
+        .map((name) => fs.unlink(path.join(dataDir, name)).catch(() => undefined))
+    );
+  } catch {
+    /* directory may not exist yet */
+  }
+}
+
+export async function readStoreFile() {
+  try {
+    const raw = await fs.readFile(filePath(), 'utf8');
+    return { ...EMPTY(), ...JSON.parse(raw) };
+  } catch {
+    return null;
+  }
 }
 
 async function readUnlocked() {
@@ -94,6 +127,7 @@ async function writeUnlocked(next) {
   const tmp = `${dest}.${process.pid}.tmp`;
   await fs.writeFile(tmp, JSON.stringify(next, null, 2), 'utf8');
   await replaceFile(tmp, dest);
+  revision += 1;
   cache = next;
   try {
     cacheMtime = (await fs.stat(dest)).mtimeMs;
@@ -155,4 +189,8 @@ export const COLLECTIONS = Object.freeze([
   'inquiries',
   'bookings',
   'customers',
+  'reviews',
+  'webhooks',
+  'webhookDeliveries',
+  'notifications',
 ]);

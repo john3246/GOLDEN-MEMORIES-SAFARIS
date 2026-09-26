@@ -68,7 +68,7 @@ function upsertPublished(store, type, incoming) {
   store[type] = next;
 }
 
-function lines(value) {
+function _lines(value) {
   if (Array.isArray(value)) {
     return value
       .map((item) => {
